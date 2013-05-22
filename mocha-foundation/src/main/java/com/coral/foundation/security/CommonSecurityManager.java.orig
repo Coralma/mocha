@@ -1,0 +1,122 @@
+package com.coral.foundation.security;
+
+
+import java.util.Iterator;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.mgt.SessionsSecurityManager;
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.realm.jdbc.JdbcRealm;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.SessionException;
+import org.apache.shiro.session.mgt.SessionContext;
+import org.apache.shiro.session.mgt.SessionKey;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+
+/*
+ * Singleton SecurityManager instance
+ *  @author:vance
+ * 
+ */
+public class CommonSecurityManager  {
+	
+	private static DefaultSecurityManager securityManager=new DefaultSecurityManager();
+	
+	private static DefaultWebSessionManager sessionManager=new DefaultWebSessionManager();
+	
+	private static String authenticationQuery="select password from vw_searchPassword where user_name=?";
+	private static String userRolesQuery="select role_name from vw_searchrole where user_name=?";
+	private static String permissionsQuery="select permission from vw_searchpermission where role_name=?";
+	
+	public static DefaultSecurityManager initDefaultSecurityManager(){
+		if(securityManager==null){
+			securityManager=new DefaultSecurityManager();
+		}
+		return securityManager;
+	}
+	
+	private static SessionManager initSessionManager(){
+		if(getSessionManager()==null){
+			sessionManager=new DefaultWebSessionManager();
+		}
+		return sessionManager;
+		
+	}
+	
+	
+	public static CommonSecurityManager build(){
+		CommonSecurityManager commonSecurityManager=new CommonSecurityManager();
+		SessionManager commonSessionManager=new CommonWebSessionManager();
+		commonSecurityManager.initSessionManager();
+		boolean needUseLocalRealms=false;
+		if(!needUseLocalRealms){
+			initConnection();
+		}
+		SecurityUtils.setSecurityManager(securityManager);
+		return commonSecurityManager;
+	}
+	
+	private static void initConnection(){
+		//use jdbcRealm 
+		JdbcRealm jdbcRealm=new JdbcRealm();
+		jdbcRealm.setAuthenticationQuery(authenticationQuery);
+		jdbcRealm.setPermissionsQuery(permissionsQuery);
+		jdbcRealm.setUserRolesQuery(userRolesQuery);
+		
+		//use mysqldatasource
+		//use JPA in furture instead
+		String url = "jdbc:mysql://localhost:3306/insurance?characterEncoding=utf8";
+		MysqlDataSource mysqlDataSource = new MysqlDataSource();
+		mysqlDataSource.setUrl(url);
+		mysqlDataSource.setUser("root");
+		mysqlDataSource.setPassword("");
+		jdbcRealm.setDataSource(mysqlDataSource);
+		securityManager.setRealm(jdbcRealm);
+		
+	}
+	
+	public static boolean login(BasicUser basicUser){
+		AuthenticationToken token=validateUser(basicUser.getUserName(),basicUser.getPassword());
+		System.out.println("Token credentials is: "+token.getCredentials().toString());
+		BasicUser user=new BasicUser();
+		user.setToken(token);
+		user.setUserName(token.getPrincipal().toString());
+		Subject currentUser=SecurityUtils.getSubject();
+		Session sessionId=currentUser.getSession();
+		currentUser.login(token);
+		user.setSessionId(sessionId);
+		return user.validateTokenBySessionId(token, sessionId);
+		
+	}
+
+	private static AuthenticationToken validateUser(String userName,String pw) {
+		AuthenticationToken token = new UsernamePasswordToken(userName, pw);
+		return token;
+	}
+
+
+	public static DefaultWebSessionManager getSessionManager() {
+		return sessionManager;
+	}
+
+
+	public static void setSessionManager(SessionManager sessionManager) {
+		initSessionManager();
+	}
+	
+	public void logout(){
+		
+		Subject currentSubject=SecurityUtils.getSubject();
+		currentSubject.logout();
+	}
+
+}

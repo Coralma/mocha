@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="policy" entityPackage="com.coral.foundation.security.model"
+	daoIntfPackage="com.coral.foundation.security.basic.dao" daoImplPackage="com.coral.foundation.security.basic.dao.impl"
+	servicePackage="com.coral.foundation.security.basic.service">
+	
+	<entity entityName="Account">
+		<property name="name"/>
+		<property name="email"/>
+		<property name="users" type="List" ref="BasicUser" orm="one-to-many"/>
+		<property name="apps" type="List" ref="App" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="BasicUser" tableName="T_USER">
+		<property name="userName" label="User Name"/>
+		<property name="userPhoto" label="User Photo"/>
+		<property name="userIcon" label="User Icon"/>
+		<property name="password" label="Password" required="true"/>
+		<property name="rePassword" label="rePassword" required="true"/>
+		<property name="realName" />
+		<property name="englishName" />
+		<property name="email" />
+		<property name="language" />
+		<property name="jobTitle" />
+		<property name="extension" />
+		<property name="mobile" />
+		<property name="status" />
+		<property name="rememberMe" type="Boolean" ignore="true"/>
+		<property name="simpleAuthorizationInfo" type="org.apache.shiro.authz.SimpleAuthorizationInfo" ignore="true"/>
+<!-- 		<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->
+		<property name="basicRole" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
+		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="BasicRole" tableName="T_ROLE">
+		<property name="roleName" label="Role Name" required="true"/>
+		<property name="roleDescription" label="Description" required="true"/>
+		<property name="user" type="List" ref="BasicUser" orm="one-to-many"/>
+		<property name="menuPermissions" type="List" ref="MenuPermission" orm="one-to-many"/>
+	</entity>
+
+	<entity entityName="MenuPermission">
+		<property name="menuName" label="menu Name" required="true"/>
+		<property name="role" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
+	</entity>
+
+	<entity entityName="App">
+		<property name="name"/>
+		<property name="description"/>
+		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
+		<property name="codeTables" type="List" ref="CodeTable" orm="one-to-many"/>
+	</entity>
+
+	<entity entityName="CodeTable">
+		<property name="name"/><!-- 		invoke name -->
+		<property name="ids"/>
+		<property name="parent"/>
+		<property name="codeTableValues" type="List" ref="CodeTableValue" orm="one-to-many"/>
+		<property name="app" type="App" ref="App" orm="many-to-one"/>
+		<property name="unitCodeTables" type="List" ref="CodeTable" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="CodeTableValue">
+		<property name="codeTableName"/>
+		<property name="language"/>
+		<property name="datas"/>
+		<property name="codeTable" type="CodeTable" ref="CodeTable" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="AppReport">
+		<property name="name"/>
+		<property name="description"/>
+		<property name="type"/><!-- 0 means predefine table, 1 means user customized -->
+		<property name="reportTables" type="List" ref="ReportTable" orm="one-to-many"/>
+	</entity>
+	<entity entityName="ReportTable">
+		<property name="tableName"/>
+		<property name="type"/><!-- 1 means main table , 0 means related table -->
+		<property name="reportColumns" type="List" ref="ReportColumn" orm="one-to-many"/>
+		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+	</entity>
+	<entity entityName="ReportColumn">
+		<property name="columnName"/>
+		<property name="columnIndex"/><!-- order of column, sort by the index  -->
+		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
+	</entity>
+
+</mocha>
