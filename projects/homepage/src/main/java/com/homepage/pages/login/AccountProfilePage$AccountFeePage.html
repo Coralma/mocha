@@ -1,0 +1,54 @@
+<html>
+<wicket:panel>
+	<br />
+UserAccountFee
+<form wicket:id="accountFeeForm">
+		<div wicket:id="checkPaidAccount"></div>
+	</form>
+	<form wicket:id="accountFeeDetails">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Free</th>
+					<th>Pro</th>
+					<th>Advanced</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>30 Days Free Trial</td>
+					<td>20 Users unlimited</td>
+					<td>Unlimited</td>
+				</tr>
+				<tr>
+					<td>Free</td>
+					<td>Cloud Based</td>
+					<td>Offer both cloud based and create your own app</td>
+				</tr>
+				<tr>
+					<td><button type="submit" wicket:id="freeLink">Free</button></td>
+					<td><button type="submit" wicket:id="proLink">Pro</button></td>
+					<td><button type="submit" wicket:id="advancedLink">Adavnced</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<form wicket:id="simpleOrderForm" id="simpleOrderForm">
+		<input type="hidden" name="cmd" value="_s-xclick"> <input
+			type="hidden" name="hosted_button_id" value="EJVAHKJ9G5HY8">
+		<input name="custom" type="hidden" id="orderFormCustomId" /> <input
+			type="hidden" wicket:id="notify_url">
+	</form>
+
+	<a wicket:id="order"><img src="https://www.paypal.com/zh_XC/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+
+	<script type="text/javascript">
+		function makeCallBack(URL, orderOID) {
+			document.forms["simpleOrderForm"].action = URL;
+			document.getElementById("orderFormCustomId").value = orderOID;
+			document.forms["simpleOrderForm"].submit();
+		}
+	</script>
+</wicket:panel>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>User Profile</title>
+</head>
+<body>
+	<wicket:extend>
+		<link rel="stylesheet" href="css/userprofilestyle.css" type="text/css" />
+
+		<div id="cooperateCard" class="row-fluid">
+			<div class="span8">
+				<div wicket:id="accountProfilePanel">
+
+					<div class="section" id="personal-information">
+						<h2 class="section-title">
+							<span class="glyphicons user"> <i></i>
+							</span> Cooperate Card <a class="top visible-phone" href="#phone-navbar">
+								<span class="glyphicons white up_arrow"> <i></i>
+							</span>
+							</a>
+						</h2>
+
+						<div class="row-fluid">
+							<div class="span2">
+								<div class="well">
+									<img wicket:id="accountProfileImage"></img>
+								</div>
+							</div>
+
+							<div class="span10 pull-right">
+								<div class="infoline span9 first">
+									<div class="row">
+										<div class="span4 muted">Name</div>
+										<div class="span7">
+											<div wicket:id="accountName"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+
+								<div class="infoline span9">
+									<div class="row">
+										<div class="span4 muted">Industry Type</div>
+										<div class="span7">
+											<div wicket:id="accountType"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+
+								<div class="infoline span9">
+									<div class="row">
+										<div class="span4 muted">Size</div>
+										<div class="span7">
+											<div wicket:id="accountSize"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+
+								<div class="infoline span9">
+									<div class="row">
+										<div class="span4 muted">Address</div>
+										<div class="span7">
+											<div wicket:id="accountAddress"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+
+
+								<div class="infoline span9">
+									<div class="row">
+										<div class="span4 muted">Phone</div>
+										<div class="span7">
+											<div wicket:id="accountPhone"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+
+								<div class="infoline span9 last">
+									<div class="row">
+										<div class="span4 muted">Twitter</div>
+										<div class="span7">
+											<div wicket:id="accountTwitter"></div>
+										</div>
+									</div>
+								</div>
+								<span class="clear"></span>
+							</div>
+						</div>
+					</div>
+					<!--/section-->
+
+				</div>
+
+				<!-- 				<div class="section" id="personal-information">
+					<h2 class="section-title">
+						<span class="glyphicons user"> <i></i>
+						</span> Cooperate Administirator Profile <a class="top visible-phone"
+							href="#phone-navbar"> <span class="glyphicons white up_arrow">
+								<i></i>
+						</span>
+						</a>
+					</h2>
+
+
+					<div wicket:id="userProfileTabs" class="nav nav-tabs"></div>
+
+				</div>
+ -->
+				<div class="section" id="personal-information">
+					<h2 class="section-title">
+						<span class="glyphicons user"> <i></i>
+						</span> Cooperate Administirator Profile <a class="top visible-phone"
+							href="#phone-navbar"> <span class="glyphicons white up_arrow">
+								<i></i>
+						</span>
+						</a>
+					</h2>
+
+					<div wicket:id="accountAdminContainer">
+
+						<div class="infoline span9">
+							<div class="row">
+								<div class="span4 muted">User Name</div>
+								<div class="span7">
+									<div wicket:id="userName"></div>
+								</div>
+							</div>
+						</div>
+						<span class="clear"></span>
+
+						<div class="infoline span9">
+							<div class="row">
+								<div class="span4 muted">Password</div>
+								<div class="span7">
+									<div wicket:id="pw"></div>
+								</div>
+							</div>
+						</div>
+						<span class="clear"></span>
+
+						<div class="infoline span9">
+							<div class="row">
+								<div class="span4 muted">Last Login Date</div>
+								<div class="span7">
+									<div wicket:id="lastLoginDate"></div>
+								</div>
+							</div>
+						</div>
+						<span class="clear"></span>
+
+						<div class="infoline span9">
+							<div class="row">
+								<div class="span4 muted">Cooperate URL</div>
+								<div class="span7">
+									<div wicket:id="cooperateUrl"></div>
+								</div>
+							</div>
+						</div>
+						<span class="clear"></span>
+
+					</div>
+
+				</div>
+
+
+				<div class="section" id="cooperateAccountFee">
+					<h2 class="section-title">
+						<span class="glyphicons user"> <i></i>
+						</span> Cooperate Account Fee <a class="top visible-phone"
+							href="#phone-navbar"> <span class="glyphicons white up_arrow">
+								<i></i>
+						</span>
+						</a>
+					</h2>
+					<div wicket:id="accountFeePanel">
+
+						<form wicket:id="accountFeeForm">
+							<div wicket:id="checkPaidAccount"></div>
+						</form>
+
+						<form wicket:id="accountFeeDetails">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Free</th>
+										<th>Pro</th>
+										<th>Advanced</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>30 Days Free Trial</td>
+										<td>20 Users unlimited</td>
+										<td>Unlimited</td>
+									</tr>
+									<tr>
+										<td>Free</td>
+										<td>Cloud Based</td>
+										<td>Offer both cloud based and create your own app</td>
+									</tr>
+									<tr>
+										<td><button type="submit" wicket:id="freeLink">Free</button></td>
+										<td><button type="submit" wicket:id="proLink">Pro</button></td>
+										<td><button type="submit" wicket:id="advancedLink">Adavnced</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+
+						<form wicket:id="simpleOrderForm" id="simpleOrderForm">
+							<input type="hidden" name="cmd" value="_s-xclick"> <input
+								type="hidden" name="hosted_button_id" value="EJVAHKJ9G5HY8">
+							<input name="custom" type="hidden" id="orderFormCustomId" /> <input
+								type="hidden" wicket:id="notify_url">
+						</form>
+
+						<a wicket:id="order"><img
+							src="https://www.paypal.com/zh_XC/i/btn/btn_xpressCheckout.gif"
+							align="left" style="margin-right: 7px;"></a>
+
+						<script type="text/javascript">
+							function makeCallBack(URL, orderOID) {
+								document.forms["simpleOrderForm"].action = URL;
+								document.getElementById("orderFormCustomId").value = orderOID;
+								document.forms["simpleOrderForm"].submit();
+							}
+						</script>
+					</div>
+				</div>
+			</div>
+
+			<div id="sidebar" class="span4 sbright noprint pull-right">
+				<div class="sidebar-nav equal hidden-phone">
+					<ul class="nav nav-list affix" id="resumenav"
+						style="background: #936EE9; height: auto;">
+						<li><a href="#cooperateCard" class="scroller">Card</a></li>
+						<li><a href="#personal-information" class="scroller">
+								Administirator</a></li>
+						<li><a href="#cooperateAccountFee" class="scroller">Account Fee</a></li>
+
+					</ul>
+					<span class="clear"></span>
+				</div>
+			</div>
+
+		</div>
+	</wicket:extend>
+</body>
+</html>

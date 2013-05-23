@@ -28,6 +28,8 @@ local.properties
 # PDT-specific
 .buildpath
 
+.DS_Store
+
 mocha-foundation/target
 mocha-vaadin-framework/target
 projects/cooperate/target

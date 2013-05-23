@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>HomePage</title>
+</head>
+<body>
+	<wicket:extend>
+
+		<br>
+		<br>
+
+		<div wicket:id="registerSuccess">test</div>
+		<div wicket:id="registerSuccessPanel">test</div>
+
+		<form class="form-horizontal" wicket:id="userRegisterForm">
+
+
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Email</label>
+				<div class="controls">
+					<input type="text" id="inputEmail" placeholder="Email"
+						wicket:id="emailAddress">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="Account">AccountName</label>
+				<div class="controls">
+					<input type="text" id="account" placeholder="AccountName"
+						wicket:id="accountName">
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label class="control-label" for="AccountType">AccountType</label>
+				<div class="controls">
+					<input type="text" id="account" placeholder="account"
+						wicket:id="accountType">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="AccountAddress">AccountAddress</label>
+				<div class="controls">
+					<input type="text" id="account" placeholder="AccountAddress"
+						wicket:id="accountAddress">
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label class="control-label" for="AccountSize">AccountSize</label>
+				<div class="controls">
+					<input type="text" id="account" placeholder="AccountSize"
+						wicket:id="accountSize">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="userName">UserName</label>
+				<div class="controls">
+					<input type="text" id="userName" placeholder="Admin User Name"
+						wicket:id="userName">
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label class="control-label" for="inputPassword">Password</label>
+				<div class="controls">
+					<input type="text" id="inputPassword" placeholder="Password"
+						wicket:id="userPassword">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="rePassword">Re-type
+					Password</label>
+				<div class="controls">
+					<input type="text" id="rePassword" placeholder="rePassword"
+						wicket:id="rePassword">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn" wicket:id="register">Register</button>
+				</div>
+			</div>
+
+		</form>
+		
+		 <span wicket:id = "navomaticBorder">
+        You are viewing Page
+    	</span>
+    	
+	</wicket:extend>
+</body>
+</html>

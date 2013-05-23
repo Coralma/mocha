@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>HomePage</title>
+</head>
+<body>
+	<wicket:panel>
+		<!-- 		<style type="text/css">
+#cooperateSnapShot {
+	margin-top: -100px;
+	wdith: 1560px;
+	height: 800px;
+}
+
+#cooperateSnapShot img {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#userRegister {
+	vertical-align: bottom;
+}
+</style> -->
+
+		<div wicket:id="registerSuccess">test</div>
+		<div wicket:id="registerSuccessPanel">test</div>
+
+		<form class="form-horizontal" wicket:id="userRegisterForm">
+
+			<div class="container-fluid" style="width: 1024px; height: 800">
+				<div class="row-fluid">
+					<div class="span2" style="width: 350px; float: left;">
+						<div>
+							<p>Let Us Know You
+						</div>
+						<div class="control-group">
+							<input type="text" id="inputEmail" placeholder="Email"
+								wicket:id="emailAddress">
+						</div>
+						<div class="control-group">
+							<input type="text" id="userName" placeholder="userName"
+								wicket:id="userName">
+						</div>
+						<div class="control-group">
+							<input type="text" id="inputPassword" placeholder="Password"
+								wicket:id="userPassword">
+						</div>
+
+						<div class="control-group">
+							<input type="text" id="rePassword" placeholder="rePassword"
+								wicket:id="rePassword">
+						</div>
+					</div>
+
+					<div class="span4">
+						<div>
+							<p>Let Us Know Your Company</p>
+						</div>
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Company Name"
+								wicket:id="accountName">
+						</div>
+
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Company Type"
+								wicket:id="accountType">
+						</div>
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Company Address"
+								wicket:id="accountAddress">
+						</div>
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Company Size"
+								wicket:id="accountSize">
+						</div>
+
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Company Phone"
+								wicket:id="accountPhone">
+						</div>
+
+						<div class="control-group">
+							<input type="text" id="account" placeholder="Twitter?"
+								wicket:id="twitterAccount">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button class="btn btn-primary" wicket:id="register">Register</button>
+			</div>
+
+		</form>
+
+	</wicket:panel>
+</body>
+</html>
