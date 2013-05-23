@@ -1,0 +1,24 @@
+ALTER TABLE t_user_t_accountFees DROP FOREIGN KEY FK_t_user_t_accountFees_User_userId
+ALTER TABLE t_user_t_accountFees DROP FOREIGN KEY FK_t_user_t_accountFees_accountFees_accountFeeId
+ALTER TABLE t_user DROP FOREIGN KEY FK_t_user_ACCOUNT_accountId
+ALTER TABLE t_order DROP FOREIGN KEY FK_t_order_USER_userId
+ALTER TABLE t_order DROP FOREIGN KEY FK_t_order_ACCOUNT_accountId
+ALTER TABLE t_account_t_accountFees DROP FOREIGN KEY t_account_t_accountFees_accountFees_accountFeeId
+ALTER TABLE t_account_t_accountFees DROP FOREIGN KEY FK_t_account_t_accountFees_Account_accountId
+ALTER TABLE t_account_t_order DROP FOREIGN KEY FK_t_account_t_order_orders_orderId
+ALTER TABLE t_account_t_order DROP FOREIGN KEY FK_t_account_t_order_Account_accountId
+ALTER TABLE t_accountFees DROP FOREIGN KEY FK_t_accountFees_account
+ALTER TABLE t_accountFees DROP FOREIGN KEY FK_t_accountFees_userId
+ALTER TABLE t_account_t_user DROP FOREIGN KEY FK_t_account_t_user_users_userId
+ALTER TABLE t_account_t_user DROP FOREIGN KEY FK_t_account_t_user_Account_accountId
+DROP TABLE t_user_t_accountFees
+DROP TABLE t_user
+DROP TABLE t_contactmessage
+DROP TABLE t_order
+DROP TABLE t_account_t_accountFees
+DROP TABLE t_account_t_order
+DROP TABLE t_accountFees
+DROP TABLE t_account_t_user
+DROP TABLE t_systemproperty
+DROP TABLE t_account
+DELETE FROM SEQUENCE WHERE SEQ_NAME = 'SEQ_GEN_TABLE'
