@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
+	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	servicePackage="com.mocha.crm.service">
+	
+<!-- 	Customer Server Search -->
+	<view name="CustomerServerSearch" template="EntityCardSearch" entity="Serve">
+		<section name="CustomerServerCondition" template="SearchCondition">
+			<field name="customerName" />
+			<field name="type"/>
+			<field name="date"/>
+		</section>
+		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard">
+			<field name="customerName" />
+			<field name="type"/>
+			<field name="date"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+<!-- 	Customer Server View -->
+	<view name="CustomerServerView" template="EntityEditView" entity="Serve">
+		<section name="CustomerServerInfo" label="Customer Server">
+			<field name="customerName" required="true"/>
+			<field name="owner"/>
+			<field name="type" changeLine="true"/>
+			<field name="priority"/>
+			<field name="date"/>
+			<field name="status"/>
+			<field name="mark"/>
+		</section>
+		<section name="activityFeedback" label="Feedback">
+			<field name="result"/>
+			<field name="feedback" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back"/>
+	</view>	
+	
+</mocha>	

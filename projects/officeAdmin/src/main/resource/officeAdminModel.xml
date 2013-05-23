@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.oa.model"
+	daoIntfPackage="com.mocha.oa.dao" daoImplPackage="com.mocha.oa.dao.impl"
+	servicePackage="com.mocha.oa.service">
+	
+	<app name="OfficeAdmin" pkg="com.mocha.oa">
+		<navigation>
+			<menu name="Home" viewName="LeaveEntitySearch"></menu>
+			<group label="Leave Management">
+				<menu name="LeaveApply" viewName="LeaveEntityView"></menu>
+				<menu name="LeaveQuery" customizedClass="com.mocha.oa.page.OfficeAdminIndexPresenter"></menu>
+			</group>
+		</navigation>
+		<creation>
+			<menu name="createLeave" label="Create Leave" viewName="LeaveEntityView"></menu>
+		</creation>
+		<setting>
+		</setting>
+	</app>
+	
+	<codeTable name="leave_type" ids="1;2">
+		<values i18n="cn">Mandatory Leave; Additional Leave</values>
+	</codeTable>
+	
+	<entity entityName="Leave">
+		<property name="type"/>
+		<property name="dateFrom" type="Date"/>
+		<property name="dateTo" type="Date"/>
+		<property name="duration" type="Long"/>
+		<property name="comment"/>
+		<property name="approver" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+		<property name="creator" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+	</entity>
+	
+	<view name="LeaveEntityView" template="EntityEditView" label="ViewName" entity="Leave">
+		<section name="leaveInfo" label="Leave Apply">
+			<field name="type" codeTable="leave_type" required="true"/>
+			<field name="dateFrom" path="dateFrom" required="true" changeLine="true"/>
+			<field name="dateTo" required="true"/>
+			<field name="duration" required="true" changeLine="true"/>
+			<field name="comment" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back"/>
+	</view>
+	
+	<view name="LeaveEntitySearch" template="EntityCardSearch" entity="Leave">
+		<section name="leaveSearchCondition" label="Leave Apply" template="SearchCondition">
+			<field name="type" codeTable="leave_type" required="true"/>
+			<field name="dateFrom" path="dateFrom" required="true" changeLine="true"/>
+			<field name="dateTo" required="true"/>
+		</section>
+		<section name="leaveSearchCard" label="Leave Apply" template="SearchCard">
+			<field name="type" codeTable="leave_type" required="true"/>
+			<field name="dateFrom" path="dateFrom" required="true" changeLine="true"/>
+			<field name="dateTo" required="true"/>
+			<field name="duration" required="true" changeLine="true"/>
+			<field name="comment" wholeRow="true" style="textarea" noValueHide="true"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+</mocha>
