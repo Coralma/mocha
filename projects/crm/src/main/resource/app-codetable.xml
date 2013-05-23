@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
+	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	servicePackage="com.mocha.crm.service">
+
+	<codeTable name="customer-status" ids="1;2;3;4">
+		<values language="zh">已获得客户;潜在客户;失败客户;关闭</values>
+		<values language="en">Achieved;Potential;Failure;Close</values>
+	</codeTable>
+	
+</mocha>

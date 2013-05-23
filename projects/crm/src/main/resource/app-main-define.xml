@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
+	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	servicePackage="com.mocha.crm.service">
+
+	<app name="CustomerManage" label="Customer Manage" pkg="com.mocha.crm">
+		<navigation>
+			<menu name="Home" customizedClass="com.mocha.report.CrmDashboardPresenter"></menu>
+			<group label="Customer Management">
+				<menu name="Customer" viewName="CustomerSearch"></menu>
+			</group>
+			<group label="Customer Event">
+				<menu name="Campaign" viewName="CustomerActivitySearch"></menu>
+				<menu name="Customer Serve" viewName="CustomerServerSearch"></menu>
+			</group>
+			<group label="Report Center">
+				<menu name="Customer Report" customizedClass="com.mocha.report.CrmReportPresenter"></menu>
+			</group>
+		</navigation>
+		<creation>
+			<menu name="Create Customer" viewName="CustomerView"></menu>
+			<menu name="Create Customer Activity" viewName="CustomerActivityView"></menu>
+			<menu name="Create Customer Server" viewName="CustomerServerView"></menu>
+		</creation>
+		<setting>
+		</setting>
+	</app>
+
+</mocha>
