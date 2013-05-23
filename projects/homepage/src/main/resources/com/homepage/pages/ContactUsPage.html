@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+</head>
+<body>
+	<wicket:extend>
+
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span6">
+					<form wicket:id="contactUsForm" class="contactUs">
+						<div wicket:id="contactUsFeedbak"></div>
+						<div wicket:id="successLabel"></div>
+						<div class="row">
+							<div class="span12">
+								<h3>Thanks for getting here</h3>
+							</div>
+							<div class="span10">
+								<h6>Leaving messages for us if you have any :-)</h6>
+							</div>
+							<div class="span10">
+								<input type="text" class="subject" wicket:id="subject"
+									placeholder="subject"></input>
+							</div>
+							<div class="span5">
+								<input type="text" class="contactUsTextArea"
+									style="height: 300px;" placeholder="Put Messages here.."
+									wicket:id="contactUsTextfield"></input>
+							</div>
+							<div class="span10">
+								<input type="text" class="emailAddress" wicket:id="emailAddress"
+									placeholder="emailAddress"></input>
+							</div>
+							<div class="span10">
+								<input type="submit" class="btn btn-inverse"
+									wicket:id="contactUsBtn" value="ContactUs"></input>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="span6">
+					<img class="featurette-image hompeageWindowsDisplay pull-left"
+						src="images/contactus.png" />
+				</div>
+			</div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

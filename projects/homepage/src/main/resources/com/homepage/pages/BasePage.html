@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html wicket:id="html" xmlns:wicket="http://wicket.apache.org">
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+<link rel="shortcut icon" href="/demo/ico/favicon.ico">
+<title>Mocha Solutions</title>
+<script type="text/javascript" src="js/mosaic.1.0.1.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/mosaic.css" type="text/css"
+	media="screen" />
+
+<style type="text/css">
+.defaultOutputWindows {
+	background: transparent;
+}
+
+.signin-menu .dropdown-menu:before {
+	display: none;
+}
+
+.signin-menu .dropdown-menu:after {
+	display: none;
+}
+
+.contactUs {
+	height: 800px;
+	width: 1024px;
+	margin-left: 200px;
+	margin-top: 50px;
+}
+
+.contactUsTextArea {
+	height: 400px;
+	width: 500px;
+}
+
+.homepagefooter {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #0088CC;
+	text-decoration: none;
+	margin-left: auto;
+	margin-right: auto;
+	*zoom: 1;
+}
+
+.homepagefooter a {
+	text-shadow: none;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #0088CC;
+	text-decoration: none;
+	font-size: medium;
+}
+
+.homepagefooter p {
+	text-shadow: none;
+}
+
+.btn-custom {
+	font-size: 15px;
+	text-shadow: none;
+	text-transform: uppercase;
+	color: white;
+	text-decoration: none;
+}
+
+.navbar-inner {
+	background-image: -moz-linear-gradient(top, #a39e9e, #f2f2f2);
+	background-image: -ms-linear-gradient(top, #a39e9e, #f2f2f2);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a39e9e),
+		to(#f2f2f2));
+	background-image: -webkit-linear-gradient(top, #a39e9e, #f2f2f2);
+	background-image: -o-linear-gradient(top, #a39e9e, #f2f2f2);
+	background-image: linear-gradient(top, #a39e9e, #f2f2f2);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'
+		a39e9e, endColorstr='#' f2f2f2, GradientType=0);
+}
+
+.navbar .brand {
+	padding: 8px 20px 12px;
+	font-size: 20px;
+	color: #381313;
+}
+
+.navbar .divider-vertical {
+	height: 41px;
+	background-color: #ffffff;
+	border-right: 1px solid #c6c6c6;
+}
+
+.navbar .nav>li>a {
+	padding: 10px 10px 11px;
+	font-size: 14px;
+	color: #937979;
+}
+
+.navbar .nav>.active>a,.navbar .nav>.active>a:hover,.navbar .nav>.active>a:focus
+	{
+	color: #424242;
+}
+
+#myModal {
+	width: 600px;
+}
+</style>
+<script type="text/javascript">
+	$(window).load(function() {
+		$('.dropdown-toggle').dropdown()
+	});
+</script>
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar"
+	style="height: 0px">
+
+	<small>
+		<div class="container" wicket:id="nav" style="height: 0">
+			<li><div class="nav nav-pills" wicket:id="navbar"
+					style="height: 1px"></div></li>
+			<li><div class="nav nav-pills" wicket:id="navigation"
+					style="height: 1px"></div></li>
+		</div>
+	</small>
+
+
+	<div class="nav navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<ul class="nav nav nav-tabs  signin-menu pull-left">
+					<li class="pull-left"><a class="brand">Mocha Solution</a></li>
+					<li><a wicket:id="homeBtn"><i class="icon-home"></i>Home</a></li>
+					<li><a wicket:id="commonUserLoginPrfileLnk"></a></li>
+					<li class="dropdown" data-dropdown="dropdown"><a href="#"
+						data-toggle="dropdown" class="login-link dropdown-toggle"
+						wicket:id="commonUserLogin">Login </a>
+						<ul class="dropdown-menu" id="signin-dropdown">
+							<li>
+								<div wicket:id="myUserLogin"></div>
+							</li>
+						</ul></li>
+					<li><a wicket:id="commonUserLogoutLnk"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<wicket:child>
+	</wicket:child>
+
+	<div wicket:id="userLoginPopupWindow"></div>
+	<div wicket:id="userLoginSampelWindow"></div>
+
+	<span wicket:id="footer" class="homepagefooter">
+		<hr class="featurette-divider"> <footer>
+			<center>
+				<p>
+					<a wicket:id="aboutUs">About Us</a> | <a wicket:id="pricing">Pricing</a>
+					| <a wicket:id="contactUs">Contact Us</a>| <a wicket:id="blog">BLog</a>|
+					<a wicket:id="serverStatus">Server Status</a> | <a href="#">Terms
+						of Service</a> | <a href="#">Privacy</a> | <a href="#">Security</a>
+				</p>
+			</center>
+			<p class="pull-right">
+				<a href="#">Back to top</a>
+			</p>
+
+			<div class="row-fluid">
+				<div class="span12">
+
+					<div class="span4">
+						<p class="muted pull-left">© 2013 Mocha Platform Solution. All
+							rights reserved</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</span>
+</body>
+
+</html>

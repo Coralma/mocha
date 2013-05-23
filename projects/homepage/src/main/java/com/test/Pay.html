@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+		method="post">
+		<input type="hidden" name="cmd" value="_s-xclick"> <input
+			type="hidden" name="hosted_button_id" value="EJVAHKJ9G5HY8">
+		<input type="hidden" name="notify_url"
+			value="http://bf91e7fa2864.v2.localtunnel.com/ipn/validate">
+		<input type="image"
+			src="https://www.sandbox.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif"
+			border="0" name="submit" alt="PayPal"> <img alt="" border="0"
+			src="https://www.sandbox.paypal.com/zh_XC/i/scr/pixel.gif" width="1"
+			height="1" />
+	</form>
+
+	<form wicket:id="orderForm">
+		<input type="hidden" name="cmd" value="_s-xclick"> <input
+			type="hidden" name="hosted_button_id" value="EJVAHKJ9G5HY8">
+		<input type="image" wicket:id="order"></input>
+		<!-- <img alt="" border="0"
+		src="https://www.sandbox.paypal.com/zh_XC/i/scr/pixel.gif" width="1"
+		height="1" />
+		-->
+	</form>
+
+</body>
+</html>

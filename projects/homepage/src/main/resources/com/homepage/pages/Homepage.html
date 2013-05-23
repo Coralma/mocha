@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>HomePage</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		jQuery(function($) {
+			$('.circle').mosaic({
+				opacity : 0.8
+			//Opacity for overlay (0-1)
+			});
+			$('.fade').mosaic();
+			$('.bar').mosaic({
+				animation : 'slide' //fade or slide
+			});
+			$('.bar2').mosaic({
+				animation : 'slide' //fade or slide
+			});
+			$('.bar3').mosaic({
+				animation : 'slide', //fade or slide
+				anchor_y : 'top' //Vertical anchor position
+			$('.cover').mosaic({
+				animation : 'slide', //fade or slide
+				hover_x : '400px' //Horizontal position on hover
+			$('.cover2').mosaic({
+				animation : 'slide', //fade or slide
+				anchor_y : 'top', //Vertical anchor position
+				hover_y : '80px' //Vertical position on hover
+			});
+			$('.cover3').mosaic({
+				animation : 'slide', //fade or slide
+				hover_x : '400px', //Horizontal position on hover
+				hover_y : '300px' //Vertical position on hover
+			});
+		});
+	</script>
+
+	<style type="text/css">
+.details {
+	margin: 15px 20px;
+	background: black
+}
+
+h4 {
+	font: 300 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 160%;
+	letter-spacing: 0.15em;
+	color: #fff;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+p {
+	font: 300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+	color: #aaa;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+a {
+	text-decoration: none;
+}
+</style>
+	<wicket:extend>
+		<style type="text/css">
+.collBorder {
+	border-style: none;
+}
+
+.colldiv {
+	float: right;
+	margin-left: 20px;
+	width: 400px;
+	border-style: none;
+	vertical-align: middle;
+}
+
+.collImg {
+	color: #000000;
+	font-weight: 400;
+	text-rendering: auto;
+	font-weight: 10000;
+	border: 0 none;
+	max-width: 100%;
+	vertical-align: middle;
+	text-align: left;
+	float: left;
+	line-height: 60px;
+	border-style: solid;
+}
+
+.colCaption {
+	color: #000000;
+	vertical-align: middle;
+	text-align: left;
+	border-style: none;
+}
+
+.collDescription {
+	border: 0 none;
+	max-width: 100%;
+	vertical-align: middle;
+	text-align: left;
+	float: left;
+	line-height: 60px； border-style:                                     
+		                                        
+		                                        none;
+}
+
+.homepageMain {
+	background-image: url(images/mainflow.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	height: auto;
+	margin-top: 0px;
+}
+
+#mainflow {
+	background: transparent;
+}
+
+.customVoice {
+	text-align: center;
+}
+
+/* MARKETING CONTENT
+      -------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .span4 {
+	text-align: center;
+}
+
+.marketing h2 {
+	font-weight: normal;
+}
+
+.marketing .span4 p {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* Featurettes
+      ------------------------- */
+.featurette-divider {
+	margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+.featurette {
+	overflow: hidden;
+	/* Vertically center images part 2: clear their floats. */
+	margin-left: 25px;
+	margin-right: 25px;
+	border: medium;
+}
+
+.featurette-image {
+	width: 700px;
+}
+
+.featurette-middle-image {
+	width: 1024px;
+	height: 700px;
+}
+
+.featurette-image:AFTER {
+	position: absolute;
+	content: ' ';
+	width: 100%;
+	height: 30px;
+	bottom: -31px;
+	left: 0;
+	-webkit-border-top-left-radius: 20px;
+	-webkit-border-top-right-radius: 20px;
+	-moz-border-radius-topleft: 20px;
+	-moz-border-radius-topright: 20px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, .3) 0%,
+		rgba(255, 255, 255, 0) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0
+		, 0, .3)), color-stop(100%, rgba(255, 255, 255, 0)));
+	background: linear-gradient(top, rgba(0, 0, 0, .3) 0%,
+		rgba(255, 255, 255, 0) 100%);
+}
+
+/* Give some space on the sides of the floated elements so text doesn't run right into it. */
+.featurette-image.pull-left {
+	margin-right: 40px;
+}
+
+.featurette-image.pull-right {
+	margin-left: 40px;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+	font-size: 50px;
+	font-weight: 300;
+	line-height: 1;
+	letter-spacing: -1px;
+}
+
+/* RESPONSIVE CSS
+      -------------------------------------------------- */
+@media ( max-width : 1024px) {
+	.container.navbar-wrapper {
+		margin-bottom: 0;
+		width: auto;
+	}
+	.navbar-inner {
+		border-radius: 0;
+		margin: -20px 0;
+	}
+	.carousel .item {
+		height: 500px;
+	}
+	.carousel img {
+		width: auto;
+		height: 500px;
+	}
+	.featurette {
+		height: auto;
+		padding: 0;
+	}
+	.featurette-image.pull-left,.featurette-image.pull-right {
+		display: block;
+		float: none;
+		max-width: 40%;
+		margin: 0 auto 20px;
+	}
+}
+
+@media ( max-width : 767px) {
+	.navbar-inner {
+		margin: -20px;
+	}
+	.carousel {
+		margin-left: -20px;
+		margin-right: -20px;
+	}
+	.carousel .container {
+		
+	}
+	.carousel .item {
+		height: 300px;
+	}
+	.carousel img {
+		height: 300px;
+	}
+	.carousel-caption {
+		width: 65%;
+		padding: 0 70px;
+		margin-top: 100px;
+	}
+	.carousel-caption h1 {
+		font-size: 30px;
+	}
+	.carousel-caption .lead,.carousel-caption .btn {
+		font-size: 18px;
+	}
+	.marketing .span4+.span4 {
+		margin-top: 40px;
+	}
+	.featurette-heading {
+		font-size: 30px;
+	}
+	.featurette .lead {
+		font-size: 18px;
+		line-height: 1.5;
+	}
+}
+
+#content {
+	width: 845px;
+	margin: 20px auto;
+	padding: 10px 30px;
+}
+
+.clearfix {
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.details {
+	margin: 15px 20px;
+	background: transparent;
+}
+
+h4 {
+	font: 300 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 160%;
+	letter-spacing: 0.15em;
+	color: #fff;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+p {
+	font: 300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+	color: #aaa;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+a {
+	text-decoration: none;
+}
+
+.clearfix {
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.details {
+	margin: 15px 20px;
+	orphans: 0px;
+	background-color: black;
+}
+
+h4 {
+	font: 300 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 160%;
+	letter-spacing: 0.15em;
+	color: #fff;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+p {
+	font: 300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+	color: #aaa;
+	text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
+
+a {
+	text-decoration: none;
+}
+</style>
+
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				$('.circle').mosaic({
+					opacity : 0.8
+				//Opacity for overlay (0-1)
+				});
+
+				$('.fade').mosaic();
+
+				$('.bar').mosaic({
+					animation : 'slide' //fade or slide
+				});
+
+				$('.bar2').mosaic({
+					animation : 'slide' //fade or slide
+				});
+
+				$('.bar3').mosaic({
+					animation : 'slide', //fade or slide
+					anchor_y : 'top' //Vertical anchor position
+				});
+
+				$('.cover').mosaic({
+					animation : 'slide', //fade or slide
+					hover_x : '400px' //Horizontal position on hover
+				});
+
+				$('.cover2').mosaic({
+					animation : 'slide', //fade or slide
+					anchor_y : 'top', //Vertical anchor position
+					hover_y : '80px' //Vertical position on hover
+				});
+
+				$('.cover3').mosaic({
+					animation : 'slide', //fade or slide
+					hover_x : '400px', //Horizontal position on hover
+					hover_y : '300px' //Vertical position on hover
+				});
+
+			});
+		</script>
+
+		<script type="text/javascript">
+			jQuery.noConflict();
+			jQuery(document).ready(function($) {
+				var clientInfo=$.cookie('mochaplatform');
+				if(!clientInfo){					
+					/* $('#myModal').modal('toggle'); 
+					 */
+					$.cookie('mochaplatform', 'pageViewed');
+				}
+			});
+		</script>
+
+		<form wicket:id="userRegisterForm"
+			class="jumbotron masthead homepageMain">
+			<div>
+				<div class="container">
+					<div class="hero-unit" id="mainflow">
+						<h1>Smarter our work</h1>
+						<p>One Platform for Enterprise Collaboration</p>
+						<button class="btn btn-primary btn-large" data-toggle="modal"
+							wicket:id="userRegisterBtn" data-target="#myModal">Join
+							Us Today!</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form wicket:id="headWebMarkContainer">
+			<div class="container marketing">
+				<div class="row">
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>Team Cooperation</h2>
+						<p>
+						<div wicket:id="headContext01"></div>
+
+						</p>
+
+						<!-- <p>
+							<a class="btn" href="#">View details »</a>
+						</p> -->
+					</div>
+					<!-- /.span4 -->
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>Flexable Deploy</h2>
+						<p>
+						<div wicket:id="headContext02"></div>
+						</p>
+
+					</div>
+					<!-- /.span4 -->
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>24*7 Support</h2>
+						<p>
+						<div wicket:id="headContext03"></div>
+						</p>
+					</div>
+
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>Show Your Work Archievment</h2>
+						<p>
+						<div wicket:id="headContext04"></div>
+						</p>
+					</div>
+
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>Account Admin Console</h2>
+						<p>
+						<div wicket:id="headContext05"></div>
+						</p>
+					</div>
+
+					<div class="span4">
+						<img class="img-circle" data-src="holder.js/140x140">
+						<h2>Open Disccusion</h2>
+						<p>
+						<div wicket:id="headContext06"></div>
+						</p>
+					</div>
+
+				</div>
+			</div>
+		</form>
+
+		<center>
+			<hr class="featurette-divider">
+			<div class="featurette">
+				<img class="featurette-middle-image" src="images/overview3.png">
+				<h2 class="featurette-heading">
+					Overview <span class="muted">My Feeds</span>
+				</h2>
+				<p class="lead">Update your status, disucss with your collegate, send a todo task</p>
+			</div>
+		</center>
+
+
+		<center>
+			<hr class="featurette-divider">
+			<div class="featurette">
+				<img class="featurette-middle-image" src="images/overview6.png">
+				<h2 class="featurette-heading">
+					Get Things Done in our <span class="muted">Task Management</span>
+				</h2>
+				<p class="lead">TaskManagement</p>
+			</div>
+		</center>
+
+
+		<hr class="featurette-divider">
+		<div class="featurette" id="featurette">
+			<img class="featurette-image pull-left" src="images/overview4.png">
+			<h2 class="featurette-heading">
+				Beautiful TimeLine  <span class="muted">Record everything from the beginning.</span>
+			</h2>
+			<p class="lead">TimeLine</p>
+		</div>
+
+		<hr class="featurette-divider">
+		<div class="featurette">
+			<img class="featurette-image  pull-right" src="images/overview5.png">
+			<h2 class="featurette-heading">
+				View your colleage's profile<span class="muted">Collegue Profile</span>
+			</h2>
+			<p class="lead">Collegue Profile</p>
+		</div>
+
+		<!-- Modal -->
+		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Join Us Today</h3>
+			</div>
+			<div class="">
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="span11">
+							<span wicket:id="userRegister"></span>
+							<div wicket:id="modal"></div>
+							<div wicket:id="modalLabel"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</wicket:extend>
+</body>
+</html>

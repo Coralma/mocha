@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>HomePage</title>
+</head>
+<body>
+	<wicket:panel>
+		<div wicket:id="registerSuccess">test</div>
+		<div wicket:id="registerSuccessPanel">test</div>
+		<div id="content">
+			<form class="form-horizontal" wicket:id="userRegisterForm">
+				<!-- create user and account profile -->
+				<div>
+					<h2>Create Your Account</h2>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span4">
+						<input type="text" id="inputEmail" placeholder="Email"
+							wicket:id="emailAddress">
+					</div>
+
+					<div class="span4">
+						<input type="text" id="userName" placeholder="userName"
+							wicket:id="userName">
+					</div>
+
+				</div>
+
+
+				<div class="row-fluid">
+
+					<div class="span4">
+						<input type="text" id="inputPassword" placeholder="Password"
+							wicket:id="userPassword">
+					</div>
+
+					<div class="span4">
+						<input type="text" id="rePassword" placeholder="rePassword"
+							wicket:id="rePassword">
+					</div>
+				</div>
+
+				<div>
+					<h2>Create Your Account</h2>
+				</div>
+
+				<div class="row">
+					<div class="span12"></div>
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Company Name" wicket:id="accountName">
+					</div>
+
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Company Type" wicket:id="accountType">
+					</div>
+
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Company Address" wicket:id="accountAddress">
+					</div>
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Company Size" wicket:id="accountSize">
+					</div>
+
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Company Phone" wicket:id="accountPhone">
+					</div>
+
+					<div class="span12">
+						<input type="text" style="width: 500px;" id="account"
+							placeholder="Twitter?" wicket:id="twitterAccount">
+					</div>
+
+				</div>
+
+				<div>
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button class="btn btn-primary" wicket:id="register">Register</button>
+				</div>
+			</form>
+		</div>
+	</wicket:panel>
+</body>
+</html>

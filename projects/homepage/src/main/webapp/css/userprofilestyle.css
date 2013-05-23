@@ -1,0 +1,834 @@
+
+body {
+    padding-bottom: 40px;
+}
+#content {
+    background-color: #FFFFFF;
+}
+#main-content {
+    position: relative;
+}
+a, a:visited, a:active {
+    outline: medium none !important;
+}
+a:hover {
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #545253;
+    font-weight: normal;
+}
+h1 {
+    font-size: 50px;
+    line-height: 55px;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+h2 {
+    margin-bottom: 20px;
+}
+hr {
+    border-bottom: 1px solid #FCFCFC;
+    border-top: 1px solid #EEEEEE;
+}
+#footer {
+    margin-top: 5px;
+    padding-top: 20px;
+    text-align: center;
+}
+.well {
+    border-color: #CCCCCC;
+    margin-bottom: 30px;
+    padding: 10px 30px;
+}
+.well h3 {
+    font-size: 30px;
+}
+.icon-btn {
+    background-color: #0088CC;
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    height: 36px;
+    margin-right: 5px;
+    padding: 6px 0 0 10px;
+    width: 33px;
+}
+.icon-btn, .btn-primary {
+    background-image: none;
+    border: medium none;
+    box-shadow: none;
+    text-shadow: none;
+}
+.tooltip.in {
+    opacity: 1;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+    background-color: #005580;
+}
+#sidebar.sbleft {
+    margin-left: 0;
+}
+.sidebar-nav {
+    padding: 10px 0;
+}
+#resumenav.affix {
+    overflow: hidden;
+    padding-left: 30px;
+    top: 30px;
+    width: 235px;
+}
+#resumenav a {
+    margin-left: -30px;
+    margin-right: 0;
+    padding: 5px 30px;
+    text-shadow: none;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.tools {
+    padding-top: 30px;
+    position: absolute;
+    right: -7px;
+    top: 1px;
+}
+.tools a {
+    display: block;
+    float: left;
+    height: 10px;
+    margin-left: 20px;
+    opacity: 0.7;
+    padding: 10px;
+    text-align: center;
+    width: 10px;
+}
+.tools a:hover {
+    opacity: 1;
+}
+.dark .tools .glyphicons i:before {
+    color: #FFFFFF;
+}
+.section.first-section {
+    margin-top: 0;
+    padding-top: 30px;
+}
+.section {
+    margin-bottom: 20px;
+    margin-top: 70px;
+}
+.section .section-title {
+    display: inline-block;
+    margin: 0 30px 30px 0;
+    padding: 5px 30px;
+}
+.section .section-title .glyphicons {
+    font-weight: normal;
+    height: 13px;
+}
+.backgrounded .section .section-title {
+    margin-left: -30px;
+}
+#personal-information h2 {
+    margin-bottom: 10px;
+}
+.infoline {
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 1px solid #FCFCFC;
+    overflow: hidden;
+    padding: 15px 0;
+}
+.infoline.first {
+    border-top: medium none !important;
+}
+.infoline.last {
+    border-bottom: medium none !important;
+}
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    line-height: 0;
+    width: 100%;
+}
+.hidden {
+    display: none;
+}
+.spacer {
+    display: block;
+    height: 10px;
+}
+.printonly {
+    display: none;
+}
+.blogitem, .portfolioitem {
+    height: 270px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.blogitem h3 {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    color: #FFFFFF;
+    display: block;
+    font-size: 15px;
+    left: 0;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 4px 10px 6px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}
+.portfolioitem h3 {
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 21px;
+    margin-top: 5px;
+    text-align: center;
+}
+.blogitem .blogitem-date {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    height: 35px;
+    left: 0;
+    padding: 5px 10px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 25px;
+}
+.blogitem .blogitem-date .month, .blogitem .blogitem-date .day {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+}
+.blogitem .blogitem-date .day {
+    font-size: 16px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    bottom: 0;
+    display: none;
+    font-size: 16px;
+    left: 0;
+    padding: 20px 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.blogitem .blogitem-hoverinfo {
+    padding: 30px;
+}
+.portfolioitem .portfolioitem-hoverinfo p {
+    opacity: 0.9;
+}
+.blogitem .blogitem-actions, .portfolioitem .portfolioitem-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+.blogitem .blogitem-actions a, .portfolioitem .portfolioitem-actions a {
+    display: inline-block;
+    height: 20px;
+    margin: 0 10px;
+    padding: 3px 0 18px 8px;
+    width: 33px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    color: #FFFFFF;
+}
+.blogitem-content .pager, .portfolioitem-content .pager {
+    margin-top: 30px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    background-color: #0088CC;
+}
+#portfolio-back, #blog-back {
+    margin-bottom: 30px;
+}
+.blogmeta {
+    font-size: 12px;
+}
+.blogmeta div {
+    display: inline-block;
+    margin-right: 10px;
+}
+.blogmeta .glyphicons {
+    padding: 7px 2px 5px 15px;
+}
+.blogmeta .glyphicons i:before {
+    color: #999999;
+    font-size: 11px;
+    line-height: 16px;
+}
+#portfolio #portfolio-filters {
+    margin-bottom: 28px;
+    margin-top: -2px;
+}
+.blogitem-content h2, .portfolioitem-content h2 {
+    margin-top: 30px;
+}
+.form-horizontal .control-label {
+    width: 80px;
+}
+.form-horizontal .controls {
+    margin-left: 100px;
+}
+.add-on .glyphicons {
+    padding: 7px 0 5px 15px;
+}
+.add-on .glyphicons i:before {
+    font-size: 15px;
+}
+.testimonial {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.testimonial small {
+    margin-top: 10px;
+}
+.testimonial .media .pull-left {
+    margin-right: 15px;
+}
+.skills .label {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 10px 14px 0;
+    padding: 5px 10px 7px;
+}
+.skills h2.section-title {
+    margin-bottom: 10px;
+}
+.skills h3 {
+    margin-bottom: 20px;
+}
+.hobbies .label {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 10px 14px 0;
+    padding: 10px 15px;
+}
+.hobbies .label .glyphicons {
+    color: #FFFFFF;
+}
+.hobbies .label.tips {
+    cursor: pointer;
+}
+.author {
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.author h1, .author h2 {
+    display: inline-block;
+}
+.author h2 {
+    margin-top: 0;
+}
+.timeline-item-trigger span i:before {
+    background-color: #0088CC;
+    border: 6px solid #0088CC;
+    border-radius: 50% 50% 50% 50%;
+    display: inline-block;
+    font-size: 12px;
+}
+.timeline {
+    background: url("images/timeline.gif") repeat-y scroll 109px 0 transparent;
+}
+.dark .timeline {
+    background-image: url("images/timelinedark.gif");
+}
+.timeline-item {
+    margin-bottom: 30px;
+    overflow: hidden;
+    position: relative;
+}
+.timeline-item-date {
+    float: left;
+    margin-top: 31px;
+    width: 85px;
+}
+.timeline-item-trigger {
+    float: left;
+    padding-top: 10px;
+    text-align: center;
+    width: 50px;
+}
+.timeline-item-content {
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-left: 15px;
+    padding: 15px 30px;
+    position: relative;
+    width: 658px;
+}
+.timeline-item-trigger i {
+    cursor: pointer;
+}
+.timeline-item-trigger span i:before {
+    height: 12px;
+    width: 12px;
+}
+.timeline-item-trigger span {
+    display: block;
+    height: 15px;
+    margin-left: 13px;
+    margin-top: 21px;
+    overflow: hidden;
+}
+.timeline-item-title {
+    cursor: pointer;
+}
+.timeline-item-content h3 {
+    font-size: 25px;
+    line-height: 30px;
+}
+.timeline-arrow {
+    display: block;
+    position: relative;
+}
+.timeline-arrow i {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    display: block;
+    height: 10px;
+    left: 145px;
+    position: absolute;
+    top: 37px;
+    transform: rotate(-45deg);
+    width: 10px;
+    z-index: 10;
+}
+.timeline-item h4 {
+    margin-bottom: 10px;
+}
+.isotope-item {
+    z-index: 2;
+}
+.isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 1;
+}
+body.dark {
+    background: none repeat scroll 0 0 #1B1B1B;
+    color: #EEEEEE;
+}
+.dark #content {
+    background: none repeat scroll 0 0 #1B1B1B;
+}
+.dark .muted {
+    color: #CCCCCC;
+}
+.dark .tooltip-inner {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+}
+.dark .tooltip.top .tooltip-arrow {
+    border-top-color: #FFFFFF;
+}
+.dark .tooltip.right .tooltip-arrow {
+    border-right-color: #FFFFFF;
+}
+.dark .tooltip.left .tooltip-arrow {
+    border-left-color: #FFFFFF;
+}
+.dark .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #FFFFFF;
+}
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #FFFFFF;
+}
+.dark hr {
+    border-bottom: 1px solid #222222;
+    border-top: 1px solid #111111;
+}
+.dark .progress {
+    background: linear-gradient(to bottom, #191919, #111111) repeat scroll 0 0 #000000;
+}
+.dark .alert-danger h4, .dark .alert-error h4 {
+    color: #B94A48;
+}
+.dark .alert-success h4 {
+    color: #468847;
+}
+.dark .input-append .add-on, .dark .input-prepend .add-on {
+    color: #222222;
+}
+.dark .pager li > a, .dark .pager li > span {
+    background: none repeat scroll 0 0 #111111;
+    border-color: #000000;
+}
+.dark .pager li > a:hover {
+    background-color: #000000;
+}
+.dark legend {
+    color: #EEEEEE;
+}
+.dark .infoline {
+    border-bottom: 1px solid #111111;
+    border-top: 1px solid #222222;
+}
+.dark .well {
+    background: none repeat scroll 0 0 #222222;
+    border-color: #000000;
+}
+.dark .timeline-item-content {
+    background-color: #222222;
+    border-color: #000000;
+}
+.dark .timeline-arrow i {
+    background: none repeat scroll 0 0 #222222;
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+}
+.dark .nav-pills > li > a:hover {
+    background: none repeat scroll 0 0 #333333;
+}
+.dark .skills .label, .dark .hobbies .label {
+    background: none repeat scroll 0 0 #333333;
+    color: #FFFFFF;
+}
+.dark .blogmeta .glyphicons i:before {
+    color: #CCCCCC;
+}
+* {
+    transition-duration: 0.2s;
+    transition-property: color, background-color;
+    transition-timing-function: ease;
+}
+.isotope, .isotope .isotope-item {
+    transition-duration: 0.8s;
+}
+.isotope {
+    transition-property: height, width;
+}
+.isotope .isotope-item {
+    transition-property: transform, opacity;
+}
+#resumenav.affix {
+    top: 20px;
+    width: 185px;
+}
+.backgrounded .section .section-title {
+    margin-left: -20px;
+}
+.blogitem, .portfolioitem {
+    height: 220px;
+    margin-bottom: 20px;
+}
+.timeline-item-content {
+    padding: 5px 20px;
+    width: 508px;
+}
+#resumenav a {
+    padding: 5px 20px;
+}
+.well {
+    margin-bottom: 20px;
+    padding: 2px 20px 0;
+}
+.author {
+    margin-bottom: 20px;
+}
+.section.first-section, .tools {
+    padding-top: 20px;
+}
+.section .section-title {
+    margin-bottom: 20px;
+    padding: 5px 20px;
+}
+.timeline-arrow i {
+    top: 27px;
+}
+.timeline-item-date {
+    margin-top: 21px;
+}
+.timeline-item-trigger span {
+    margin-top: 11px;
+}
+.timeline-item {
+    margin-bottom: 20px;
+}
+.skills h2.section-title, #personal-information h2 {
+    margin-bottom: 0;
+}
+.testimonial {
+    margin-bottom: 0;
+}
+#portfolio #portfolio-filters {
+    margin-bottom: 18px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    padding: 10px 20px;
+}
+.blogitem .blogitem-hoverinfo {
+    padding: 20px;
+}
+.blogitem-content h2, .portfolioitem-content h2 {
+    margin-top: 20px;
+}
+#portfolio-back, #blog-back {
+    margin-bottom: 20px;
+}
+.portfolioitem h3 {
+    margin-bottom: 11px;
+}
+.blogitem .blogitem-actions, .portfolioitem .portfolioitem-actions {
+    margin-top: 20px;
+}
+#footer {
+    padding-top: 10px;
+}
+#main-navbar {
+    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+}
+#resumenav a {
+    font-size: 14px;
+    padding: 5px 20px;
+}
+.backgrounded .section .section-title {
+    margin-left: -20px;
+}
+.blogitem, .portfolioitem {
+    height: 258px;
+    margin-bottom: 20px;
+    width: 258px;
+}
+.blogitem .blogitem-actions, .portfolioitem .portfolioitem-actions {
+    margin-top: 10px;
+}
+.blogitem-content h2, .portfolioitem-content h2 {
+    margin-top: 20px;
+}
+#portfolio-back, #blog-back {
+    margin-bottom: 20px;
+}
+.portfolioitem .portfolioitem-metadata span {
+    font-size: 10px;
+    margin: 2px;
+}
+.portfolioitem .portfolioitem-metadata span i {
+    margin-right: 2px;
+}
+#resumenav.affix {
+    top: 20px;
+    width: 131px;
+}
+.author {
+    margin-bottom: 20px;
+}
+.section.first-section, .tools {
+    padding-top: 20px;
+}
+.timeline-item-content {
+    padding: 5px 20px;
+    width: 346px;
+}
+.well {
+    margin-bottom: 20px;
+    padding: 2px 20px 0;
+}
+.section .section-title {
+    margin-bottom: 20px;
+    padding: 5px 20px;
+}
+.timeline-arrow i {
+    top: 27px;
+}
+.timeline-item-date {
+    margin-top: 21px;
+}
+.timeline-item-trigger span {
+    margin-top: 11px;
+}
+.timeline-item-content h3 {
+    font-size: 20px;
+}
+.timeline-item {
+    margin-bottom: 20px;
+}
+.skills h2.section-title, #personal-information h2 {
+    margin-bottom: 0;
+}
+.testimonial {
+    margin-bottom: 0;
+}
+#portfolio #portfolio-filters {
+    margin-bottom: 18px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    padding: 10px 20px;
+}
+.blogitem .blogitem-hoverinfo {
+    padding: 20px;
+}
+.portfolioitem h3 {
+    margin-bottom: 11px;
+}
+.blogitem .blogitem-actions, .portfolioitem .portfolioitem-actions {
+    margin-top: 20px;
+}
+#footer {
+    padding-top: 10px;
+}
+h1 {
+    margin-top: 20px;
+}
+#content {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#phone-navbar {
+    margin-bottom: 0;
+}
+.top .glyphicons {
+    padding-bottom: 4px;
+}
+.section.first-section {
+    padding-top: 20px;
+}
+.section .section-title {
+    border-right: medium none;
+    display: block;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: -20px !important;
+    margin-right: -20px;
+    overflow: hidden;
+    padding-right: 50px;
+    text-align: center;
+    background-color: #936EE9;
+    border-right: 5px solid #936EE9;
+    color: #FFFFFF;
+    
+}
+.author, .social-media, .infoline, #portfolio-filters {
+    text-align: center;
+}
+#blog-items, #portfolio-items {
+    margin: 0 -4% 0 -1%;
+}
+.blogitem, .portfolioitem {
+    float: left;
+    height: auto;
+    margin: 0 2% 4%;
+    width: 45%;
+}
+#portfolio-filters.nav-tabs > li, #portfolio-filters.nav-pills > li {
+    display: inline-block;
+    float: none;
+}
+.blogitem-content h2, .portfolioitem-content h2 {
+    margin-top: 20px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    padding: 20px;
+}
+#portfolio-back, #blog-back {
+    margin-bottom: 20px;
+}
+.blogitem .blogitem-actions, .portfolioitem .portfolioitem-actions {
+    margin-top: 20px;
+}
+.top {
+    display: block;
+    float: right;
+    height: 40px;
+    margin-right: -50px;
+    width: 40px;
+}
+.timeline-item-trigger span {
+    display: inline-block;
+    margin-top: 0;
+}
+.timeline-item-trigger span i:before {
+    line-height: 12px;
+}
+.timeline {
+    background-position: center center;
+}
+.timeline-item-content h3 {
+    font-size: 20px;
+}
+.timeline-item-date, .timeline-item-content, .timeline-item-trigger {
+    -moz-box-sizing: border-box;
+    display: block;
+    float: none;
+    margin: 5px 0;
+    text-align: center;
+    width: 100%;
+}
+.timeline-item-content {
+    margin-bottom: 0;
+    padding: 5px 20px;
+}
+.timeline-item-trigger {
+    margin: 10px 0 15px;
+    padding-top: 0;
+}
+.timeline-item-date {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-top: 0;
+    padding: 5px 0;
+}
+.dark .timeline-item-date {
+    background: none repeat scroll 0 0 #1B1B1B;
+}
+.section .section-title {
+    border-right: medium none !important;
+}
+.timeline-arrow {
+    height: 0;
+    text-align: center;
+}
+.timeline-arrow i {
+    display: inline-block;
+    left: auto;
+    position: relative;
+    top: -4px;
+    transform: rotate(45deg);
+}
+.well {
+    margin-bottom: 20px;
+    padding: 2px 20px 0;
+}
+.tooltip {
+    width: 200px;
+}
+.infoline .span2.muted {
+    margin-bottom: 5px;
+}
+.testimonial {
+    margin-bottom: 0;
+}
+.skills .span2 {
+    margin-bottom: 10px;
+}
+.blogitem .blogitem-hoverinfo, .portfolioitem .portfolioitem-hoverinfo {
+    padding: 20px;
+}
+#blog-items, #portfolio-items {
+    margin: 0 -4% 0 -1%;
+}
+.blogitem, .portfolioitem {
+    float: left;
+    height: auto;
+    margin: 0 2% 4%;
+    width: 45%;
+}
+.blogitem-hoverinfo p, .portfolioitem-hoverinfo p, .portfolioitem-hoverinfo h3 {
+    display: none;
+}
+.blogitem .blogitem-actions a, .portfolioitem .portfolioitem-actions a {
+    margin: 0;
+}
+#contact .controls {
+    margin-left: 0;
+}
+
