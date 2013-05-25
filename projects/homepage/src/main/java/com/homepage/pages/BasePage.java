@@ -67,6 +67,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.string.StringValue;
@@ -84,9 +86,11 @@ import com.homepage.security.SecuritySession;
 import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.servlet.http.Cookie;
 import javax.swing.text.SimpleAttributeSet;
 
 public abstract class BasePage<T> extends GenericWebPage<T> {
@@ -140,6 +144,8 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	 */
 	private void commonInit(PageParameters pageParameters) {
 
+		System.out.println("Current Location is: "
+				+ getSession().getLocale().toString());
 		String str = "<ul class=\"dropdown-menu\">"
 				+ ""
 				+ "<li><a href=\"#\" onclick=\"return false\" id=\"chimpanzee\">Chimpanzee</a></li>"
@@ -147,7 +153,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 
 		Label dynamticHtml = new Label("dynamticHtml", str);
 		dynamticHtml.setEscapeModelStrings(false);
-		
+
 		add(new HtmlTag("html"));
 		WebMarkupContainer navigationContainer = new WebMarkupContainer("nav");
 		add(navigationContainer);
@@ -156,12 +162,10 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		// home page button
 
 		Link homebtn = new Link("homeBtn") {
-
 			@Override
 			public void onClick() {
 				setResponsePage(Homepage.class);
 			}
-
 		};
 		add(homebtn);
 
@@ -170,7 +174,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		Button commonUserLoginLnk = new Button("commonUserLogin");
 		String userProfileLinkName = "";
 		NavbarAjaxLink<Object> commonUserLogoutLnk = new NavbarAjaxLink<Object>(
-				"commonUserLogoutLnk", Model.of("LogOut")) {
+				"commonUserLogoutLnk", new ResourceModel("commonUserLogoutLnk")) {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick(AjaxRequestTarget target) {
@@ -204,6 +208,12 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			public void onLogin(AjaxRequestTarget target) {
 				boolean isSignIn = session.authenticate(getLoginUser()
 						.getEmailAddress(), getLoginUser().getPw());
+				if (isSignIn) {
+					((WebResponse) getRequestCycle().getResponse())
+							.addCookie(new Cookie("mochaSession",
+									getLoginUser().getEmailAddress()
+											+ UUID.randomUUID()));
+				}
 				setResponsePage(AccountProfilePage.class);
 				// handler the login failed later
 			}
@@ -284,7 +294,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			}
 		};
 		footerPanel.add(blog);
-		
+
 		Link<Object> serverStatus = new Link<Object>("serverStatus") {
 			/**
     		 * 
@@ -464,20 +474,20 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	 *            current page parameters
 	 */
 	private void configureTheme(PageParameters pageParameters) {
-		StringValue theme = pageParameters.get("theme");
-
-		if (!theme.isEmpty()) {
-			IBootstrapSettings settings = Bootstrap
-					.getSettings(getApplication());
-			settings.getActiveThemeProvider().setActiveTheme("readable");
-		}
+		// StringValue theme = pageParameters.get("theme");
+		//
+		// if (!theme.isEmpty()) {
+		// IBootstrapSettings settings = Bootstrap
+		// .getSettings(getApplication());
+		// settings.getActiveThemeProvider().setActiveTheme("readable");
+		// }
 	}
 
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
 		IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
-		settings.getActiveThemeProvider().setActiveTheme("readable");
+		// settings.getActiveThemeProvider().setActiveTheme("bootstarp");
 		configureTheme(getPageParameters());
 	}
 

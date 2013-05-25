@@ -5,39 +5,71 @@
 <title>HomePage</title>
 </head>
 <body>
-
+	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
 	<script type="text/javascript">
-		jQuery(function($) {
-			$('.circle').mosaic({
-				opacity : 0.8
-			//Opacity for overlay (0-1)
-			});
-			$('.fade').mosaic();
-			$('.bar').mosaic({
-				animation : 'slide' //fade or slide
-			});
-			$('.bar2').mosaic({
-				animation : 'slide' //fade or slide
-			});
-			$('.bar3').mosaic({
-				animation : 'slide', //fade or slide
-				anchor_y : 'top' //Vertical anchor position
-			$('.cover').mosaic({
-				animation : 'slide', //fade or slide
-				hover_x : '400px' //Horizontal position on hover
-			$('.cover2').mosaic({
-				animation : 'slide', //fade or slide
-				anchor_y : 'top', //Vertical anchor position
-				hover_y : '80px' //Vertical position on hover
-			});
-			$('.cover3').mosaic({
-				animation : 'slide', //fade or slide
-				hover_x : '400px', //Horizontal position on hover
-				hover_y : '300px' //Vertical position on hover
-			});
-		});
-	</script>
-
+         $(document).ready(function() {
+         
+         	$('.image-popup-vertical-fit').magnificPopup({
+         		type: 'image',
+         		closeOnContentClick: true,
+         		mainClass: 'mfp-img-mobile',
+         		image: {
+         			verticalFit: true
+         		}
+         		
+         	});
+         
+         	$('.image-popup-fit-width').magnificPopup({
+         		type: 'image',
+         		closeOnContentClick: true,
+         		image: {
+         			verticalFit: false
+         		}
+         	});
+         
+         	$('.image-popup-no-margins').magnificPopup({
+         		type: 'image',
+         		closeOnContentClick: true,
+         		closeBtnInside: false,
+         		mainClass: 'mfp-no-margins', // class to remove default margin from left and right side
+         		image: {
+         			verticalFit: true
+         		}
+         	});
+         
+         });
+      </script>
+	<script type="text/javascript">
+         jQuery(function($) {
+         	$('.circle').mosaic({
+         		opacity : 0.8
+         	//Opacity for overlay (0-1)
+         	});
+         	$('.fade').mosaic();
+         	$('.bar').mosaic({
+         		animation : 'slide' //fade or slide
+         	});
+         	$('.bar2').mosaic({
+         		animation : 'slide' //fade or slide
+         	});
+         	$('.bar3').mosaic({
+         		animation : 'slide', //fade or slide
+         		anchor_y : 'top' //Vertical anchor position
+         	$('.cover').mosaic({
+         		animation : 'slide', //fade or slide
+         		hover_x : '400px' //Horizontal position on hover
+         	$('.cover2').mosaic({
+         		animation : 'slide', //fade or slide
+         		anchor_y : 'top', //Vertical anchor position
+         		hover_y : '80px' //Vertical position on hover
+         	});
+         	$('.cover3').mosaic({
+         		animation : 'slide', //fade or slide
+         		hover_x : '400px', //Horizontal position on hover
+         		hover_y : '300px' //Vertical position on hover
+         	});
+         });
+      </script>
 	<style type="text/css">
 .details {
 	margin: 15px 20px;
@@ -103,9 +135,9 @@ a {
 	vertical-align: middle;
 	text-align: left;
 	float: left;
-	line-height: 60px； border-style:                                     
+	line-height: 60px； border-style: 
 		                                        
-		                                        none;
+            none;
 }
 
 .homepageMain {
@@ -123,10 +155,8 @@ a {
 .customVoice {
 	text-align: center;
 }
-
 /* MARKETING CONTENT
-      -------------------------------------------------- */
-
+            -------------------------------------------------- */
 /* Center align the text within the three columns below the carousel */
 .marketing .span4 {
 	text-align: center;
@@ -140,11 +170,12 @@ a {
 	margin-left: 10px;
 	margin-right: 10px;
 }
-
 /* Featurettes
-      ------------------------- */
+            ------------------------- */
 .featurette-divider {
-	margin: 80px 0; /* Space out the Bootstrap <hr> more */
+	margin: 80px 0; /* Space out the Bootstrap 
+            <hr>
+            more */
 }
 
 .featurette {
@@ -184,7 +215,6 @@ a {
 	background: linear-gradient(top, rgba(0, 0, 0, .3) 0%,
 		rgba(255, 255, 255, 0) 100%);
 }
-
 /* Give some space on the sides of the floated elements so text doesn't run right into it. */
 .featurette-image.pull-left {
 	margin-right: 40px;
@@ -193,7 +223,6 @@ a {
 .featurette-image.pull-right {
 	margin-left: 40px;
 }
-
 /* Thin out the marketing headings */
 .featurette-heading {
 	font-size: 50px;
@@ -201,77 +230,73 @@ a {
 	line-height: 1;
 	letter-spacing: -1px;
 }
-
 /* RESPONSIVE CSS
-      -------------------------------------------------- */
-@media ( max-width : 1024px) {
-	.container.navbar-wrapper {
-		margin-bottom: 0;
-		width: auto;
-	}
-	.navbar-inner {
-		border-radius: 0;
-		margin: -20px 0;
-	}
-	.carousel .item {
-		height: 500px;
-	}
-	.carousel img {
-		width: auto;
-		height: 500px;
-	}
-	.featurette {
-		height: auto;
-		padding: 0;
-	}
-	.featurette-image.pull-left,.featurette-image.pull-right {
-		display: block;
-		float: none;
-		max-width: 40%;
-		margin: 0 auto 20px;
-	}
-}
-
-@media ( max-width : 767px) {
-	.navbar-inner {
-		margin: -20px;
-	}
-	.carousel {
-		margin-left: -20px;
-		margin-right: -20px;
-	}
-	.carousel .container {
-		
-	}
-	.carousel .item {
-		height: 300px;
-	}
-	.carousel img {
-		height: 300px;
-	}
-	.carousel-caption {
-		width: 65%;
-		padding: 0 70px;
-		margin-top: 100px;
-	}
-	.carousel-caption h1 {
-		font-size: 30px;
-	}
-	.carousel-caption .lead,.carousel-caption .btn {
-		font-size: 18px;
-	}
-	.marketing .span4+.span4 {
-		margin-top: 40px;
-	}
-	.featurette-heading {
-		font-size: 30px;
-	}
-	.featurette .lead {
-		font-size: 18px;
-		line-height: 1.5;
-	}
-}
-
+            -------------------------------------------------- */
+/* @media ( max-width : 1024px) {
+            .container.navbar-wrapper {
+            margin-bottom: 0;
+            width: auto;
+            }
+            .navbar-inner {
+            border-radius: 0;
+            margin: -20px 0;
+            }
+            .carousel .item {
+            height: 500px;
+            }
+            .carousel img {
+            width: auto;
+            height: 500px;
+            }
+            .featurette {
+            height: auto;
+            padding: 0;
+            }
+            .featurette-image.pull-left,.featurette-image.pull-right {
+            display: block;
+            float: none;
+            max-width: 40%;
+            margin: 0 auto 20px;
+            }
+            }
+            @media ( max-width : 767px) {
+            .navbar-inner {
+            margin: -20px;
+            }
+            .carousel {
+            margin-left: -20px;
+            margin-right: -20px;
+            }
+            .carousel .container {
+            }
+            .carousel .item {
+            height: 300px;
+            }
+            .carousel img {
+            height: 300px;
+            }
+            .carousel-caption {
+            width: 65%;
+            padding: 0 70px;
+            margin-top: 100px;
+            }
+            .carousel-caption h1 {
+            font-size: 30px;
+            }
+            .carousel-caption .lead,.carousel-caption .btn {
+            font-size: 18px;
+            }
+            .marketing .span4+.span4 {
+            margin-top: 40px;
+            }
+            .featurette-heading {
+            font-size: 30px;
+            }
+            .featurette .lead {
+            font-size: 18px;
+            line-height: 1.5;
+            }
+            } */
 #content {
 	width: 845px;
 	margin: 20px auto;
@@ -339,186 +364,321 @@ a {
 	text-decoration: none;
 }
 </style>
-
 		<script type="text/javascript">
-			jQuery(function($) {
-
-				$('.circle').mosaic({
-					opacity : 0.8
-				//Opacity for overlay (0-1)
-				});
-
-				$('.fade').mosaic();
-
-				$('.bar').mosaic({
-					animation : 'slide' //fade or slide
-				});
-
-				$('.bar2').mosaic({
-					animation : 'slide' //fade or slide
-				});
-
-				$('.bar3').mosaic({
-					animation : 'slide', //fade or slide
-					anchor_y : 'top' //Vertical anchor position
-				});
-
-				$('.cover').mosaic({
-					animation : 'slide', //fade or slide
-					hover_x : '400px' //Horizontal position on hover
-				});
-
-				$('.cover2').mosaic({
-					animation : 'slide', //fade or slide
-					anchor_y : 'top', //Vertical anchor position
-					hover_y : '80px' //Vertical position on hover
-				});
-
-				$('.cover3').mosaic({
-					animation : 'slide', //fade or slide
-					hover_x : '400px', //Horizontal position on hover
-					hover_y : '300px' //Vertical position on hover
-				});
-
-			});
-		</script>
-
+            jQuery(function($) {
+            
+            	$('.circle').mosaic({
+            		opacity : 0.8
+            	//Opacity for overlay (0-1)
+            	});
+            
+            	$('.fade').mosaic();
+            
+            	$('.bar').mosaic({
+            		animation : 'slide' //fade or slide
+            	});
+            
+            	$('.bar2').mosaic({
+            		animation : 'slide' //fade or slide
+            	});
+            
+            	$('.bar3').mosaic({
+            		animation : 'slide', //fade or slide
+            		anchor_y : 'top' //Vertical anchor position
+            	});
+            
+            	$('.cover').mosaic({
+            		animation : 'slide', //fade or slide
+            		hover_x : '400px' //Horizontal position on hover
+            	});
+            
+            	$('.cover2').mosaic({
+            		animation : 'slide', //fade or slide
+            		anchor_y : 'top', //Vertical anchor position
+            		hover_y : '80px' //Vertical position on hover
+            	});
+            
+            	$('.cover3').mosaic({
+            		animation : 'slide', //fade or slide
+            		hover_x : '400px', //Horizontal position on hover
+            		hover_y : '300px' //Vertical position on hover
+            	});
+            
+            });
+         </script>
 		<script type="text/javascript">
-			jQuery.noConflict();
-			jQuery(document).ready(function($) {
-				var clientInfo=$.cookie('mochaplatform');
-				if(!clientInfo){					
-					/* $('#myModal').modal('toggle'); 
-					 */
-					$.cookie('mochaplatform', 'pageViewed');
-				}
-			});
-		</script>
-
+            jQuery.noConflict();
+            jQuery(document).ready(function($) {
+            	var clientInfo=$.cookie('mochaplatform');
+            	if(!clientInfo){					
+            		/* $('#myModal').modal('toggle'); 
+            		 */
+            		$.cookie('mochaplatform', 'pageViewed');
+            	}
+            });
+         </script>
 		<form wicket:id="userRegisterForm"
 			class="jumbotron masthead homepageMain">
 			<div>
 				<div class="container">
 					<div class="hero-unit" id="mainflow">
-						<h1>Smarter our work</h1>
-						<p>One Platform for Enterprise Collaboration</p>
+						<h1>
+							<wicket:message key="homepage.mainframe.header"></wicket:message>
+						</h1>
+						<p>
+							<wicket:message key="homepage.mainframe.intro"></wicket:message>
+						</p>
 						<button class="btn btn-primary btn-large" data-toggle="modal"
-							wicket:id="userRegisterBtn" data-target="#myModal">Join
-							Us Today!</button>
+							wicket:id="userRegisterBtn" data-target="#myModal">
+							<wicket:message key="homepage.mainframe.joinus"></wicket:message>
+						</button>
 					</div>
 				</div>
 			</div>
 		</form>
+		<center>
+			<hr class="featurette-divider">
+			<div class="featurette">
+				<a class="image-popup-vertical-fit" href="images/overview3.png"
+					title=""> <img class="featurette-middle-image img-polariod"
+					src="images/overview3.png">
+				</a>
+				<h2 class="featurette-heading">
+					<wicket:message key="homepage.chartflow.overview"></wicket:message>
+					<span class="muted"> <wicket:message
+							key="homepage.chartflow.myFeeds"></wicket:message>
+					</span>
+				</h2>
+				<p class="lead">Update your status, disucss with your collegate,
+					send a todo task</p>
+			</div>
+		</center>
+		<div id="ss-container" class="ss-container">
+			<div class="ss-row">
+				<div class="ss-left">
+					<h2 id="november">
+						<div class="featurette">
+							<a class="image-popup-vertical-fit" href="images/overview6.png"
+								title=""> <img class="featurette-image"
+								src="images/overview6.png">
+							</a>
+						</div>
+					</h2>
+				</div>
+				<div class="ss-right">
+					<h2>
+						<h2 class="featurette-heading">
+							<wicket:message key="homepage.chartflow.getThingsDone"></wicket:message>
+							<span class="muted"> <wicket:message
+									key="homepage.chartflow.taskManagetment"></wicket:message>
+							</span>
+						</h2>
+						<p class="lead">TaskManagement</p>
+					</h2>
+				</div>
+			</div>
+
+			<div class="ss-row">
+				<div class="ss-left">
+					<h2 id="november">
+						<h2 class="featurette-heading">
+							<wicket:message key="homepage.chartflow.timeline"></wicket:message>
+							<span class="muted"> <wicket:message
+									key="homepage.chartflow.recordeverything"></wicket:message>
+							</span>
+						</h2>
+						<p class="lead">TimeLine</p>
+					</h2>
+				</div>
+				<div class="ss-right">
+					<h2>
+						<a class="image-popup-vertical-fit" href="images/overview4.png"
+							title=""> <img class="featurette-image pull-left"
+							src="images/overview4.png">
+						</a>
+					</h2>
+				</div>
+			</div>
+			<div class="ss-row">
+				<div class="ss-left">
+					<a class="image-popup-vertical-fit" href="images/overview5.png"
+						title=""> <img class="featurette-image pull-left"
+						src="images/overview5.png">
+					</a>
+				</div>
+				<div class="ss-right">
+					<h2>
+						<h2 class="featurette-heading">
+							<wicket:message key="homepage.chartflow.viewcolleageprofile1"></wicket:message>
+							<span class="muted"> <wicket:message
+									key="homepage.chartflow.viewcolleageprofile2"></wicket:message>
+							</span>
+						</h2>
+						<p class="lead">Collegue Profile</p>
+					</h2>
+				</div>
+			</div>
+			<div class="ss-row">
+				<div class="ss-left">
+					<h2>
+						<h2 class="featurette-heading">
+							<wicket:message key="homepage.chartflow.forumDiscussion1">
+							</wicket:message>
+							<span class="muted"> <wicket:message
+									key="homepage.chartflow.forumDiscussion2"></wicket:message>
+							</span>
+						</h2>
+						<p class="lead">Collegue Profile</p>
+					</h2>
+				</div>
+				<div class="ss-right">
+					<a class="image-popup-vertical-fit" href="images/overview8.png"
+						title=""> <img class="featurette-image pull-left"
+						src="images/overview8.png">
+					</a>
+				</div>
+			</div>
+			<div class="ss-row">
+				<div class="ss-left">
+					<h2>
+						<a class="image-popup-vertical-fit" href="images/overview7.png"
+							title=""> <img class="featurette-image pull-left"
+							src="images/overview7.png">
+						</a>
+					</h2>
+				</div>
+				<div class="ss-right">
+					<h2 class="featurette-heading">
+						<wicket:message key="homepage.chartflow.editUser1">
+						</wicket:message>
+						<span class="muted"> <wicket:message
+								key="homepage.chartflow.editUser2">
+							</wicket:message>
+						</span>
+					</h2>
+					<p class="lead">Collegue Profile</p>
+				</div>
+			</div>
+		</div>
+		<!-- <center>
+            <hr class="featurette-divider">
+            <div class="featurette">
+            	<img class="featurette-middle-image" src="images/overview6.png">
+            	<h2 class="featurette-heading">
+            		Get Things Done in our <span class="muted">Task Management</span>
+            	</h2>
+            	<p class="lead">TaskManagement</p>
+            </div>
+            </center>
+            
+            
+            <hr class="featurette-divider">
+            <div class="featurette" id="featurette">
+            <img class="featurette-image pull-left" src="images/overview4.png">
+            <h2 class="featurette-heading">
+            	Beautiful TimeLine <span class="muted">Record everything from
+            		the beginning.</span>
+            </h2>
+            <p class="lead">TimeLine</p>
+            </div>
+            
+            <hr class="featurette-divider">
+            <div class="featurette">
+            <img class="featurette-image  pull-right" src="images/overview5.png">
+            <h2 class="featurette-heading">
+            	View your colleage's profile<span class="muted">Collegue
+            		Profile</span>
+            </h2>
+            <p class="lead">Collegue Profile</p>
+            </div>
+            -->
+		<!-- Modal -->
 		<form wicket:id="headWebMarkContainer">
 			<div class="container marketing">
+
 				<div class="row">
+
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>Team Cooperation</h2>
+						<h2>
+							<wicket:message
+								key="homepage.containerMarking.teamCooperation.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext01"></div>
-
+						<wicket:message
+							key="homepage.containerMarking.teamCooperation.context"></wicket:message>
 						</p>
-
-						<!-- <p>
-							<a class="btn" href="#">View details »</a>
-						</p> -->
 					</div>
+
 					<!-- /.span4 -->
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>Flexable Deploy</h2>
+						<h2>
+							<wicket:message
+								key="homepage.containerMarking.fleableDeploy.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext02"></div>
+						<wicket:message
+							key="homepage.containerMarking.fleableDeploy.context"></wicket:message>
 						</p>
-
 					</div>
 					<!-- /.span4 -->
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>24*7 Support</h2>
+						<h2>
+							<wicket:message key="homepage.containerMarking.efficiency.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext03"></div>
+						<wicket:message key="homepage.containerMarking.efficiency.context"></wicket:message>
 						</p>
 					</div>
-
+					
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>Show Your Work Archievment</h2>
+						<h2>
+							<wicket:message key="homepage.containerMarking.timeline.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext04"></div>
+						<wicket:message key="homepage.containerMarking.timeline.context"></wicket:message>
 						</p>
 					</div>
-
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>Account Admin Console</h2>
+						<h2>
+							<wicket:message
+								key="homepage.containerMarking.accountAdminConsole.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext05"></div>
+						<wicket:message
+							key="homepage.containerMarking.accountAdminConsole.context"></wicket:message>
 						</p>
 					</div>
-
 					<div class="span4">
 						<img class="img-circle" data-src="holder.js/140x140">
-						<h2>Open Disccusion</h2>
+						<h2>
+							<wicket:message key="homepage.containerMarking.paybyuse.title"></wicket:message>
+						</h2>
 						<p>
 						<div wicket:id="headContext06"></div>
+						<wicket:message key="homepage.containerMarking.paybyuse.context"></wicket:message>
 						</p>
 					</div>
-
 				</div>
 			</div>
 		</form>
-
-		<center>
-			<hr class="featurette-divider">
-			<div class="featurette">
-				<img class="featurette-middle-image" src="images/overview3.png">
-				<h2 class="featurette-heading">
-					Overview <span class="muted">My Feeds</span>
-				</h2>
-				<p class="lead">Update your status, disucss with your collegate, send a todo task</p>
-			</div>
-		</center>
-
-
-		<center>
-			<hr class="featurette-divider">
-			<div class="featurette">
-				<img class="featurette-middle-image" src="images/overview6.png">
-				<h2 class="featurette-heading">
-					Get Things Done in our <span class="muted">Task Management</span>
-				</h2>
-				<p class="lead">TaskManagement</p>
-			</div>
-		</center>
-
-
-		<hr class="featurette-divider">
-		<div class="featurette" id="featurette">
-			<img class="featurette-image pull-left" src="images/overview4.png">
-			<h2 class="featurette-heading">
-				Beautiful TimeLine  <span class="muted">Record everything from the beginning.</span>
-			</h2>
-			<p class="lead">TimeLine</p>
-		</div>
-
-		<hr class="featurette-divider">
-		<div class="featurette">
-			<img class="featurette-image  pull-right" src="images/overview5.png">
-			<h2 class="featurette-heading">
-				View your colleage's profile<span class="muted">Collegue Profile</span>
-			</h2>
-			<p class="lead">Collegue Profile</p>
-		</div>
-
-		<!-- Modal -->
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Join Us Today</h3>
+				<h3 id="myModalLabel">
+					<wicket:message key="homepage.mainframe.joinus"></wicket:message>
+				</h3>
 			</div>
 			<div class="">
 				<div class="container-fluid">
@@ -532,8 +692,6 @@ a {
 				</div>
 			</div>
 		</div>
-
-
 	</wicket:extend>
 </body>
 </html>
