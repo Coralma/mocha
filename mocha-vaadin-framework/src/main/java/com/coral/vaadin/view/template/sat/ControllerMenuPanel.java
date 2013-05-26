@@ -86,21 +86,31 @@ public abstract class ControllerMenuPanel extends VerticalLayout implements Clic
 		} else if("panel".equals(action.getType())) {
 			controllerMenuListener.showPanel(action.getPanel());
 		}
-		for(NativeButton menu : menus) {
-			if(menu.equals(clickedButton)) {
-//				menu.removeStyleName("menu-clicked-item");
-				menu.setStyleName("menu-clicked-item-selected");
-			} else {
-//				menu.removeStyleName("menu-clicked-item-selected");
-				menu.setStyleName("menu-clicked-item");
-			}
-			menu.requestRepaint();
-		}
+//		for(NativeButton menu : menus) {
+//			if(menu.equals(clickedButton)) {
+//				menu.setStyleName("menu-clicked-item-selected");
+//			} else {
+//				menu.setStyleName("menu-clicked-item");
+//			}
+//			menu.requestRepaint();
+//		}
 	}
 	
 	public void cleanMenuStyle() {
 		for(NativeButton menu : menus) {
 			menu.setStyleName("menu-clicked-item");
+			menu.requestRepaint();
+		}
+	}
+	
+	public void setMenuStyle(String view, Class panel) {
+		for(NativeButton menu : menus) {
+			MenuAction menuAction = (MenuAction) menu.getData();
+			if((view != null && view.equals(menuAction.getView())) || (panel != null && panel.equals(menuAction.getPanel()))) {
+				menu.setStyleName("menu-clicked-item-selected");
+			} else {
+				menu.setStyleName("menu-clicked-item");
+			}
 			menu.requestRepaint();
 		}
 	}

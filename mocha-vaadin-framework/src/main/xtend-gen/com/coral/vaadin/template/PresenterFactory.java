@@ -54,11 +54,16 @@ public class PresenterFactory {
     _builder.newLine();
     _builder.append("import com.coral.vaadin.controller.PageFactory;");
     _builder.newLine();
-    _builder.append("import ");
-    String _plus = (SystemConstant.TCREATE_PRESENTER_PKG + ".*");
-    _builder.append(_plus, "");
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
+    {
+      boolean _hasView = VGenHelper.hasView(this.corals);
+      if (_hasView) {
+        _builder.append("import ");
+        String _plus = (SystemConstant.TCREATE_PRESENTER_PKG + ".*");
+        _builder.append(_plus, "");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     _builder.append("import com.coral.vaadin.controller.Presenter;");
     _builder.newLine();
     _builder.append("import com.coral.vaadin.widget.view.builder.ViewContext;");

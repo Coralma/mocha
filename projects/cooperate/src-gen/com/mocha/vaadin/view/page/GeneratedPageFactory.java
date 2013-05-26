@@ -1,7 +1,6 @@
 package com.mocha.vaadin.view.page;
 
 import com.coral.vaadin.controller.PageFactory;
-import com.mocha.vaadin.view.presenter.create.*;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.widget.view.builder.ViewContext;
 import com.coral.foundation.core.impl.MochaEventBus;

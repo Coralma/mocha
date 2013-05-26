@@ -9,6 +9,10 @@ import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -37,6 +41,9 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		ReportCardGroup systemReport = new ReportCardGroup("System Reports", getAppReports());
 		this.addComponent(systemReport);
 		
+		ReportCardGroup customizedReport = new ReportCardGroup("Customized Reports", getCustomizedAppReports());
+		this.addComponent(customizedReport);
+		
 		bind();
 	}
 	
@@ -58,24 +65,41 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 			this.category = category;
 			this.appReports = appReports;
 			this.setWidth("100%");
+			this.addStyleName("report-card-group");
 		}
 		
 		public void attach() {
-			Label categoryLabel = new Label(category);
+			Label categoryLabel = new Label();
+			categoryLabel.setIcon(new ThemeResource("icons/report_icon.png"));
+			categoryLabel.setCaption(category);
 			categoryLabel.addStyleName("report-category");
 			this.addComponent(categoryLabel);
 
 			GridLayout gridLayout  = new GridLayout(3, 1);
-			gridLayout.setWidth("100%");
+			gridLayout.setSizeFull();
+	        
 			for(AppReport appReport : appReports) {
 				ReportCard reportCard = new ReportCard(appReport);
 				gridLayout.addComponent(reportCard);
+			    gridLayout.setComponentAlignment(reportCard, Alignment.MIDDLE_LEFT);
+			}
+			// add the empty
+			int appSize = appReports.size();
+			int c = appSize % 3;
+			if(c != 0) {
+				c = 3 - c;
+			}
+			for(int i=0; i<c;i++) {
+				VerticalLayout layout = new VerticalLayout();
+				layout.setWidth("248px");
+				layout.addComponent(WidgetFactory.createLabel(" "));
+				gridLayout.addComponent(layout);
 			}
 			this.addComponent(gridLayout);
 		}
 	}
 
-	public class ReportCard extends VerticalLayout {
+	public class ReportCard extends VerticalLayout implements LayoutClickListener {
 		private String name;
 		private String desc;
 		private String width = "230px";
@@ -85,6 +109,7 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 			this.addStyleName("report-card");
 			this.setWidth(width);
 			this.setHeight("100px");
+			this.addListener(this);
 		}
 		
 		public void attach() {
@@ -97,6 +122,11 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 			this.setExpandRatio(nameLabel, 0.2f);
 			this.addComponent(descLabel);
 			this.setExpandRatio(descLabel, 0.8f);
+		}
+
+		@Override
+		public void layoutClick(LayoutClickEvent event) {
+			listener.showReport(null);			
 		}
 	}
 	
@@ -121,6 +151,22 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		appReport.setName("Visite serve Report");
 		appReport.setDescription("This statistics report will display all visite serve detail information.");
 		reports.add(appReport);
+		
+		return reports;
+	}
+	
+	public List<AppReport> getCustomizedAppReports() {
+		List<AppReport> reports = new ArrayList<AppReport>();
+		AppReport appReport = new AppReport();
+		appReport.setName("Call Serve of Custome Report");
+		appReport.setDescription("This statistics report will display all call serve detail of custome.");
+		reports.add(appReport);
+		
+		appReport = new AppReport();
+		appReport.setName("Potential Custome Report all potential custome");
+		appReport.setDescription("This statistics report will display all potential custome.");
+		reports.add(appReport);
+		
 		
 		return reports;
 	}

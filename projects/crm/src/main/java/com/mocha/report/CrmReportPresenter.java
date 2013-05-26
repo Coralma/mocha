@@ -30,6 +30,13 @@ public class CrmReportPresenter extends CommonPresenter implements Presenter {
 				appContentEvent.setCustomizeClass("com.mocha.report.NewReportPresenter");
 				eventBus.post(appContentEvent);
 			}
+
+			@Override
+			public void showReport(Long reportID) {
+				AppContentEvent appContentEvent = new AppContentEvent();
+				appContentEvent.setCustomizeClass("com.mocha.report.ReportDisplayPresenter");
+				eventBus.post(appContentEvent);
+			}
 		});
 	}
 

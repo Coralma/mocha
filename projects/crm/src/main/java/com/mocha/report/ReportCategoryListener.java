@@ -10,4 +10,5 @@ package com.mocha.report;
 public interface ReportCategoryListener {
 
 	public void createReport();
+	public void showReport(Long reportID);
 }

@@ -31,6 +31,15 @@ public class VGenHelper {
 		return null;
 	}
 	
+	public static boolean hasView(List<Mocha> corals) {
+		for(Mocha coral : corals) {
+			if(coral.getViewList().size() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static String genDaoIntf(String entityName) {
 		return entityName+"Dao";
 	}

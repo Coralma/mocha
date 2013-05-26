@@ -45,6 +45,7 @@ public class CustomerManageMainPage extends AppMainPage implements ControllerMen
 			throw new RuntimeException(this.getClass() + "show view : " + viewName + " doesn't exist.");
 		}
 		functionPanel.setContent(presenter.go());
+		controllerMenu.setMenuStyle(viewName, null);
 		presenter.bind();
 	}
 	
@@ -57,6 +58,7 @@ public class CustomerManageMainPage extends AppMainPage implements ControllerMen
 				functionPanel.setContent(presenter.go());
 			}
 			presenter.bind();
+			controllerMenu.setMenuStyle(null, customizedPresenter);
 			functionPanel.requestRepaintAll();
 		} catch (Exception e) {
 			e.printStackTrace();

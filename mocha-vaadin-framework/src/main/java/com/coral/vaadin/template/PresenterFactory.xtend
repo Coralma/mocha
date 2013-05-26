@@ -33,7 +33,9 @@ class PresenterFactory {
 		import com.coral.vaadin.controller.PageFactory;
 «««		import «SystemConstant::TCREATE_PAGE_PKG+".*"»;
 «««		import «SystemConstant::TSEARCH_PAGE_PKG+".*"»;
-		import «SystemConstant::TCREATE_PRESENTER_PKG+".*"»;
+		«IF VGenHelper::hasView(corals)»
+			import «SystemConstant::TCREATE_PRESENTER_PKG+".*"»;
+		«ENDIF»
 «««		import «SystemConstant::TSEARCH_PRESENTER_PKG+".*"»;
 		import com.coral.vaadin.controller.Presenter;
 		import com.coral.vaadin.widget.view.builder.ViewContext;

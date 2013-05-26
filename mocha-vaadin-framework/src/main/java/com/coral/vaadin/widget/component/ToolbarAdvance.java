@@ -19,6 +19,8 @@ import com.vaadin.ui.Label;
 public class ToolbarAdvance extends HorizontalLayout {
 
 	public boolean needLeftSeperate = true;
+	public Alignment leftAlignment = Alignment.MIDDLE_LEFT;
+	public Alignment rightAlignment = Alignment.BOTTOM_RIGHT;
 	public boolean needRightSeperate = true;
 	public List<Component> leftComponents = Lists.newArrayList();
 	public List<Component> rightComponents = Lists.newArrayList();
@@ -44,7 +46,7 @@ public class ToolbarAdvance extends HorizontalLayout {
 			}
 		}
 		this.addComponent(leftPanel);
-		this.setComponentAlignment(leftPanel, Alignment.BOTTOM_LEFT);
+		this.setComponentAlignment(leftPanel, leftAlignment);
 
 		// right panel
 		HorizontalLayout rightPanel = new HorizontalLayout();
@@ -58,7 +60,7 @@ public class ToolbarAdvance extends HorizontalLayout {
 			}
 		}
 		this.addComponent(rightPanel);
-		this.setComponentAlignment(rightPanel, Alignment.BOTTOM_RIGHT);
+		this.setComponentAlignment(rightPanel, rightAlignment);
 	}
 	
 	public void addLeftComponent(Component component) {
@@ -142,5 +144,33 @@ public class ToolbarAdvance extends HorizontalLayout {
 	 */
 	public void setToolbarWidth(String toolbarWidth) {
 		this.toolbarWidth = toolbarWidth;
+	}
+
+	/**
+	 * @return the leftAlignment
+	 */
+	public Alignment getLeftAlignment() {
+		return leftAlignment;
+	}
+
+	/**
+	 * @param leftAlignment the leftAlignment to set
+	 */
+	public void setLeftAlignment(Alignment leftAlignment) {
+		this.leftAlignment = leftAlignment;
+	}
+
+	/**
+	 * @return the rightAlignment
+	 */
+	public Alignment getRightAlignment() {
+		return rightAlignment;
+	}
+
+	/**
+	 * @param rightAlignment the rightAlignment to set
+	 */
+	public void setRightAlignment(Alignment rightAlignment) {
+		this.rightAlignment = rightAlignment;
 	}
 }

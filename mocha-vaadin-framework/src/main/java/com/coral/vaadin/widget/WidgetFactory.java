@@ -166,6 +166,7 @@ public class WidgetFactory {
 	 */
 	public static DateField createDateField(String caption) {
 		DateField datePickup = new DateField(caption);
+		datePickup.setWidth("150px");
 		datePickup.setImmediate(true);
 		datePickup.setResolution(InlineDateField.RESOLUTION_DAY);
 		return datePickup;
