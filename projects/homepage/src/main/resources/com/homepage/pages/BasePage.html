@@ -13,6 +13,8 @@
 <script src="js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/mosaic.css" type="text/css"
 	media="screen" />
+<link rel="stylesheet" type="text/css" href="css/timelinestyle.css" />
+<script type="text/javascript" src="js/modernizr.custom.11333.js"></script>
 
 <style type="text/css">
 .defaultOutputWindows {
@@ -132,17 +134,22 @@
 			<div class="container">
 				<ul class="nav nav nav-tabs  signin-menu pull-left">
 					<li class="pull-left"><a class="brand">Mocha Solution</a></li>
-					<li><a wicket:id="homeBtn"><i class="icon-home"></i>Home</a></li>
+					<li><a wicket:id="homeBtn"><i class="icon-home"></i> <wicket:message
+								key="basepage.header.homepageBtn"></wicket:message></a></li>
 					<li><a wicket:id="commonUserLoginPrfileLnk"></a></li>
 					<li class="dropdown" data-dropdown="dropdown"><a href="#"
 						data-toggle="dropdown" class="login-link dropdown-toggle"
-						wicket:id="commonUserLogin">Login </a>
+						wicket:id="commonUserLogin"><wicket:message
+								key="basepage.header.loginIn"></wicket:message> </a>
 						<ul class="dropdown-menu" id="signin-dropdown">
 							<li>
 								<div wicket:id="myUserLogin"></div>
 							</li>
 						</ul></li>
-					<li><a wicket:id="commonUserLogoutLnk"></a></li>
+					<li>
+							<a wicket:id="commonUserLogoutLnk" title="basepage.header.logout"></a>
+							
+						</li>
 				</ul>
 			</div>
 		</div>
@@ -158,10 +165,14 @@
 		<hr class="featurette-divider"> <footer>
 			<center>
 				<p>
-					<a wicket:id="aboutUs">About Us</a> | <a wicket:id="pricing">Pricing</a>
-					| <a wicket:id="contactUs">Contact Us</a>| <a wicket:id="blog">BLog</a>|
-					<a wicket:id="serverStatus">Server Status</a> | <a href="#">Terms
-						of Service</a> | <a href="#">Privacy</a> | <a href="#">Security</a>
+					<a wicket:id="aboutUs"><wicket:message key="footer.aboutUs"></wicket:message></a>
+					| <a wicket:id="pricing"><wicket:message key="footer.pricing"></wicket:message></a>
+					| <a wicket:id="contactUs"><wicket:message
+							key="footer.contactUs"></wicket:message></a>| <a wicket:id="blog"><wicket:message
+							key="footer.blog"></wicket:message></a>| <a wicket:id="serverStatus"><wicket:message
+							key="footer.serverStatus"></wicket:message></a> | <a href="#"><wicket:message
+							key="footer.termOfUse"></wicket:message></a>| <a href="#"><wicket:message
+							key="footer.privacy"></wicket:message></a>|
 				</p>
 			</center>
 			<p class="pull-right">

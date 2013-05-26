@@ -94,13 +94,15 @@ public class HomeApplication extends WebApplication {
 		MetaDataRoleAuthorizationStrategy.authorize(AccountProfilePage.class,
 				"USER");
 		configureApplication();
+
+		getApplicationSettings().setInternalErrorPage(com.homepage.pages.ErrorPage.class);
 	}
 	private void configureApplication() {
 		// we need a system level configuration here
 		SystemPropertyDao systemProperty = new SystemPropertyDao();
 		String paypal_ipn_url = systemProperty
 				.findSystemValueByKey("paypal_ipn_url");
-		if(paypal_ipn_url!=null){
+		if (paypal_ipn_url != null) {
 			HomepageSystemProperty.setPaypal_ipn_url(paypal_ipn_url);
 		}
 	}
@@ -186,7 +188,7 @@ public class HomeApplication extends WebApplication {
 				defaultTheme("wicket");
 			}
 		};
-		settings.setThemeProvider(themeProvider);
+		// settings.setThemeProvider(themeProvider);
 		Bootstrap.install(this, settings);
 	}
 
@@ -201,6 +203,7 @@ public class HomeApplication extends WebApplication {
 
 	@Override
 	public Session newSession(Request request, Response response) {
+
 		return new SecuritySession(request);
 	}
 

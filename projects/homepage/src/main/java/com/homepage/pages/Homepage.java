@@ -15,6 +15,7 @@ import com.homepage.model.SimpleModel;
 import com.homepage.model.User;
 import com.homepage.model.UserDao;
 import com.homepage.pages.register.NavomaticBorder;
+import com.homepage.pages.register.NewRegister;
 import com.homepage.pages.register.RegisterPage;
 import com.homepage.pages.register.RegisterValidation;
 import com.homepage.payment.AccountFeeType;
@@ -116,56 +117,37 @@ public class Homepage extends BasePage {
 	private Component buildHeadContext() {
 		Form headWebMarkContainer = new Form("headWebMarkContainer");
 
-		String headContext01str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
+		String headContext01str = "";
 
 		Label headContext01 = new Label("headContext01",
 				Model.of(headContext01str));
 		headWebMarkContainer.add(headContext01);
 
-		String headContext02str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
+		String headContext02str = "";
 
 		Label headContext02 = new Label("headContext02",
 				Model.of(headContext02str));
 		headWebMarkContainer.add(headContext02);
 
-		String headContext03str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
+		String headContext03str = "";
 
 		Label headContext03 = new Label("headContext03",
 				Model.of(headContext03str));
 		headWebMarkContainer.add(headContext03);
 
-		String headContext04str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
+		String headContext04str = "";
 
 		Label headContext04 = new Label("headContext04",
 				Model.of(headContext04str));
 		headWebMarkContainer.add(headContext04);
 
-		String headContext05str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
+		String headContext05str = "";
 
 		Label headContext05 = new Label("headContext05",
 				Model.of(headContext05str));
 		headWebMarkContainer.add(headContext05);
 
-		String headContext06str = "Donec ullamcorper nulla non metus auctor"
-				+ "fringilla. Vestibulum id ligula porta felis euismod semper. Praesent"
-				+ "commodo cursus magna, vel scelerisque nisl consectetur. Fusce"
-				+ "dapibus, tellus ac cursus commodo.Web build things";
-
+		String headContext06str = "";
 		Label headContext06 = new Label("headContext06",
 				Model.of(headContext04str));
 		headWebMarkContainer.add(headContext06);
@@ -402,7 +384,7 @@ public class Homepage extends BasePage {
 							.of("We have sent a email on "
 									+ emailAddress.getInput()));
 					target.add(registerSuccessPanel);
-					
+
 					target.add(errorMessagePanel);
 					String emailAddressName = emailAddress.getInput();
 					if (emailAddressName.length() > 0) {
@@ -418,6 +400,10 @@ public class Homepage extends BasePage {
 							e.printStackTrace();
 						}
 					}
+					PageParameters pageParams = new PageParameters();
+					pageParams.add("userName", user.getUserName());
+					pageParams.add("emailAddressName", emailAddressName);
+					setResponsePage(NewRegister.class, pageParams);
 
 				}
 
@@ -427,10 +413,9 @@ public class Homepage extends BasePage {
 					target.add(errorMessagePanel);
 				}
 			};
-			
-			
+
 			userRegisterForm.add(registerLink);
-			
+
 		}
 
 		private void startMailQueueConsumer() {

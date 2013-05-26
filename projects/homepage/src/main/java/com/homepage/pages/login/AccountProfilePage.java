@@ -12,6 +12,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigation;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.TabbedPanel;
@@ -29,6 +30,8 @@ import org.apache.wicket.markup.html.form.ImageButton;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -87,62 +90,85 @@ public class AccountProfilePage extends BasePage {
 
 	public void build() {
 
+
+
 		add(getAccountProfilePanel());
 
-		add(getAccountAdminPanel());
+		// add(getAccountAdminPanel());
 
+		add(getAccountAdminSimplePanel());
 		add(getAccountFeePanel());
+		
+		
 
-//		List<AbstractTab> tabs = new ArrayList();
-//		tabs.add(new AbstractTab(new Model("Company Admin Profile")) {
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public Panel getPanel(String panelId) {
-//				return new PersonalProfilePanel(panelId);
-//			}
-//		});
-//		tabs.add(new AbstractTab(new Model("Permission And Right")) {
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public Panel getPanel(String panelId) {
-//				return new PermissionAndRightPanel(panelId);
-//			}
-//		});
-//		tabs.add(new AbstractTab(new Model("Application")) {
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public Panel getPanel(String panelId) {
-//				return new AppPanel(panelId);
-//			}
-//		});
-//
-//		tabs.add(new AbstractTab(new Model("Account Fee")) {
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public Panel getPanel(String panelId) {
-//				return new AccountFeePage(panelId);
-//			}
-//		});
-//
-//		BootstrapTabbedPanel simpleTabs = new BootstrapTabbedPanel<AbstractTab>(
-//				"userProfileTabs", tabs);
-//		add(simpleTabs);
+		// List<AbstractTab> tabs = new ArrayList();
+		// tabs.add(new AbstractTab(new Model("Company Admin Profile")) {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public Panel getPanel(String panelId) {
+		// return new PersonalProfilePanel(panelId);
+		// }
+		// });
+		// tabs.add(new AbstractTab(new Model("Permission And Right")) {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public Panel getPanel(String panelId) {
+		// return new PermissionAndRightPanel(panelId);
+		// }
+		// });
+		// tabs.add(new AbstractTab(new Model("Application")) {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public Panel getPanel(String panelId) {
+		// return new AppPanel(panelId);
+		// }
+		// });
+		//
+		// tabs.add(new AbstractTab(new Model("Account Fee")) {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public Panel getPanel(String panelId) {
+		// return new AccountFeePage(panelId);
+		// }
+		// });
+		//
+		// BootstrapTabbedPanel simpleTabs = new
+		// BootstrapTabbedPanel<AbstractTab>(
+		// "userProfileTabs", tabs);
+		// add(simpleTabs);
+	}
+	private Component getAccountAdminSimplePanel() {
+		WebMarkupContainer simpleAdminPanel = new WebMarkupContainer(
+				"simpleAdminPanel");
+
+		add(simpleAdminPanel);
+
+		Label userName = new Label("userName", Model.of(AccountProfilePage
+				.getUser().getUserName()));
+		simpleAdminPanel.add(userName);
+
+		ExternalLink cooperateUrlLink = new ExternalLink("cooperateUrlLink",
+				Model.of(getUser().getCooperateUrl()));
+
+		simpleAdminPanel.add(cooperateUrlLink);
+
+		return simpleAdminPanel;
 	}
 
 	private Component getAccountFeePanel() {
@@ -157,9 +183,11 @@ public class AccountProfilePage extends BasePage {
 		AccountFee accountFee = new AccountFee();
 		AccountFeeDao accountFeeDao = new AccountFeeDao();
 		accountFee = accountFeeDao.findLatestAccountFee(getUser());
-		checkPaidAccount.setDefaultModel(Model.of("Account Info: "
-				+ accountFee.getType().toString() + " will be expired in "
-				+ accountFee.getExpireDate().toString()));
+		checkPaidAccount.setDefaultModel(Model.of(accountFee.getType()
+				.toString()));
+
+		Label accountFeeExpireDateLabel = new Label("accountFeeExpireDate",
+				Model.of(accountFee.getExpireDate().toString()));
 
 		final Form accountFeeDetails = new Form("accountFeeDetails");
 		AjaxButton freeLink = new AjaxButton("freeLink", Model.of("Free"),
@@ -206,6 +234,8 @@ public class AccountProfilePage extends BasePage {
 
 		accountFeePanel.add(accountFeeDetails);
 		accountFeeForm.add(checkPaidAccount);
+		accountFeeForm.add(accountFeeExpireDateLabel);
+
 		// accountFeeForm.add(promoteToPro);
 		SimpleOrderForm simpleOrderForm = new SimpleOrderForm(
 				"simpleOrderForm", getUser());

@@ -6,32 +6,38 @@
 </head>
 <body>
 	<wicket:extend>
-		<link rel="stylesheet" href="css/userprofilestyle.css" type="text/css" />
 
-		<div id="cooperateCard" class="row-fluid">
+
+		<div id="cooperateCard" class="row-fluid"
+			style="margin-top: 50px; margin-left: 30px;">
 			<div class="span8">
 				<div wicket:id="accountProfilePanel">
 
 					<div class="section" id="personal-information">
 						<h2 class="section-title">
 							<span class="glyphicons user"> <i></i>
-							</span> Cooperate Card <a class="top visible-phone" href="#phone-navbar">
-								<span class="glyphicons white up_arrow"> <i></i>
+							</span>
+							<wicket:message key="accountprofile.card.header"></wicket:message>
+							<a class="top visible-phone" href="#phone-navbar"> <span
+								class="glyphicons white up_arrow"> <i></i>
 							</span>
 							</a>
 						</h2>
 
 						<div class="row-fluid">
-							<div class="span2">
+							<div class="span3">
 								<div class="well">
 									<img wicket:id="accountProfileImage"></img>
 								</div>
 							</div>
 
-							<div class="span10 pull-right">
-								<div class="infoline span9 first">
+							<div class="span8 pull-right">
+								<div class="infoline"></div>
+								<div class="infoline span9">
 									<div class="row">
-										<div class="span4 muted">Name</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.name"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountName"></div>
 										</div>
@@ -41,7 +47,9 @@
 
 								<div class="infoline span9">
 									<div class="row">
-										<div class="span4 muted">Industry Type</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.industyType"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountType"></div>
 										</div>
@@ -51,7 +59,9 @@
 
 								<div class="infoline span9">
 									<div class="row">
-										<div class="span4 muted">Size</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.size"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountSize"></div>
 										</div>
@@ -61,7 +71,9 @@
 
 								<div class="infoline span9">
 									<div class="row">
-										<div class="span4 muted">Address</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.headerquatres"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountAddress"></div>
 										</div>
@@ -72,7 +84,9 @@
 
 								<div class="infoline span9">
 									<div class="row">
-										<div class="span4 muted">Phone</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.phone"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountPhone"></div>
 										</div>
@@ -82,7 +96,9 @@
 
 								<div class="infoline span9 last">
 									<div class="row">
-										<div class="span4 muted">Twitter</div>
+										<div class="span4 muted">
+											<wicket:message key="accountprofile.card.socialAccount"></wicket:message>
+										</div>
 										<div class="span7">
 											<div wicket:id="accountTwitter"></div>
 										</div>
@@ -93,94 +109,40 @@
 						</div>
 					</div>
 					<!--/section-->
-
 				</div>
 
-				<!-- 				<div class="section" id="personal-information">
+
+
+				<div class=" span12 section" id="cooperateAccountFee">
 					<h2 class="section-title">
 						<span class="glyphicons user"> <i></i>
-						</span> Cooperate Administirator Profile <a class="top visible-phone"
-							href="#phone-navbar"> <span class="glyphicons white up_arrow">
-								<i></i>
+						</span>
+						<wicket:message key="accountprofile.card.accountFee.title"></wicket:message>
+						<a class="top visible-phone" href="#phone-navbar"> <span
+							class="glyphicons white up_arrow"> <i></i>
+						</span>
+						</a>
+					</h2>
+				</div>
+
+				<div class=" span12 section" id="pricingplans">
+					<h2 class="section-title">
+						<span class="glyphicons user"> <i></i>
+						</span>
+						<wicket:message key="accountprofile.card.pricingplans.title"></wicket:message>
+						<a class="top visible-phone" href="#phone-navbar"> <span
+							class="glyphicons white up_arrow"> <i></i>
 						</span>
 						</a>
 					</h2>
 
-
-					<div wicket:id="userProfileTabs" class="nav nav-tabs"></div>
-
-				</div>
- -->
-				<div class="section" id="personal-information">
-					<h2 class="section-title">
-						<span class="glyphicons user"> <i></i>
-						</span> Cooperate Administirator Profile <a class="top visible-phone"
-							href="#phone-navbar"> <span class="glyphicons white up_arrow">
-								<i></i>
-						</span>
-						</a>
-					</h2>
-
-					<div wicket:id="accountAdminContainer">
-
-						<div class="infoline span9">
-							<div class="row">
-								<div class="span4 muted">User Name</div>
-								<div class="span7">
-									<div wicket:id="userName"></div>
-								</div>
-							</div>
-						</div>
-						<span class="clear"></span>
-
-						<div class="infoline span9">
-							<div class="row">
-								<div class="span4 muted">Password</div>
-								<div class="span7">
-									<div wicket:id="pw"></div>
-								</div>
-							</div>
-						</div>
-						<span class="clear"></span>
-
-						<div class="infoline span9">
-							<div class="row">
-								<div class="span4 muted">Last Login Date</div>
-								<div class="span7">
-									<div wicket:id="lastLoginDate"></div>
-								</div>
-							</div>
-						</div>
-						<span class="clear"></span>
-
-						<div class="infoline span9">
-							<div class="row">
-								<div class="span4 muted">Cooperate URL</div>
-								<div class="span7">
-									<div wicket:id="cooperateUrl"></div>
-								</div>
-							</div>
-						</div>
-						<span class="clear"></span>
-
-					</div>
-
-				</div>
-
-
-				<div class="section" id="cooperateAccountFee">
-					<h2 class="section-title">
-						<span class="glyphicons user"> <i></i>
-						</span> Cooperate Account Fee <a class="top visible-phone"
-							href="#phone-navbar"> <span class="glyphicons white up_arrow">
-								<i></i>
-						</span>
-						</a>
-					</h2>
 					<div wicket:id="accountFeePanel">
 
 						<form wicket:id="accountFeeForm">
-							<div wicket:id="checkPaidAccount"></div>
+							Account Info
+							<div class="label label-important" wicket:id="checkPaidAccount"></div>
+							Expire Date
+							<div class="label label-warning" wicket:id="accountFeeExpireDate"></div>
 						</form>
 
 						<form wicket:id="accountFeeDetails">
@@ -234,21 +196,51 @@
 				</div>
 			</div>
 
-			<div id="sidebar" class="span4 sbright noprint pull-right">
-				<div class="sidebar-nav equal hidden-phone">
-					<ul class="nav nav-list affix" id="resumenav"
-						style="background: #936EE9; height: auto;">
-						<li><a href="#cooperateCard" class="scroller">Card</a></li>
-						<li><a href="#personal-information" class="scroller">
-								Administirator</a></li>
-						<li><a href="#cooperateAccountFee" class="scroller">Account Fee</a></li>
 
+			<div class="span3" style="margin-left: 30px; margin-top: 20px;">
+				<div wicket:id="simpleAdminPanel">
+					<div class="account-container">
+						<div class="account-avatar">
+							<img class="thumbnail" alt=""
+								src="images/defaultAccountAdminProfile.png">
+						</div>
+						<div class="account-details">
+							<span class="account-name" wicket:id="userName"></span> <span
+								class="account-role">Administrator</span> <span
+								class="account-actions"> <a href="javascript:;">Profile</a>
+								| <a href="javascript:;">Edit Settings</a></span> <span
+								class="account-actions"> <a href="javascript:;">Profile</a>
+								| <a wicket:id="cooperateUrlLink">Cooperate Url</a>
+							</span>
+						</div>
+					</div>
+					<hr>
+					<ul id="main-nav" class="nav nav-tabs nav-stacked">
+						<li class="active"><a href="./index.html"> <i
+								class="icon-home"></i> Dashboard
+						</a></li>
+						<li><a href="./plans.html"> <i class="icon-th-list"></i>
+								Pricing Plans
+						</a></li>
+						<li><a href="./charts.html"> <i class="icon-signal"></i>
+								Charts
+						</a></li>
+						<li><a href="./account.html"> <i class="icon-user"></i>
+								User Account
+						</a></li>
+						<li><a href="./login.html"> <i class="icon-lock"></i>
+								Logout
+						</a></li>
 					</ul>
-					<span class="clear"></span>
+					<hr>
+					<div class="sidebar-extra">
+						<p></p>
+					</div>
+					<br>
 				</div>
 			</div>
-
 		</div>
+	
 	</wicket:extend>
 </body>
 </html>

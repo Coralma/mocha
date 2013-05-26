@@ -1,7 +1,10 @@
 package com.homepage.security;
 
 import java.util.EmptyStackException;
+import java.util.UUID;
 
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
@@ -45,6 +48,7 @@ public class SecuritySession extends AuthenticatedWebSession {
 		AccountDao accountDao = new AccountDao();
 		Account account = accountDao.getAccountByUser(user);
 		getAuthenciatedUserStors().remove();
+		
 		if (user != null && account != null) {
 			setUser(user);
 			setAccount(account);
