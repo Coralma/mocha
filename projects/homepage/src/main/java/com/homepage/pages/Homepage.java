@@ -149,7 +149,7 @@ public class Homepage extends BasePage {
 
 		String headContext06str = "";
 		Label headContext06 = new Label("headContext06",
-				Model.of(headContext04str));
+				Model.of(headContext06str));
 		headWebMarkContainer.add(headContext06);
 
 		return headWebMarkContainer;
