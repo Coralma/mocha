@@ -3,21 +3,25 @@
  */
 package com.coral.vaadin.view.template.sat.panel.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import com.coral.vaadin.view.template.sat.panel.IActionPanel;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.IViewPanel;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.ActionButton;
-import com.coral.vaadin.widget.field.FieldStatus;
 import com.coral.vaadin.widget.fields.CodeTableWidget;
 import com.coral.vaadin.widget.fields.DateFieldWidget;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.fields.FieldWidget;
 import com.coral.vaadin.widget.fields.LongFieldWidget;
 import com.coral.vaadin.widget.fields.OptionGroupWidget;
 import com.coral.vaadin.widget.fields.StringAreaFieldWidget;
 import com.coral.vaadin.widget.fields.StringFieldWidget;
+import com.coral.vaadin.widget.helper.NotificationHelper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
@@ -162,8 +166,12 @@ public abstract class EntityViewPanel extends VerticalLayout {
 	
 	
 	public Object getValue() {
-		if(viewPanel.validate()) {
+		List<Result> errors = Lists.newArrayList();
+		errors = viewPanel.validate();
+		if(errors.size() == 0) {
 			return entity;
+		} else {
+			getWindow().showNotification(NotificationHelper.getErrorNotification(errors));
 		}
 		return null;
 	}
@@ -192,8 +200,8 @@ public abstract class EntityViewPanel extends VerticalLayout {
 	}
 
 
-	public boolean validate(String type) {
-		return false;
+	public Result validate(String type) {
+		return new Result();
 	}
 
 

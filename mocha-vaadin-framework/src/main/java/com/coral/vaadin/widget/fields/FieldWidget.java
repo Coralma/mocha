@@ -7,7 +7,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.Field;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.Result;
+import com.coral.vaadin.widget.helper.NotificationHelper;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -68,7 +69,7 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 	@Override
 	public void setRequired(boolean required) {
 		this.required = required;
-		field.setRequired(required);
+//		field.setRequired(required);
 //		field.addValidator(new RegexpValidator("^(?=[^A-Za-z]+$).*[0-9].*$", "The input value must be a number."));
 //		field.setRequiredError(label + " can not be empty.");
 	}
@@ -91,22 +92,27 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 	}
 
 	@Override
-	public boolean validate(String type) {
-		boolean result = true;
+	public Result validate(String type) {
+		Result validator = new Result();
 		try {
 			((AbstractField)field).setComponentError(null);
 			field.validate();
 			if(required) {
 				Object value = field.getValue();
 				if(StrUtils.isEmpty(value)) {
-					((AbstractField)field).setComponentError(new UserError(label + " can not be empty."));
+					validator.setPass(false);
+					String errorMessage = label + " can not be empty.";
+					validator.setErrorMessage(errorMessage);
+					((AbstractField)field).setComponentError(new UserError(errorMessage));
+//					getWindow().showNotification(NotificationHelper.getErrorNotification(errorMessage));
 				}
 			}
 		} catch (Exception e) {
-            result = false;
+			validator.setPass(false);
+            getWindow().showNotification(NotificationHelper.getErrorNotification(e.getMessage()));
 		}
 		
-		return result;
+		return validator;
 	}
 	
 	public void setReadOnly(boolean readonly) {

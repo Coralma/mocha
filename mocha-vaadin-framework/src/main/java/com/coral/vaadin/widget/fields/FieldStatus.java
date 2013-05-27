@@ -1,4 +1,4 @@
-package com.coral.vaadin.widget.field;
+package com.coral.vaadin.widget.fields;
 
 public class FieldStatus {
 

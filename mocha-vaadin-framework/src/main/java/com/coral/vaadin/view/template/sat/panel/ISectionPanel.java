@@ -1,7 +1,10 @@
 package com.coral.vaadin.view.template.sat.panel;
 
+import java.util.List;
+
 import com.coral.vaadin.widget.Field;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.Result;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.vaadin.ui.ComponentContainer;
 
 public interface ISectionPanel extends ComponentContainer {
@@ -12,7 +15,7 @@ public interface ISectionPanel extends ComponentContainer {
 	
 	public void addField(Field field);
 	
-	public boolean validate();
+	public List<Result> validate();
 	
 	public void setSpacing(boolean spacing);
 }

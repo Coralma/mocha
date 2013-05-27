@@ -22,5 +22,5 @@ public interface Widget extends Component {
 	public void setData(Object data);
 
 	/** validate widget*/
-	public boolean validate(String type);
+	public Result validate(String type);
 }

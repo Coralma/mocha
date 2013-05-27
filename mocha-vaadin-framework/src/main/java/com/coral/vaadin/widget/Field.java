@@ -3,7 +3,7 @@
  */
 package com.coral.vaadin.widget;
 
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.vaadin.data.Property.ValueChangeListener;
 
 /**

@@ -4,7 +4,8 @@
 package com.coral.vaadin.widget.fields.search;
 
 import com.coral.vaadin.widget.Field;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.Result;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -64,9 +65,9 @@ public abstract class SearchFieldWidget extends FormLayout implements ValueChang
 	}
 
 	@Override
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return new Result();
 	}
 
 	@Override

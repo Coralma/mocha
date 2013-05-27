@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.coral.vaadin.view.template.sat.panel.ISearchPanel;
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.ActionButton;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.fields.search.StringSearchFieldWidget;
 import com.vaadin.ui.VerticalLayout;
 
@@ -61,9 +62,9 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 	
 	
 	@Override
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return new Result();
 	}
 
 	@Override

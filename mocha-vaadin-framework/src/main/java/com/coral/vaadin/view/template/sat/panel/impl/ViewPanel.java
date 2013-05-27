@@ -8,6 +8,7 @@ import java.util.List;
 import com.coral.vaadin.view.template.sat.panel.IActionPanel;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.IViewPanel;
+import com.coral.vaadin.widget.Result;
 import com.google.common.collect.Lists;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
@@ -42,15 +43,15 @@ public class ViewPanel extends VerticalLayout implements IViewPanel {
 		}
 	}
 	
-	public boolean validate() {
-		boolean valid = true;
+	public List<Result> validate() {
+		List<Result> errorResults = Lists.newArrayList();
 		for(ISectionPanel section : sections) {
-			boolean sectionValidate = section.validate();
-			if(sectionValidate == false) {
-				valid = false;
+			List<Result> sectionErrors = section.validate();
+			if(sectionErrors.size() > 0) {
+				errorResults.addAll(sectionErrors);
 			}
 		}
-		return valid;
+		return errorResults;
 	}
 	
 	public void setReadOnly(boolean readonly) {

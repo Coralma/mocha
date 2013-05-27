@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.validate.RequiredValidator;
 import com.coral.vaadin.widget.validate.Validator;
 import com.vaadin.data.Property;
@@ -51,14 +53,16 @@ public abstract class AbstractField extends HorizontalLayout implements ValueCha
 	}
 
 	/** field validate */
-	public boolean validate(String type) {
+	public Result validate(String type) {
+		Result result = new Result();
 		for(Validator validator : validators) {
 			boolean isPass = validator.validate(type);
 			if(!isPass) {
-				return false;
+				result.setPass(false);
+				return result;
 			}
 		}
-		return true;
+		return result;
 	}
 	
 	public List<Widget> getSubFields() {

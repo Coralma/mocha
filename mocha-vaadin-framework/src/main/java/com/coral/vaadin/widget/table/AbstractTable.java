@@ -5,6 +5,7 @@ package com.coral.vaadin.widget.table;
 
 import org.vaadin.addon.customfield.CustomField;
 
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
 
 
@@ -63,8 +64,8 @@ public class AbstractTable extends CustomField implements Widget {
 		table.refreshRowCache();
 	}
 
-	public boolean validate(String type) {
-		return true;
+	public Result validate(String type) {
+		return new Result();
 	}
 
 	@Override

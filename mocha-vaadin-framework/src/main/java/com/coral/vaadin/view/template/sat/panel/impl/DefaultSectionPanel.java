@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.widget.Field;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.Result;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.vaadin.ui.HorizontalLayout;
@@ -53,15 +54,17 @@ public class DefaultSectionPanel extends AbstractViewLayout implements ISectionP
 	}
 	
 	@Override
-	public boolean validate() {
+	public List<Result> validate() {
+		List<Result> errorResultList = Lists.newArrayList(); 
 		boolean valid = true;
 		for(Field field : fields) {
-			boolean fieldValidate = field.validate(null);
+			Result result = field.validate(null);
+			boolean fieldValidate = result.isPass();
 			if(fieldValidate == false) {
-				valid = false;
+				errorResultList.add(result);
 			}
 		}
-		return valid;
+		return errorResultList;
 	}
 	
 	public void addField(Field field) {

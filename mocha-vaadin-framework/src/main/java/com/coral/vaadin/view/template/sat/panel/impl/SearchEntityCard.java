@@ -6,7 +6,7 @@ package com.coral.vaadin.view.template.sat.panel.impl;
 import java.util.Map;
 
 import com.coral.vaadin.view.template.sat.panel.IActionPanel;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.fields.FieldWidget;
 import com.coral.vaadin.widget.fields.search.DisplayFieldWidget;
 import com.google.common.collect.Maps;

@@ -6,6 +6,7 @@ package com.coral.vaadin.view.template.sat;
 import java.util.Map;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.ActionButton;
@@ -86,9 +87,9 @@ public abstract class AppMainPage extends HorizontalLayout implements Viewer {
 		
 	}
 	@Override
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return new Result();
 	}
 
 	/**

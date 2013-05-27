@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.coral.vaadin.util.VaadinDataBinding;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.ActionButton;
@@ -55,7 +56,8 @@ public abstract class AbstractViewer extends VerticalLayout implements Viewer {
 	public <T> T getEntityValue(T obj, Class<T> t) {
 		Collection<Widget> widgetCollection = widgets.values();
 		for(Widget Widget : widgetCollection) {
-			if(!Widget.validate("COMMIT")) {
+			Result result = Widget.validate("COMMIT");
+			if(!result.isPass()) {
 				return null;
 			}
 		}

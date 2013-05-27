@@ -3,7 +3,7 @@ package com.mocha.vaadin.entity.view;
 import java.util.List;
 
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.google.common.collect.Lists;
 import com.mocha.crm.model.Serve;
 

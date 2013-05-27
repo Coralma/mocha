@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.md.model.ViewSection;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.layout.PageLayout;
 import com.coral.vaadin.widget.layout.Section;
@@ -66,9 +67,9 @@ public abstract class AbstractEntityViewer extends PageLayout {
 		return widget;
 	}
 	
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return new Result();
 	}
 
 	public String getViewerTitle() {

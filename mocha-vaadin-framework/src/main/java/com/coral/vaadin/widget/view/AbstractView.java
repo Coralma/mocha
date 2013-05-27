@@ -12,6 +12,7 @@ import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.util.CodeTableFactory;
 import com.coral.vaadin.util.VaadinDataBinding;
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.ActionButton;
 import com.coral.vaadin.widget.field.BigDecimalField;
@@ -300,7 +301,8 @@ public abstract class AbstractView extends PageLayout {
 
     public <T> T getEntityValue(T obj, Class<T> t) {
 		for(Widget Widget : widgets) {
-			if(!Widget.validate("COMMIT")) {
+			Result result = Widget.validate("COMMIT");
+			if(!result.isPass()) {
 				return null;
 			}
 		}

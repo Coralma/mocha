@@ -11,6 +11,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.PageFactory;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Widget;
 import com.google.common.collect.Lists;
 import com.vaadin.data.Item;
@@ -195,9 +196,9 @@ public abstract class AbstractEntityTable extends VerticalLayout implements Widg
 	}
 
 	@Override
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return true;
+		return new Result();
 	}
 
 	/**

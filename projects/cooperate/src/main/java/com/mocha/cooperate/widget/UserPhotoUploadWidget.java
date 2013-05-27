@@ -12,7 +12,8 @@ import org.vaadin.easyuploads.UploadField.FieldType;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.widget.Field;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.Result;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
 import com.mocha.cooperate.SystemProperty;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -96,8 +97,8 @@ public class UserPhotoUploadWidget extends HorizontalLayout implements Field {
 	}
 
 	@Override
-	public boolean validate(String type) {
-		return true;
+	public Result validate(String type) {
+		return new Result();
 	}
 
 	@Override

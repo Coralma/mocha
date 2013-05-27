@@ -8,6 +8,7 @@ import java.util.List;
 import com.coral.foundation.md.model.Property;
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.utils.Message;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.view.builder.FieldBuilder;
@@ -112,8 +113,8 @@ public abstract class CommonViewer extends AbstractViewer implements Viewer {
 		setEntityValue(value);
 	}
 
-	public boolean validate(String type) {
-		return true;
+	public Result validate(String type) {
+		return new Result();
 	}
 
 	/**

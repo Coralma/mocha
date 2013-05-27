@@ -3,6 +3,7 @@ package com.coral.vaadin.widget.view;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.util.CodeTableFactory;
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.field.BigDecimalField;
@@ -94,9 +95,9 @@ public class AbstractHomePageView extends AbstractView implements Widget,Viewer{
 	}
 
 	@Override
-	public boolean validate(String type) {
+	public Result validate(String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return new Result();
 	}
 	
 	

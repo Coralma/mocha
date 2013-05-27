@@ -6,7 +6,7 @@ import com.coral.vaadin.view.template.sat.panel.impl.SearchEntityCard;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
-import com.coral.vaadin.widget.field.FieldStatus;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.mocha.crm.model.Customer;
 
 public class CustomerSearchCard extends SearchEntityCard {
