@@ -3,8 +3,11 @@
  */
 package com.coral.foundation.md.model.helper;
 
+import java.util.List;
+
 import com.coral.foundation.md.model.AppMenu;
 import com.coral.foundation.md.model.Entity;
+import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.ViewAction;
 import com.coral.foundation.md.model.ViewField;
@@ -186,5 +189,39 @@ public class VAppGenHelper {
 		} else {
 			return "Search " + StrUtils.genLabel(view.getEntity().getEntityName());
 		}
+	}
+	
+	public static String asVariable(String value) {
+		return value.substring(0, 1).toLowerCase() + value.substring(1);
+	}
+	
+	public static String getEditViewName(View viewer, List<Mocha> mochas) {
+		String entityName = viewer.getEntity().getEntityName();
+		if(entityName == null) {
+			throw new RuntimeException("[Error] EntityName of " + viewer.getName() + " can not be null!");
+		}
+		for(Mocha mocha : mochas) {
+			for(View view : mocha.getViewList()) {
+				if(entityName.equals(view.getEntity().getEntityName()) && "EntityEditView".equals(view.getTemplate())) {
+					return view.getName();
+				}
+			}
+		}
+		throw new RuntimeException("[Error] Can not find the SearchView of " + viewer.getName() + ", Please check your definition!");
+	}
+	
+	public static String getSearchViewName(View viewer, List<Mocha> mochas) {
+		String entityName = viewer.getEntity().getEntityName();
+		if(entityName == null) {
+			throw new RuntimeException("[Error] EntityName of " + viewer.getName() + " can not be null!");
+		}
+		for(Mocha mocha : mochas) {
+			for(View view : mocha.getViewList()) {
+				if(entityName.equals(view.getEntity().getEntityName()) && "EntityCardSearch".equals(view.getTemplate())) {
+					return view.getName();
+				}
+			}
+		}
+		throw new RuntimeException("[Error] Can not find the SearchView of " + viewer.getName() + ", Please check your definition!");
 	}
 }

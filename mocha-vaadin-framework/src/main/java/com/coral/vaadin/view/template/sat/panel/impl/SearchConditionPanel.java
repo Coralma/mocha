@@ -5,6 +5,7 @@ package com.coral.vaadin.view.template.sat.panel.impl;
 
 import com.coral.vaadin.view.template.sat.panel.ISearchConditionPanel;
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.GlobleSearchWidget;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -19,12 +20,13 @@ import com.vaadin.ui.themes.BaseTheme;
  */
 public class SearchConditionPanel extends AbstractViewLayout implements ISearchConditionPanel {
 
-	public Button searchButton = new Button("Search");
-	public Button globleButton = new Button("Globle");
-	
+	public Button searchButton = WidgetFactory.createButton("Search");
+	public Button globleButton = WidgetFactory.createLink("Globle");
+	private String panelWidth="765px";
+	private Button createBtn = WidgetFactory.createButton("Create");
 	public SearchConditionPanel() {
 		this.setSpacing(false);
-		this.setWidth("765px");
+		this.setWidth(panelWidth);
 		this.addStyleName("search-condition-layout");
 	}
 	
@@ -42,6 +44,10 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 	
 	public void globleSearchPanel() {
 		this.removeAllComponents();
+		
+		HorizontalLayout searcLayout = new HorizontalLayout();
+		searcLayout.setWidth(panelWidth);
+
 		HorizontalLayout conditionLayout = new HorizontalLayout();
 		conditionLayout.setSpacing(true);
 		GlobleSearchWidget searchTextField = new GlobleSearchWidget();
@@ -58,7 +64,16 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 		advanceBtn.addStyleName(BaseTheme.BUTTON_LINK);
 		conditionLayout.addComponent(advanceBtn);
 		conditionLayout.setComponentAlignment(advanceBtn,Alignment.MIDDLE_CENTER);
-		this.addComponent(conditionLayout);
+		searcLayout.addComponent(conditionLayout);
+		
+		// create button
+		HorizontalLayout btnLayout = new HorizontalLayout();
+		btnLayout.setStyleName("search-create-btn");
+		btnLayout.addComponent(createBtn);
+		searcLayout.addComponent(btnLayout);
+		searcLayout.setComponentAlignment(btnLayout, Alignment.MIDDLE_RIGHT);
+		
+		this.addComponent(searcLayout);
 	}
 	
 	public void advanceSearchPanel() {
@@ -85,5 +100,19 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 		});
 		buttonPanel.setComponentAlignment(globleButton, Alignment.MIDDLE_CENTER);
 		return buttonPanel;
+	}
+
+	/**
+	 * @return the globleButton
+	 */
+	public Button getGlobleButton() {
+		return globleButton;
+	}
+
+	/**
+	 * @return the createBtn
+	 */
+	public Button getCreateBtn() {
+		return createBtn;
 	}
 }

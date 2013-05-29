@@ -72,7 +72,7 @@ public class EntityEditView {
     _builder.newLine();
     _builder.append("import com.coral.vaadin.widget.Viewer;");
     _builder.newLine();
-    _builder.append("import com.coral.vaadin.widget.field.FieldStatus;");
+    _builder.append("import com.coral.vaadin.widget.fields.FieldStatus;");
     _builder.newLine();
     _builder.append("import ");
     _builder.append(this.view.entity.entityClass, "");

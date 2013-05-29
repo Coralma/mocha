@@ -4,7 +4,7 @@ import com.mocha.crm.dao.*;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
-import com.coral.vaadin.widget.view.CommonPresenter;
+import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.vaadin.entity.view.CustomerActivityView;
 import com.mocha.crm.model.Campaign;
 
@@ -12,13 +12,18 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-public class CustomerActivityViewPresenter extends CommonPresenter implements Presenter {
+public class CustomerActivityViewPresenter extends AppCommonPresenter implements Presenter {
 
 	private CampaignDao dao = SpringContextUtils.getBean(CampaignDao.class);
 	
 	public CustomerActivityViewPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new CustomerActivityView();
+		CustomerActivityView newView = new CustomerActivityView();
+		Object entity = this.eventBus.getContext().get("Entity");
+		if(entity != null) {
+			newView.setEntity(entity);
+		}
+		this.viewer = newView;
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class CustomerActivityViewPresenter extends CommonPresenter implements Pr
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//TODO add action content.
+				back();
 			}
 		});
 	}
@@ -52,14 +57,12 @@ public class CustomerActivityViewPresenter extends CommonPresenter implements Pr
 		Campaign value = (Campaign)viewer.getValue();
 		if(value != null) {
 			dao.persist(value);
-			//back();
+			back();
 		}
 	}
 	
 	public void back() {
-	//	if(eventBus != null) {
-	//		eventBus.post(new PageChangeEvent(""));
-	//	}
+		postViewer("CustomerActivitySearch");
 	}
 
 }

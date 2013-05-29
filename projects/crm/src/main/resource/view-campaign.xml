@@ -11,7 +11,7 @@
 			<field name="startDate"/>
 			<field name="endDate"/>			
 		</section>
-		<section name="CustomerActivitySearchCard" label="Leave Apply" template="SearchCard">
+		<section name="CustomerActivitySearchCard" label="Leave Apply" template="SearchCard" icon="card-cp.png">
 			<field name="campaignName" />
 			<field name="type"/>
 			<field name="startDate"/>
@@ -48,7 +48,7 @@
 			<field name="mark" wholeRow="true" style="textarea"/>
 		</section>
 		<action name="save" label="Save" action="Save"/>
-		<action name="back"/>
+		<action name="back" label="Back" action="Back"/>
 	</view>
 
 </mocha>	

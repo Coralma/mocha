@@ -4,7 +4,7 @@ import com.mocha.crm.dao.*;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
-import com.coral.vaadin.widget.view.CommonPresenter;
+import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.vaadin.entity.view.CustomerView;
 import com.mocha.crm.model.Customer;
 
@@ -12,13 +12,18 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-public class CustomerViewPresenter extends CommonPresenter implements Presenter {
+public class CustomerViewPresenter extends AppCommonPresenter implements Presenter {
 
 	private CustomerDao dao = SpringContextUtils.getBean(CustomerDao.class);
 	
 	public CustomerViewPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new CustomerView();
+		CustomerView newView = new CustomerView();
+		Object entity = this.eventBus.getContext().get("Entity");
+		if(entity != null) {
+			newView.setEntity(entity);
+		}
+		this.viewer = newView;
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class CustomerViewPresenter extends CommonPresenter implements Presenter 
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//TODO add action content.
+				back();
 			}
 		});
 	}
@@ -52,14 +57,12 @@ public class CustomerViewPresenter extends CommonPresenter implements Presenter 
 		Customer value = (Customer)viewer.getValue();
 		if(value != null) {
 			dao.persist(value);
-			//back();
+			back();
 		}
 	}
 	
 	public void back() {
-	//	if(eventBus != null) {
-	//		eventBus.post(new PageChangeEvent(""));
-	//	}
+		postViewer("CustomerSearch");
 	}
 
 }

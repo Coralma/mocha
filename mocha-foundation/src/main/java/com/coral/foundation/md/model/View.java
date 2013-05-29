@@ -126,6 +126,4 @@ public class View implements Serializable {
 	public void setViewActions(List<ViewAction> viewActions) {
 		this.viewActions = viewActions;
 	}
-
-
 }

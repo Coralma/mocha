@@ -69,9 +69,9 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 	@Override
 	public void setRequired(boolean required) {
 		this.required = required;
-//		field.setRequired(required);
+		field.setRequired(required);
 //		field.addValidator(new RegexpValidator("^(?=[^A-Za-z]+$).*[0-9].*$", "The input value must be a number."));
-//		field.setRequiredError(label + " can not be empty.");
+		field.setRequiredError(label + " can not be empty.");
 	}
 
 	@Override
@@ -97,19 +97,20 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 		try {
 			((AbstractField)field).setComponentError(null);
 			field.validate();
-			if(required) {
-				Object value = field.getValue();
-				if(StrUtils.isEmpty(value)) {
-					validator.setPass(false);
-					String errorMessage = label + " can not be empty.";
-					validator.setErrorMessage(errorMessage);
-					((AbstractField)field).setComponentError(new UserError(errorMessage));
-//					getWindow().showNotification(NotificationHelper.getErrorNotification(errorMessage));
-				}
-			}
+//			if(required) {
+//				Object value = field.getValue();
+//				if(StrUtils.isEmpty(value)) {
+//					validator.setPass(false);
+//					String errorMessage = label + " can not be empty.";
+//					validator.setErrorMessage(errorMessage);
+//					((AbstractField)field).setComponentError(new UserError(errorMessage));
+//				}
+//			}
 		} catch (Exception e) {
 			validator.setPass(false);
-            getWindow().showNotification(NotificationHelper.getErrorNotification(e.getMessage()));
+			String errorMessage = e.getMessage();
+			validator.setErrorMessage(errorMessage);
+			((AbstractField)field).setComponentError(new UserError(errorMessage));
 		}
 		
 		return validator;

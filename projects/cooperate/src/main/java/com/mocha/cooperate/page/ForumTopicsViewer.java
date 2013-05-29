@@ -7,12 +7,15 @@ import java.util.List;
 
 import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.vaadin.widget.Viewer;
-import com.coral.vaadin.widget.component.Toolbar;
+import com.coral.vaadin.widget.WidgetFactory;
+import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.page.ForumTopicsPresenter.ForumTopicListener;
 import com.mocha.cooperate.widget.PagingVerticalLayout;
 import com.mocha.cooperate.widget.cards.DiscussCard;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -42,7 +45,7 @@ public class ForumTopicsViewer extends CommonViewer implements Viewer, ClickList
 	
 	public void attach() {
 		super.attach();
-		Toolbar topicHeadLinks = createTopicHeadLinkPanel();
+		ToolbarAdvance topicHeadLinks = createTopicHeadLinkPanel();
 		this.addComponent(topicHeadLinks);
 
 		// show panel
@@ -70,14 +73,16 @@ public class ForumTopicsViewer extends CommonViewer implements Viewer, ClickList
 		}
 	}
 	
-	public Toolbar createTopicHeadLinkPanel() {
-		Toolbar toolbar = new Toolbar(message);
+	public ToolbarAdvance createTopicHeadLinkPanel() {
+		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setWidth("768px");
-		toolbar.addLeftLink("cooperate.forum.backForumCategory", "back", this);
-		toolbar.addLeftLink("cooperate.forum.MyPosts", "myPosts", this);
-		toolbar.addLeftLink("cooperate.forum.MyReplies", "myReplies", this);
+		Button backLink = WidgetFactory.createLink(message.getString("cooperate.forum.backForumCategory"),"back",this);
+		backLink.setIcon(new ThemeResource("icons/back.png"));
+		toolbar.addLeftComponent(backLink);
+		toolbar.addLeftComponent(WidgetFactory.createLink(message.getString("cooperate.forum.MyPosts"),"myPosts",this));
+		toolbar.addLeftComponent(WidgetFactory.createLink(message.getString("cooperate.forum.MyReplies"),"myReplies",this));
 		
-		toolbar.addRightLink("cooperate.forum.NewPost", "newPost", Toolbar.BUTTON, this);
+		toolbar.addRightComponent(WidgetFactory.createButton(message.getString("cooperate.forum.NewPost"),"newPost",this));
 		return toolbar;
 	}
 

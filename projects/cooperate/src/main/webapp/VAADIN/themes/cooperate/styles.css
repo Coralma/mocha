@@ -25,7 +25,7 @@
 }
 
 .login-background-6 {
-	background: url(backgrounds/bg6.jpg) top center no-repeat;
+	background: url(backgrounds/bg6.jpg) center center no-repeat;
 }
 
 .login-background-7 {
@@ -46,30 +46,6 @@
 
 .login-background-11 {
 	background: url(backgrounds/bg11.jpg) top center no-repeat;
-}
-
-.login-background-12 {
-	background: url(backgrounds/bg12.jpg) center center no-repeat;
-}
-
-.login-background-13 {
-	background: url(backgrounds/bg13.jpg) center center no-repeat;
-}
-
-.login-background-14 {
-	background: url(backgrounds/bg14.jpg) top center no-repeat;
-}
-
-.login-background-15 {
-	background: url(backgrounds/bg15.jpg) top center no-repeat;
-}
-
-.login-background-16 {
-	background: url(backgrounds/bg16.jpg) center center no-repeat;
-}
-
-.login-background-17 {
-	background: url(backgrounds/bg17.jpg) top center no-repeat;
 }
 
 .mocha-login .v-caption-login-logo {

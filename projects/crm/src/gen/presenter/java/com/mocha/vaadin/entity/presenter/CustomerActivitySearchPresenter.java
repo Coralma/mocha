@@ -1,19 +1,19 @@
 package com.mocha.vaadin.entity.presenter;
 
-import com.mocha.crm.dao.*;
 import java.util.List;
+
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.model.BaseEntity;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
-import com.coral.vaadin.widget.view.CommonPresenter;
+import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
+import com.coral.vaadin.widget.view.AppCommonPresenter;
+import com.mocha.crm.dao.CampaignDao;
 import com.mocha.vaadin.entity.view.CustomerActivitySearch;
-import com.mocha.crm.model.Campaign;
-
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-public class CustomerActivitySearchPresenter extends CommonPresenter implements Presenter {
+public class CustomerActivitySearchPresenter extends AppCommonPresenter implements Presenter {
 
 	private CampaignDao dao = SpringContextUtils.getBean(CampaignDao.class);
 	
@@ -32,9 +32,30 @@ public class CustomerActivitySearchPresenter extends CommonPresenter implements 
 	
 	@Override
 	public void bind() {
-		//TODO add and edit your action.
+		CustomerActivitySearch customerActivitySearch = (CustomerActivitySearch) viewer;
+		customerActivitySearch.getConditionPanel().getCreateBtn().addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				postViewer("CustomerActivityView");
+			}
+		});
+		customerActivitySearch.setListener(new SearchListener() {
+			@Override
+			public void handleAction(String name, String action, Object entity) {
+				if("Edit".equals(action)) {
+					postViewer("CustomerActivityView",entity);
+				} else if("Delete".equals(action)) {
+					remove(entity);
+					postViewer("CustomerActivitySearch");
+				}
+			}
+		});
 	}
 	
-
+	public void remove(Object entity) {
+		if(entity != null) {
+			dao.remove(((BaseEntity)entity).getID());
+		}
+	}
 }
 

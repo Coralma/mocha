@@ -22,13 +22,13 @@ import com.vaadin.ui.VerticalLayout;
 public class NewReportViewer extends CommonViewer implements Viewer {
 	
 	String fieldWidth = "300px";
+	private Wizard wizard = new Wizard();
 	@Override
 	public void attach() {
 		super.attach();
 		VerticalLayout layout = new VerticalLayout();
 		layout.setWidth("760px");
 		layout.addStyleName("app-new-report");
-		Wizard wizard = new Wizard();
 		wizard.setWidth("760px");
 		wizard.addStep(new ReportWizardStep("Main Table", buildMainTableStep()));
 		wizard.addStep(new ReportWizardStep("Related Table", buildRelatedTableStep()));

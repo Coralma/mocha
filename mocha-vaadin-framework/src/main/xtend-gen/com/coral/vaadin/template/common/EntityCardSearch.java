@@ -71,7 +71,7 @@ public class EntityCardSearch {
     _builder.newLine();
     _builder.append("import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel;");
     _builder.newLine();
-    _builder.append("import com.coral.vaadin.widget.field.FieldStatus;");
+    _builder.append("import com.coral.vaadin.widget.fields.FieldStatus;");
     _builder.newLine();
     _builder.append("import com.google.common.collect.Lists;");
     _builder.newLine();

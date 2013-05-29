@@ -23,6 +23,7 @@ public class ViewSection implements Serializable {
 	public String data;
 	public String template;
 	public Integer column;
+	public String icon;
 	public List<ViewSection> viewSections;
 	public List<ViewField> viewFields;
 	public List<ViewAction> viewActions = Lists.newArrayList();
@@ -184,5 +185,17 @@ public class ViewSection implements Serializable {
 	 */
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 }

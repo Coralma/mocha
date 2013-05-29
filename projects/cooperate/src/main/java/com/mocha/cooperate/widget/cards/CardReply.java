@@ -17,6 +17,7 @@ import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.basic.dao.CommentDao;
 import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.service.TimeLineService;
+import com.mocha.cooperate.widget.NotifyTokenField;
 import com.vaadin.event.FieldEvents.FocusEvent;
 import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.terminal.ThemeResource;
@@ -53,6 +54,7 @@ public class CardReply extends VerticalLayout {
 	private TextField textField;
 	private Message message;
 	protected boolean displayReply = false;
+	private NotifyTokenField tokenField;
 	
 	public CardReply(List<Comment> comments) {
 		this.comments = comments; 
@@ -172,7 +174,8 @@ public class CardReply extends VerticalLayout {
 		HorizontalLayout hlayout = new HorizontalLayout();
 		hlayout.addStyleName("reply-button");
 		hlayout.setWidth(card_content_width);
-		TokenField tokenField = new TokenField();
+		
+		tokenField = new NotifyTokenField();
 		tokenField.setInputPrompt(message.getString("cooperate.reply.NotificateOthers"));
 		hlayout.addComponent(tokenField);
 		

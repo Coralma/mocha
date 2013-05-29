@@ -15,6 +15,8 @@ import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
@@ -31,6 +33,7 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 	protected String cardWidth="765px";
 	protected String cardInfoWidth = "560px";
 	protected Map<String, Button> actionMap = Maps.newHashMap();
+	protected SearchEntityCardListener listener;
 	
 	public SearchEntityCard() {
 		this.setWidth("765px");
@@ -83,13 +86,42 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 		return actionPanel;
 	}
 	
-	public Button createActionButton(String name, String label, String action) {
+	public Button createActionButton(final String name, String label, final String action) {
 		Button actionButton = new Button(label);
 		actionButton.setWidth("80px");
 		actionButton.setData(action);
 		actionButton.addStyleName(BaseTheme.BUTTON_LINK);
+		actionButton.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if(listener != null) {
+					listener.handleAction(name, action);
+				}
+			}
+		});
 		actionMap.put(name, actionButton);
 		return actionButton;
 	}
 
+	public Button getActionButton(String name) {
+		return actionMap.get(name);
+	}
+	
+	public interface SearchEntityCardListener {
+		public void handleAction(String name, String action);
+	}
+
+	/**
+	 * @return the listener
+	 */
+	public SearchEntityCardListener getListener() {
+		return listener;
+	}
+
+	/**
+	 * @param listener the listener to set
+	 */
+	public void setListener(SearchEntityCardListener listener) {
+		this.listener = listener;
+	}
 }

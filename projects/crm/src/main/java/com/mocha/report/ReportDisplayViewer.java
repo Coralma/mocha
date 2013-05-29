@@ -12,6 +12,7 @@ import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -26,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
 public class ReportDisplayViewer extends CommonViewer implements Viewer {
 
 	private String reportTitle = "Achieved Campaign Report";
-	private Button backLink;
+	private Button backLink = WidgetFactory.createLink("Back to report list");
 	private Button editButton;
 	private Button newButton;
 	private Button deleteButton;
@@ -39,7 +40,7 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 		super.attach();
 		
 		ToolbarAdvance toolbar = new ToolbarAdvance();
-		backLink = WidgetFactory.createLink("Back to report list");
+		backLink.setIcon(new ThemeResource("icons/back.png"));
 		editButton = WidgetFactory.createButton("Edit");
 		newButton = WidgetFactory.createButton("Create");
 		deleteButton = WidgetFactory.createButton("Delete");
@@ -127,6 +128,13 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 		item.getItemProperty(c).setValue("Ivy");
 		item.getItemProperty(t).setValue("Visit");
 		item.getItemProperty(d).setValue("2013-2-4");
+	}
+
+	/**
+	 * @return the backLink
+	 */
+	public Button getBackLink() {
+		return backLink;
 	}
 
 }

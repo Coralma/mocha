@@ -10,7 +10,7 @@
 			<field name="type"/>
 			<field name="date"/>
 		</section>
-		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard">
+		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard" icon="card-serve.png">
 			<field name="customerName" />
 			<field name="type"/>
 			<field name="date"/>
@@ -35,7 +35,7 @@
 			<field name="feedback" wholeRow="true" style="textarea"/>
 		</section>
 		<action name="save" label="Save" action="Save"/>
-		<action name="back"/>
+		<action name="back" label="Back" action="Back"/>
 	</view>	
 	
 </mocha>	

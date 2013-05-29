@@ -17,7 +17,7 @@
 			<field name="accountNumber"/>
 			<field name="accountPerson"/>
 		</section>
-		<section name="CompanySearchCard" label="Leave Apply" template="SearchCard">
+		<section name="CompanySearchCard" label="Leave Apply" template="SearchCard" icon="card-cust.png">
 			<field name="name" required="true"/>
 			<field name="district"/>
 			<field name="address" wholeRow="true" style="textarea"/>
@@ -55,6 +55,6 @@
 			<field name="mark" wholeRow="true" style="textarea"/>
 		</section>
 		<action name="save" label="Save" action="Save"/>
-		<action name="back"/>
+		<action name="back" label="Back" action="Back"/>
 	</view>
 </mocha>	
