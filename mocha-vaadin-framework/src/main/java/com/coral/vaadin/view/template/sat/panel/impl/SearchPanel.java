@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.coral.vaadin.view.template.sat.panel.ISearchPanel;
+import com.coral.vaadin.view.template.sat.panel.impl.SearchEntityCard.SearchEntityCardListener;
 import com.coral.vaadin.widget.Field;
 import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
@@ -17,7 +18,7 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 
 	private static final long serialVersionUID = -1159571598614146156L;
 	private SearchConditionPanel conditionPanel = new SearchConditionPanel();
-
+	private SearchListener listener;
 	public SearchPanel() {
 		this.addStyleName("viewPanel");
 		this.setSpacing(true);
@@ -26,9 +27,18 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 	
 	public void attach() {
 		this.addComponent(conditionPanel);
-		for(Object entity : getEntityList()) {
+		for(final Object entity : getEntityList()) {
 			try {
 				SearchEntityCard searchEntityCard = (SearchEntityCard)getEntityCardClass().newInstance();
+				searchEntityCard.setListener(new SearchEntityCardListener() {
+					
+					@Override
+					public void handleAction(String name, String action) {
+						if(listener != null) {
+							listener.handleAction(name, action, entity);
+						}
+					}
+				});
 				searchEntityCard.setEntity(entity);
 				addComponent(searchEntityCard);
 			} catch (Exception e) {
@@ -95,5 +105,30 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 	public Object getValue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the conditionPanel
+	 */
+	public SearchConditionPanel getConditionPanel() {
+		return conditionPanel;
+	}
+
+	/**
+	 * @return the listener
+	 */
+	public SearchListener getListener() {
+		return listener;
+	}
+
+	/**
+	 * @param listener the listener to set
+	 */
+	public void setListener(SearchListener listener) {
+		this.listener = listener;
+	}
+	
+	public interface SearchListener {
+		public void handleAction(String name, String action, Object entity);
 	}
 }

@@ -37,7 +37,7 @@ class EntityEditView {
 		import com.coral.vaadin.view.template.sat.panel.IActionPanel;
 		import com.coral.vaadin.view.template.sat.panel.impl.EntityViewPanel;
 		import com.coral.vaadin.widget.Viewer;
-		import com.coral.vaadin.widget.field.FieldStatus;
+		import com.coral.vaadin.widget.fields.FieldStatus;
 		import «view.entity.entityClass»;
 	'''
 	

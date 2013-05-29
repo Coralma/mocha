@@ -46,7 +46,7 @@ class EntityEditPresenter {
 		import com.coral.foundation.core.impl.MochaEventBus;
 		import com.coral.foundation.spring.bean.SpringContextUtils;
 		import com.coral.vaadin.controller.Presenter;
-		import com.coral.vaadin.widget.view.CommonPresenter;
+		import com.coral.vaadin.widget.view.AppCommonPresenter;
 		import «SystemConstant::ENTITY_EDIT_VIEW_PKG».«viewClassName»;
 		import «entityPackage».«entityName»;
 		
@@ -56,13 +56,18 @@ class EntityEditPresenter {
 	'''
 
 	def GENClassHead()'''
-		public class «viewPresenterName» extends CommonPresenter implements Presenter {
+		public class «viewPresenterName» extends AppCommonPresenter implements Presenter {
 
 			private «entityDaoIntf» dao = SpringContextUtils.getBean(«entityDaoIntf».class);
 			
 			public «viewPresenterName»(MochaEventBus eventBus) {
 				this.eventBus = eventBus;
-				this.viewer = new «viewClassName»();
+				«viewClassName» newView = new «viewClassName»();
+				Object entity = this.eventBus.getContext().get("Entity");
+				if(entity != null) {
+					newView.setEntity(entity);
+				}
+				this.viewer = newView;
 			}
 	'''
 	
@@ -83,6 +88,8 @@ class EntityEditPresenter {
 				public void buttonClick(ClickEvent event) {
 					«IF "Save".equals(viewAction.getAction)»
 					save();
+					«ELSEIF "Back".equals(viewAction.getAction)»
+					back();
 					«ELSE»
 					//TODO add action content.
 					«ENDIF»
@@ -98,14 +105,13 @@ class EntityEditPresenter {
 			«entityName» value = («entityName»)viewer.getValue();
 			if(value != null) {
 				dao.persist(value);
-				//back();
+				back();
 			}
 		}
 		
 		public void back() {
-		//	if(eventBus != null) {
-		//		eventBus.post(new PageChangeEvent(""));
-		//	}
+			«val searchViewName = VAppGenHelper::getSearchViewName(view,mochas)»
+			postViewer("«searchViewName»");
 		}
 	'''
 

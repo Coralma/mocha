@@ -27,6 +27,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -111,7 +112,8 @@ public abstract class EntityViewPanel extends VerticalLayout {
 	}
 	
 	public Button createActionButton(String name, String label, String action) {
-		Button actionButton = new Button(label);
+		Button actionButton = new NativeButton(label);
+		actionButton.addStyleName("mocha-button");
 		actionButton.setWidth("100px");
 		actionButton.setData(action);
 		actionMap.put(name, actionButton);

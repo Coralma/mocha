@@ -46,7 +46,7 @@ public class LoginScreen extends VerticalLayout {
 	}
 	
 	public String getRandomBackground() {
-		Double d = Math.ceil(Math.random() * 16);
+		Double d = Math.ceil(Math.random() * 11);
 		Integer random = d.intValue();
 		String bgCss = "login-background-" + random;
 		return bgCss;

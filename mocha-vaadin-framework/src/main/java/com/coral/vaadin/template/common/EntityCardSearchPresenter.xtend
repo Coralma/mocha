@@ -45,9 +45,11 @@ class EntityCardSearchPresenter {
 		import «daoIntfPackage+".*"»;
 		import java.util.List;
 		import com.coral.foundation.core.impl.MochaEventBus;
+		import com.coral.foundation.model.BaseEntity;
 		import com.coral.foundation.spring.bean.SpringContextUtils;
 		import com.coral.vaadin.controller.Presenter;
-		import com.coral.vaadin.widget.view.CommonPresenter;
+		import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
+		import com.coral.vaadin.widget.view.AppCommonPresenter;
 		import «SystemConstant::ENTITY_EDIT_VIEW_PKG».«viewClassName»;
 		import «entityPackage».«entityName»;
 		
@@ -57,7 +59,7 @@ class EntityCardSearchPresenter {
 	'''
 
 	def GENClassHead()'''
-		public class «viewPresenterName» extends CommonPresenter implements Presenter {
+		public class «viewPresenterName» extends AppCommonPresenter implements Presenter {
 
 			private «entityDaoIntf» dao = SpringContextUtils.getBean(«entityDaoIntf».class);
 			
@@ -78,7 +80,34 @@ class EntityCardSearchPresenter {
 		
 		@Override
 		public void bind() {
-			//TODO add and edit your action.
+			«val viewVariable = VAppGenHelper::asVariable(viewClassName)»
+			«viewClassName» «viewVariable» = («viewClassName») viewer;
+			«val editViewName = VAppGenHelper::getEditViewName(view,mochas)»
+			«IF editViewName != null»
+				«viewVariable».getConditionPanel().getCreateBtn().addListener(new ClickListener() {
+					@Override
+					public void buttonClick(ClickEvent event) {
+						postViewer("«editViewName»");
+					}
+				});
+				«viewVariable».setListener(new SearchListener() {
+					@Override
+					public void handleAction(String name, String action, Object entity) {
+						if("Edit".equals(action)) {
+							postViewer("«editViewName»",entity);
+						} else if("Delete".equals(action)) {
+							remove(entity);
+							postViewer("«viewClassName»");
+						}
+					}
+				});
+			«ENDIF»
+		}
+		
+		public void remove(Object entity) {
+			if(entity != null) {
+				dao.remove(((BaseEntity)entity).getID());
+			}
 		}
 		
 	'''

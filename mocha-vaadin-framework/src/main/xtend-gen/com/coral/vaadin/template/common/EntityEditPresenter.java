@@ -89,7 +89,7 @@ public class EntityEditPresenter {
     _builder.newLine();
     _builder.append("import com.coral.vaadin.controller.Presenter;");
     _builder.newLine();
-    _builder.append("import com.coral.vaadin.widget.view.CommonPresenter;");
+    _builder.append("import com.coral.vaadin.widget.view.AppCommonPresenter;");
     _builder.newLine();
     _builder.append("import ");
     _builder.append(SystemConstant.ENTITY_EDIT_VIEW_PKG, "");
@@ -117,7 +117,7 @@ public class EntityEditPresenter {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("public class ");
     _builder.append(this.viewPresenterName, "");
-    _builder.append(" extends CommonPresenter implements Presenter {");
+    _builder.append(" extends AppCommonPresenter implements Presenter {");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
@@ -138,10 +138,26 @@ public class EntityEditPresenter {
     _builder.append("this.eventBus = eventBus;");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("this.viewer = new ");
+    _builder.append(this.viewClassName, "		");
+    _builder.append(" newView = new ");
     _builder.append(this.viewClassName, "		");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("Object entity = this.eventBus.getContext().get(\"Entity\");");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if(entity != null) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("newView.setEntity(entity);");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("this.viewer = newView;");
+    _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
@@ -205,10 +221,19 @@ public class EntityEditPresenter {
             _builder.append("save();");
             _builder.newLine();
           } else {
-            _builder.append("\t");
-            _builder.append("\t\t");
-            _builder.append("//TODO add action content.");
-            _builder.newLine();
+            String _action_1 = viewAction.getAction();
+            boolean _equals_1 = "Back".equals(_action_1);
+            if (_equals_1) {
+              _builder.append("\t");
+              _builder.append("\t\t");
+              _builder.append("back();");
+              _builder.newLine();
+            } else {
+              _builder.append("\t");
+              _builder.append("\t\t");
+              _builder.append("//TODO add action content.");
+              _builder.newLine();
+            }
           }
         }
         _builder.append("\t");
@@ -248,7 +273,7 @@ public class EntityEditPresenter {
     _builder.append("dao.persist(value);");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("//back();");
+    _builder.append("back();");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -258,12 +283,14 @@ public class EntityEditPresenter {
     _builder.newLine();
     _builder.append("public void back() {");
     _builder.newLine();
-    _builder.append("//\tif(eventBus != null) {");
-    _builder.newLine();
-    _builder.append("//\t\teventBus.post(new PageChangeEvent(\"\"));");
-    _builder.newLine();
-    _builder.append("//\t}");
-    _builder.newLine();
+    _builder.append("\t");
+    final String searchViewName = VAppGenHelper.getSearchViewName(this.view, this.mochas);
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("postViewer(\"");
+    _builder.append(searchViewName, "	");
+    _builder.append("\");");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

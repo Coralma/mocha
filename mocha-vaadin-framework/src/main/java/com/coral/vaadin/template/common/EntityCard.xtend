@@ -8,7 +8,7 @@ import com.coral.foundation.md.model.helper.VAppGenHelper
 
 class EntityCard {
 	
-	String cardClassName;
+	String cardClassName
 	View view
 	List<Mocha> mochas
 	
@@ -39,7 +39,7 @@ class EntityCard {
 		import com.vaadin.ui.Alignment;
 		import com.vaadin.ui.HorizontalLayout;
 		import com.vaadin.ui.Layout;
-		import com.coral.vaadin.widget.field.FieldStatus;
+		import com.coral.vaadin.widget.fields.FieldStatus;
 		import «view.entity.entityClass»;
 	'''
 	
@@ -91,7 +91,16 @@ class EntityCard {
 	def GENGetMethod()'''
 		@Override
 		public String getIconName() {
-			return null;
+			«FOR section : view.getSections»
+				«IF "SearchCard".equals(section.getTemplate)»				
+					«IF section.getIcon != null»
+						return "«section.getIcon»";
+					«ELSE»
+						return null;
+					«ENDIF»
+				«ENDIF»
+			«ENDFOR»
+			
 		}
 	'''
 	

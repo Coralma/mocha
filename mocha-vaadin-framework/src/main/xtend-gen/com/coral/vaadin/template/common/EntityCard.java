@@ -7,6 +7,7 @@ import com.coral.foundation.md.model.ViewAction;
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.md.model.ViewSection;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
+import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
@@ -76,7 +77,7 @@ public class EntityCard {
     _builder.newLine();
     _builder.append("import com.vaadin.ui.Layout;");
     _builder.newLine();
-    _builder.append("import com.coral.vaadin.widget.field.FieldStatus;");
+    _builder.append("import com.coral.vaadin.widget.fields.FieldStatus;");
     _builder.newLine();
     _builder.append("import ");
     _builder.append(this.view.entity.entityClass, "");
@@ -216,8 +217,34 @@ public class EntityCard {
     _builder.newLine();
     _builder.append("public String getIconName() {");
     _builder.newLine();
+    {
+      List<ViewSection> _sections = this.view.getSections();
+      for(final ViewSection section : _sections) {
+        {
+          String _template = section.getTemplate();
+          boolean _equals = "SearchCard".equals(_template);
+          if (_equals) {
+            {
+              String _icon = section.getIcon();
+              boolean _notEquals = (!Objects.equal(_icon, null));
+              if (_notEquals) {
+                _builder.append("\t");
+                _builder.append("return \"");
+                String _icon_1 = section.getIcon();
+                _builder.append(_icon_1, "	");
+                _builder.append("\";");
+                _builder.newLineIfNotEmpty();
+              } else {
+                _builder.append("\t");
+                _builder.append("return null;");
+                _builder.newLine();
+              }
+            }
+          }
+        }
+      }
+    }
     _builder.append("\t");
-    _builder.append("return null;");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
