@@ -1,10 +1,12 @@
 package com.homepage.security;
 
 import java.util.EmptyStackException;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
@@ -20,6 +22,8 @@ public class SecuritySession extends AuthenticatedWebSession {
 	private Account account;
 
 	public static ThreadLocal<User> authenciatedUserStors = new ThreadLocal<User>();
+
+	private HashMap<String, String> simpleMap = new HashMap<String, String>();
 	/**
 	 * Constructor
 	 * 
@@ -48,7 +52,7 @@ public class SecuritySession extends AuthenticatedWebSession {
 		AccountDao accountDao = new AccountDao();
 		Account account = accountDao.getAccountByUser(user);
 		getAuthenciatedUserStors().remove();
-		
+
 		if (user != null && account != null) {
 			setUser(user);
 			setAccount(account);
@@ -114,6 +118,18 @@ public class SecuritySession extends AuthenticatedWebSession {
 			return getAuthenciatedUserStors().get();
 		}
 		return null;
+	}
+
+	public static SecuritySession get() {
+		return (SecuritySession) Session.get();
+	}
+
+	public HashMap<String, String> getSimpleMap() {
+		return simpleMap;
+	}
+
+	public void setSimpleMap(HashMap<String, String> simpleMap) {
+		this.simpleMap = simpleMap;
 	}
 
 }

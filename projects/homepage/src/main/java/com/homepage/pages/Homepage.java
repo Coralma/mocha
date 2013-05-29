@@ -21,6 +21,8 @@ import com.homepage.pages.register.RegisterValidation;
 import com.homepage.payment.AccountFeeType;
 import com.homepage.payment.Payment;
 import com.homepage.payment.PaymentPage;
+import com.homepage.security.SecuritySession;
+import com.homepage.security.SimpleSessionStorage;
 import com.homepage.shorturl.SimpleShortUrl;
 import com.ibm.icu.util.Calendar;
 
@@ -54,6 +56,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.request.resource.PackageResourceReference;
@@ -403,8 +406,9 @@ public class Homepage extends BasePage {
 					PageParameters pageParams = new PageParameters();
 					pageParams.add("userName", user.getUserName());
 					pageParams.add("emailAddressName", emailAddressName);
+					
+					SimpleSessionStorage.setPublicSession();
 					setResponsePage(NewRegister.class, pageParams);
-
 				}
 
 				@Override
