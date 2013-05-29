@@ -62,4 +62,8 @@ public class MochaEventBus {
 	public void resetContext() {
 		context = Maps.newHashMap();
 	}
+	
+	public void put(Object key, Object value) {
+		context.put(key, value);
+	}
 }

@@ -306,11 +306,6 @@ public class EntityXmlParser {
 			String dialogSize = viewNode.attributeValue("dialogSize");
 			String rootViewer = viewNode.attributeValue("root");
 			String[] templates = templateValue.split(",");
-//			String action = viewNode.attributeValue("action");
-//			List<String> actions = new ArrayList<String>();
-//			if(action != null) {
-//				actions = getActionDefinition(action);			
-//			}
 			
 			for(String template : templates) {
 				View view = new View();
@@ -347,6 +342,7 @@ public class EntityXmlParser {
 			viewSection.setGroup(sectionNode.attributeValue("group"));
 			viewSection.setLabel(sectionNode.attributeValue("label"));
 			viewSection.setName(sectionNode.attributeValue("name"));
+			viewSection.setIcon(sectionNode.attributeValue("icon"));
 			viewSection.setViewer(sectionNode.attributeValue("viewer"));
 			viewSection.setData(sectionNode.attributeValue("data"));
 			viewSection.setType(sectionNode.attributeValue("type"));
