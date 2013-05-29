@@ -85,7 +85,7 @@ public class CustomerActivityView extends EntityViewPanel implements Viewer {
 		IActionPanel actionPanel = createActionPanel();
 		viewPanel.setActionPanel(actionPanel);
 		actionPanel.addButton(createActionButton("save", "Save", "Save"));
-		actionPanel.addButton(createActionButton("back", "Back", ""));
+		actionPanel.addButton(createActionButton("back", "Back", "Back"));
 		
 		addComponent(viewPanel);
 	}

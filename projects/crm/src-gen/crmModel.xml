@@ -464,6 +464,7 @@
             <name>CompanySearchCard</name>
             <label>Leave Apply</label>
             <template>SearchCard</template>
+            <icon>card-cust.png</icon>
             <viewFields>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>name</fieldName>
@@ -699,6 +700,8 @@
           </com.coral.foundation.md.model.ViewAction>
           <com.coral.foundation.md.model.ViewAction>
             <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
         <entity reference="../../../../com.coral.foundation.md.model.Mocha/entityList/com.coral.foundation.md.model.Entity"/>
@@ -765,6 +768,7 @@
             <name>CustomerActivitySearchCard</name>
             <label>Leave Apply</label>
             <template>SearchCard</template>
+            <icon>card-cp.png</icon>
             <viewFields>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>campaignName</fieldName>
@@ -987,6 +991,8 @@
           </com.coral.foundation.md.model.ViewAction>
           <com.coral.foundation.md.model.ViewAction>
             <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
         <entity reference="../../../../com.coral.foundation.md.model.Mocha/entityList/com.coral.foundation.md.model.Entity[2]"/>
@@ -1045,6 +1051,7 @@
             <name>CustomerServerSearchCard</name>
             <label>Leave Apply</label>
             <template>SearchCard</template>
+            <icon>card-serve.png</icon>
             <viewFields>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>customerName</fieldName>
@@ -1189,6 +1196,8 @@
           </com.coral.foundation.md.model.ViewAction>
           <com.coral.foundation.md.model.ViewAction>
             <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
         <entity reference="../../../../com.coral.foundation.md.model.Mocha/entityList/com.coral.foundation.md.model.Entity[3]"/>

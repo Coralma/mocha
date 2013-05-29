@@ -5,13 +5,15 @@ package com.mocha.report;
 
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.vaadin.controller.Presenter;
-import com.coral.vaadin.widget.view.CommonPresenter;
+import com.coral.vaadin.widget.view.AppCommonPresenter;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 /**
  * @author Coral
  *
  */
-public class ReportDisplayPresenter extends CommonPresenter implements Presenter {
+public class ReportDisplayPresenter extends AppCommonPresenter implements Presenter {
 
 	public ReportDisplayPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
@@ -19,9 +21,14 @@ public class ReportDisplayPresenter extends CommonPresenter implements Presenter
 	}
 	
 	@Override
-	public void bind() {
-		// TODO Auto-generated method stub
-		
+	public void bind() {		
+		ReportDisplayViewer reportDisplayViewer = (ReportDisplayViewer) viewer;
+		reportDisplayViewer.getBackLink().addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				postCustomizeClass(CrmReportPresenter.class.getName());
+			}
+		});
 	}
 
 	@Override

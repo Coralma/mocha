@@ -56,7 +56,8 @@ public class CustomerSearchCard extends SearchEntityCard {
 
 	@Override
 	public String getIconName() {
-		return null;
+		return "card-cust.png";
+		
 	}
 
 }

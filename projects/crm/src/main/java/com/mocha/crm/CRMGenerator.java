@@ -10,6 +10,7 @@ import com.coral.foundation.jpa.impl.JPAGenerator;
 import com.coral.foundation.md.model.Resource;
 import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.gen.SATFaceGenerator;
+import com.mocha.report.CrmReportPresenter;
 
 /**
  * @author Coral
