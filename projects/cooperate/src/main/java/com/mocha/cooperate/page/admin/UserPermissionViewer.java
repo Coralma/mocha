@@ -5,12 +5,9 @@ package com.mocha.cooperate.page.admin;
 
 import java.util.List;
 
-import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
-import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.WidgetFactory;
-import com.coral.vaadin.widget.component.Toolbar;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.listener.EnterClickListener;
 import com.coral.vaadin.widget.view.CommonViewer;
@@ -24,19 +21,16 @@ import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.VerticalSplitPanel;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author Administrator

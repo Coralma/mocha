@@ -6,9 +6,9 @@ package com.mocha.cooperate.page;
 import java.util.Set;
 
 import com.coral.foundation.security.model.BasicUser;
-import com.coral.foundation.utils.Message;
 import com.coral.vaadin.widget.Viewer;
-import com.coral.vaadin.widget.component.Toolbar;
+import com.coral.vaadin.widget.WidgetFactory;
+import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.page.event.TodoEditorListener;
@@ -16,7 +16,9 @@ import com.mocha.cooperate.widget.AttachmentLayout;
 import com.mocha.cooperate.widget.AttachmentUpload;
 import com.mocha.cooperate.widget.NotifyTokenField;
 import com.mocha.cooperate.widget.TodoProjectEditor;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
@@ -80,10 +82,12 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 		this.addComponent(layout);
 	}
 	
-	public Toolbar buildToolbar() {
-		Toolbar toolbar = new Toolbar(message);
+	public ToolbarAdvance buildToolbar() {
+		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setWidth("768px");
-		toolbar.addLeftLink("cooperate.todo.backtoTaskList", "back", this);
+		Button backLink = WidgetFactory.createLink(message.getString("cooperate.todo.backtoTaskList"),"back",this);
+		backLink.setIcon(new ThemeResource("icons/back.png"));
+		toolbar.addLeftComponent(backLink);
 		return toolbar;
 	}
 	

@@ -47,6 +47,7 @@ public class SettingViewer extends CommonViewer implements ClickListener {
 	
 	@Override
 	public void attach() {
+		super.attach();
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		Button basicInfoBtn = WidgetFactory.createLink("Basic Information", "BasicInfo", this);
 		toolbar.addRightComponent(basicInfoBtn);
@@ -142,7 +143,7 @@ public class SettingViewer extends CommonViewer implements ClickListener {
 	
 	@Override
 	public String getViewerTitle() {
-		return "Setting";
+		return "Profile Setting";
 	}
 
 	@Override

@@ -4,11 +4,14 @@
 package com.mocha.cooperate.page;
 
 import com.coral.vaadin.widget.Viewer;
-import com.coral.vaadin.widget.component.Toolbar;
+import com.coral.vaadin.widget.WidgetFactory;
+import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.page.event.ForumEditorListener;
 import com.mocha.cooperate.widget.ForumEditor;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -30,9 +33,11 @@ public class ForumEditorViewer extends CommonViewer implements Viewer, ClickList
 
 	public void attach() {
 		super.attach();
-		Toolbar toolbar = new Toolbar(message);
+		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setWidth("768px");
-		toolbar.addLeftLink("cooperate.forum.backTopics", "back", this);
+		Button backLink = WidgetFactory.createLink(message.getString("cooperate.forum.backTopics"),"back",this);
+		backLink.setIcon(new ThemeResource("icons/back.png"));
+		toolbar.addLeftComponent(backLink);
 		this.addComponent(toolbar);
 		
 		this.setWidth(SystemProperty.content_widget_width);
