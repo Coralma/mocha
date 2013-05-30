@@ -259,6 +259,7 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 						user.setUserPhoto(photoUrl);
 					}
 				}
+				userList.add(0, user);
 				listener.saveUser(user);
 				this.close();
 			}

@@ -1763,3 +1763,49 @@
 .report-table-layout .v-table .v-table-resizer {
 	border-right: 1px solid #A9E2F3;
 }
+
+
+
+
+/* notify tooken */
+
+.notifyToken .v-button-link {
+    background-color: #00B4F0;
+    border-radius: 2px 2px 2px 2px;
+    height: 23px;
+    padding: 4px 7px;
+}
+.notifyToken .v-button-link:focus {
+    background-color: #00B4F0;
+    border-radius: 2px 2px 2px 2px;
+    height: 23px;
+    padding: 4px 7px;
+}
+.notifyToken .v-button-emphasize, .notifyToken .v-button-emphasize:focus {
+    background-color: #EC0C6D;
+}
+.notifyToken .v-button-link .v-button-caption {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.notifytextToken .v-filterselect {
+	border: 1px solid #CEECF5;
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 2px 2px 2px 2px;
+    margin-bottom: 1px;
+}
+.notifytextToken .v-filterselect .v-filterselect-input {
+    background: none repeat scroll 0 0 transparent;
+}
+.notifytextToken .v-filterselect .v-filterselect-button {
+    display: none;
+}
+.notifyToken .v-csslayout div {
+    float: left;
+}
+.notifyToken .v-csslayout .v-button-link {
+    margin: 0 1px 1px 0;
+}
+.notifyToken .v-csslayout .v-button-link {
+    height: 24px;
+}

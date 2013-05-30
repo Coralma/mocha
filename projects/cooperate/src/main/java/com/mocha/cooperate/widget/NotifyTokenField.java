@@ -23,6 +23,9 @@ public class NotifyTokenField extends TokenField {
 
 	// private BasicUser
 	public NotifyTokenField() {
+		this.removeStyleName("tokentextfield");
+		this.removeStyleName("tokenfield");
+		this.addStyleName("notifyToken notifytextToken");
 		this.setContainerDataSource(basicUserContainer());
 		this.setTokenCaptionPropertyId("realName"); 
 		this.setRememberNewTokens(false); 

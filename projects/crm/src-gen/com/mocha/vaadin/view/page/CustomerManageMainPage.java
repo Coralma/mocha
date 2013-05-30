@@ -5,6 +5,7 @@ import com.coral.vaadin.view.template.sat.AppMainPage;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.vaadin.view.template.sat.ControllerMenuPanel.ControllerMenuListener;
+import com.mocha.report.CrmDashboardPresenter;
 import com.mocha.vaadin.entity.presenter.*;
 import com.mocha.vaadin.view.page.CustomerManageControllerMenuPanel;
 import com.mocha.vaadin.view.page.CustomerManageFunctionPanel;
@@ -17,9 +18,9 @@ public class CustomerManageMainPage extends AppMainPage implements ControllerMen
 		addComponent(functionPanel);
 		// init the main page.
 		AppContentEvent event = new AppContentEvent();
-		event.setCustomizeClass("com.mocha.report.CrmDashboardPresenter");
+		event.setCustomizeClass(CrmDashboardPresenter.class.getName());
 		eventBus.post(event);
-		
+		controllerMenu.setMenuStyle(null, CrmDashboardPresenter.class.getName());
 	}
 	public void showView(String viewName) {
 		Presenter presenter = null;
