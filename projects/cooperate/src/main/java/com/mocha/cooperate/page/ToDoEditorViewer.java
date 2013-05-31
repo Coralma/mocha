@@ -106,7 +106,7 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 		// build attachment area
 		HorizontalLayout referLayout = new HorizontalLayout();
 		referLayout.setSpacing(true);
-		AttachmentUpload upload = new AttachmentUpload(attachmentLayout);
+		AttachmentUpload upload = new AttachmentUpload(attachmentLayout, currentUser);
 //		upload.setIcon(new ThemeResource("icons/file_icon.png"));
 		referLayout.addComponent(upload);
 		upload.setButtonCaption(message.getString("cooperate.publisher.File"));

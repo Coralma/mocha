@@ -35,6 +35,7 @@ public class TimeLineSheet extends VerticalLayout {
 	private PagingVerticalLayout statusLayout = new PagingVerticalLayout();
 	private PagingVerticalLayout discussLayout = new PagingVerticalLayout();
 	private PagingVerticalLayout todoLayout = new PagingVerticalLayout();
+	private PagingVerticalLayout workLayout = new PagingVerticalLayout();
 	private PagingVerticalLayout currentLayout;
 	
 	public TimeLineSheet() {
@@ -59,6 +60,8 @@ public class TimeLineSheet extends VerticalLayout {
 		tabSheet.addTab(statusLayout, message.getString("cooperate.home.Status"),new ThemeResource("icons/status_icon.png"));
 		tabSheet.addTab(discussLayout, message.getString("cooperate.home.Discuss"),new ThemeResource("icons/discuss_icon.png"));
 		tabSheet.addTab(todoLayout, message.getString("cooperate.home.ToDo"),new ThemeResource("icons/todo-icon.png"));
+		tabSheet.addTab(workLayout, message.getString("cooperate.home.Work"),new ThemeResource("icons/work.png"));
+		workLayout.setFullSize(false);
 		
 		tabSheet.addListener(new SelectedTabChangeListener() {
 			@Override

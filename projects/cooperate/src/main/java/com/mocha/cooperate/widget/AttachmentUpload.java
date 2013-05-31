@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.Message;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.Attachment;
@@ -26,9 +27,11 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
     protected AttachmentLayout attachmentLayout;
     protected Attachment attachment;
     protected AttachmentPanel attachmentPanel;
+    protected BasicUser basicUser;
     
-	public AttachmentUpload(AttachmentLayout attachmentLayout) {
+	public AttachmentUpload(AttachmentLayout attachmentLayout, BasicUser basicUser) {
 		super();
+		this.basicUser = basicUser;
 		this.attachmentLayout = attachmentLayout;
 		this.addStyleName("attachment-upload");
 		this.setReceiver(new AttachmentReceiver());
@@ -54,7 +57,8 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
     	}
         attachment = new Attachment();
         attachment.setFileName(event.getFilename());
-        attachment.setFilePath(SystemProperty.USER_PHOTO_PATH + event.getFilename());
+//        attachment.setFilePath(SystemProperty.USER_PHOTO_PATH + event.getFilename());
+        attachment.setFilePath(SystemProperty.getUserAttachmentFolder(basicUser) + event.getFilename());
         attachment.setType(event.getMIMEType());
         attachment.setFileSize(length);
         attachmentPanel = attachmentLayout.new AttachmentPanel(attachment);

@@ -39,6 +39,7 @@ public class SystemProperty {
 	}
 	
 	public static String FILE_Folder = "files";
+	public static String ATTACHMENT_Folder = "attachments";
 	public static String USER_PHOTO_PATH = FILE_PATH + "users" + File.separator;
 	public static String user_icon_path = FILE_PATH + "users" + File.separator;
 	
@@ -60,6 +61,7 @@ public class SystemProperty {
 	public static String STATUS = "status";
 	public static String DISCUSS = "discuss";
 	public static String ToDo = "todo";
+	public static String Work = "work";
 	
 	public static String PAGE_TYPE = "page";
 	
@@ -95,6 +97,10 @@ public class SystemProperty {
 
 	public static String getUserFileFolder(BasicUser currentUser) {
 		return SystemProperty.FILE_PATH + currentUser.getAccount().getName() + File.separator + currentUser.getUserName() + File.separator + SystemProperty.FILE_Folder +  File.separator;
+	}
+	
+	public static String getUserAttachmentFolder(BasicUser currentUser) {
+		return getUserFileFolder(currentUser) + ATTACHMENT_Folder + File.separator;
 	}
 	
 	public static String getUserFolder(BasicUser currentUser) {
