@@ -8,27 +8,32 @@ import java.util.List;
 
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.DateUtils;
+import com.coral.foundation.utils.Message;
 import com.coral.foundation.utils.StrUtils;
 import com.google.common.collect.Lists;
 import com.mocha.cooperate.InnerStyle;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
+import com.mocha.cooperate.widget.cards.AbstractCard;
+import com.mocha.cooperate.widget.cards.TodoCard;
 import com.mocha.cooperate.widget.listener.TodoListener;
 import com.mocha.cooperate.widget.listener.TodoProjectDisplayerListener;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
-public class TodoProjectDisplayer extends VerticalLayout {
+public class TodoProjectDisplayer extends TodoCard {
 
-	private ToDo toDo;
+//	private ToDo todo;
 	private String contentWidth = SystemProperty.content_page_width;
 	private String taskWidth = "740px";
 	private String subTaskWidth = "710px";
@@ -46,9 +51,14 @@ public class TodoProjectDisplayer extends VerticalLayout {
 	
 	private List<TodoItemDisplay> todoItemDisplayList = Lists.newArrayList();
 	private TodoProjectDisplayerListener listener;
-
+	
+	public TodoProjectDisplayer(){}
+	
 	public TodoProjectDisplayer(ToDo toDo, BasicUser currentUser) {
-		this.toDo = toDo;
+		super.todo = toDo;
+		super.attachments = toDo.getAttachments();
+		super.comments = toDo.getComments();
+		super.createUser = currentUser;
 		this.currentUser = currentUser;
 		this.ownerUser = toDo.getAssginedUser();
 		//FIXME it should be a assignedUser.
@@ -69,6 +79,7 @@ public class TodoProjectDisplayer extends VerticalLayout {
 	}
 	
 	public void attach() {
+		message = new Message(getApplication().getLocale()); 
 		HorizontalLayout titleLayout = new HorizontalLayout();
 		if(needExpend) {
 			expendIcon.setData(true);
@@ -79,18 +90,19 @@ public class TodoProjectDisplayer extends VerticalLayout {
 			// set more margin for expend todo
 			subTasksLayout.setWidth(taskWidth);
 			subTasksLayout.addStyleName("todo-item-layout");
-			if(specialRowStyle) {
-				this.addStyleName("todo-project-title-special");
-			} else {
-				this.addStyleName("todo-project-title");
-			}
+			this.addStyleName("todo-project-title");
+//			if(specialRowStyle) {
+//				this.addStyleName("todo-project-title-special");
+//			} else {
+//				this.addStyleName("todo-project-title");
+//			}
 		} else {
 			subTasksLayout.addStyleName("todo-item-layout-card");
 			this.addStyleName("todo-project-title");
 		}
 		titleBox = new CheckBox();
 		titleBox.setWidth("20px");
-		titleBox.setData(toDo);
+		titleBox.setData(todo);
 		titleBox.setImmediate(true);
 		titleLayout.addComponent(titleBox);
 		// add logic for todo status.
@@ -107,11 +119,11 @@ public class TodoProjectDisplayer extends VerticalLayout {
 //			titleContent.setStyleName("todo-item-checked");
 		this.addComponent(titleLayout);
 		// check if there no children, dont need change the icon.
-		if(toDo.getSubToDoItems().size() == 0) {
+		if(todo.getSubToDoItems().size() == 0) {
 			expendIcon.setReadOnly(true);
 		}
 		
-		for(SubToDoItem subItem : toDo.getSubToDoItems()) {
+		for(SubToDoItem subItem : todo.getSubToDoItems()) {
 			TodoItemDisplay todoItemDisplay = new TodoItemDisplay(subItem);
 			// if the todo is selected, all sub-item can not be selected.
 			todoItemDisplay.setReadOnly(isAllowItem(getStatus(), subItem));
@@ -120,12 +132,23 @@ public class TodoProjectDisplayer extends VerticalLayout {
 		}
 		this.addComponent(subTasksLayout);
 
-		
+		if(needExpend) {
+			Layout attachLayout = buildAttachment();
+			if(attachLayout != null) {
+				attachLayout.addStyleName("todo-attach-layout");
+				this.addComponent(attachLayout);
+			}
+			Layout replyLayout = buildReply();
+			replyLayout.setWidth("710px");
+			replyLayout.addStyleName("todo-reply-layout");
+			super.getCardReply().setWidth("700px");
+			this.addComponent(replyLayout);
+		}
 		bind();
 	}
 	
 	private boolean getStatus() {
-		if(toDo.getStatus() != null && toDo.getStatus() == 1) {
+		if(todo.getStatus() != null && todo.getStatus() == 1) {
 			return true;
 		} else {
 			return false;
@@ -133,7 +156,7 @@ public class TodoProjectDisplayer extends VerticalLayout {
 	}
 	
 	public void setToDoContent() {
-		String projectContent = generateContent(getStatus(), toDo.getName(), toDo.getAssginedUser().getRealName(), toDo.getExpiredDate(), toDo.getFinishDate());
+		String projectContent = generateContent(getStatus(), todo.getName(), todo.getAssginedUser().getRealName(), todo.getExpiredDate(), todo.getFinishDate());
 		titleContent.setValue(projectContent);
 	}
 	
@@ -186,7 +209,7 @@ public class TodoProjectDisplayer extends VerticalLayout {
 						}
 					}
 					if(hasNotFinishedItem) {
-						ConfirmDialog confirmDialog = new ConfirmDialog("Some sub-task didn't finish. Do you want to close all of them?") {
+						ConfirmDialog confirmDialog = new ConfirmDialog("Some sub-task didn't finish. Do you want to close all of them ?") {
 							@Override
 							public void confirm() {
 								for(TodoItemDisplay item : todoItemDisplayList) {
@@ -376,6 +399,6 @@ public class TodoProjectDisplayer extends VerticalLayout {
 	 * @return the toDo
 	 */
 	public ToDo getToDo() {
-		return toDo;
+		return todo;
 	}
 }

@@ -66,8 +66,8 @@ public class SystemProperty {
 	// forum category name
 	public static String FORUM_CATEGORY = "ForumCategory";
 	public static String NOTIFY_CATEGORY = "2";
-	public static String DISCUSS_CATEGORY = "1";
-	public static String QUESTION_CATEGORY = "0";
+	public static String QUESTION_CATEGORY = "1";
+	public static String DISCUSS_CATEGORY = "0";
 	public static String SELECTED_TOPIC = "SelectedTopic";
 
 	public static String getForumCategoryTitle(String category) {

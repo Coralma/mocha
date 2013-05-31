@@ -12,7 +12,6 @@ import com.mocha.cooperate.model.*;
 public interface TimeLineDao extends Dao<TimeLine> {
 	
 	public List<TimeLine> loadTimeLine(BasicUser basicUser, int page);
-//	public List<TimeLine> loadTimeLineByUser(BasicUser basicUser, int page);
 	public List<TimeLine> loadTimeLineByUser(BasicUser basicUser, Date date, int page);
 	public List<TimeLine> loadStatus(BasicUser basicUser, int page);
 	public List<TimeLine> loadStatusByUser(BasicUser basicUser, int page);
@@ -20,9 +19,9 @@ public interface TimeLineDao extends Dao<TimeLine> {
 	public List<TimeLine> loadDiscussByUser(BasicUser basicUser, int page);
 	public List<TimeLine> loadTodo(BasicUser basicUser, int page);
 	public List<TimeLine> loadTodoByUser(BasicUser basicUser, int page);
-//	public List<TimeLine> loadActivityTodo(BasicUser basicUser);
-//	public List<TimeLine> loadCompletedTodo(BasicUser basicUser);
-	
+
+	public TimeLine queryTimelineByTodo(ToDo todo);
+	public TimeLine queryTimelineByDiscuss(Discuss discuss);
 	public TimeLine queryOldestData(BasicUser user);
 }
 

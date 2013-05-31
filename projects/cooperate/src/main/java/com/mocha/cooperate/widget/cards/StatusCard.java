@@ -8,6 +8,7 @@ import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
 import com.mocha.cooperate.model.TimeLine;
+import com.mocha.cooperate.widget.ConfirmDialog;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -74,9 +75,18 @@ public class StatusCard extends AbstractCard {
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(deleteButton)) {
-			timeLineService.removeTimeLine(timeLine);
-			Layout layout = (Layout) this.getParent();
-			layout.removeComponent(this);
+			ConfirmDialog confirmDialog = new ConfirmDialog("Do you want to delete this Status ?") {
+				@Override
+				public void confirm() {
+					timeLineService.removeTimeLine(timeLine);
+					Layout layout = (Layout) StatusCard.this.getParent();
+					layout.removeComponent(StatusCard.this);
+				}
+				@Override
+				public void cancel() {
+				}
+			};
+			StatusCard.this.getWindow().addWindow(confirmDialog);
 		}
 		if(event.getButton().equals(replyButton)) {
 			if(cardReply.isVisible()) {

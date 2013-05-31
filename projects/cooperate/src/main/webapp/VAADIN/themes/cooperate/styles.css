@@ -388,6 +388,31 @@
 	border-bottom: 1px dashed #E2E2E2;
 }
 
+.todo-reply-layout {
+	padding-left: 20px;
+}
+.todo-reply-layout .m-card-reply-layout {
+	border: none;
+	background-color: #f7f7f7;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.todo-reply-layout .m-card-reply {
+	padding-left: 15px;
+}
+.todo-reply-layout .v-label {
+	font-weight: normal;
+}
+.todo-reply-layout .m-card-reply-button {
+	padding-right: 5px;
+}
+.todo-reply-layout .reply-button {
+	margin-top: 2px;
+}
+.todo-attach-layout {
+	padding-left: 20px;
+}
+
 .add-task-button {
 	padding: 5px;
 }
@@ -785,6 +810,7 @@
 	border: none;
 	background-color: #f7f7f7;
 	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 .m-card .reply-content {

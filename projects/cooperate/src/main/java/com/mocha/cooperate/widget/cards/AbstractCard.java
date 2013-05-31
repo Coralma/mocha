@@ -197,4 +197,18 @@ public abstract class AbstractCard extends VerticalLayout implements ICard, Clic
 	public void setCurrentUser(BasicUser currentUser) {
 		this.currentUser = currentUser;
 	}
+
+	/**
+	 * @return the cardReply
+	 */
+	public CardReply getCardReply() {
+		return cardReply;
+	}
+
+	/**
+	 * @param cardReply the cardReply to set
+	 */
+	public void setCardReply(CardReply cardReply) {
+		this.cardReply = cardReply;
+	}
 }

@@ -124,6 +124,28 @@ public class TimeLineDaoImpl extends JpaDao<TimeLine> implements TimeLineDao {
 		return null;
 	}
 
+	@Override
+	public TimeLine queryTimelineByTodo(ToDo todo) {
+		Query query = entityManager.createQuery("from TimeLine where todo=:todo",TimeLine.class);
+		query.setParameter("todo", todo);
+		List<TimeLine> timeLines = query.getResultList();
+		if(timeLines.size() > 0) {
+			return timeLines.get(0); 
+		}
+		return null;
+	}
+
+	@Override
+	public TimeLine queryTimelineByDiscuss(Discuss discuss) {
+		Query query = entityManager.createQuery("from TimeLine where discuss=:discuss",TimeLine.class);
+		query.setParameter("discuss", discuss);
+		List<TimeLine> timeLines = query.getResultList();
+		if(timeLines.size() > 0) {
+			return timeLines.get(0); 
+		}
+		return null;
+	}
+
 //	@Override
 //	public List<TimeLine> loadActivityTodo(BasicUser basicUser) {
 //		Query query = entityManager.createQuery("from TimeLine where todo is not null and todo.status = 0 order by timeLineId desc",TimeLine.class);

@@ -8,6 +8,9 @@ import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.TimeLine;
+import com.mocha.cooperate.widget.ConfirmDialog;
+import com.mocha.cooperate.widget.TodoProjectDisplayer;
+import com.mocha.cooperate.widget.TodoProjectDisplayer.TodoItemDisplay;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
@@ -45,6 +48,7 @@ public class DiscussCard extends AbstractCard {
 		this.discuss = discuss;
 		this.comments = discuss.getComments();
 		this.createUser = discuss.getCreator();
+		this.attachments = discuss.getAttachments();
 		this.addStyleName("status-card");
 	}
 
@@ -106,9 +110,21 @@ public class DiscussCard extends AbstractCard {
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(deleteButton)) {
-			timeLineService.removeTimeLine(timeLine);
-			Layout layout = (Layout) this.getParent();
-			layout.removeComponent(this);
+			ConfirmDialog confirmDialog = new ConfirmDialog("Do you want to delete this topic ?") {
+				@Override
+				public void confirm() {
+					if(timeLine == null) {
+						timeLine = timeLineService.queryTimelineByDiscuss(discuss); 
+					}
+					timeLineService.removeTimeLine(timeLine);
+					Layout layout = (Layout) DiscussCard.this.getParent();
+					layout.removeComponent(DiscussCard.this);
+				}
+				@Override
+				public void cancel() {
+				}
+			};
+			DiscussCard.this.getWindow().addWindow(confirmDialog);
 		}
 		if(event.getButton().equals(replyButton)) {
 			if(cardReply.isVisible()) {

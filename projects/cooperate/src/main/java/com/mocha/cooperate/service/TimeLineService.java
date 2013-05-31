@@ -242,4 +242,12 @@ public class TimeLineService {
 			return new Date();
 		}
 	}
+	
+	public TimeLine queryTimelineByTodo(ToDo todo) {
+		return timeLineDao.queryTimelineByTodo(todo);
+	}
+	
+	public TimeLine queryTimelineByDiscuss(Discuss discuss) {
+		return timeLineDao.queryTimelineByDiscuss(discuss);
+	}
 }
