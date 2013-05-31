@@ -71,9 +71,13 @@ public class UserFileService extends AbstractFileService implements IFileService
 		return fileDao.findFileByShareKey(shareKey);
 	}
 	
+	public String userAttachmentFolder(BasicUser basicUser) {
+		return SystemProperty.getUserAttachmentFolder(basicUser); 
+	}
+	
 	public void removeAttachment(Attachment attachment, BasicUser basicUser) {
 		try {
-			File file = new File(SystemProperty.USER_PHOTO_PATH + attachment.getFileName());
+			File file = new File(userAttachmentFolder(basicUser) + attachment.getFileName());
 			if(file.isFile()) {
 				file.delete();
 			}
@@ -83,9 +87,9 @@ public class UserFileService extends AbstractFileService implements IFileService
 		}
 	}
 	
-	public File getFile(Attachment attachment) {
+	public File getFile(Attachment attachment, BasicUser basicUser) {
 		try {
-			File file = new File(SystemProperty.USER_PHOTO_PATH + attachment.getFileName());
+			File file = new File(userAttachmentFolder(basicUser) + attachment.getFileName());
 			if(file.isFile()) {
 				return file;
 			}

@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.utils.FileUtils;
 import com.coral.foundation.utils.Message;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.Attachment;
@@ -57,8 +58,8 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
     	}
         attachment = new Attachment();
         attachment.setFileName(event.getFilename());
-//        attachment.setFilePath(SystemProperty.USER_PHOTO_PATH + event.getFilename());
-        attachment.setFilePath(SystemProperty.getUserAttachmentFolder(basicUser) + event.getFilename());
+        
+        attachment.setFilePath(getAttachmentFolder() + event.getFilename());
         attachment.setType(event.getMIMEType());
         attachment.setFileSize(length);
         attachmentPanel = attachmentLayout.new AttachmentPanel(attachment);
@@ -70,6 +71,12 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
 		if(attachmentPanel != null) {
     		attachmentPanel.getPi().setValue(new Float(readBytes / (float) contentLength));
     	}
+	}
+	
+	public String getAttachmentFolder() {
+		String attachmentFolder = SystemProperty.getUserAttachmentFolder(basicUser);
+        FileUtils.createDir(attachmentFolder);
+        return attachmentFolder;
 	}
 
 	@Override
@@ -96,7 +103,7 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
     	String getFileName();
 	}
 	
-	public static class AttachmentReceiver implements Buffer {
+	public class AttachmentReceiver implements Buffer {
         private String fileName;
         private String mtype;
         private int counter;
@@ -116,7 +123,7 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
             fileName = filename;
             mtype = MIMEType;
             try {
-            	file = new File(SystemProperty.USER_PHOTO_PATH + fileName);
+            	file = new File(getAttachmentFolder() + fileName);
                 return new FileOutputStream(file);
             } catch (final FileNotFoundException e) {
                 // TODO Auto-generated catch block

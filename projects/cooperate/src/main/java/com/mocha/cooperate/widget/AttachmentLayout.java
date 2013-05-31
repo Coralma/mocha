@@ -41,8 +41,10 @@ public class AttachmentLayout extends VerticalLayout {
 	private List<Attachment> attachments = Lists.newArrayList();
 	private UserFileService fileService;
 	private Message message;
-
+	private BasicUser basicUser;
+	
 	public AttachmentLayout(BasicUser basicUser) {
+		this.basicUser = basicUser;
 		fileService = new UserFileService(basicUser);
 		this.setSizeFull();
 	}
@@ -150,7 +152,7 @@ public class AttachmentLayout extends VerticalLayout {
 
 		@Override
 		public void attach() {
-			File downloadFile = fileService.getFile(attachment);
+			File downloadFile = fileService.getFile(attachment, basicUser);
 			if(downloadFile == null) {
 				return;
 			}
@@ -249,7 +251,7 @@ public class AttachmentLayout extends VerticalLayout {
 		private void downloadResource(boolean isNewWindow) {
 			try {
 				// another way to download
-				FileDownloadResource fileResource = new FileDownloadResource(fileService.getFile(attachment),getApplication());
+				FileDownloadResource fileResource = new FileDownloadResource(fileService.getFile(attachment, basicUser),getApplication());
 				if(isNewWindow) {
 					getWindow().open(fileResource,"_blank");
 				} else {
