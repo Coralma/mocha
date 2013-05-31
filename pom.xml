@@ -9,7 +9,6 @@
 
 	<modules>
 		<module>mocha-foundation</module>
-		<!-- <module>mocha-mobile-framework</module> -->
 		<module>mocha-vaadin-framework</module>
 		<module>projects/crm</module>
 		<module>projects/cooperate</module>
