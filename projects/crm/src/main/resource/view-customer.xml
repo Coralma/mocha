@@ -3,7 +3,7 @@
 	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
 	servicePackage="com.mocha.crm.service">
 	
-<!-- 	customer search view -->
+	<!-- 	customer search view -->
 	<view name="CustomerSearch" template="EntityCardSearch" entity="Customer">
 		<section name="CompanyCustomerCondition" template="SearchCondition">
 			<field name="name" />
@@ -29,7 +29,7 @@
 		</section>
 	</view>
 	
-<!-- 	customer edit view -->
+	<!-- 	customer edit view -->
 	<view name="CustomerView" template="EntityEditView" entity="Customer">
 		<section name="companyCustInfo" label="Customer Information">
 			<field name="name" label="Customer Name" required="true"/>

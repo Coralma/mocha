@@ -3,7 +3,7 @@
 	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
 	servicePackage="com.mocha.crm.service">
 
-	<app name="CustomerManage" label="Customer Manage" pkg="com.mocha.crm">
+	<app name="CustomerManage" label="Customer Manage">
 		<navigation>
 			<menu name="Home" customizedClass="com.mocha.report.CrmDashboardPresenter"></menu>
 			<group label="Customer Management">

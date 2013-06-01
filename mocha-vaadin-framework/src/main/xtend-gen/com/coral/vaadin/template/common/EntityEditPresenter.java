@@ -152,6 +152,9 @@ public class EntityEditPresenter {
     _builder.append("\t\t\t");
     _builder.append("newView.setEntity(entity);");
     _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("eventBus.resetContext();");
+    _builder.newLine();
     _builder.append("\t\t");
     _builder.append("}");
     _builder.newLine();

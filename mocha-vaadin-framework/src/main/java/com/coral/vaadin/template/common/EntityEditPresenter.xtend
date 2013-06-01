@@ -66,6 +66,7 @@ class EntityEditPresenter {
 				Object entity = this.eventBus.getContext().get("Entity");
 				if(entity != null) {
 					newView.setEntity(entity);
+					eventBus.resetContext();
 				}
 				this.viewer = newView;
 			}

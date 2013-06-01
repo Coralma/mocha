@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="policy" entityPackage="com.mocha.cooperate.model"
-	daoIntfPackage="com.mocha.cooperate.basic.dao" daoImplPackage="com.mocha.cooperate.basic.dao.impl"
-	servicePackage="com.mocha.cooperate.basic.service">
+	daoIntfPackage="com.mocha.cooperate.basic.dao" daoImplPackage="com.mocha.cooperate.basic.dao.impl">
 	
-	<entity entityName="NotifyLine">
-		<property name="notifiedUser" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
-		<property name="status" type="Status" ref="Status" orm="many-to-one" refer="true" />
-		<property name="discuss" type="Discuss" ref="Discuss" orm="many-to-one" refer="true" />
-		<property name="todo" type="ToDo" ref="ToDo" orm="many-to-one" refer="true" />
-	</entity>
 	<entity entityName="TimeLine">
-		<property name="creator" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
-		<property name="status" type="Status" ref="Status" orm="one-to-one" refer="true" />
-		<property name="discuss" type="Discuss" ref="Discuss" orm="one-to-one" refer="true" />
-		<property name="todo" type="ToDo" ref="ToDo" orm="one-to-one" refer="true" />
+		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" />
+		<property name="status" type="Status" ref="Status" orm="one-to-one" />
+		<property name="discuss" type="Discuss" ref="Discuss" orm="one-to-one" />
+		<property name="todo" type="ToDo" ref="ToDo" orm="one-to-one" />
 	</entity>
 	<entity entityName="Status">
-		<property name="content" label="Content" style="rich" required="true" length="1000"/>
-		<property name="creator" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
-		<property name="attachments" label="Attachment" type="List" ref="Attachment" orm="one-to-many"/>
-		<property name="comments" label="Comment" type="List" ref="Comment" orm="one-to-many"/>
-		<property name="notifyLines" label="NotifyLine" type="List" ref="NotifyLine" orm="one-to-many"/>
+		<property name="content" required="true" length="1000"/>
+		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one"/>
+		<property name="attachments" type="List" ref="Attachment" orm="one-to-many"/>
+		<property name="comments" type="List" ref="Comment" orm="one-to-many"/>
+		<property name="notifyLines" type="List" ref="NotifyLine" orm="one-to-many"/>
 	</entity>
 	<entity entityName="Discuss">
 		<property name="title" label="Title" required="true" />
@@ -48,6 +43,12 @@
 		<property name="discuss" type="Discuss" ref="Discuss" orm="many-to-one" />
 		<property name="todo" type="ToDo" ref="ToDo" orm="many-to-one" />
 		<property name="comment" type="Comment" ref="Comment" orm="many-to-one" />
+	</entity>
+	<entity entityName="NotifyLine">
+		<property name="notifiedUser" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+		<property name="status" type="Status" ref="Status" orm="many-to-one" refer="true" />
+		<property name="discuss" type="Discuss" ref="Discuss" orm="many-to-one" refer="true" />
+		<property name="todo" type="ToDo" ref="ToDo" orm="many-to-one" refer="true" />
 	</entity>
 	<entity entityName="Shotcut">
 		<property name="title"/>
@@ -83,7 +84,6 @@
 		<property name="status" type="Long" default="0"/>
 		<property name="ToDo" type="ToDo" ref="ToDo" orm="many-to-one"/> 
     </entity>
-    
     <entity entityName="File">
     	<property name="parentID" type="Long"/>
     	<property name="name"/>
