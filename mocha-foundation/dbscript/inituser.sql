@@ -107,3 +107,8 @@ begin
               Now(),
               new.name);
 end; $$ 
+
+
+/*Verify the init data*/
+set @missAllCodeScript=(select count(*) from t_code_table);
+select if(@missAllCodeScript>0,'Data Init Successfully','Miss AllCode Sql');

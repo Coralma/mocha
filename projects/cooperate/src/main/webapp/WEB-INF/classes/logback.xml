@@ -9,10 +9,10 @@
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/my-services.log</file>
+		<file>logs/cooperate.log</file>
 		<append>false</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>my-services.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>cooperate.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>10</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -27,10 +27,10 @@
 
 	<appender name="EXCEPTION_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/my-services_exceptions.log</file>
+		<file>logs/cooperate_exceptions.log</file>
 		<append>false</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>my-services_exceptions.%d{yyyy-MM-dd}.log
+			<fileNamePattern>cooperate_exceptions.%d{yyyy-MM-dd}.log
 			</fileNamePattern>
 			<maxHistory>10</maxHistory>
 		</rollingPolicy>
