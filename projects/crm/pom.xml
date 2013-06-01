@@ -157,7 +157,6 @@
 				</excludes>
 			</resource>
 		</resources>
-		<pluginManagement>
 		<plugins>
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
@@ -203,6 +202,5 @@
 				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
 		</plugins>
-		</pluginManagement>
 	</build>
 </project>

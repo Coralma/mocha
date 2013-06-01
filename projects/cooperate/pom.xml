@@ -161,7 +161,6 @@
 				</excludes>
 			</resource>
 		</resources>
-		<pluginManagement>
 		<plugins>
 			<plugin>
 			  <groupId>org.mortbay.jetty</groupId>
@@ -211,6 +210,5 @@
 				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
 		</plugins>
-		</pluginManagement>
 	</build>
 </project>
