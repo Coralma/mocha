@@ -112,7 +112,7 @@ public class CardReply extends VerticalLayout {
 	}
 
 	public Component buildReplyContent(Comment comment) {
-		String userName = comment.getCreator().getUserName();
+		String userName = comment.getCreator().getRealName();
 		String content = comment.getContent();
 		String replyDate = " (" + DateUtils.date2String(comment.getCreateTime(), DateUtils.shortFormat) + ")";
 		String replyContent = BasicHelper.styleUsername(userName) + content + replyDate;

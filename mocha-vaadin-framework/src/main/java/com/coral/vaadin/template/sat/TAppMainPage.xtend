@@ -60,8 +60,10 @@ class TAppMainPage {
 			«val home = app.getAppNavigation.getAppMenus.get(0)»
 			«IF home.getCustomizedClass != null»
 				event.setCustomizeClass("«home.getCustomizedClass»");
+				controllerMenu.setMenuStyle(null, "«home.getCustomizedClass»");
 			«ELSEIF home.getViewName != null»
 				event.setViewName("«home.getViewName»");
+				controllerMenu.setMenuStyle("«home.getViewName»", null);
 			«ENDIF»
 			eventBus.post(event);
 			

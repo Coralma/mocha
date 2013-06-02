@@ -89,7 +89,7 @@ public class UserFileService extends AbstractFileService implements IFileService
 	
 	public File getFile(Attachment attachment, BasicUser basicUser) {
 		try {
-			File file = new File(userAttachmentFolder(basicUser) + attachment.getFileName());
+			File file = new File(attachment.getFilePath());
 			if(file.isFile()) {
 				return file;
 			}

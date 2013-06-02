@@ -160,6 +160,12 @@ public class TAppMainPage {
         _builder.append(_customizedClass_1, "	");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("controllerMenu.setMenuStyle(null, \"");
+        String _customizedClass_2 = home.getCustomizedClass();
+        _builder.append(_customizedClass_2, "	");
+        _builder.append("\");");
+        _builder.newLineIfNotEmpty();
       } else {
         String _viewName = home.getViewName();
         boolean _notEquals_1 = (!Objects.equal(_viewName, null));
@@ -169,6 +175,12 @@ public class TAppMainPage {
           String _viewName_1 = home.getViewName();
           _builder.append(_viewName_1, "	");
           _builder.append("\");");
+          _builder.newLineIfNotEmpty();
+          _builder.append("\t");
+          _builder.append("controllerMenu.setMenuStyle(\"");
+          String _viewName_2 = home.getViewName();
+          _builder.append(_viewName_2, "	");
+          _builder.append("\", null);");
           _builder.newLineIfNotEmpty();
         }
       }

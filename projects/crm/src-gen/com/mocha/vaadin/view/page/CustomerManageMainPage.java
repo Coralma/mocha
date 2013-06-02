@@ -18,6 +18,7 @@ public class CustomerManageMainPage extends AppMainPage implements ControllerMen
 		// init the main page.
 		AppContentEvent event = new AppContentEvent();
 		event.setCustomizeClass("com.mocha.report.CrmDashboardPresenter");
+		controllerMenu.setMenuStyle(null, "com.mocha.report.CrmDashboardPresenter");
 		eventBus.post(event);
 		
 	}
