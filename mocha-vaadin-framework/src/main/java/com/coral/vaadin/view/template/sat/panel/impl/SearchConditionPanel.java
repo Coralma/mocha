@@ -20,6 +20,7 @@ import com.vaadin.ui.themes.BaseTheme;
  */
 public class SearchConditionPanel extends AbstractViewLayout implements ISearchConditionPanel {
 
+	protected GlobleSearchWidget globleSearchWidget = new GlobleSearchWidget();
 	public Button searchButton = WidgetFactory.createButton("Search");
 	public Button globleButton = WidgetFactory.createLink("Globle");
 	private String panelWidth="765px";
@@ -50,8 +51,8 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 
 		HorizontalLayout conditionLayout = new HorizontalLayout();
 		conditionLayout.setSpacing(true);
-		GlobleSearchWidget searchTextField = new GlobleSearchWidget();
-		conditionLayout.addComponent(searchTextField);
+		
+		conditionLayout.addComponent(globleSearchWidget);
 		
 		Button advanceBtn = new Button("Advance");
 		advanceBtn.addListener(new ClickListener() {
@@ -114,5 +115,12 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 	 */
 	public Button getCreateBtn() {
 		return createBtn;
+	}
+
+	/**
+	 * @return the globleSearchWidget
+	 */
+	public GlobleSearchWidget getGlobleSearchWidget() {
+		return globleSearchWidget;
 	}
 }

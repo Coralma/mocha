@@ -47,7 +47,7 @@ public class AssginedUserSelect extends CustomComponent {
 		getAssginedUserSelect().setItemCaptionMode(
 				AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
 		// getAssginedUserSelect().setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
-		getAssginedUserSelect().setItemCaptionPropertyId("userName");
+		getAssginedUserSelect().setItemCaptionPropertyId("realName");
 //		getAssginedUserSelect().setItemIconPropertyId("userIcon");
 		getAssginedUserSelect().setImmediate(true);
 		
@@ -58,13 +58,13 @@ public class AssginedUserSelect extends CustomComponent {
 	private IndexedContainer getUserContainer(
 			AbstractUserIconHelper userIconHelper) {
 		IndexedContainer userContainer = new IndexedContainer();
-		userContainer.addContainerProperty("userName", String.class, "");
+		userContainer.addContainerProperty("realName", String.class, "");
 //		userContainer.addContainerProperty("userIcon", File.class, "");
 		userContainer.addContainerProperty("userId", Long.class, null);
 		for (BasicUser basicUser : basicUserDao.findAll()) {
 			Item item = userContainer.addItem(basicUser);
 			item.getItemProperty("userId").setValue(basicUser.getBasicUserId());
-			item.getItemProperty("userName").setValue(basicUser.getUserName());
+			item.getItemProperty("realName").setValue(basicUser.getRealName());
 			if (basicUser.getUserIcon() == null
 					|| !new File(basicUser.getUserIcon().toString()).exists()) {
 				basicUser.setUserIcon(userIconHelper.getDefaultUserIcon());

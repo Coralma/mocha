@@ -9,5 +9,6 @@ import com.mocha.crm.model.*;
   */
 public interface CustomerDao extends Dao<Customer> {
 	
+	public List<Customer> fuzzySearch(String condition);
 }
 

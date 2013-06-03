@@ -84,7 +84,11 @@ public class TodoProjectEditor extends VerticalLayout {
 	}
 	
 	public Object getValue() {
-		toDo.setName(todoTitle.getValue().toString());
+		Object value = todoTitle.getValue();
+		if(StrUtils.isEmpty(value)) {
+			return null;
+		}
+		toDo.setName(value.toString());
 		toDo.setCreator((BasicUser) getApplication().getUser());
 		BasicUser assignedUser = (BasicUser) userCombox.getValue();
 		if(assignedUser == null) {

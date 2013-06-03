@@ -8,10 +8,6 @@ package com.coral.foundation.jpa.search;
  *
  */
 public class SearchFilter {
-
-	public enum SearchStatus {
-		EQ, BT, LT, LIKE
-	}
 	
 	private SearchStatus searchStatus;
 	private String propertyName;
@@ -19,7 +15,9 @@ public class SearchFilter {
 	
 	public static SearchFilter eq(String propertyName, Object value) {
 		SearchFilter searchFilter = new SearchFilter();
-		searchFilter.setSearchStatus(SearchStatus.EQ); 
+		searchFilter.setSearchStatus(SearchStatus.EQ);
+		searchFilter.setPropertyName(propertyName);
+		searchFilter.setValue(value);
 		return searchFilter;
 	}
 	

@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 public class SearchFilterBuilder {
 
 	public List<SearchFilter> searchFilters = Lists.newArrayList();
+	private RelationStatus relationStatus = RelationStatus.AND;
 	public Class searchEntityClass;
 	/**
 	 * @return the searchFilters
@@ -38,6 +39,18 @@ public class SearchFilterBuilder {
 	 */
 	public void setSearchEntityClass(Class searchEntityClass) {
 		this.searchEntityClass = searchEntityClass;
+	}
+	/**
+	 * @return the relationStatus
+	 */
+	public RelationStatus getRelationStatus() {
+		return relationStatus;
+	}
+	/**
+	 * @param relationStatus the relationStatus to set
+	 */
+	public void setRelationStatus(RelationStatus relationStatus) {
+		this.relationStatus = relationStatus;
 	}
 	
 }

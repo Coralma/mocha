@@ -7,6 +7,7 @@ import com.coral.foundation.model.BaseEntity;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
+import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.vaadin.entity.view.CustomerSearch;
 import com.mocha.crm.model.Customer;
@@ -35,6 +36,13 @@ public class CustomerSearchPresenter extends AppCommonPresenter implements Prese
 	@Override
 	public void bind() {
 		CustomerSearch customerSearch = (CustomerSearch) viewer;
+		customerSearch.getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
+			@Override
+			public void search(String condition) {
+				List<Customer> customers = dao.fuzzySearch(condition);
+				System.out.println(customers);
+			}
+		});
 		customerSearch.getConditionPanel().getCreateBtn().addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
