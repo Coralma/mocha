@@ -14,13 +14,23 @@ public class SearchFilter {
 	private Object value;
 	
 	public static SearchFilter eq(String propertyName, Object value) {
-		SearchFilter searchFilter = new SearchFilter();
+		SearchFilter searchFilter = buildSearchFilter(propertyName, value);
 		searchFilter.setSearchStatus(SearchStatus.EQ);
-		searchFilter.setPropertyName(propertyName);
-		searchFilter.setValue(value);
 		return searchFilter;
 	}
 	
+	public static SearchFilter like(String propertyName, Object value) {
+		SearchFilter searchFilter = buildSearchFilter(propertyName, value);
+		searchFilter.setSearchStatus(SearchStatus.LIKE);
+		return searchFilter;
+	}
+	
+	private static SearchFilter buildSearchFilter(String propertyName, Object value) {
+		SearchFilter searchFilter = new SearchFilter();
+		searchFilter.setPropertyName(propertyName);
+		searchFilter.setValue(value);
+		return searchFilter; 
+	}
 
 	/**
 	 * @param searchStatus the searchStatus to set

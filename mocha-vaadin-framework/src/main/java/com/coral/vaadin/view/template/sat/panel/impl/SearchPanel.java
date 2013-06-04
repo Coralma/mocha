@@ -18,6 +18,7 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 
 	private static final long serialVersionUID = -1159571598614146156L;
 	private SearchConditionPanel conditionPanel = new SearchConditionPanel();
+	private VerticalLayout searchCardPanel = new VerticalLayout();
 	private SearchListener listener;
 	public SearchPanel() {
 		this.addStyleName("viewPanel");
@@ -27,6 +28,14 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 	
 	public void attach() {
 		this.addComponent(conditionPanel);
+		searchCardPanel.setWidth("100%");
+		searchCardPanel.setSpacing(true);
+		this.addComponent(searchCardPanel);
+		buildSearchCardPanel();
+	}
+	
+	public void buildSearchCardPanel() {
+		searchCardPanel.removeAllComponents();
 		for(final Object entity : getEntityList()) {
 			try {
 				SearchEntityCard searchEntityCard = (SearchEntityCard)getEntityCardClass().newInstance();
@@ -40,7 +49,7 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 					}
 				});
 				searchEntityCard.setEntity(entity);
-				addComponent(searchEntityCard);
+				searchCardPanel.addComponent(searchEntityCard);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

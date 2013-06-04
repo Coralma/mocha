@@ -9,13 +9,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.coral.foundation.utils.StrUtils;
+
 @SuppressWarnings({"unchecked","rawtypes"})
 public class CommonSearchDao {
 
     @PersistenceContext
     protected EntityManager entityManager;
     
-	public List<Object> searchByFilter(SearchFilterBuilder filterBuilder) {
+	public <T> List<T> searchByFilter(SearchFilterBuilder filterBuilder) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery criteria = builder.createQuery(filterBuilder.getSearchEntityClass());
 		Root root = criteria.from(filterBuilder.getSearchEntityClass());
@@ -23,7 +25,7 @@ public class CommonSearchDao {
 		Predicate predicate = null;
 		predicate = buildPredicate(builder, root, filterBuilder);
 		criteria.where(predicate);
-		List<Object> result = entityManager.createQuery(criteria).getResultList();
+		List<T> result = entityManager.createQuery(criteria).getResultList();
 		return result;
 	}
     
@@ -43,6 +45,8 @@ public class CommonSearchDao {
 			SearchFilter filter = filters.get(i);
 			if(SearchStatus.EQ.equals(filter.getSearchStatus())) {
 				subPredicates[i] = builder.equal(root.get(filter.getPropertyName()), filter.getValue());
+			} else if(SearchStatus.LIKE.equals(filter.getSearchStatus())) {
+				subPredicates[i] = builder.like(root.get(filter.getPropertyName()), StrUtils.like(filter.getValue().toString()));
 			}
 		}
 		return subPredicates;

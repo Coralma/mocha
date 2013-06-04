@@ -7,9 +7,11 @@ import com.mocha.crm.dao.*;
 import com.mocha.crm.model.*;
 import com.coral.foundation.jpa.impl.JpaDao;
 import com.coral.foundation.jpa.search.CommonSearchDao;
+import com.coral.foundation.jpa.search.RelationStatus;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
 import com.coral.foundation.spring.bean.SpringContextUtils;
+import com.coral.foundation.utils.StrUtils;
 import com.google.common.collect.Lists;
 
 import org.slf4j.Logger;
@@ -28,17 +30,20 @@ public class CustomerDaoImpl extends JpaDao<Customer> implements CustomerDao {
 	}
 	
 	public List<Customer> fuzzySearch(String condition) {
-		CommonSearchDao commonSearchDao = SpringContextUtils.getBean("commonSearchDao", CommonSearchDao.class);
-		SearchFilterBuilder filterBuilder = new SearchFilterBuilder();
-		filterBuilder.setSearchEntityClass(Customer.class);
-		
-		List<SearchFilter> searchFilters = Lists.newArrayList();
-		searchFilters.add(SearchFilter.eq("name", condition));
-		filterBuilder.setSearchFilters(searchFilters);
-		
-		List<Object> objs = commonSearchDao.searchByFilter(filterBuilder);
 		List<Customer> customers = Lists.newArrayList();
-//		customers.add(e);
+		if(StrUtils.isEmpty(condition)) {
+			customers = findAll();
+		} else {
+			SearchFilterBuilder filterBuilder = buildFuzzySearchFilter(Customer.class);
+			filterBuilder.getSearchFilters().add(SearchFilter.like("name", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("contectPerson", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("district", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("postcode", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("address", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("mobile", condition));
+			filterBuilder.getSearchFilters().add(SearchFilter.like("email", condition));
+			customers = getCommonSearchDao().searchByFilter(filterBuilder);
+		}
 		return customers;
 	}
 }
