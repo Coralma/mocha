@@ -5,6 +5,8 @@ package com.coral.foundation.jpa;
 
 import java.util.List;
 
+import com.coral.foundation.jpa.search.SearchFilterBuilder;
+
 /**
  * @author Coral.Ma
  * 
@@ -19,4 +21,6 @@ public interface Dao<E> {
     E findById(Long id);
     
     List<E> findAll();
+    
+    List<E> fuzzySearch(SearchFilterBuilder filterBuilder);
 }

@@ -89,18 +89,27 @@ public class JpaDao<E extends BaseEntity> implements Dao<E> {
         return entityManager.createQuery(criteria).getResultList();
     }
     
-    protected SearchFilterBuilder buildFuzzySearchFilter(Class entityClass) {
-		SearchFilterBuilder filterBuilder = new SearchFilterBuilder();
-		filterBuilder.setRelationStatus(RelationStatus.OR);
-		filterBuilder.setSearchEntityClass(entityClass);
-		
-		List<SearchFilter> searchFilters = Lists.newArrayList();
-		filterBuilder.setSearchFilters(searchFilters);
-		return filterBuilder;
-	}
+//    protected SearchFilterBuilder buildFuzzySearchFilter(Class entityClass) {
+//		SearchFilterBuilder filterBuilder = new SearchFilterBuilder();
+//		filterBuilder.setRelationStatus(RelationStatus.OR);
+//		filterBuilder.setSearchEntityClass(entityClass);
+//		
+//		List<SearchFilter> searchFilters = Lists.newArrayList();
+//		filterBuilder.setSearchFilters(searchFilters);
+//		return filterBuilder;
+//	}
 
 	protected CommonSearchDao getCommonSearchDao() {
 		CommonSearchDao commonSearchDao = SpringContextUtils.getBean("commonSearchDao", CommonSearchDao.class);
 		return commonSearchDao;
+	}
+
+	@Override
+	public List<E> fuzzySearch(SearchFilterBuilder filterBuilder) {
+		if(filterBuilder == null) {
+			return findAll();
+		} else {
+			return getCommonSearchDao().searchByFilter(filterBuilder);
+		}
 	}
 }

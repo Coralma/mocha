@@ -4,6 +4,8 @@ import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.View;
+import com.coral.foundation.md.model.ViewField;
+import com.coral.foundation.md.model.ViewSection;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.google.common.base.Objects;
@@ -89,11 +91,19 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("import com.coral.foundation.model.BaseEntity;");
     _builder.newLine();
+    _builder.append("import com.coral.foundation.jpa.search.SearchFilter;");
+    _builder.newLine();
+    _builder.append("import com.coral.foundation.jpa.search.SearchFilterBuilder;");
+    _builder.newLine();
+    _builder.append("import com.coral.foundation.jpa.search.SearchFilterFactory;");
+    _builder.newLine();
     _builder.append("import com.coral.foundation.spring.bean.SpringContextUtils;");
     _builder.newLine();
     _builder.append("import com.coral.vaadin.controller.Presenter;");
     _builder.newLine();
     _builder.append("import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;");
+    _builder.newLine();
+    _builder.append("import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;");
     _builder.newLine();
     _builder.append("import com.coral.vaadin.widget.view.AppCommonPresenter;");
     _builder.newLine();
@@ -185,6 +195,7 @@ public class EntityCardSearchPresenter {
     final String viewVariable = VAppGenHelper.asVariable(this.viewClassName);
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
+    _builder.append("final ");
     _builder.append(this.viewClassName, "	");
     _builder.append(" ");
     _builder.append(viewVariable, "	");
@@ -215,6 +226,41 @@ public class EntityCardSearchPresenter {
         _builder.append("postViewer(\"");
         _builder.append(editViewName, "			");
         _builder.append("\");");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("});");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append(viewVariable, "	");
+        _builder.append(".getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("@Override");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("public void search(String condition) {");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t\t");
+        _builder.append("List<");
+        _builder.append(this.entityName, "			");
+        _builder.append("> customers = dao.fuzzySearch(buildFuzzySearch(condition));");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t\t");
+        _builder.append(viewVariable, "			");
+        _builder.append(".setValue(customers);");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t\t");
+        _builder.append(viewVariable, "			");
+        _builder.append(".buildSearchCardPanel();");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("\t");
@@ -285,6 +331,41 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public SearchFilterBuilder buildFuzzySearch(String condition) {");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(");
+    _builder.append(this.entityName, "	");
+    _builder.append(".class);");
+    _builder.newLineIfNotEmpty();
+    {
+      List<ViewSection> _sections = this.view.getSections();
+      for(final ViewSection section : _sections) {
+        {
+          String _template = section.getTemplate();
+          boolean _equals = "SearchCondition".equals(_template);
+          if (_equals) {
+            {
+              List<ViewField> _viewFields = section.getViewFields();
+              for(final ViewField field : _viewFields) {
+                _builder.append("\t");
+                _builder.append("filterBuilder.getSearchFilters().add(SearchFilter.like(\"");
+                String _fieldName = field.getFieldName();
+                _builder.append(_fieldName, "	");
+                _builder.append("\", condition));");
+                _builder.newLineIfNotEmpty();
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.append("\t");
+    _builder.append("return filterBuilder;");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();

@@ -3,9 +3,10 @@ package com.mocha.vaadin.entity.presenter;
 import com.mocha.crm.dao.*;
 import java.util.List;
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.model.BaseEntity;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.jpa.search.SearchFilterFactory;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
@@ -38,18 +39,18 @@ public class CustomerSearchPresenter extends AppCommonPresenter implements Prese
 	@Override
 	public void bind() {
 		final CustomerSearch customerSearch = (CustomerSearch) viewer;
-		customerSearch.getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
-			@Override
-			public void search(String condition) {
-				List<Customer> customers = dao.fuzzySearch(condition);
-				customerSearch.setValue(customers);
-				customerSearch.buildSearchCardPanel();
-			}
-		});
 		customerSearch.getConditionPanel().getCreateBtn().addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				postViewer("CustomerView");
+			}
+		});
+		customerSearch.getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
+			@Override
+			public void search(String condition) {
+				List<Customer> customers = dao.fuzzySearch(buildFuzzySearch(condition));
+				customerSearch.setValue(customers);
+				customerSearch.buildSearchCardPanel();
 			}
 		});
 		customerSearch.setListener(new SearchListener() {
@@ -71,17 +72,21 @@ public class CustomerSearchPresenter extends AppCommonPresenter implements Prese
 		}
 	}
 	
+	public SearchFilterBuilder buildFuzzySearch(String condition) {
+		SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(Customer.class);
+		filterBuilder.getSearchFilters().add(SearchFilter.like("name", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("district", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("contectPerson", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("mobile", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("phone", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("fax", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("email", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("accountBank", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("accountNumber", condition));
+		filterBuilder.getSearchFilters().add(SearchFilter.like("accountPerson", condition));
+		return filterBuilder;
+	}
+	
 
-//	public SearchFilterBuilder buildFuzzySearch() {
-//		SearchFilterBuilder filterBuilder = buildFuzzySearchFilter(Customer.class);
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("name", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("contectPerson", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("district", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("postcode", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("address", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("mobile", condition));
-//		filterBuilder.getSearchFilters().add(SearchFilter.like("email", condition));
-//		return filterBuilder;
-//	}
 }
 

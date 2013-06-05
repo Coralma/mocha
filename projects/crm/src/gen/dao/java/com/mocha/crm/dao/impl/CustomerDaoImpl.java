@@ -10,6 +10,7 @@ import com.coral.foundation.jpa.search.CommonSearchDao;
 import com.coral.foundation.jpa.search.RelationStatus;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
+import com.coral.foundation.jpa.search.SearchFilterFactory;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.foundation.utils.StrUtils;
 import com.google.common.collect.Lists;
@@ -29,22 +30,22 @@ public class CustomerDaoImpl extends JpaDao<Customer> implements CustomerDao {
 		log.debug(""+CustomerDaoImpl.class);
 	}
 	
-	public List<Customer> fuzzySearch(String condition) {
-		List<Customer> customers = Lists.newArrayList();
-		if(StrUtils.isEmpty(condition)) {
-			customers = findAll();
-		} else {
-			SearchFilterBuilder filterBuilder = buildFuzzySearchFilter(Customer.class);
-			filterBuilder.getSearchFilters().add(SearchFilter.like("name", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("contectPerson", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("district", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("postcode", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("address", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("mobile", condition));
-			filterBuilder.getSearchFilters().add(SearchFilter.like("email", condition));
-			customers = getCommonSearchDao().searchByFilter(filterBuilder);
-		}
-		return customers;
-	}
+//	public List<Customer> fuzzySearch(String condition) {
+//		List<Customer> customers = Lists.newArrayList();
+//		if(StrUtils.isEmpty(condition)) {
+//			customers = findAll();
+//		} else {
+//			SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(Customer.class);
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("name", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("contectPerson", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("district", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("postcode", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("address", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("mobile", condition));
+//			filterBuilder.getSearchFilters().add(SearchFilter.like("email", condition));
+//			customers = getCommonSearchDao().searchByFilter(filterBuilder);
+//		}
+//		return customers;
+//	}
 }
 

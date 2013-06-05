@@ -46,9 +46,13 @@ class EntityCardSearchPresenter {
 		import java.util.List;
 		import com.coral.foundation.core.impl.MochaEventBus;
 		import com.coral.foundation.model.BaseEntity;
+		import com.coral.foundation.jpa.search.SearchFilter;
+		import com.coral.foundation.jpa.search.SearchFilterBuilder;
+		import com.coral.foundation.jpa.search.SearchFilterFactory;
 		import com.coral.foundation.spring.bean.SpringContextUtils;
 		import com.coral.vaadin.controller.Presenter;
 		import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
+		import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;
 		import com.coral.vaadin.widget.view.AppCommonPresenter;
 		import «SystemConstant::ENTITY_EDIT_VIEW_PKG».«viewClassName»;
 		import «entityPackage».«entityName»;
@@ -81,13 +85,21 @@ class EntityCardSearchPresenter {
 		@Override
 		public void bind() {
 			«val viewVariable = VAppGenHelper::asVariable(viewClassName)»
-			«viewClassName» «viewVariable» = («viewClassName») viewer;
+			final «viewClassName» «viewVariable» = («viewClassName») viewer;
 			«val editViewName = VAppGenHelper::getEditViewName(view,mochas)»
 			«IF editViewName != null»
 				«viewVariable».getConditionPanel().getCreateBtn().addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						postViewer("«editViewName»");
+					}
+				});
+				«viewVariable».getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
+					@Override
+					public void search(String condition) {
+						List<«entityName»> customers = dao.fuzzySearch(buildFuzzySearch(condition));
+						«viewVariable».setValue(customers);
+						«viewVariable».buildSearchCardPanel();
 					}
 				});
 				«viewVariable».setListener(new SearchListener() {
@@ -108,6 +120,18 @@ class EntityCardSearchPresenter {
 			if(entity != null) {
 				dao.remove(((BaseEntity)entity).getID());
 			}
+		}
+		
+		public SearchFilterBuilder buildFuzzySearch(String condition) {
+			SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(«entityName».class);
+			«FOR section : view.getSections»
+				«IF "SearchCondition".equals(section.getTemplate)»
+					«FOR field : section.getViewFields»
+						filterBuilder.getSearchFilters().add(SearchFilter.like("«field.getFieldName»", condition));
+					«ENDFOR»
+				«ENDIF»
+			«ENDFOR»
+			return filterBuilder;
 		}
 		
 	'''
