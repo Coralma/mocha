@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+	
+	<codeTable name="ins-customer-type" ids="1;2">
+		<values language="zh">企业客户;个人客户</values>
+		<values language="en">Company Customer;Individual Customer</values>
+	</codeTable>
+	
+	<codeTable name="ins-customer-status" ids="1;2;3">
+		<values language="zh">已获得客户;潜在客户;失败客户</values>
+		<values language="en">Achieved;Potential;Failure</values>
+	</codeTable>
+	
+	<codeTable name="serve-type" ids="1;2">
+		<values language="zh">电话访问;上门拜访</values>
+		<values language="en">Call;Visit</values>
+	</codeTable>
+	
+	<codeTable name="serve-priority" ids="1;2;3">
+		<values language="zh">高优先级;中优先级;低优先级</values>
+		<values language="en">High;Medium;Low</values>
+	</codeTable>
+	
+	<codeTable name="claim-status" ids="1;2">
+		<values language="zh">理赔处理中;理赔完成</values>
+		<values language="en">Claim in Process;Claim Achieved</values>
+	</codeTable>
+</mocha>

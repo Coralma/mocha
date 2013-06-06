@@ -105,25 +105,31 @@ public class VAppGenHelper {
 	 */
 	public static String generateFieldStatus(ViewField field) {
 		String fieldStatus = "FieldStatus.create()";
-		fieldStatus += ".setLabel(\"" + generateFieldLabel(field) + "\")";
-		fieldStatus += ".setPath(\"" + field.getPath() + "\")";
-		fieldStatus += ".setType(\"" + field.getProperty().getType() + "\")";
-		if(field.isRequired()) {
-			fieldStatus += ".setRequired(true)";
+		try {
+			fieldStatus += ".setLabel(\"" + generateFieldLabel(field) + "\")";
+			fieldStatus += ".setPath(\"" + field.getPath() + "\")";
+			fieldStatus += ".setType(\"" + field.getProperty().getType() + "\")";
+			if(field.isRequired()) {
+				fieldStatus += ".setRequired(true)";
+			}
+			if(field.getStyle() != null) {
+				fieldStatus += ".setStyle(\""+ field.getStyle() + "\")";
+			}
+			if(field.getCodeTable() != null) {
+				fieldStatus += ".setCodeTableName(\"" + field.getCodeTable() + "\")";
+			}
+			if(field.isChangeLine()) {
+				fieldStatus += ".setChangeLine(true)";
+			}
+			if(field.isWholeRow()) {
+				fieldStatus += ".setWholeRow(true)";
+			}
+			fieldStatus += ";";
+		} catch (Exception e) {
+			System.out.println("Error in generateFieldStatus, the Error field is " + field.getFieldName());
+			e.printStackTrace();
 		}
-		if(field.getStyle() != null) {
-			fieldStatus += ".setStyle(\""+ field.getStyle() + "\")";
-		}
-		if(field.getCodeTable() != null) {
-			fieldStatus += ".setCodeTableName(\"" + field.getCodeTable() + "\")";
-		}
-		if(field.isChangeLine()) {
-			fieldStatus += ".setChangeLine(true)";
-		}
-		if(field.isWholeRow()) {
-			fieldStatus += ".setWholeRow(true)";
-		}
-		fieldStatus += ";";
+		
 		return fieldStatus;
 	}
 	

@@ -87,8 +87,7 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 
 	@Override
 	public void setValue(Object value) {
-		// TODO Auto-generated method stub
-		
+		field.setValue(value);
 	}
 
 	@Override

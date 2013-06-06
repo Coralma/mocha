@@ -30,9 +30,10 @@ local.properties
 
 .DS_Store
 
-mocha-foundation/target
-mocha-vaadin-framework/target
-projects/cooperate/target
-projects/crm/target
-projects/homepage/target
-projects/officeAdmin/target
+mocha-foundation/target/
+mocha-vaadin-framework/target/
+projects/cooperate/target/
+projects/crm/target/
+projects/homepage/target/
+projects/officeAdmin/target/
+projects/insuranceBroker/target/
