@@ -453,6 +453,24 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>type</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>reportFilters</propertyName>
+            <ignore>false</ignore>
+            <type>List</type>
+            <ref>ReportFilter</ref>
+            <orm>one-to-many</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>reportTables</propertyName>
             <ignore>false</ignore>
             <type>List</type>
@@ -498,11 +516,39 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>joniReportTableId</propertyName>
+            <ignore>false</ignore>
+            <type>List</type>
+            <ref>Long</ref>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>joinType</propertyName>
+            <ignore>false</ignore>
+            <label>joinType</label>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>reportJoinColumn</propertyName>
+            <ignore>false</ignore>
+            <type>ReportColumn</type>
+            <ref>ReportColumn</ref>
+            <orm>one-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>appReport</propertyName>
             <ignore>false</ignore>
-            <type>AppReport</type>
+            <type>List</type>
             <ref>AppReport</ref>
-            <orm>many-to-one</orm>
+            <orm>one-to-many</orm>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
@@ -533,11 +579,19 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>columnUseMode</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>reportTable</propertyName>
             <ignore>false</ignore>
             <type>ReportTable</type>
             <ref>ReportTable</ref>
-            <orm>many-to-one</orm>
+            <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
@@ -546,6 +600,97 @@
         <views/>
         <needView>false</needView>
         <entityClass>com.coral.foundation.security.model.ReportColumn</entityClass>
+        <mocha reference="../../.."/>
+      </com.coral.foundation.md.model.Entity>
+      <com.coral.foundation.md.model.Entity>
+        <entityName>ReportFilter</entityName>
+        <properties>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>filterName</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>filterType</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>appReport</propertyName>
+            <ignore>false</ignore>
+            <type>AppReport</type>
+            <ref>AppReport</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+        </properties>
+        <views/>
+        <needView>false</needView>
+        <entityClass>com.coral.foundation.security.model.ReportFilter</entityClass>
+        <mocha reference="../../.."/>
+      </com.coral.foundation.md.model.Entity>
+      <com.coral.foundation.md.model.Entity>
+        <entityName>MochaReport</entityName>
+        <tableName>T_MochaReport</tableName>
+        <properties>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>reportName</propertyName>
+            <ignore>false</ignore>
+            <label>reportName</label>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>creator</propertyName>
+            <ignore>false</ignore>
+            <label>Creator</label>
+            <type>com.coral.foundation.security.model.BasicUser</type>
+            <ref>com.coral.foundation.security.model.BasicUser</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>true</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>createdDate</propertyName>
+            <ignore>false</ignore>
+            <type>Date</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>appReport</propertyName>
+            <ignore>false</ignore>
+            <type>AppReport</type>
+            <ref>AppReport</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>reportPureQuery</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+        </properties>
+        <views/>
+        <needView>false</needView>
+        <entityClass>com.coral.foundation.security.model.MochaReport</entityClass>
         <mocha reference="../../.."/>
       </com.coral.foundation.md.model.Entity>
     </entityList>

@@ -23,6 +23,8 @@
 		<bean id="AppReportDao" class="com.coral.foundation.security.basic.dao.impl.AppReportDaoImpl"></bean>
 		<bean id="ReportTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl"></bean>
 		<bean id="ReportColumnDao" class="com.coral.foundation.security.basic.dao.impl.ReportColumnDaoImpl"></bean>
+		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.impl.ReportFilterDaoImpl"></bean>
+		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.impl.MochaReportDaoImpl"></bean>
 </beans>
 
 
