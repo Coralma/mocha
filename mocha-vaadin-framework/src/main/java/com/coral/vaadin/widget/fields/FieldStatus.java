@@ -7,6 +7,7 @@ public class FieldStatus {
 	private String label;
 	private String codeTableName;
 	private String style; // Eg: textarea
+	private String expression;
 	
 	private boolean isRequired = false;
 	private boolean changeLine = false; //change a new line to display current field.
@@ -132,6 +133,19 @@ public class FieldStatus {
 	 */
 	public FieldStatus setStyle(String style) {
 		this.style = style;
+		return this;
+	}
+	/**
+	 * @return the expression
+	 */
+	public String getExpression() {
+		return expression;
+	}
+	/**
+	 * @param expression the expression to set
+	 */
+	public FieldStatus setExpression(String expression) {
+		this.expression = expression;
 		return this;
 	}
 	

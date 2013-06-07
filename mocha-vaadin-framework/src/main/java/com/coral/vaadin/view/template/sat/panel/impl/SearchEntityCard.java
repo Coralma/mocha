@@ -71,7 +71,12 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 		if(getIconName() == null) {
 			icon.setIcon(new ThemeResource("icons/card-default.png"));
 		} else {
-			icon.setIcon(new ThemeResource("icons/" + getIconName()));
+			String specialIcon = listener.getSpecialIcon(value);
+			if(specialIcon != null) {
+				icon.setIcon(new ThemeResource("icons/" + specialIcon));
+			} else {
+				icon.setIcon(new ThemeResource("icons/" + getIconName()));
+			}
 		}
 		iconLayout.addComponent(icon);
 		iconLayout.setComponentAlignment(icon, Alignment.MIDDLE_CENTER);
@@ -109,6 +114,7 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 	
 	public interface SearchEntityCardListener {
 		public void handleAction(String name, String action);
+		public String getSpecialIcon(Object value);
 	}
 
 	/**

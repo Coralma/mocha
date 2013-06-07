@@ -149,7 +149,7 @@ public class EntityCard {
               for(final ViewField field : _viewFields) {
                 _builder.append("\t");
                 _builder.append("fieldStatus = ");
-                String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field);
+                String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field, this.mochas);
                 _builder.append(_generateFieldStatus, "	");
                 _builder.newLineIfNotEmpty();
                 _builder.append("\t");

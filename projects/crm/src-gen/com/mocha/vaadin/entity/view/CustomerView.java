@@ -18,7 +18,7 @@ public class CustomerView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("companyCustInfo");
 		sectionPanel.setLabel("Customer Information");
 		viewPanel.addSection(sectionPanel);
 		
@@ -37,7 +37,7 @@ public class CustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Postcode").setPath("postcode").setType("String").setChangeLine(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("companyCustInfo");
 		sectionPanel.setLabel("Contect Person");
 		viewPanel.addSection(sectionPanel);
 		
@@ -56,7 +56,7 @@ public class CustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("accountInfo");
 		sectionPanel.setLabel("Company Customer Bank Account");
 		viewPanel.addSection(sectionPanel);
 		
@@ -72,7 +72,7 @@ public class CustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Account Mark").setPath("accountMark").setType("String").setStyle("textarea").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("custMark");
 		sectionPanel.setLabel("Company Customer Mark");
 		viewPanel.addSection(sectionPanel);
 		

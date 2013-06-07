@@ -51,6 +51,7 @@ class EntityCardSearchPresenter {
 		import com.coral.foundation.jpa.search.SearchFilterFactory;
 		import com.coral.foundation.spring.bean.SpringContextUtils;
 		import com.coral.vaadin.controller.Presenter;
+		import com.coral.foundation.utils.StrUtils;
 		import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
 		import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;
 		import com.coral.vaadin.widget.view.AppCommonPresenter;
@@ -112,6 +113,12 @@ class EntityCardSearchPresenter {
 							postViewer("«viewClassName»");
 						}
 					}
+					
+					@Override
+					public String getSpecialIcon(Object value) {
+						// TODO Auto-generated method stub
+						return null;
+					}
 				});
 			«ENDIF»
 		}
@@ -123,6 +130,9 @@ class EntityCardSearchPresenter {
 		}
 		
 		public SearchFilterBuilder buildFuzzySearch(String condition) {
+			if(StrUtils.isEmpty(condition)) {
+				return null;
+			}
 			SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(«entityName».class);
 			«FOR section : view.getSections»
 				«IF "SearchCondition".equals(section.getTemplate)»

@@ -26,13 +26,10 @@ public class InsCustomerServeSearchCard extends SearchEntityCard {
 		sectionPanel.setSpacing(false);
 		
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
 		fieldStatus = FieldStatus.create().setLabel("Type").setPath("type").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		hlayout.addComponent(sectionPanel);

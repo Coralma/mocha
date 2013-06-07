@@ -364,6 +364,7 @@ public class EntityXmlParser {
 				viewField.setFieldName(field.attributeValue("name"));
 				viewField.setLabel(field.attributeValue("label"));
 				viewField.setPath(field.attributeValue("path"));
+				viewField.setExpression(field.attributeValue("expression"));
 				viewField.setCodeTable(field.attributeValue("codeTable"));
 				viewField.setStyle(field.attributeValue("style"));
 				String changeLine = field.attributeValue("changeLine");

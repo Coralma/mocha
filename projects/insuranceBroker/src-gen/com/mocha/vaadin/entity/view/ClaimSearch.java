@@ -14,9 +14,6 @@ public class ClaimSearch extends SearchPanel {
 
 	public void build() {
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
-		createFieldWidget(fieldStatus);
-		
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
 		createFieldWidget(fieldStatus);
 		

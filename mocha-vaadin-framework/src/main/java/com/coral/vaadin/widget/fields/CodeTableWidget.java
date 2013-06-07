@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.coral.foundation.security.model.CodeTable;
 import com.coral.foundation.utils.CodeTableUtils;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.ComboBox;
 
 /**
@@ -48,4 +49,11 @@ public class CodeTableWidget extends FieldWidget {
 		field.addListener(this);
 	}
 
+	public void setNullSelectionAllowed(boolean allow) {
+		((ComboBox)field).setNullSelectionAllowed(allow);
+	}
+	
+	public void addListener(ValueChangeListener listener) {
+		field.addListener(listener);
+	}
 }

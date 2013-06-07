@@ -47,6 +47,11 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 							listener.handleAction(name, action, entity);
 						}
 					}
+
+					@Override
+					public String getSpecialIcon(Object value) {
+						return getCardSpecialIcon(value);
+					}
 				});
 				searchEntityCard.setEntity(entity);
 				searchCardPanel.addComponent(searchEntityCard);
@@ -71,8 +76,9 @@ public abstract class SearchPanel extends VerticalLayout implements ISearchPanel
 	public abstract Class getEntityCardClass();
 	public abstract List getEntityList();
 	
-	
-	
+	public String getCardSpecialIcon(Object value) {
+		return null;
+	}
 	
 	
 	

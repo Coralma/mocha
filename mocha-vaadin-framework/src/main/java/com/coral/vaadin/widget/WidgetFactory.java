@@ -9,6 +9,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
@@ -59,6 +60,22 @@ public class WidgetFactory {
 	public static Button createLink(String caption, Object data, ClickListener listener) {
 		Button linkBtn = new Button(caption);
 		linkBtn.addStyleName(BaseTheme.BUTTON_LINK);
+		linkBtn.setData(data);
+		if(listener != null) {
+			linkBtn.addListener(listener);
+		}
+		return linkBtn;
+	}
+	public static Button createIconButton(String icon) {
+		return createIconButton(icon, null, null);
+	}
+	public static Button createIconButton(String icon, Object data) {
+		return createIconButton(icon, data, null);
+	}
+	public static Button createIconButton(String icon, Object data, ClickListener listener) {
+		Button linkBtn = new Button();
+		linkBtn.addStyleName(BaseTheme.BUTTON_LINK);
+		linkBtn.setIcon(new ThemeResource("icons/"+ icon));
 		linkBtn.setData(data);
 		if(listener != null) {
 			linkBtn.addListener(listener);

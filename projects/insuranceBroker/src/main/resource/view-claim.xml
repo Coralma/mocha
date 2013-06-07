@@ -6,11 +6,9 @@
 	<!-- 	customer search view -->
 	<view name="ClaimSearch" template="EntityCardSearch" entity="Claim">
 		<section name="ClaimCondition" template="SearchCondition">
-			<field name="policyNo" />
 			<field name="status" />
 		</section>
 		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
-			<field name="policyNo"/>
 			<field name="status"/>
 			<field name="claimAmount"/>
 			<field name="claimReason" wholeRow="true" style="textarea"/>
@@ -22,7 +20,7 @@
 	<!-- 	customer edit view -->
 	<view name="ClaimView" template="EntityEditView" entity="Claim">
 		<section name="prdtPolicy" label="Claim Information">
-			<field name="policyNo"/>
+			<field name="policy" style="ref" expression="policyNo"/>
 			<field name="status" codeTable="claim-status"/>
 			<field name="claimAmount"/>
 			<field name="claimReason" wholeRow="true" style="textarea"/>

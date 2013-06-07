@@ -56,7 +56,7 @@ class EntityCardSearch {
 			«FOR section : view.getSections»
 				«IF "SearchCondition".equals(section.getTemplate)»
 					«FOR field : section.getViewFields»
-						fieldStatus = «VAppGenHelper::generateFieldStatus(field)»
+						fieldStatus = «VAppGenHelper::generateFieldStatus(field,mochas)»
 						createFieldWidget(fieldStatus);
 						
 					«ENDFOR»

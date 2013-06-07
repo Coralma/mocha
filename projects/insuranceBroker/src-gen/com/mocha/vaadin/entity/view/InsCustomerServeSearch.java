@@ -14,13 +14,10 @@ public class InsCustomerServeSearch extends SearchPanel {
 
 	public void build() {
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String");
-		createFieldWidget(fieldStatus);
-		
 		fieldStatus = FieldStatus.create().setLabel("Type").setPath("type").setType("String");
 		createFieldWidget(fieldStatus);
 		
-		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("Date");
 		createFieldWidget(fieldStatus);
 		
 	}

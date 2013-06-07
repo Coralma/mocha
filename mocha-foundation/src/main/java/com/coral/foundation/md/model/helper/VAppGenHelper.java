@@ -103,12 +103,17 @@ public class VAppGenHelper {
 	 * @param field
 	 * @return String
 	 */
-	public static String generateFieldStatus(ViewField field) {
+	public static String generateFieldStatus(ViewField field, List<Mocha> mochas) {
 		String fieldStatus = "FieldStatus.create()";
 		try {
 			fieldStatus += ".setLabel(\"" + generateFieldLabel(field) + "\")";
 			fieldStatus += ".setPath(\"" + field.getPath() + "\")";
-			fieldStatus += ".setType(\"" + field.getProperty().getType() + "\")";
+			String type = field.getProperty().getType();
+			if(!isBasicType(type)) {
+				fieldStatus += ".setType(\"" + getRefClass(type,mochas) + "\")";
+			} else {
+				fieldStatus += ".setType(\"" + type + "\")";
+			}
 			if(field.isRequired()) {
 				fieldStatus += ".setRequired(true)";
 			}
@@ -124,6 +129,9 @@ public class VAppGenHelper {
 			if(field.isWholeRow()) {
 				fieldStatus += ".setWholeRow(true)";
 			}
+			if(field.getExpression() != null) {
+				fieldStatus += ".setExpression(\""+ field.getExpression() + "\")";
+			}
 			fieldStatus += ";";
 		} catch (Exception e) {
 			System.out.println("Error in generateFieldStatus, the Error field is " + field.getFieldName());
@@ -131,6 +139,25 @@ public class VAppGenHelper {
 		}
 		
 		return fieldStatus;
+	}
+	
+	public static boolean isBasicType(String type) {
+		if("String".equals(type) || "Long".equals(type) || "BigDecimal".equals(type) 
+				|| "Date".equals(type) || "List".equals(type)) {
+			return true;
+		} 
+		return false;
+	}
+	
+	public static String getRefClass(String refName,List<Mocha> mochas) {
+		for(Mocha mocha : mochas) {
+			for(Entity entity : mocha.getEntityList()) {
+				if(refName.equals(entity.getEntityName())) {
+					return entity.getEntityClass();
+				}
+			}
+		}
+		return "";
 	}
 	
 	/**

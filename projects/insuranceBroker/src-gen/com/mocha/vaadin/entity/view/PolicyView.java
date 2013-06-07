@@ -18,11 +18,11 @@ public class PolicyView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("prdtPolicy");
 		sectionPanel.setLabel("Product of Policy");
 		viewPanel.addSection(sectionPanel);
 		
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer").setType("com.mocha.ib.model.InsuranceCustomer").setStyle("ref").setExpression("name");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Insurance Company").setPath("insuranceCompany").setType("String");
@@ -34,17 +34,17 @@ public class PolicyView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Insurance Product").setPath("insuranceProduct").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("policyInfo");
 		sectionPanel.setLabel("Policy Information");
 		viewPanel.addSection(sectionPanel);
 		
 		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String").setChangeLine(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Effective Date").setPath("effectiveDate").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Effective Date").setPath("effectiveDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Expiry Date").setPath("expiryDate").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Expiry Date").setPath("expiryDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Premium").setPath("premium").setType("String");
@@ -53,7 +53,7 @@ public class PolicyView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Commission").setPath("commission").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("policyMark");
 		sectionPanel.setLabel("Policy Mark");
 		viewPanel.addSection(sectionPanel);
 		

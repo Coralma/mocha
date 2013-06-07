@@ -19,10 +19,10 @@ public class Claim extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType. AUTO)
 	private Long claimId;
 	
-	@Basic(optional = true)
-	@Column(name = "POLICY_NO" )
-	private String policyNo;
-	
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Policy.class, fetch=FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "policy") })
+	@Fetch(FetchMode.JOIN)
+	private Policy policy;
 	
 	@Basic(optional = true)
 	@Column(name = "STATUS" )
@@ -51,11 +51,11 @@ public class Claim extends BaseEntity {
 	public Long getClaimId () {
 		return claimId;
 	}
-	public void setPolicyNo (String policyNo) {
-		this.policyNo = policyNo;
+	public void setPolicy (Policy policy) {
+		this.policy = policy;
 	} 
-	public String getPolicyNo () {
-		return policyNo;
+	public Policy getPolicy () {
+		return policy;
 	}
 	public void setStatus (String status) {
 		this.status = status;

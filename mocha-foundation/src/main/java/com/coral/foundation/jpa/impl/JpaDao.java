@@ -49,11 +49,12 @@ public class JpaDao<E extends BaseEntity> implements Dao<E> {
 
     @Transactional
     public void persist(E entity) {
-    	if(entity.getID() == null) {
-    		entityManager.persist(entity);
-    	} else {
-    		merge(entity);
-    	}
+//    	if(entity.getID() == null) {
+//    		entityManager.persist(entity);
+//    	} else {
+//    		merge(entity);
+//    	}
+    	merge(entity);
     }
 
     @Transactional

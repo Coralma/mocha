@@ -19,10 +19,14 @@ public class Policy extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType. AUTO)
 	private Long policyId;
 	
-	@Basic(optional = true)
-	@Column(name = "CUSTOMER_NAME" )
-	private String customerName;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = InsuranceCustomer.class, fetch=FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "customer") })
+	@Fetch(FetchMode.JOIN)
+	private InsuranceCustomer customer;
 	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Claim.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Claim> claim = new ArrayList<Claim>();
 	
 	@Basic(optional = true)
 	@Column(name = "INSURANCE_COMPANY" )
@@ -46,13 +50,13 @@ public class Policy extends BaseEntity {
 	
 	@Basic(optional = true)
 	@Column(name = "EFFECTIVE_DATE" )
-	private String effectiveDate;
-	
+	@Temporal(TemporalType.DATE)
+	private Date effectiveDate;
 	
 	@Basic(optional = true)
 	@Column(name = "EXPIRY_DATE" )
-	private String expiryDate;
-	
+	@Temporal(TemporalType.DATE)
+	private Date expiryDate;
 	
 	@Basic(optional = true)
 	@Column(name = "PREMIUM" )
@@ -76,11 +80,17 @@ public class Policy extends BaseEntity {
 	public Long getPolicyId () {
 		return policyId;
 	}
-	public void setCustomerName (String customerName) {
-		this.customerName = customerName;
+	public void setCustomer (InsuranceCustomer customer) {
+		this.customer = customer;
 	} 
-	public String getCustomerName () {
-		return customerName;
+	public InsuranceCustomer getCustomer () {
+		return customer;
+	}
+	public void setClaim (List<Claim> claim) {
+		this.claim = claim;
+	} 
+	public List<Claim> getClaim () {
+		return claim;
 	}
 	public void setInsuranceCompany (String insuranceCompany) {
 		this.insuranceCompany = insuranceCompany;
@@ -106,16 +116,16 @@ public class Policy extends BaseEntity {
 	public String getPolicyNo () {
 		return policyNo;
 	}
-	public void setEffectiveDate (String effectiveDate) {
+	public void setEffectiveDate (Date effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	} 
-	public String getEffectiveDate () {
+	public Date getEffectiveDate () {
 		return effectiveDate;
 	}
-	public void setExpiryDate (String expiryDate) {
+	public void setExpiryDate (Date expiryDate) {
 		this.expiryDate = expiryDate;
 	} 
-	public String getExpiryDate () {
+	public Date getExpiryDate () {
 		return expiryDate;
 	}
 	public void setPremium (String premium) {

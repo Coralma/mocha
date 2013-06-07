@@ -53,7 +53,7 @@
 			<field name="address" wholeRow="true" style="textarea"/>
 			<field name="postcode" changeLine="true"/>
 		</section>
-		<section name="companyCustInfo" label="Company Contect Person">
+		<section name="companyContectPerson" label="Company Contect Person">
 			<field name="contectPerson"/>
 			<field name="mobile"/>
 			<field name="phone"/>

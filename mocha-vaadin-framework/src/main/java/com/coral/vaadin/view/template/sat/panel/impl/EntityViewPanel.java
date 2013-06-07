@@ -18,6 +18,7 @@ import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.fields.FieldWidget;
 import com.coral.vaadin.widget.fields.LongFieldWidget;
 import com.coral.vaadin.widget.fields.OptionGroupWidget;
+import com.coral.vaadin.widget.fields.ReferenceSelectionWidget;
 import com.coral.vaadin.widget.fields.StringAreaFieldWidget;
 import com.coral.vaadin.widget.fields.StringFieldWidget;
 import com.coral.vaadin.widget.helper.NotificationHelper;
@@ -40,6 +41,8 @@ public abstract class EntityViewPanel extends VerticalLayout {
 	public Class entityClass;
 	public Map<String, FieldWidget> fieldMap = Maps.newHashMap();
 	public Map<String, Button> actionMap = Maps.newHashMap();
+	public Map<String, ISectionPanel> sectionMap = Maps.newHashMap();
+	
 	protected IViewPanel viewPanel;
 	
 	public EntityViewPanel() {
@@ -69,8 +72,9 @@ public abstract class EntityViewPanel extends VerticalLayout {
 		return viewPanel;
 	}
 	
-	public ISectionPanel createSectionPanel() {
+	public ISectionPanel createSectionPanel(String sectionName) {
 		ISectionPanel sectionPanel = new DefaultSectionPanel();
+		sectionMap.put(sectionName, sectionPanel);
 		return sectionPanel;
 	}
 	
@@ -93,6 +97,10 @@ public abstract class EntityViewPanel extends VerticalLayout {
 			field = new DateFieldWidget(label);
 		} else if("Long".equals(fieldStatus.getType())) {
 			field = new LongFieldWidget(label);
+		} else {
+			if("ref".equals(fieldStatus.getStyle())) {
+				field = new ReferenceSelectionWidget(label, fieldStatus.getType(), fieldStatus.getExpression());
+			}
 		}
 		field.setProperty(createFieldProperty(fieldStatus.getPath()));
 		field.setFieldStatus(fieldStatus);
@@ -180,6 +188,10 @@ public abstract class EntityViewPanel extends VerticalLayout {
 	
 	public Button getButton(String actionName) {
 		return actionMap.get(actionName);
+	}
+	
+	public ISectionPanel getSection(String sectionName) {
+		return sectionMap.get(sectionName);
 	}
 	
 	public void setReadOnly(boolean readonly) {

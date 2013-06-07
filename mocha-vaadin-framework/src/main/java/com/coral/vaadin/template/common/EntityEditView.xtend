@@ -56,12 +56,12 @@ class EntityEditView {
 			FieldStatus fieldStatus;
 			
 			«FOR section : view.getSections»
-				sectionPanel = createSectionPanel();
+				sectionPanel = createSectionPanel("«section.getName»");
 				sectionPanel.setLabel("«section.label»");
 				viewPanel.addSection(sectionPanel);
 				
 				«FOR field : section.getViewFields»
-					fieldStatus = «VAppGenHelper::generateFieldStatus(field)»
+					fieldStatus = «VAppGenHelper::generateFieldStatus(field,mochas)»
 					sectionPanel.addField(createFieldWidget(fieldStatus));
 					
 				«ENDFOR»

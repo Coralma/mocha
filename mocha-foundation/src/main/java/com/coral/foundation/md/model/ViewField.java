@@ -10,6 +10,7 @@ public class ViewField implements Serializable {
 	public String path;
 	public String codeTable;
 	public String style;
+	public String expression;
 	public boolean required = false;
 	private boolean changeLine = false; //change a new line to display current field.
 	private boolean wholeRow = false; // full whole row.
@@ -165,5 +166,17 @@ public class ViewField implements Serializable {
 	 */
 	public void setRequired(boolean required) {
 		this.required = required;
+	}
+	/**
+	 * @return the expression
+	 */
+	public String getExpression() {
+		return expression;
+	}
+	/**
+	 * @param expression the expression to set
+	 */
+	public void setExpression(String expression) {
+		this.expression = expression;
 	}
 }
