@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+
+	<app name="InsuranceBroker" label="Insurance Broker">
+		<navigation>
+			<menu name="Home"/>
+			<group label="Customer Management">
+				<menu name="Customer" viewName="InsCustomerSearch"/>
+				<menu name="Serve" viewName="InsCustomerServeSearch"/>
+			</group>
+			<group label="Policy Management">
+				<menu name="Policy" viewName="PolicySearch"/>
+				<menu name="Cliam" viewName="ClaimSearch"/>
+			</group>
+		</navigation>
+		<creation>
+			<menu name="Create Customer" viewName="InsCustomerView"></menu>
+			<menu name="Create Policy" viewName="PolicyView"></menu>
+			<menu name="Create Cliam" viewName="ClaimView"></menu>
+			<menu name="Create Serve" viewName="InsCustomerServeView"></menu>
+		</creation>
+		<setting>
+		</setting>
+	</app>
+
+</mocha>

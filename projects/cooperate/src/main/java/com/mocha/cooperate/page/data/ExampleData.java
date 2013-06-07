@@ -106,6 +106,13 @@ public class ExampleData {
 		shotcutItem.setType(SystemProperty.PAGE_TYPE);
 		shotcutItemList.add(shotcutItem);
 		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("Insurance Broker");
+		shotcutItem.setAction("ib");
+		shotcutItem.setIcon("icons/crm_icon.png");
+		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+		shotcutItemList.add(shotcutItem);
+		
 //		shotcutItem = new ShotcutItem();
 //		shotcutItem.setLabel("cooperate.shotcut.StoreManage");
 //		shotcutItemList.add(shotcutItem);

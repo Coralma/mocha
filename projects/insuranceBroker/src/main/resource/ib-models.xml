@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+	
+	<entity entityName="InsuranceCustomer">
+<!-- 	ct:individual customer or company customer -->
+		<property name="customerType"/>
+<!-- 	ct:Achieved, Potential, Failure -->		
+		<property name="status"/>
+		<property name="name"/>
+		<property name="district"/>
+		<property name="postcode"/>
+		<property name="address"/>
+<!-- 		only for company user -->
+		<property name="contectPerson"/>
+		<property name="mobile"/>
+		<property name="phone"/>
+		<property name="fax"/>
+		<property name="email"/>
+		<property name="accountBank"/>
+		<property name="accountNumber"/>
+		<property name="accountPerson"/>
+		<property name="accountMark"/>
+		<property name="mark"/>
+	</entity>
+	
+	<entity entityName="InsuranceCompany">	
+		<property name="companyName"/>
+		<property name="description"/>
+<!-- 		Using the start -->
+		<property name="level"/>
+		<property name="products" type="List" ref="InsuranceProduct" orm="one-to-many"/>
+	</entity>
+	<entity entityName="InsuranceProduct">
+		<property name="category"/>
+		<property name="commissionRate"/>
+		<property name="renewalRemind"/>
+		<property name="desc"/>
+		<property name="insuranceCompany" type="InsuranceCompany" ref="InsuranceCompany" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="Policy">
+		<property name="customerName"/>
+		<property name="insuranceCompany"/>
+		<property name="category"/>
+		<property name="insuranceProduct"/>
+		<property name="policyNo"/>
+		<property name="effectiveDate"/>
+		<property name="expiryDate"/>
+		<property name="premium"/>
+		<property name="commission"/>
+		<property name="mark"/>
+	</entity>
+	
+	<entity entityName="Claim">
+		<property name="policyNo"/>
+		<property name="status"/> 
+		<property name="claimReason"/>
+		<property name="claimAmount"/>
+		<property name="mark"/>
+	</entity>
+	
+	<entity entityName="InsuranceCustomerServe">
+		<property name="customerName"/>
+		<property name="type"/> <!-- rt: call, visit,  -->
+		<property name="priority"/>
+		<property name="date"/>
+		<property name="status"/>
+		<property name="mark"/>
+		<property name="result"/>
+		<property name="feedback"/>
+	</entity>
+	
+	
+</mocha>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+		<bean id="InsuranceCustomerDao" class="com.mocha.ib.dao.impl.InsuranceCustomerDaoImpl"></bean>
+		<bean id="InsuranceCompanyDao" class="com.mocha.ib.dao.impl.InsuranceCompanyDaoImpl"></bean>
+		<bean id="InsuranceProductDao" class="com.mocha.ib.dao.impl.InsuranceProductDaoImpl"></bean>
+		<bean id="PolicyDao" class="com.mocha.ib.dao.impl.PolicyDaoImpl"></bean>
+		<bean id="ClaimDao" class="com.mocha.ib.dao.impl.ClaimDaoImpl"></bean>
+		<bean id="InsuranceCustomerServeDao" class="com.mocha.ib.dao.impl.InsuranceCustomerServeDaoImpl"></bean>
+</beans>
+
+

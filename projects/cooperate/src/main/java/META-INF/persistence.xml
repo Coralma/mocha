@@ -22,5 +22,12 @@
 		<class>com.mocha.crm.model.Customer</class>
 		<class>com.mocha.crm.model.Campaign</class>
 		<class>com.mocha.crm.model.Serve</class>
+		<!-- 		insurance broker -->
+		<class>com.mocha.ib.model.Claim</class>
+		<class>com.mocha.ib.model.Policy</class>
+		<class>com.mocha.ib.model.InsuranceCompany</class>
+		<class>com.mocha.ib.model.InsuranceCustomer</class>
+		<class>com.mocha.ib.model.InsuranceCustomerServe</class>
+		<class>com.mocha.ib.model.InsuranceProduct</class>
 	</persistence-unit>
 </persistence>

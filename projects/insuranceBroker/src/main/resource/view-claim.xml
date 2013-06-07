@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Insurance" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+	
+	<!-- 	customer search view -->
+	<view name="ClaimSearch" template="EntityCardSearch" entity="Claim">
+		<section name="ClaimCondition" template="SearchCondition">
+			<field name="policyNo" />
+			<field name="status" />
+		</section>
+		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
+			<field name="policyNo"/>
+			<field name="status"/>
+			<field name="claimAmount"/>
+			<field name="claimReason" wholeRow="true" style="textarea"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<!-- 	customer edit view -->
+	<view name="ClaimView" template="EntityEditView" entity="Claim">
+		<section name="prdtPolicy" label="Claim Information">
+			<field name="policyNo"/>
+			<field name="status" codeTable="claim-status"/>
+			<field name="claimAmount"/>
+			<field name="claimReason" wholeRow="true" style="textarea"/>
+		</section>
+		<section name="claimMark" label="Claim Mark">
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>	
