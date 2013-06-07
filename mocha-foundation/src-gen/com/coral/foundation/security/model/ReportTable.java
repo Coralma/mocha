@@ -33,10 +33,24 @@ public class ReportTable extends BaseEntity {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ReportColumn> reportColumns = new ArrayList<ReportColumn>();
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "appReport") })
+	@Basic(optional = true)
+	@Column(name = "JONI_REPORT_TABLE_ID" )
+	@ElementCollection
+	private List<Long> joniReportTableId;
+	
+	
+	@Basic(optional = true)
+	@Column(name = "JOIN_TYPE" )
+	private String joinType;
+	
+	
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = ReportColumn.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
-	private AppReport appReport;
+	private ReportColumn reportJoinColumn;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<AppReport> appReport = new ArrayList<AppReport>();
 	
 
 	public void setReportTableId (Long reportTableId) {
@@ -63,10 +77,28 @@ public class ReportTable extends BaseEntity {
 	public List<ReportColumn> getReportColumns () {
 		return reportColumns;
 	}
-	public void setAppReport (AppReport appReport) {
+	public void setJoniReportTableId (List<Long> joniReportTableId) {
+		this.joniReportTableId = joniReportTableId;
+	} 
+	public List<Long> getJoniReportTableId () {
+		return joniReportTableId;
+	}
+	public void setJoinType (String joinType) {
+		this.joinType = joinType;
+	} 
+	public String getJoinType () {
+		return joinType;
+	}
+	public void setReportJoinColumn (ReportColumn reportJoinColumn) {
+		this.reportJoinColumn = reportJoinColumn;
+	} 
+	public ReportColumn getReportJoinColumn () {
+		return reportJoinColumn;
+	}
+	public void setAppReport (List<AppReport> appReport) {
 		this.appReport = appReport;
 	} 
-	public AppReport getAppReport () {
+	public List<AppReport> getAppReport () {
 		return appReport;
 	}
 

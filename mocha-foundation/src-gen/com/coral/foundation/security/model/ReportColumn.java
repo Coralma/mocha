@@ -29,8 +29,12 @@ public class ReportColumn extends BaseEntity {
 	private String columnIndex;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "reportTable") })
+	@Basic(optional = true)
+	@Column(name = "COLUMN_USE_MODE" )
+	private String columnUseMode;
+	
+	
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private ReportTable reportTable;
 	
@@ -52,6 +56,12 @@ public class ReportColumn extends BaseEntity {
 	} 
 	public String getColumnIndex () {
 		return columnIndex;
+	}
+	public void setColumnUseMode (String columnUseMode) {
+		this.columnUseMode = columnUseMode;
+	} 
+	public String getColumnUseMode () {
+		return columnUseMode;
 	}
 	public void setReportTable (ReportTable reportTable) {
 		this.reportTable = reportTable;

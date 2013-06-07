@@ -14,7 +14,8 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:spring-configured />
-	<context:component-scan base-package="com.coral.foundation.security" />
+<!-- 	<context:component-scan base-package="com.coral.foundation.security" /> -->
+<!-- 	<context:component-scan base-package="com.mocha.oa.model" /> -->
 
 	<bean id="SpringContextUtils" class="com.coral.foundation.spring.bean.SpringContextUtils"
 		scope="singleton" />
@@ -34,7 +35,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="true" />
+				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
 				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
 			</bean>
@@ -55,21 +56,24 @@
 		<property name="password" value="root" />
 	</bean>
 
+	<bean id="commonSearchDao" class="com.coral.foundation.jpa.search.CommonSearchDao"></bean>
 	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
-	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage" scope="prototype"></bean>
+	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage"
+		scope="prototype"></bean>
+
 	<import resource="classpath*:generatedDaoContext.xml" />
-	
-		<bean id="AccountDao" class="com.coral.foundation.security.basic.dao.impl.AccountDaoImpl"></bean>
-		<bean id="BasicUserDao" class="com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl"></bean>
-		<bean id="BasicRoleDao" class="com.coral.foundation.security.basic.dao.impl.BasicRoleDaoImpl"></bean>
-		<bean id="MenuPermissionDao" class="com.coral.foundation.security.basic.dao.impl.MenuPermissionDaoImpl"></bean>
-		<bean id="AppDao" class="com.coral.foundation.security.basic.dao.impl.AppDaoImpl"></bean>
-		<bean id="CodeTableDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableDaoImpl"></bean>
-		<bean id="CodeTableValueDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableValueDaoImpl"></bean>
-		<bean id="AppReportDao" class="com.coral.foundation.security.basic.dao.impl.AppReportDaoImpl"></bean>
-		<bean id="ReportTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl"></bean>
-		<bean id="ReportColumnDao" class="com.coral.foundation.security.basic.dao.impl.ReportColumnDaoImpl"></bean>
-		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.impl.ReportFilterDaoImpl"></bean>
-		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.impl.MochaReportDaoImpl"></bean>
+<!-- 	<bean id="NotifyLineDao" class="com.mocha.cooperate.basic.dao.impl.NotifyLineDaoImpl"></bean> -->
+<!-- 	<bean id="TimeLineDao" class="com.mocha.cooperate.basic.dao.impl.TimeLineDaoImpl"></bean> -->
+<!-- 	<bean id="StatusDao" class="com.mocha.cooperate.basic.dao.impl.StatusDaoImpl"></bean> -->
+<!-- 	<bean id="DiscussDao" class="com.mocha.cooperate.basic.dao.impl.DiscussDaoImpl"></bean> -->
+<!-- 	<bean id="CommentDao" class="com.mocha.cooperate.basic.dao.impl.CommentDaoImpl"></bean> -->
+<!-- 	<bean id="AttachmentDao" class="com.mocha.cooperate.basic.dao.impl.AttachmentDaoImpl"></bean> -->
+<!-- 	<bean id="ShotcutDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutDaoImpl"></bean> -->
+<!-- 	<bean id="ShotcutItemDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutItemDaoImpl"></bean> -->
+<!-- 	<bean id="ToDoDao" class="com.mocha.cooperate.basic.dao.impl.ToDoDaoImpl"></bean> -->
+<!-- 	<bean id="SubToDoItemDao" class="com.mocha.cooperate.basic.dao.impl.SubToDoItemDaoImpl"></bean> -->
+
+	<import resource="classpath*:officeAdmin-beans.xml" />
+	<import resource="classpath*:crm-beans.xml" />
 	<tx:annotation-driven />
 </beans>

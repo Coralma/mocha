@@ -15,5 +15,7 @@
 		<class>com.coral.foundation.security.model.AppReport</class>
 		<class>com.coral.foundation.security.model.ReportColumn</class>
 		<class>com.coral.foundation.security.model.ReportTable</class>
+		<class>com.coral.foundation.security.model.ReportFilter</class>
+		<class>com.coral.foundation.security.model.MochaReport</class>	
 	</persistence-unit>
 </persistence>

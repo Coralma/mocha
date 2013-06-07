@@ -26,7 +26,7 @@
 		<property name="status" />
 		<property name="rememberMe" type="Boolean" ignore="true"/>
 		<property name="simpleAuthorizationInfo" type="org.apache.shiro.authz.SimpleAuthorizationInfo" ignore="true"/>
-<!-- 		<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->
+<!-- 	<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->
 		<property name="basicRole" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
 		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
 	</entity>
@@ -70,18 +70,40 @@
 		<property name="name"/>
 		<property name="description"/>
 		<property name="type"/><!-- 0 means predefine table, 1 means user customized -->
+		<property name="reportFilters" type="List" ref="ReportFilter" orm="one-to-many"/>
 		<property name="reportTables" type="List" ref="ReportTable" orm="one-to-many"/>
 	</entity>
+	
 	<entity entityName="ReportTable">
 		<property name="tableName"/>
 		<property name="type"/><!-- 1 means main table , 0 means related table -->
 		<property name="reportColumns" type="List" ref="ReportColumn" orm="one-to-many"/>
-		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
-	</entity>
+		<property name="joniReportTableId" type="List" ref="Long"/> 
+		<property name="joinType" label="joinType"/>
+		<property name="reportJoinColumn" type="ReportColumn" ref="ReportColumn" orm="one-to-one"/>
+		<property name="appReport" type="List" ref="AppReport" orm="one-to-many"/>
+	</entity>	
+	
 	<entity entityName="ReportColumn">
 		<property name="columnName"/>
 		<property name="columnIndex"/><!-- order of column, sort by the index  -->
-		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
+		<property name="columnUseMode"/><!-- Check the usage for the column: 1 for output, 2 for join column -->
+		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="one-to-one"/>
 	</entity>
-
+	
+	<entity entityName="ReportFilter">
+		<property name="filterName"/>
+		<property name="filterType"/>
+		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="MochaReport" tableName="T_MochaReport">
+		<property name="reportName" label="reportName" />
+		<property name="creator" label="Creator"
+			type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser"
+			required="true" orm="many-to-one" refer="true" />
+		<property name="createdDate" type="Date"/>
+		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+		<property name="reportPureQuery"/>
+	</entity>
 </mocha>

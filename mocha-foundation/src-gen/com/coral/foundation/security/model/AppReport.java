@@ -29,6 +29,15 @@ public class AppReport extends BaseEntity {
 	private String description;
 	
 	
+	@Basic(optional = true)
+	@Column(name = "TYPE" )
+	private String type;
+	
+	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportFilter.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ReportFilter> reportFilters = new ArrayList<ReportFilter>();
+	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ReportTable> reportTables = new ArrayList<ReportTable>();
@@ -51,6 +60,18 @@ public class AppReport extends BaseEntity {
 	} 
 	public String getDescription () {
 		return description;
+	}
+	public void setType (String type) {
+		this.type = type;
+	} 
+	public String getType () {
+		return type;
+	}
+	public void setReportFilters (List<ReportFilter> reportFilters) {
+		this.reportFilters = reportFilters;
+	} 
+	public List<ReportFilter> getReportFilters () {
+		return reportFilters;
 	}
 	public void setReportTables (List<ReportTable> reportTables) {
 		this.reportTables = reportTables;
