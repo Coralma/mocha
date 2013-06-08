@@ -6,21 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * ReportTableDaoImpl is a auto Generated class. Please don't modify it.
- * 
- * @author Coral
- */
-public class ReportTableDaoImpl extends JpaDao<ReportTable>
-		implements
-			ReportTableDao {
-
-	Logger log = LoggerFactory.getLogger(ReportTableDaoImpl.class);
+  * ReportTableDaoImpl is a auto Generated class. Please don't modify it.
+  * @author Coral
+  */
+public class ReportTableDaoImpl extends JpaDao<ReportTable> implements ReportTableDao {
+	
+	Logger log=LoggerFactory.getLogger(ReportTableDaoImpl.class);
 	public ReportTableDaoImpl() {
 		super();
-		log.debug("" + ReportTableDaoImpl.class);
-	}
-	@Override
-	public void saveReportTable(ReportTable reportTable) {
-		entityManager.persist(reportTable);
+		log.debug(""+ReportTableDaoImpl.class);
 	}
 }
+

@@ -34,7 +34,8 @@ public class ReportColumn extends BaseEntity {
 	private String columnUseMode;
 	
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "reportTable") })
 	@Fetch(FetchMode.JOIN)
 	private ReportTable reportTable;
 	

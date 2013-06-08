@@ -13,12 +13,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-		<bean id="NotifyLineDao" class="com.mocha.cooperate.basic.dao.impl.NotifyLineDaoImpl"></bean>
 		<bean id="TimeLineDao" class="com.mocha.cooperate.basic.dao.impl.TimeLineDaoImpl"></bean>
 		<bean id="StatusDao" class="com.mocha.cooperate.basic.dao.impl.StatusDaoImpl"></bean>
 		<bean id="DiscussDao" class="com.mocha.cooperate.basic.dao.impl.DiscussDaoImpl"></bean>
 		<bean id="CommentDao" class="com.mocha.cooperate.basic.dao.impl.CommentDaoImpl"></bean>
 		<bean id="AttachmentDao" class="com.mocha.cooperate.basic.dao.impl.AttachmentDaoImpl"></bean>
+		<bean id="NotifyLineDao" class="com.mocha.cooperate.basic.dao.impl.NotifyLineDaoImpl"></bean>
 		<bean id="ShotcutDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutDaoImpl"></bean>
 		<bean id="ShotcutItemDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutItemDaoImpl"></bean>
 		<bean id="ToDoDao" class="com.mocha.cooperate.basic.dao.impl.ToDoDaoImpl"></bean>

@@ -15,7 +15,7 @@ import com.coral.vaadin.gen.VaadinFaceGenerator;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
+@ContextConfiguration(locations = "applicationContext.xml")
 public class CooperateGeneration {
 
 	@Test

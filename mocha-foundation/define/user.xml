@@ -78,9 +78,9 @@
 		<property name="tableName"/>
 		<property name="type"/><!-- 1 means main table , 0 means related table -->
 		<property name="reportColumns" type="List" ref="ReportColumn" orm="one-to-many"/>
-		<property name="joniReportTableId" type="List" ref="Long"/> 
+		<property name="reportJoinReportTableId" type="List" ref="ReportJoinTable" orm="one-to-many"/> 
 		<property name="joinType" label="joinType"/>
-		<property name="reportJoinColumn" type="ReportColumn" ref="ReportColumn" orm="one-to-one"/>
+		<!-- <property name="reportJoinColumn" type="ReportColumn" ref="ReportColumn" orm="one-to-one"/> -->
 		<property name="appReport" type="List" ref="AppReport" orm="one-to-many"/>
 	</entity>	
 	
@@ -88,13 +88,17 @@
 		<property name="columnName"/>
 		<property name="columnIndex"/><!-- order of column, sort by the index  -->
 		<property name="columnUseMode"/><!-- Check the usage for the column: 1 for output, 2 for join column -->
-		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="one-to-one"/>
+		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
 	</entity>
 	
 	<entity entityName="ReportFilter">
 		<property name="filterName"/>
 		<property name="filterType"/>
 		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="ReportJoinTable">
+		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
 	</entity>
 	
 	<entity entityName="MochaReport" tableName="T_MochaReport">

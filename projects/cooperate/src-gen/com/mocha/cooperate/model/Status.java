@@ -24,7 +24,7 @@ public class Status extends BaseEntity {
 	private String content;
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private com.coral.foundation.security.model.BasicUser creator;
 	

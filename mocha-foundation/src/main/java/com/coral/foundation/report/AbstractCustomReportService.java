@@ -26,6 +26,8 @@ public abstract class AbstractCustomReportService implements ReportService {
 	private static String defaultJoinString = "";
 
 	private static String defaultFilterString = "where";
+	
+	private static String defalutQueryFromString="From";
 
 	public MochaReportDao mochaReportDao = SpringContextUtils
 			.getBean(MochaReportDao.class);
@@ -48,6 +50,7 @@ public abstract class AbstractCustomReportService implements ReportService {
 		for (ReportTable table : reportTables) {
 			if (table.getType() == "1") {
 				buildOutputColumnString(table);
+				buildQueryFromString(table);
 				buildJoinString(table);
 			} else if (table.getType() == "2") {
 				buildOutputColumnString(table);
@@ -57,6 +60,7 @@ public abstract class AbstractCustomReportService implements ReportService {
 	}
 
 	abstract void buildOutputColumnString(ReportTable table);
+	abstract void buildQueryFromString(ReportTable table);
 	abstract void buildJoinString(ReportTable table);
 	abstract void buildFilterString(MochaReport table);
 
@@ -130,6 +134,14 @@ public abstract class AbstractCustomReportService implements ReportService {
 
 	public void setMochaReport(MochaReport mochaReport) {
 		this.mochaReport = mochaReport;
+	}
+
+	public static String getDefalutQueryFromString() {
+		return defalutQueryFromString;
+	}
+
+	public static void setDefalutQueryFromString(String defalutQueryFromString) {
+		AbstractCustomReportService.defalutQueryFromString = defalutQueryFromString;
 	}
 
 }

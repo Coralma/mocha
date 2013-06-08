@@ -8,6 +8,6 @@ import com.coral.foundation.security.model.*;
   * @author Coral
   */
 public interface ReportTableDao extends Dao<ReportTable> {
-		public void saveReportTable(ReportTable reportTable);
+	
 }
 
