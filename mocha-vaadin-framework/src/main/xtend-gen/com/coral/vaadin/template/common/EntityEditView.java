@@ -122,8 +122,11 @@ public class EntityEditView {
       List<ViewSection> _sections = this.view.getSections();
       for(final ViewSection section : _sections) {
         _builder.append("\t");
-        _builder.append("sectionPanel = createSectionPanel();");
-        _builder.newLine();
+        _builder.append("sectionPanel = createSectionPanel(\"");
+        String _name = section.getName();
+        _builder.append(_name, "	");
+        _builder.append("\");");
+        _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("sectionPanel.setLabel(\"");
         _builder.append(section.label, "	");
@@ -139,7 +142,7 @@ public class EntityEditView {
           for(final ViewField field : _viewFields) {
             _builder.append("\t");
             _builder.append("fieldStatus = ");
-            String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field);
+            String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field, this.mochas);
             _builder.append(_generateFieldStatus, "	");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");

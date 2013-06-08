@@ -24,21 +24,21 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			addComponent(groupTitle);
 			action = new MenuAction();
 			action.setView("InsCustomerSearch");
-			menuItem = createMenu("Customer",action);
+			menuItem = createMenu("Customer  Manage",action);
 			addComponent(menuItem);
 			action = new MenuAction();
 			action.setView("InsCustomerServeSearch");
-			menuItem = createMenu("Serve",action);
+			menuItem = createMenu("Customer  Serve",action);
 			addComponent(menuItem);
 			groupTitle = createMenuTitle("Policy Management");
 			addComponent(groupTitle);
 			action = new MenuAction();
 			action.setView("PolicySearch");
-			menuItem = createMenu("Policy",action);
+			menuItem = createMenu("Policy  Manage",action);
 			addComponent(menuItem);
 			action = new MenuAction();
 			action.setView("ClaimSearch");
-			menuItem = createMenu("Cliam",action);
+			menuItem = createMenu("Cliam  Register",action);
 			addComponent(menuItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

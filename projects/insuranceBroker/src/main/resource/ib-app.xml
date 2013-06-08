@@ -7,12 +7,12 @@
 		<navigation>
 			<menu name="Home"/>
 			<group label="Customer Management">
-				<menu name="Customer" viewName="InsCustomerSearch"/>
-				<menu name="Serve" viewName="InsCustomerServeSearch"/>
+				<menu name="Customer Manage" viewName="InsCustomerSearch"/>
+				<menu name="Customer Serve" viewName="InsCustomerServeSearch"/>
 			</group>
 			<group label="Policy Management">
-				<menu name="Policy" viewName="PolicySearch"/>
-				<menu name="Cliam" viewName="ClaimSearch"/>
+				<menu name="Policy Manage" viewName="PolicySearch"/>
+				<menu name="Cliam Register" viewName="ClaimSearch"/>
 			</group>
 		</navigation>
 		<creation>

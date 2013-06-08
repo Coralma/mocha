@@ -253,14 +253,15 @@
 
 .controller-menu .menu-group-title {
 	line-height: 28px;
-	padding-left: 23px;
+	padding-left: 15px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 13px;
+	color: #848484;
 }
 
 .controller-menu .menu-clicked-item {
 	border: none;
-	border-bottom: 1px solid #b9f3b9;
+	border-bottom: 1px solid #CEF6E3;
 	padding-left: 20px;
 	line-height: 25px;
 	text-align: left;
@@ -273,7 +274,7 @@
 .controller-menu .menu-clicked-item-selected {
 	border: none;
 	border-top: #ffffff 1px solid;
-	border-bottom: #b9f3b9 1px solid;
+	border-bottom: #CEF6E3 1px solid;
 	padding-left: 20px;
 	line-height: 25px;
 	text-align: left;

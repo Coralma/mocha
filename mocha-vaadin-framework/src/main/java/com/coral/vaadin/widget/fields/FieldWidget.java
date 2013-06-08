@@ -50,7 +50,9 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 //		this.addComponent(fieldLabel);
 		// add field
 		field.setWidth(fieldWidth);
-		((AbstractField)field).setImmediate(true);
+		if(field instanceof AbstractField) {
+			((AbstractField)field).setImmediate(true);
+		}
 		field.setPropertyDataSource(property);
 		this.addComponent(field);
 	}
@@ -94,7 +96,9 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 	public Result validate(String type) {
 		Result validator = new Result();
 		try {
-			((AbstractField)field).setComponentError(null);
+			if(field instanceof AbstractField) {
+				((AbstractField)field).setComponentError(null);
+			}
 			field.validate();
 //			if(required) {
 //				Object value = field.getValue();
@@ -109,7 +113,9 @@ public abstract class FieldWidget extends FormLayout implements ValueChangeListe
 			validator.setPass(false);
 			String errorMessage = e.getMessage();
 			validator.setErrorMessage(errorMessage);
-			((AbstractField)field).setComponentError(new UserError(errorMessage));
+			if(field instanceof AbstractField) {
+				((AbstractField)field).setComponentError(new UserError(errorMessage));
+			}
 		}
 		
 		return validator;

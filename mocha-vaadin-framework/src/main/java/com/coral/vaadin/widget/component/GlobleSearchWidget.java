@@ -52,7 +52,7 @@ public class GlobleSearchWidget extends HorizontalLayout {
 	}
 
 	public void setTextFieldWidth(String width) {
-		super.setWidth(width);
+		textField.setWidth(width);
 	}
 	
 	public void addShortcutListener(ShortcutListener shortcutListener){

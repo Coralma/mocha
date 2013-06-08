@@ -19,10 +19,10 @@ public class InsuranceCustomerServe extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType. AUTO)
 	private Long insuranceCustomerServeId;
 	
-	@Basic(optional = true)
-	@Column(name = "CUSTOMER_NAME" )
-	private String customerName;
-	
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = InsuranceCustomer.class, fetch=FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "customer") })
+	@Fetch(FetchMode.JOIN)
+	private InsuranceCustomer customer;
 	
 	@Basic(optional = true)
 	@Column(name = "TYPE" )
@@ -36,8 +36,8 @@ public class InsuranceCustomerServe extends BaseEntity {
 	
 	@Basic(optional = true)
 	@Column(name = "DATE" )
-	private String date;
-	
+	@Temporal(TemporalType.DATE)
+	private Date date;
 	
 	@Basic(optional = true)
 	@Column(name = "STATUS" )
@@ -66,11 +66,11 @@ public class InsuranceCustomerServe extends BaseEntity {
 	public Long getInsuranceCustomerServeId () {
 		return insuranceCustomerServeId;
 	}
-	public void setCustomerName (String customerName) {
-		this.customerName = customerName;
+	public void setCustomer (InsuranceCustomer customer) {
+		this.customer = customer;
 	} 
-	public String getCustomerName () {
-		return customerName;
+	public InsuranceCustomer getCustomer () {
+		return customer;
 	}
 	public void setType (String type) {
 		this.type = type;
@@ -84,10 +84,10 @@ public class InsuranceCustomerServe extends BaseEntity {
 	public String getPriority () {
 		return priority;
 	}
-	public void setDate (String date) {
+	public void setDate (Date date) {
 		this.date = date;
 	} 
-	public String getDate () {
+	public Date getDate () {
 		return date;
 	}
 	public void setStatus (String status) {

@@ -18,7 +18,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("customerStatus");
 		sectionPanel.setLabel("Customer Status");
 		viewPanel.addSection(sectionPanel);
 		
@@ -28,7 +28,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String").setCodeTableName("ins-customer-status");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("indiCustInfo");
 		sectionPanel.setLabel("Individual Customer Information");
 		viewPanel.addSection(sectionPanel);
 		
@@ -56,7 +56,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("companyCustInfo");
 		sectionPanel.setLabel("Company Customer Information");
 		viewPanel.addSection(sectionPanel);
 		
@@ -72,7 +72,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Postcode").setPath("postcode").setType("String").setChangeLine(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("companyContectPerson");
 		sectionPanel.setLabel("Company Contect Person");
 		viewPanel.addSection(sectionPanel);
 		
@@ -91,7 +91,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("accountInfo");
 		sectionPanel.setLabel("Customer Bank Account");
 		viewPanel.addSection(sectionPanel);
 		
@@ -107,7 +107,7 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Account Mark").setPath("accountMark").setType("String").setStyle("textarea").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("custMark");
 		sectionPanel.setLabel("Company Customer Mark");
 		viewPanel.addSection(sectionPanel);
 		

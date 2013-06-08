@@ -26,9 +26,6 @@ public class ClaimSearchCard extends SearchEntityCard {
 		sectionPanel.setSpacing(false);
 		
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		

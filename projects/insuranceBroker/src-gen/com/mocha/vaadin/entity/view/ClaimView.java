@@ -18,11 +18,11 @@ public class ClaimView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("prdtPolicy");
 		sectionPanel.setLabel("Claim Information");
 		viewPanel.addSection(sectionPanel);
 		
-		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Policy").setPath("policy").setType("com.mocha.ib.model.Policy").setStyle("ref").setExpression("policyNo");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String").setCodeTableName("claim-status");
@@ -34,7 +34,7 @@ public class ClaimView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Claim Reason").setPath("claimReason").setType("String").setStyle("textarea").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("claimMark");
 		sectionPanel.setLabel("Claim Mark");
 		viewPanel.addSection(sectionPanel);
 		

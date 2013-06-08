@@ -94,6 +94,14 @@ public class InsuranceCustomer extends BaseEntity {
 	private String accountMark;
 	
 	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Policy.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Policy> policy = new ArrayList<Policy>();
+	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = InsuranceCustomerServe.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
+	
 	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
@@ -195,6 +203,18 @@ public class InsuranceCustomer extends BaseEntity {
 	} 
 	public String getAccountMark () {
 		return accountMark;
+	}
+	public void setPolicy (List<Policy> policy) {
+		this.policy = policy;
+	} 
+	public List<Policy> getPolicy () {
+		return policy;
+	}
+	public void setServe (List<InsuranceCustomerServe> serve) {
+		this.serve = serve;
+	} 
+	public List<InsuranceCustomerServe> getServe () {
+		return serve;
 	}
 	public void setMark (String mark) {
 		this.mark = mark;

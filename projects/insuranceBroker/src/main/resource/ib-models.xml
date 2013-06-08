@@ -22,6 +22,8 @@
 		<property name="accountNumber"/>
 		<property name="accountPerson"/>
 		<property name="accountMark"/>
+		<property name="policy" type="List" ref="Policy" orm="one-to-many"/>
+		<property name="serve" type="List" ref="InsuranceCustomerServe" orm="one-to-many"/>
 		<property name="mark"/>
 	</entity>
 	
@@ -41,20 +43,21 @@
 	</entity>
 	
 	<entity entityName="Policy">
-		<property name="customerName"/>
+		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer" orm="many-to-one"/>
+		<property name="claim" type="List" ref="Claim" orm="one-to-many"/>
 		<property name="insuranceCompany"/>
 		<property name="category"/>
 		<property name="insuranceProduct"/>
 		<property name="policyNo"/>
-		<property name="effectiveDate"/>
-		<property name="expiryDate"/>
+		<property name="effectiveDate" type="Date"/>
+		<property name="expiryDate" type="Date"/>
 		<property name="premium"/>
 		<property name="commission"/>
 		<property name="mark"/>
 	</entity>
 	
 	<entity entityName="Claim">
-		<property name="policyNo"/>
+		<property name="policy" type="Policy" ref="Policy" orm="many-to-one"/>
 		<property name="status"/> 
 		<property name="claimReason"/>
 		<property name="claimAmount"/>
@@ -62,10 +65,10 @@
 	</entity>
 	
 	<entity entityName="InsuranceCustomerServe">
-		<property name="customerName"/>
+		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer" orm="many-to-one"/>
 		<property name="type"/> <!-- rt: call, visit,  -->
 		<property name="priority"/>
-		<property name="date"/>
+		<property name="date" type="Date"/>
 		<property name="status"/>
 		<property name="mark"/>
 		<property name="result"/>

@@ -18,7 +18,7 @@ public class CustomerActivityView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CampaignInfo");
 		sectionPanel.setLabel("Campaign Information");
 		viewPanel.addSection(sectionPanel);
 		
@@ -46,7 +46,7 @@ public class CustomerActivityView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Address").setPath("address").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CampaignExpectedRevenue");
 		sectionPanel.setLabel("Expected Revenue");
 		viewPanel.addSection(sectionPanel);
 		
@@ -62,7 +62,7 @@ public class CustomerActivityView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Expected Response").setPath("expectedResponse").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CampaignActualRevenue");
 		sectionPanel.setLabel("Actual Revenue");
 		viewPanel.addSection(sectionPanel);
 		
@@ -75,7 +75,7 @@ public class CustomerActivityView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Actual Sales Volume").setPath("actualSalesVolume").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CampaignMark");
 		sectionPanel.setLabel("Mark");
 		viewPanel.addSection(sectionPanel);
 		

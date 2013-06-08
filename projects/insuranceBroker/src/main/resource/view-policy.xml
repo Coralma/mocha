@@ -6,7 +6,6 @@
 	<!-- 	customer search view -->
 	<view name="PolicySearch" template="EntityCardSearch" entity="Policy">
 		<section name="PolicyCondition" template="SearchCondition">
-			<field name="customerName" />
 			<field name="insuranceCompany" />
 			<field name="category" />
 			<field name="insuranceProduct"/>
@@ -14,7 +13,6 @@
 		</section>
 		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
 			<field name="policyNo"/>
-			<field name="customerName"/>
 			<field name="insuranceCompany"/>
 			<field name="category"/>
 			<field name="insuranceProduct"/>
@@ -30,7 +28,7 @@
 	<!-- 	customer edit view -->
 	<view name="PolicyView" template="EntityEditView" entity="Policy">
 		<section name="prdtPolicy" label="Product of Policy">
-			<field name="customerName"/>
+			<field name="customer" style="ref" expression="name"/>
 			<field name="insuranceCompany"/>
 			<field name="category"/>
 			<field name="insuranceProduct"/>

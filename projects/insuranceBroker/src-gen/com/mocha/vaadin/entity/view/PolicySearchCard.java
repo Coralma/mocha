@@ -29,9 +29,6 @@ public class PolicySearchCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
 		fieldStatus = FieldStatus.create().setLabel("Insurance Company").setPath("insuranceCompany").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
@@ -41,10 +38,10 @@ public class PolicySearchCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Insurance Product").setPath("insuranceProduct").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Effective Date").setPath("effectiveDate").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Effective Date").setPath("effectiveDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Expiry Date").setPath("expiryDate").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Expiry Date").setPath("expiryDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Premium").setPath("premium").setType("String");

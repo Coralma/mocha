@@ -18,11 +18,11 @@ public class InsCustomerServeView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CustomerServerInfo");
 		sectionPanel.setLabel("Customer Server");
 		viewPanel.addSection(sectionPanel);
 		
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String").setRequired(true);
+		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer").setType("com.mocha.ib.model.InsuranceCustomer").setRequired(true).setStyle("ref").setExpression("name");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Type").setPath("type").setType("String").setCodeTableName("serve-type").setChangeLine(true);
@@ -31,7 +31,7 @@ public class InsCustomerServeView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Priority").setPath("priority").setType("String").setCodeTableName("serve-priority");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
@@ -40,7 +40,7 @@ public class InsCustomerServeView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Mark").setPath("mark").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("activityFeedback");
 		sectionPanel.setLabel("Feedback");
 		viewPanel.addSection(sectionPanel);
 		

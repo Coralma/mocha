@@ -18,7 +18,7 @@ public class CustomerServerView extends EntityViewPanel implements Viewer {
 		ISectionPanel sectionPanel;
 		FieldStatus fieldStatus;
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("CustomerServerInfo");
 		sectionPanel.setLabel("Customer Server");
 		viewPanel.addSection(sectionPanel);
 		
@@ -43,7 +43,7 @@ public class CustomerServerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Mark").setPath("mark").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		sectionPanel = createSectionPanel();
+		sectionPanel = createSectionPanel("activityFeedback");
 		sectionPanel.setLabel("Feedback");
 		viewPanel.addSection(sectionPanel);
 		

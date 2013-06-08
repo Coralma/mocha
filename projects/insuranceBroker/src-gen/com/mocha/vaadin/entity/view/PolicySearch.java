@@ -14,9 +14,6 @@ public class PolicySearch extends SearchPanel {
 
 	public void build() {
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customerName").setType("String");
-		createFieldWidget(fieldStatus);
-		
 		fieldStatus = FieldStatus.create().setLabel("Insurance Company").setPath("insuranceCompany").setType("String");
 		createFieldWidget(fieldStatus);
 		

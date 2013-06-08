@@ -6,12 +6,10 @@
 <!-- 	Customer Server Search -->
 	<view name="InsCustomerServeSearch" template="EntityCardSearch" entity="InsuranceCustomerServe">
 		<section name="CustomerServerCondition" template="SearchCondition">
-			<field name="customerName" />
 			<field name="type"/>
 			<field name="date"/>
 		</section>
 		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard" icon="card-serve.png">
-			<field name="customerName" />
 			<field name="type"/>
 			<field name="date"/>
 			<action name="edit" label="Edit" action="Edit"/>
@@ -22,7 +20,7 @@
 <!-- 	Customer Server View -->
 	<view name="InsCustomerServeView" template="EntityEditView" entity="InsuranceCustomerServe">
 		<section name="CustomerServerInfo" label="Customer Server">
-			<field name="customerName" required="true"/>
+			<field name="customer" required="true" label="Customer" style="ref" expression="name"/>
 			<field name="type" codeTable="serve-type" changeLine="true"/>
 			<field name="priority" codeTable="serve-priority"/>
 			<field name="date"/>
