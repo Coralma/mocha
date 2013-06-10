@@ -63,6 +63,11 @@ public class InsCustomerServeSearchPresenter extends AppCommonPresenter implemen
 					postViewer("InsCustomerServeSearch");
 				}
 			}
+			@Override
+			public void cardClick(Object value) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 	

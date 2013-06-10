@@ -5,7 +5,7 @@
 
 	<app name="InsuranceBroker" label="Insurance Broker">
 		<navigation>
-			<menu name="Home"/>
+			<menu name="Home" customizedClass="com.mocha.ib.presenter.IBDashboardPresenter"/>
 			<group label="Customer Management">
 				<menu name="Customer Manage" viewName="InsCustomerSearch"/>
 				<menu name="Customer Serve" viewName="InsCustomerServeSearch"/>
@@ -13,6 +13,13 @@
 			<group label="Policy Management">
 				<menu name="Policy Manage" viewName="PolicySearch"/>
 				<menu name="Cliam Register" viewName="ClaimSearch"/>
+			</group>
+			<group label="Company and Product">
+				<menu name="Cooperated Company" viewName="InsuranceCompanySearch"/>
+				<menu name="Product Management" viewName="InsuranceProductSearch"/>
+			</group>
+			<group label="Report Center">
+				<menu name="Reports"/>
 			</group>
 		</navigation>
 		<creation>

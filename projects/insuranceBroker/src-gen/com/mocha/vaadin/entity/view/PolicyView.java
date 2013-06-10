@@ -25,13 +25,13 @@ public class PolicyView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer").setType("com.mocha.ib.model.InsuranceCustomer").setStyle("ref").setExpression("name");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Insurance Company").setPath("insuranceCompany").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Company").setPath("insuranceCompany").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Category").setPath("category").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Insurance Product").setPath("insuranceProduct").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Product").setPath("insuranceProduct").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		sectionPanel = createSectionPanel("policyInfo");

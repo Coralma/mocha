@@ -64,6 +64,11 @@ public class PolicySearchPresenter extends AppCommonPresenter implements Present
 					postViewer("PolicySearch");
 				}
 			}
+			@Override
+			public void cardClick(Object value) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 	

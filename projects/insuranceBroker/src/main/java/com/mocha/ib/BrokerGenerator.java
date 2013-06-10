@@ -30,6 +30,8 @@ public class BrokerGenerator {
        mappingXMLs.add("src/main/resource/view-claim.xml");
        mappingXMLs.add("src/main/resource/view-policy.xml");
        mappingXMLs.add("src/main/resource/view-insuranceCustomerServe.xml");
+       mappingXMLs.add("src/main/resource/view-insuranceCompany.xml");
+       mappingXMLs.add("src/main/resource/view-insProduct.xml");
        Resource resource = new Resource();
        resource.setEntityXMLPaths(mappingXMLs);
        resource.setComponentName("insurance");

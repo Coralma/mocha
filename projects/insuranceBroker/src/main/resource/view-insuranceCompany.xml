@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Insurance" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+	
+	<!-- 	customer search view -->
+	<view name="InsuranceCompanySearch" template="EntityCardSearch" entity="InsuranceCompany">
+		<section name="InsuranceCompanyCondition" template="SearchCondition">
+			<field name="companyName" />
+		</section>
+		<section name="InsuranceCompanySearchCard" template="SearchCard" icon="card-cust.png">
+			<field name="companyName"/>
+			<field name="level" codeTable="company-level"/>
+			<field name="description" wholeRow="true"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<!-- 	customer edit view -->
+	<view name="InsuranceCompanyView" template="EntityEditView" entity="InsuranceCompany">
+		<section name="CompanyInfo" label="Insurance Company Information">
+			<field name="companyName"/>
+			<field name="level" codeTable="company-level"/>
+			<field name="description" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>	

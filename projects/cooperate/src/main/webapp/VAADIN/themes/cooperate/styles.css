@@ -1229,9 +1229,30 @@
 	padding-left: 5px;
 }
 
-.entity-search-card { /* 	cursor: pointer; */
+.entity-search-card {
+	cursor: pointer;
 	border: 1px solid #b9f3b9;
 	border-radius: 5px 5px 5px 5px;
+}
+
+.entity-search-card .search-card-action {
+	text-align: center;
+	border:1px solid #58D3F7;
+	color: #0489B1;
+	background: #CEECF5;
+	line-height: 20px;
+}
+
+.entity-search-card .search-card-action:HOVER {
+	background: #58ACFA;
+}
+
+.entity-search-card .search-card-action:HOVER .v-button-caption {
+	color: #EFF8FB;
+}
+
+.entity-search-card .search-card-action:FOCUS {
+	line-height: 20px;
 }
 
 .v-verticallayout-entity-search-card .v-verticallayout-margin {
@@ -1745,6 +1766,54 @@
 
 .app-new-report {
 	margin-top: 20px;
+}
+
+.single_column_section_panel {
+	padding-left: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.single_column_section_panel .display-title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.single_column_section_panel .v-formlayout .v-caption {
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	width: 100px;
+	color: #6E6E6E;	
+}
+
+.single_column_section_panel .show-detail-button {
+	padding-top: 4px;
+}
+
+.single_column_section_panel .show-detail-button .v-button-caption {
+	color: #6E6E6E;
+	font-weight: bold;
+}
+
+.list-section-panel {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+}
+.list-section-panel .section-label {
+	font-size: 14px;
+	color: #6E6E6E;	
+	border: none;
+	border-bottom: #B3B3B3 1px dotted;
+	font-family: arial;
+	font-weight: bold;
+}
+
+.list-section-panel .no-section-content {
+	font-size: 14px;
+	font-weight: bold;
+	color: #D8D8D8;
+	padding-right: 10px;
 }
 
 /* report */

@@ -20,6 +20,11 @@ public class InsuranceProduct extends BaseEntity {
 	private Long insuranceProductId;
 	
 	@Basic(optional = true)
+	@Column(name = "PRODUCT_NAME" )
+	private String productName;
+	
+	
+	@Basic(optional = true)
 	@Column(name = "CATEGORY" )
 	private String category;
 	
@@ -35,8 +40,8 @@ public class InsuranceProduct extends BaseEntity {
 	
 	
 	@Basic(optional = true)
-	@Column(name = "DESC" )
-	private String desc;
+	@Column(name = "DESCRIPTION" )
+	private String description;
 	
 	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = InsuranceCompany.class, fetch=FetchType.EAGER)
@@ -50,6 +55,12 @@ public class InsuranceProduct extends BaseEntity {
 	} 
 	public Long getInsuranceProductId () {
 		return insuranceProductId;
+	}
+	public void setProductName (String productName) {
+		this.productName = productName;
+	} 
+	public String getProductName () {
+		return productName;
 	}
 	public void setCategory (String category) {
 		this.category = category;
@@ -69,11 +80,11 @@ public class InsuranceProduct extends BaseEntity {
 	public String getRenewalRemind () {
 		return renewalRemind;
 	}
-	public void setDesc (String desc) {
-		this.desc = desc;
+	public void setDescription (String description) {
+		this.description = description;
 	} 
-	public String getDesc () {
-		return desc;
+	public String getDescription () {
+		return description;
 	}
 	public void setInsuranceCompany (InsuranceCompany insuranceCompany) {
 		this.insuranceCompany = insuranceCompany;

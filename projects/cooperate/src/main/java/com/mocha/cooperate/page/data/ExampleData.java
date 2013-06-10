@@ -109,7 +109,7 @@ public class ExampleData {
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("Insurance Broker");
 		shotcutItem.setAction("ib");
-		shotcutItem.setIcon("icons/crm_icon.png");
+		shotcutItem.setIcon("icons/ib_icon.png");
 		shotcutItem.setType(SystemProperty.PAGE_TYPE);
 		shotcutItemList.add(shotcutItem);
 		

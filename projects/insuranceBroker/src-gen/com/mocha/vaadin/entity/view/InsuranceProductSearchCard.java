@@ -7,9 +7,9 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 import com.coral.vaadin.widget.fields.FieldStatus;
-import com.mocha.ib.model.InsuranceCustomer;
+import com.mocha.ib.model.InsuranceProduct;
 
-public class InsCustomerSearchCard extends SearchEntityCard {
+public class InsuranceProductSearchCard extends SearchEntityCard {
 	
 
 	public void attach() {
@@ -26,29 +26,25 @@ public class InsCustomerSearchCard extends SearchEntityCard {
 		sectionPanel.setSpacing(false);
 		
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Name").setPath("name").setType("String").setRequired(true);
+		fieldStatus = FieldStatus.create().setLabel("Product Name").setPath("productName").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("District").setPath("district").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Category").setPath("category").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Address").setPath("address").setType("String").setStyle("textarea").setWholeRow(true);
+		fieldStatus = FieldStatus.create().setLabel("Commission Rate").setPath("commissionRate").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Postcode").setPath("postcode").setType("String").setChangeLine(true);
+		fieldStatus = FieldStatus.create().setLabel("Renewal Remind").setPath("renewalRemind").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Mobile").setPath("mobile").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
-		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Description").setPath("description").setType("String").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		hlayout.addComponent(sectionPanel);
 		hlayout.setComponentAlignment(sectionPanel,Alignment.TOP_LEFT);
 		
 		IActionPanel actionPanel = createCardActionPanel();
-		actionPanel.addButton(createActionButton("view", "View", "View"));		
 		actionPanel.addButton(createActionButton("edit", "Edit", "Edit"));		
 		actionPanel.addButton(createActionButton("delete", "Delete", "Delete"));		
 		hlayout.addComponent(actionPanel);

@@ -1,6 +1,6 @@
 package com.mocha.vaadin.entity.presenter;
 
-import com.mocha.crm.dao.*;
+import com.mocha.ib.dao.*;
 import java.util.List;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.model.BaseEntity;
@@ -9,23 +9,24 @@ import com.coral.foundation.jpa.search.SearchFilterBuilder;
 import com.coral.foundation.jpa.search.SearchFilterFactory;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
+import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
 import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
-import com.mocha.vaadin.entity.view.CustomerServerSearch;
-import com.mocha.crm.model.Serve;
+import com.mocha.vaadin.entity.view.InsuranceCompanySearch;
+import com.mocha.ib.model.InsuranceCompany;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-public class CustomerServerSearchPresenter extends AppCommonPresenter implements Presenter {
+public class InsuranceCompanySearchPresenter extends AppCommonPresenter implements Presenter {
 
-	private ServeDao dao = SpringContextUtils.getBean(ServeDao.class);
+	private InsuranceCompanyDao dao = SpringContextUtils.getBean(InsuranceCompanyDao.class);
 	
-	public CustomerServerSearchPresenter(MochaEventBus eventBus) {
+	public InsuranceCompanySearchPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new CustomerServerSearch();
+		this.viewer = new InsuranceCompanySearch();
 		// load all data.
 		List entities = dao.findAll();
 		viewer.setValue(entities);
@@ -33,34 +34,34 @@ public class CustomerServerSearchPresenter extends AppCommonPresenter implements
 
 	@Override
 	public String getPresenterName() {
-		return "CustomerServerSearch";
+		return "InsuranceCompanySearch";
 	}
 	
 	@Override
 	public void bind() {
-		final CustomerServerSearch customerServerSearch = (CustomerServerSearch) viewer;
-		customerServerSearch.getConditionPanel().getCreateBtn().addListener(new ClickListener() {
+		final InsuranceCompanySearch insuranceCompanySearch = (InsuranceCompanySearch) viewer;
+		insuranceCompanySearch.getConditionPanel().getCreateBtn().addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				postViewer("CustomerServerView");
+				postViewer("InsuranceCompanyView");
 			}
 		});
-		customerServerSearch.getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
+		insuranceCompanySearch.getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {
 			@Override
 			public void search(String condition) {
-				List<Serve> customers = dao.fuzzySearch(buildFuzzySearch(condition));
-				customerServerSearch.setValue(customers);
-				customerServerSearch.buildSearchCardPanel();
+				List<InsuranceCompany> customers = dao.fuzzySearch(buildFuzzySearch(condition));
+				insuranceCompanySearch.setValue(customers);
+				insuranceCompanySearch.buildSearchCardPanel();
 			}
 		});
-		customerServerSearch.setListener(new SearchListener() {
+		insuranceCompanySearch.setListener(new SearchListener() {
 			@Override
 			public void handleAction(String name, String action, Object entity) {
 				if("Edit".equals(action)) {
-					postViewer("CustomerServerView",entity);
+					postViewer("InsuranceCompanyView",entity);
 				} else if("Delete".equals(action)) {
 					remove(entity);
-					postViewer("CustomerServerSearch");
+					postViewer("InsuranceCompanySearch");
 				}
 			}
 			@Override
@@ -78,10 +79,11 @@ public class CustomerServerSearchPresenter extends AppCommonPresenter implements
 	}
 	
 	public SearchFilterBuilder buildFuzzySearch(String condition) {
-		SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(Serve.class);
-		filterBuilder.getSearchFilters().add(SearchFilter.like("customerName", condition));
-		filterBuilder.getSearchFilters().add(SearchFilter.like("type", condition));
-		filterBuilder.getSearchFilters().add(SearchFilter.like("date", condition));
+		if(StrUtils.isEmpty(condition)) {
+			return null;
+		}
+		SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(InsuranceCompany.class);
+		filterBuilder.getSearchFilters().add(SearchFilter.like("companyName", condition));
 		return filterBuilder;
 	}
 	

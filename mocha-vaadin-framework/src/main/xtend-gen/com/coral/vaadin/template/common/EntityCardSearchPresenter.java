@@ -324,15 +324,11 @@ public class EntityCardSearchPresenter {
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t");
-        _builder.append("public String getSpecialIcon(Object value) {");
+        _builder.append("public void cardClick(Object value) {");
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t\t");
         _builder.append("// TODO Auto-generated method stub");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t\t");
-        _builder.append("return null;");
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t");

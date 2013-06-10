@@ -70,7 +70,17 @@ public class InsCustomerSearchPresenter extends AppCommonPresenter implements Pr
 				} else if("Delete".equals(action)) {
 					remove(entity);
 					postViewer("InsCustomerSearch");
+				} else if("View".equals(action)) {
+					eventBus.put("Entity", entity);
+					postCustomizeClass(InsCustomerDisplayPresenter.class.getName());
 				}
+			}
+
+			@Override
+			public void cardClick(Object value) {
+				eventBus.put("Entity", value);
+				postCustomizeClass(InsCustomerDisplayPresenter.class.getName());
+				
 			}
 		});
 	}
@@ -97,7 +107,5 @@ public class InsCustomerSearchPresenter extends AppCommonPresenter implements Pr
 		filterBuilder.getSearchFilters().add(SearchFilter.like("accountPerson", condition));
 		return filterBuilder;
 	}
-	
-
 }
 

@@ -27,4 +27,19 @@
 		<values language="zh">理赔处理中;理赔完成</values>
 		<values language="en">Claim in Process;Claim Achieved</values>
 	</codeTable>
+	
+	<codeTable name="company-level" ids="5;4;3;2;1">
+		<values language="zh">5星级;4星级;3星级;2星级;1星级;</values>
+		<values language="en">5 Starts;4 Starts;3 Starts;2 Starts;1 Starts;</values>
+	</codeTable>
+	
+	<codeTable name="yes-no" ids="1;2">
+		<values language="zh">需要;不需求</values>
+		<values language="en">Yes;NO</values>
+	</codeTable>
+	
+	<codeTable name="insurance-category" ids="1;2;3;4;5;6">
+		<values language="zh">车险;事故险;寿险;财产险;责任险;合同险</values>
+		<values language="en">Vehicle;Accident;Life;Property;Liability;Contract</values>
+	</codeTable>
 </mocha>

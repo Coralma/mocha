@@ -36,5 +36,13 @@ public abstract class AppCommonPresenter extends CommonPresenter {
 		appContentEvent.setCustomizeClass(customizeClass);
 		eventBus.post(appContentEvent);
 	}
+	
+	public void postCustomizeClass(String customizeClass, Object entity) {
+		AppContentEvent appContentEvent = new AppContentEvent();
+		appContentEvent.setCustomizeClass(customizeClass);
+		eventBus.resetContext();
+		eventBus.put("Entity", entity);
+		eventBus.post(appContentEvent);
+	}
 
 }

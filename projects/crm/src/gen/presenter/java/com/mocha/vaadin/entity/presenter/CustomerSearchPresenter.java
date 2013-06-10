@@ -63,6 +63,11 @@ public class CustomerSearchPresenter extends AppCommonPresenter implements Prese
 					postViewer("CustomerSearch");
 				}
 			}
+			@Override
+			public void cardClick(Object value) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 	

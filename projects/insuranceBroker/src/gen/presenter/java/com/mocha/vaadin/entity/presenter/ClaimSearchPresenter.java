@@ -63,6 +63,11 @@ public class ClaimSearchPresenter extends AppCommonPresenter implements Presente
 					postViewer("ClaimSearch");
 				}
 			}
+			@Override
+			public void cardClick(Object value) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 	

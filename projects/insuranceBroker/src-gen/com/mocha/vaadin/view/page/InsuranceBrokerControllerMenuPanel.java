@@ -16,6 +16,7 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			Button menuItem = null;
 			// create the main menu item.
 			action = new MenuAction();
+			action.setPanel(Class.forName("com.mocha.ib.presenter.IBDashboardPresenter"));
 			menuItem = createMenu("Home",action);
 			addComponent(menuItem);
 			
@@ -39,6 +40,21 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			action = new MenuAction();
 			action.setView("ClaimSearch");
 			menuItem = createMenu("Cliam  Register",action);
+			addComponent(menuItem);
+			groupTitle = createMenuTitle("Company and Product");
+			addComponent(groupTitle);
+			action = new MenuAction();
+			action.setView("InsuranceCompanySearch");
+			menuItem = createMenu("Cooperated  Company",action);
+			addComponent(menuItem);
+			action = new MenuAction();
+			action.setView("InsuranceProductSearch");
+			menuItem = createMenu("Product  Management",action);
+			addComponent(menuItem);
+			groupTitle = createMenuTitle("Report Center");
+			addComponent(groupTitle);
+			action = new MenuAction();
+			menuItem = createMenu("Reports",action);
 			addComponent(menuItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

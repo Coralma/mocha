@@ -74,6 +74,7 @@ class TAppMainPagePresenter {
 		public void contextItemClick(ClickEvent event) {
 			final ContextMenuItem clickedItem = event.getClickedItem();
 			«appMainPageClass» oaPage = («appMainPageClass») viewer;
+			oaPage.getControllerMenu().cleanMenuStyle();
 			FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);
 			AppContentEvent appContentEvent = new AppContentEvent();
 			appContentEvent.setViewName(functionMenu.getViewName());

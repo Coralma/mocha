@@ -171,6 +171,9 @@ public class TAppMainPagePresenter {
     _builder.append(") viewer;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
+    _builder.append("oaPage.getControllerMenu().cleanMenuStyle();");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);");
     _builder.newLine();
     _builder.append("\t");

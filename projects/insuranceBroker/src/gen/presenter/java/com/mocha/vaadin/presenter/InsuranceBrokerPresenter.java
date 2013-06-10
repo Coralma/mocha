@@ -34,6 +34,7 @@ public class InsuranceBrokerPresenter extends CommonPresenter implements Present
 	public void contextItemClick(ClickEvent event) {
 		final ContextMenuItem clickedItem = event.getClickedItem();
 		InsuranceBrokerMainPage oaPage = (InsuranceBrokerMainPage) viewer;
+		oaPage.getControllerMenu().cleanMenuStyle();
 		FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);
 		AppContentEvent appContentEvent = new AppContentEvent();
 		appContentEvent.setViewName(functionMenu.getViewName());

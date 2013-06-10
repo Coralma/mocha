@@ -15,6 +15,7 @@
           <appMenus>
             <com.coral.foundation.md.model.AppMenu>
               <name>Home</name>
+              <customizedClass>com.mocha.ib.presenter.IBDashboardPresenter</customizedClass>
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
           <appMenuGroups>
@@ -41,6 +42,27 @@
                 <com.coral.foundation.md.model.AppMenu>
                   <name>Cliam Register</name>
                   <viewName>ClaimSearch</viewName>
+                </com.coral.foundation.md.model.AppMenu>
+              </appMenus>
+            </com.coral.foundation.md.model.AppMenuGroup>
+            <com.coral.foundation.md.model.AppMenuGroup>
+              <label>Company and Product</label>
+              <appMenus>
+                <com.coral.foundation.md.model.AppMenu>
+                  <name>Cooperated Company</name>
+                  <viewName>InsuranceCompanySearch</viewName>
+                </com.coral.foundation.md.model.AppMenu>
+                <com.coral.foundation.md.model.AppMenu>
+                  <name>Product Management</name>
+                  <viewName>InsuranceProductSearch</viewName>
+                </com.coral.foundation.md.model.AppMenu>
+              </appMenus>
+            </com.coral.foundation.md.model.AppMenuGroup>
+            <com.coral.foundation.md.model.AppMenuGroup>
+              <label>Report Center</label>
+              <appMenus>
+                <com.coral.foundation.md.model.AppMenu>
+                  <name>Reports</name>
                 </com.coral.foundation.md.model.AppMenu>
               </appMenus>
             </com.coral.foundation.md.model.AppMenuGroup>
@@ -159,6 +181,54 @@
             <codeTableName>claim-status</codeTableName>
             <language>en</language>
             <datas>Claim in Process;Claim Achieved</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+        </values>
+      </com.coral.foundation.md.model.CodeTable>
+      <com.coral.foundation.md.model.CodeTable>
+        <name>company-level</name>
+        <ids>5;4;3;2;1</ids>
+        <values>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>company-level</codeTableName>
+            <language>zh</language>
+            <datas>5星级;4星级;3星级;2星级;1星级;</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>company-level</codeTableName>
+            <language>en</language>
+            <datas>5 Starts;4 Starts;3 Starts;2 Starts;1 Starts;</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+        </values>
+      </com.coral.foundation.md.model.CodeTable>
+      <com.coral.foundation.md.model.CodeTable>
+        <name>yes-no</name>
+        <ids>1;2</ids>
+        <values>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>yes-no</codeTableName>
+            <language>zh</language>
+            <datas>需要;不需求</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>yes-no</codeTableName>
+            <language>en</language>
+            <datas>Yes;NO</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+        </values>
+      </com.coral.foundation.md.model.CodeTable>
+      <com.coral.foundation.md.model.CodeTable>
+        <name>insurance-category</name>
+        <ids>1;2;3;4;5;6</ids>
+        <values>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>insurance-category</codeTableName>
+            <language>zh</language>
+            <datas>车险;事故险;寿险;财产险;责任险;合同险</datas>
+          </com.coral.foundation.md.model.CodeTableValue>
+          <com.coral.foundation.md.model.CodeTableValue>
+            <codeTableName>insurance-category</codeTableName>
+            <language>en</language>
+            <datas>Vehicle;Accident;Life;Property;Liability;Contract</datas>
           </com.coral.foundation.md.model.CodeTableValue>
         </values>
       </com.coral.foundation.md.model.CodeTable>
@@ -377,6 +447,14 @@
         <entityName>InsuranceProduct</entityName>
         <properties>
           <com.coral.foundation.md.model.Property>
+            <propertyName>productName</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>category</propertyName>
             <ignore>false</ignore>
             <type>String</type>
@@ -401,7 +479,7 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
-            <propertyName>desc</propertyName>
+            <propertyName>description</propertyName>
             <ignore>false</ignore>
             <type>String</type>
             <notnull>false</notnull>
@@ -830,6 +908,11 @@
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>view</name>
+                <label>View</label>
+                <action>View</action>
+              </com.coral.foundation.md.model.ViewAction>
               <com.coral.foundation.md.model.ViewAction>
                 <name>edit</name>
                 <label>Edit</label>
@@ -1342,6 +1425,7 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>insuranceCompany</fieldName>
+                <label>Company</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1358,6 +1442,7 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>insuranceProduct</fieldName>
+                <label>Product</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1435,6 +1520,7 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>insuranceCompany</fieldName>
+                <label>Company</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1451,6 +1537,7 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>insuranceProduct</fieldName>
+                <label>Product</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1723,6 +1810,327 @@
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
         <entity reference="../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]"/>
+      </com.coral.foundation.md.model.View>
+    </viewList>
+    <apps/>
+    <codeTableList/>
+    <menuList/>
+    <mobileMenuList/>
+  </com.coral.foundation.md.model.Mocha>
+  <com.coral.foundation.md.model.Mocha>
+    <name>Insurance</name>
+    <entityPackage>com.mocha.ib.model</entityPackage>
+    <daoIntfPackage>com.mocha.ib.dao</daoIntfPackage>
+    <daoImplPackage>com.mocha.ib.dao.impl</daoImplPackage>
+    <servicePackage>com.mocha.ib.service</servicePackage>
+    <entityList/>
+    <viewList>
+      <com.coral.foundation.md.model.View>
+        <name>InsuranceCompanySearch</name>
+        <template>EntityCardSearch</template>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>InsuranceCompanyCondition</name>
+            <template>SearchCondition</template>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>companyName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>InsuranceCompanySearchCard</name>
+            <template>SearchCard</template>
+            <icon>card-cust.png</icon>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>companyName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>level</fieldName>
+                <codeTable>company-level</codeTable>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>description</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>edit</name>
+                <label>Edit</label>
+                <action>Edit</action>
+              </com.coral.foundation.md.model.ViewAction>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>delete</name>
+                <label>Delete</label>
+                <action>Delete</action>
+              </com.coral.foundation.md.model.ViewAction>
+            </viewActions>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]"/>
+      </com.coral.foundation.md.model.View>
+      <com.coral.foundation.md.model.View>
+        <name>InsuranceCompanyView</name>
+        <template>EntityEditView</template>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>CompanyInfo</name>
+            <label>Insurance Company Information</label>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>companyName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>level</fieldName>
+                <codeTable>company-level</codeTable>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>description</fieldName>
+                <style>textarea</style>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>save</name>
+            <label>Save</label>
+            <action>Save</action>
+          </com.coral.foundation.md.model.ViewAction>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
+          </com.coral.foundation.md.model.ViewAction>
+        </viewActions>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[2]"/>
+      </com.coral.foundation.md.model.View>
+    </viewList>
+    <apps/>
+    <codeTableList/>
+    <menuList/>
+    <mobileMenuList/>
+  </com.coral.foundation.md.model.Mocha>
+  <com.coral.foundation.md.model.Mocha>
+    <name>Insurance</name>
+    <entityPackage>com.mocha.ib.model</entityPackage>
+    <daoIntfPackage>com.mocha.ib.dao</daoIntfPackage>
+    <daoImplPackage>com.mocha.ib.dao.impl</daoImplPackage>
+    <servicePackage>com.mocha.ib.service</servicePackage>
+    <entityList/>
+    <viewList>
+      <com.coral.foundation.md.model.View>
+        <name>InsuranceProductSearch</name>
+        <template>EntityCardSearch</template>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>InsuranceProductCondition</name>
+            <template>SearchCondition</template>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>category</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>productName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>InsuranceCompanySearchCard</name>
+            <template>SearchCard</template>
+            <icon>card-cust.png</icon>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>productName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>category</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>commissionRate</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>renewalRemind</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[4]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>description</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[5]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>edit</name>
+                <label>Edit</label>
+                <action>Edit</action>
+              </com.coral.foundation.md.model.ViewAction>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>delete</name>
+                <label>Delete</label>
+                <action>Delete</action>
+              </com.coral.foundation.md.model.ViewAction>
+            </viewActions>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]"/>
+      </com.coral.foundation.md.model.View>
+      <com.coral.foundation.md.model.View>
+        <name>InsuranceProductView</name>
+        <template>EntityEditView</template>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>CompanyInfo</name>
+            <label>Insurance Company Information</label>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>insuranceCompany</fieldName>
+                <style>ref</style>
+                <expression>companyName</expression>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[6]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>productName</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>category</fieldName>
+                <codeTable>insurance-category</codeTable>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>commissionRate</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>renewalRemind</fieldName>
+                <codeTable>yes-no</codeTable>
+                <style>radio</style>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[4]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>description</fieldName>
+                <style>textarea</style>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[5]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>save</name>
+            <label>Save</label>
+            <action>Save</action>
+          </com.coral.foundation.md.model.ViewAction>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
+          </com.coral.foundation.md.model.ViewAction>
+        </viewActions>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[3]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>

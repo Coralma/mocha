@@ -17,6 +17,8 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		addComponent(functionPanel);
 		// init the main page.
 		AppContentEvent event = new AppContentEvent();
+		event.setCustomizeClass("com.mocha.ib.presenter.IBDashboardPresenter");
+		controllerMenu.setMenuStyle(null, "com.mocha.ib.presenter.IBDashboardPresenter");
 		eventBus.post(event);
 		
 	}
@@ -45,6 +47,18 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		}
 		if("InsCustomerServeView".equals(viewName)) {
 			presenter = new InsCustomerServeViewPresenter(eventBus);
+		}
+		if("InsuranceCompanySearch".equals(viewName)) {
+			presenter = new InsuranceCompanySearchPresenter(eventBus);
+		}
+		if("InsuranceCompanyView".equals(viewName)) {
+			presenter = new InsuranceCompanyViewPresenter(eventBus);
+		}
+		if("InsuranceProductSearch".equals(viewName)) {
+			presenter = new InsuranceProductSearchPresenter(eventBus);
+		}
+		if("InsuranceProductView".equals(viewName)) {
+			presenter = new InsuranceProductViewPresenter(eventBus);
 		}
 		if(presenter == null) {
 			throw new RuntimeException(this.getClass() + "show view : " + viewName + " doesn't exist.");

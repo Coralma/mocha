@@ -35,10 +35,11 @@
 		<property name="products" type="List" ref="InsuranceProduct" orm="one-to-many"/>
 	</entity>
 	<entity entityName="InsuranceProduct">
+		<property name="productName"/>
 		<property name="category"/>
 		<property name="commissionRate"/>
 		<property name="renewalRemind"/>
-		<property name="desc"/>
+		<property name="description"/>
 		<property name="insuranceCompany" type="InsuranceCompany" ref="InsuranceCompany" orm="many-to-one"/>
 	</entity>
 	

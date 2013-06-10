@@ -12,6 +12,8 @@ import com.coral.vaadin.widget.fields.search.DisplayFieldWidget;
 import com.google.common.collect.Maps;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -27,7 +29,7 @@ import com.vaadin.ui.themes.Reindeer;
  * @author Coral
  *
  */
-public abstract class SearchEntityCard extends AbstractViewLayout {
+public abstract class SearchEntityCard extends AbstractViewLayout implements LayoutClickListener {
 
 	protected Object value;
 	protected String cardWidth="765px";
@@ -40,6 +42,7 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 		this.addStyleName(Reindeer.PANEL_LIGHT);
 		this.addStyleName("entity-search-card");
 		this.setMargin(true);
+		this.addListener(this);
 	}
 	
 	public FieldWidget createFieldWidget(FieldStatus fieldStatus) {
@@ -93,7 +96,8 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 	
 	public Button createActionButton(final String name, String label, final String action) {
 		Button actionButton = new Button(label);
-		actionButton.setWidth("80px");
+		actionButton.addStyleName("search-card-action");
+		actionButton.setWidth("70px");
 		actionButton.setData(action);
 		actionButton.addStyleName(BaseTheme.BUTTON_LINK);
 		actionButton.addListener(new ClickListener() {
@@ -107,6 +111,10 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 		actionMap.put(name, actionButton);
 		return actionButton;
 	}
+	
+	public void layoutClick(LayoutClickEvent event) {
+		listener.cardClick(value);
+	}
 
 	public Button getActionButton(String name) {
 		return actionMap.get(name);
@@ -115,6 +123,7 @@ public abstract class SearchEntityCard extends AbstractViewLayout {
 	public interface SearchEntityCardListener {
 		public void handleAction(String name, String action);
 		public String getSpecialIcon(Object value);
+		public void cardClick(Object value);
 	}
 
 	/**

@@ -115,9 +115,8 @@ class EntityCardSearchPresenter {
 					}
 					
 					@Override
-					public String getSpecialIcon(Object value) {
+					public void cardClick(Object value) {
 						// TODO Auto-generated method stub
-						return null;
 					}
 				});
 			«ENDIF»

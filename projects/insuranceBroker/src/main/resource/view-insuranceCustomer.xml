@@ -26,6 +26,7 @@
 			<field name="postcode" changeLine="true"/>
 			<field name="mobile"/>
 			<field name="email"/>
+			<action name="view" label="View" action="View"/>
 			<action name="edit" label="Edit" action="Edit"/>
 			<action name="delete" label="Delete" action="Delete"/>
 		</section>
