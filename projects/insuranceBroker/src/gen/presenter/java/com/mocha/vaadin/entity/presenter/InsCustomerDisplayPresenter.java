@@ -99,9 +99,9 @@ public class InsCustomerDisplayPresenter extends AppCommonPresenter implements P
 		if(type == null) {
 			type = "1";
 		}
-		CodeTableWidget ctWidget = (CodeTableWidget) viewer.getField("customerType");
-		ctWidget.setNullSelectionAllowed(false);
-		ctWidget.setValue(type);
+//		CodeTableWidget ctWidget = (CodeTableWidget) viewer.getField("customerType");
+//		ctWidget.setNullSelectionAllowed(false);
+//		ctWidget.setValue(type);
 		customerTypeSelect(type, viewer);
 	}
 	

@@ -24,6 +24,7 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 	}
 	public void showView(String viewName) {
 		Presenter presenter = null;
+		controllerMenu.cleanMenuStyle();
 		if("InsCustomerSearch".equals(viewName)) {
 			presenter = new InsCustomerSearchPresenter(eventBus);
 		}
@@ -69,6 +70,7 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 	
 	public void showPanel(Class customizedPresenter) {
 		try {
+			controllerMenu.cleanMenuStyle();
 			Presenter presenter = (Presenter) customizedPresenter.getConstructor(MochaEventBus.class).newInstance(eventBus);
 			if(presenter.isFullSize()) {
 				functionPanel.setFullContent(presenter.go());

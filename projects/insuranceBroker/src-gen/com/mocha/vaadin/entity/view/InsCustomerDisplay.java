@@ -1,5 +1,4 @@
 package com.mocha.vaadin.entity.view;
-import com.coral.vaadin.view.template.sat.panel.IActionPanel;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.IViewPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.EntityDisplayPanel;
@@ -164,11 +163,9 @@ public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 		
 		this.addComponent(viewPanel);
 		
-		ListSectionPanel policyPanel = new ListSectionPanel("Policy");
-		this.addComponent(policyPanel);
+		this.addComponent(createListSectionPanel("Policy"));
 		
-		ListSectionPanel servePanel = new ListSectionPanel("Serve");
-		this.addComponent(servePanel);
+		this.addComponent(createListSectionPanel("Serve"));
 	}
 
 	public Class getEntityClass() {

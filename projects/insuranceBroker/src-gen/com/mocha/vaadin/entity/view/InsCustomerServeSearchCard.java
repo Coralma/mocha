@@ -32,6 +32,15 @@ public class InsCustomerServeSearchCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Date").setPath("date").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
+		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
+		fieldStatus = FieldStatus.create().setLabel("Result").setPath("result").setType("String");
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
+		fieldStatus = FieldStatus.create().setLabel("Feedback").setPath("feedback").setType("String").setWholeRow(true);
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
 		hlayout.addComponent(sectionPanel);
 		hlayout.setComponentAlignment(sectionPanel,Alignment.TOP_LEFT);
 		

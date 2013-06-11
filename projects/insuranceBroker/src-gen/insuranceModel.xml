@@ -1689,6 +1689,30 @@
                 <wholeSection>false</wholeSection>
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>status</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[5]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>result</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>feedback</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
+              </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
               <com.coral.foundation.md.model.ViewAction>

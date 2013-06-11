@@ -12,6 +12,9 @@
 		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard" icon="card-serve.png">
 			<field name="type"/>
 			<field name="date"/>
+			<field name="status"/>
+			<field name="result"/>
+			<field name="feedback" wholeRow="true"/>
 			<action name="edit" label="Edit" action="Edit"/>
 			<action name="delete" label="Delete" action="Delete"/>
 		</section>
