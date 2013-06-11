@@ -11,6 +11,7 @@
 		<module>mocha-foundation</module>
 		<module>mocha-vaadin-framework</module>
 		<module>projects/crm</module>
+		<module>projects/insuranceBroker</module>
 		<module>projects/cooperate</module>
 	</modules>
 
