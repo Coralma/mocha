@@ -68,6 +68,28 @@ public class ExampleData {
 		shotcut.setShotcutItems(shotcutItemList);
 		shotcutList.add(shotcut);
 		
+		// application
+		shotcutItemList = new ArrayList<ShotcutItem>();
+		shotcut= new Shotcut();
+		shotcut.setTitle("cooperate.shotcut.Application");
+		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("Insurance Broker");
+		shotcutItem.setAction("ib");
+		shotcutItem.setIcon("icons/ib_icon.png");
+		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+		shotcutItemList.add(shotcutItem);
+		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("cooperate.shotcut.CustomerManage");
+		shotcutItem.setAction("crm");
+		shotcutItem.setIcon("icons/crm_icon.png");
+		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+		shotcutItemList.add(shotcutItem);
+		
+		shotcut.setShotcutItems(shotcutItemList);
+		shotcutList.add(shotcut);
+		
 		// admin
 		shotcutItemList = new ArrayList<ShotcutItem>();
 		shotcut= new Shotcut();
@@ -87,38 +109,6 @@ public class ExampleData {
 		shotcut.setShotcutItems(shotcutItemList);
 		shotcutList.add(shotcut);
 		
-		// application
-		shotcutItemList = new ArrayList<ShotcutItem>();
-		shotcut= new Shotcut();
-		shotcut.setTitle("cooperate.shotcut.Application");
-		
-//		shotcutItem = new ShotcutItem();
-//		shotcutItem.setLabel("cooperate.shotcut.OfficeAdmin");
-//		shotcutItem.setAction("officeAdmin");
-//		shotcutItem.setIcon("icons/oa_icon.png");
-//		shotcutItem.setType(SystemProperty.PAGE_TYPE);
-//		shotcutItemList.add(shotcutItem);
-				
-		shotcutItem = new ShotcutItem();
-		shotcutItem.setLabel("cooperate.shotcut.CustomerManage");
-		shotcutItem.setAction("crm");
-		shotcutItem.setIcon("icons/crm_icon.png");
-		shotcutItem.setType(SystemProperty.PAGE_TYPE);
-		shotcutItemList.add(shotcutItem);
-		
-		shotcutItem = new ShotcutItem();
-		shotcutItem.setLabel("Insurance Broker");
-		shotcutItem.setAction("ib");
-		shotcutItem.setIcon("icons/ib_icon.png");
-		shotcutItem.setType(SystemProperty.PAGE_TYPE);
-		shotcutItemList.add(shotcutItem);
-		
-//		shotcutItem = new ShotcutItem();
-//		shotcutItem.setLabel("cooperate.shotcut.StoreManage");
-//		shotcutItemList.add(shotcutItem);
-		
-		shotcut.setShotcutItems(shotcutItemList);
-		shotcutList.add(shotcut);
 		
 		return shotcutList;
 	}
