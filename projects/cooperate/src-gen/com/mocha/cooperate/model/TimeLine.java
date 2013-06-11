@@ -19,19 +19,19 @@ public class TimeLine extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType. AUTO)
 	private Long timeLineId;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = Status.class, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = Status.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private Status status;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = Discuss.class, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = Discuss.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private Discuss discuss;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private ToDo todo;
 	

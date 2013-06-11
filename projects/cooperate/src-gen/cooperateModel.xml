@@ -4,70 +4,19 @@
     <entityPackage>com.mocha.cooperate.model</entityPackage>
     <daoIntfPackage>com.mocha.cooperate.basic.dao</daoIntfPackage>
     <daoImplPackage>com.mocha.cooperate.basic.dao.impl</daoImplPackage>
-    <servicePackage>com.mocha.cooperate.basic.service</servicePackage>
     <entityList>
-      <com.coral.foundation.md.model.Entity>
-        <entityName>NotifyLine</entityName>
-        <properties>
-          <com.coral.foundation.md.model.Property>
-            <propertyName>notifiedUser</propertyName>
-            <ignore>false</ignore>
-            <type>com.coral.foundation.security.model.BasicUser</type>
-            <ref>com.coral.foundation.security.model.BasicUser</ref>
-            <orm>one-to-one</orm>
-            <notnull>false</notnull>
-            <required>true</required>
-            <refer>true</refer>
-          </com.coral.foundation.md.model.Property>
-          <com.coral.foundation.md.model.Property>
-            <propertyName>status</propertyName>
-            <ignore>false</ignore>
-            <type>Status</type>
-            <ref>Status</ref>
-            <orm>many-to-one</orm>
-            <notnull>false</notnull>
-            <required>false</required>
-            <refer>true</refer>
-          </com.coral.foundation.md.model.Property>
-          <com.coral.foundation.md.model.Property>
-            <propertyName>discuss</propertyName>
-            <ignore>false</ignore>
-            <type>Discuss</type>
-            <ref>Discuss</ref>
-            <orm>many-to-one</orm>
-            <notnull>false</notnull>
-            <required>false</required>
-            <refer>true</refer>
-          </com.coral.foundation.md.model.Property>
-          <com.coral.foundation.md.model.Property>
-            <propertyName>todo</propertyName>
-            <ignore>false</ignore>
-            <type>ToDo</type>
-            <ref>ToDo</ref>
-            <orm>many-to-one</orm>
-            <notnull>false</notnull>
-            <required>false</required>
-            <refer>true</refer>
-          </com.coral.foundation.md.model.Property>
-        </properties>
-        <views/>
-        <needView>false</needView>
-        <entityClass>com.mocha.cooperate.model.NotifyLine</entityClass>
-        <mocha reference="../../.."/>
-      </com.coral.foundation.md.model.Entity>
       <com.coral.foundation.md.model.Entity>
         <entityName>TimeLine</entityName>
         <properties>
           <com.coral.foundation.md.model.Property>
             <propertyName>creator</propertyName>
             <ignore>false</ignore>
-            <label>Creator</label>
             <type>com.coral.foundation.security.model.BasicUser</type>
             <ref>com.coral.foundation.security.model.BasicUser</ref>
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>true</required>
-            <refer>true</refer>
+            <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>status</propertyName>
@@ -77,7 +26,7 @@
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>false</required>
-            <refer>true</refer>
+            <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>discuss</propertyName>
@@ -87,7 +36,7 @@
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>false</required>
-            <refer>true</refer>
+            <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>todo</propertyName>
@@ -97,7 +46,7 @@
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>false</required>
-            <refer>true</refer>
+            <refer>false</refer>
           </com.coral.foundation.md.model.Property>
         </properties>
         <views/>
@@ -111,10 +60,8 @@
           <com.coral.foundation.md.model.Property>
             <propertyName>content</propertyName>
             <ignore>false</ignore>
-            <label>Content</label>
             <type>String</type>
             <length>1000</length>
-            <style>rich</style>
             <notnull>false</notnull>
             <required>true</required>
             <refer>false</refer>
@@ -122,18 +69,16 @@
           <com.coral.foundation.md.model.Property>
             <propertyName>creator</propertyName>
             <ignore>false</ignore>
-            <label>Creator</label>
             <type>com.coral.foundation.security.model.BasicUser</type>
             <ref>com.coral.foundation.security.model.BasicUser</ref>
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>true</required>
-            <refer>true</refer>
+            <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>attachments</propertyName>
             <ignore>false</ignore>
-            <label>Attachment</label>
             <type>List</type>
             <ref>Attachment</ref>
             <orm>one-to-many</orm>
@@ -144,7 +89,6 @@
           <com.coral.foundation.md.model.Property>
             <propertyName>comments</propertyName>
             <ignore>false</ignore>
-            <label>Comment</label>
             <type>List</type>
             <ref>Comment</ref>
             <orm>one-to-many</orm>
@@ -155,7 +99,6 @@
           <com.coral.foundation.md.model.Property>
             <propertyName>notifyLines</propertyName>
             <ignore>false</ignore>
-            <label>NotifyLine</label>
             <type>List</type>
             <ref>NotifyLine</ref>
             <orm>one-to-many</orm>
@@ -400,6 +343,55 @@
         <views/>
         <needView>false</needView>
         <entityClass>com.mocha.cooperate.model.Attachment</entityClass>
+        <mocha reference="../../.."/>
+      </com.coral.foundation.md.model.Entity>
+      <com.coral.foundation.md.model.Entity>
+        <entityName>NotifyLine</entityName>
+        <properties>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>notifiedUser</propertyName>
+            <ignore>false</ignore>
+            <type>com.coral.foundation.security.model.BasicUser</type>
+            <ref>com.coral.foundation.security.model.BasicUser</ref>
+            <orm>one-to-one</orm>
+            <notnull>false</notnull>
+            <required>true</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>status</propertyName>
+            <ignore>false</ignore>
+            <type>Status</type>
+            <ref>Status</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>discuss</propertyName>
+            <ignore>false</ignore>
+            <type>Discuss</type>
+            <ref>Discuss</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>todo</propertyName>
+            <ignore>false</ignore>
+            <type>ToDo</type>
+            <ref>ToDo</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+        </properties>
+        <views/>
+        <needView>false</needView>
+        <entityClass>com.mocha.cooperate.model.NotifyLine</entityClass>
         <mocha reference="../../.."/>
       </com.coral.foundation.md.model.Entity>
       <com.coral.foundation.md.model.Entity>
