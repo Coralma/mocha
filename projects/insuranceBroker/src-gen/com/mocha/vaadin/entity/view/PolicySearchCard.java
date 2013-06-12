@@ -62,7 +62,7 @@ public class PolicySearchCard extends SearchEntityCard {
 
 	@Override
 	public String getIconName() {
-		return "card-cust.png";
+		return "card-policy.png";
 		
 	}
 

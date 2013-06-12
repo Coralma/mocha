@@ -8,7 +8,7 @@
 		<section name="InsuranceCompanyCondition" template="SearchCondition">
 			<field name="companyName" />
 		</section>
-		<section name="InsuranceCompanySearchCard" template="SearchCard" icon="card-cust.png">
+		<section name="InsuranceCompanySearchCard" template="SearchCard" icon="card-company.png">
 			<field name="companyName"/>
 			<field name="level" codeTable="company-level"/>
 			<field name="description" wholeRow="true"/>

@@ -21,6 +21,7 @@ import com.coral.vaadin.widget.fields.OptionGroupWidget;
 import com.coral.vaadin.widget.fields.ReferenceSelectionWidget;
 import com.coral.vaadin.widget.fields.StringAreaFieldWidget;
 import com.coral.vaadin.widget.fields.StringFieldWidget;
+import com.coral.vaadin.widget.fields.UnitSelectionWidget;
 import com.coral.vaadin.widget.helper.NotificationHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -90,6 +91,8 @@ public abstract class EntityViewPanel extends VerticalLayout {
 				} else {
 					field = new CodeTableWidget(label,fieldStatus.getCodeTableName());
 				}
+			} else if("unit".equals(fieldStatus.getStyle())) {
+				field = new UnitSelectionWidget(label);
 			} else {
 				field = new StringFieldWidget(label);
 			}

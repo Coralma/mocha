@@ -47,7 +47,7 @@ public class InsuranceCompanySearchCard extends SearchEntityCard {
 
 	@Override
 	public String getIconName() {
-		return "card-cust.png";
+		return "card-company.png";
 		
 	}
 

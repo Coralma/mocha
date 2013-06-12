@@ -9,11 +9,11 @@
 			<field name="category" />
 			<field name="productName" />
 		</section>
-		<section name="InsuranceCompanySearchCard" template="SearchCard" icon="card-cust.png">
+		<section name="InsuranceCompanySearchCard" template="SearchCard" icon="card-product.png">
 			<field name="productName" />
-			<field name="category" />
+			<field name="category" codeTable="insurance-category"/>
 			<field name="commissionRate"/>
-			<field name="renewalRemind"/>
+			<field name="renewalRemind" codeTable="yes-no"/>
 			<field name="description" wholeRow="true"/>
 			<action name="edit" label="Edit" action="Edit"/>
 			<action name="delete" label="Delete" action="Delete"/>

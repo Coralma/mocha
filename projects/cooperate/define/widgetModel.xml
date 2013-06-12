@@ -13,6 +13,7 @@
 		<property name="content" required="true" length="1000"/>
 		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
 				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one"/>
+		<property name="type"/>		  
 		<property name="attachments" type="List" ref="Attachment" orm="one-to-many"/>
 		<property name="comments" type="List" ref="Comment" orm="one-to-many"/>
 		<property name="notifyLines" type="List" ref="NotifyLine" orm="one-to-many"/>

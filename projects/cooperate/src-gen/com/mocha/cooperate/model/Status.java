@@ -28,6 +28,11 @@ public class Status extends BaseEntity {
 	@Fetch(FetchMode.JOIN)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
+	@Basic(optional = true)
+	@Column(name = "TYPE" )
+	private String type;
+	
+	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Attachment.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Attachment> attachments = new ArrayList<Attachment>();
@@ -58,6 +63,12 @@ public class Status extends BaseEntity {
 	} 
 	public com.coral.foundation.security.model.BasicUser getCreator () {
 		return creator;
+	}
+	public void setType (String type) {
+		this.type = type;
+	} 
+	public String getType () {
+		return type;
 	}
 	public void setAttachments (List<Attachment> attachments) {
 		this.attachments = attachments;

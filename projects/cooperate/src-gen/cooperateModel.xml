@@ -77,6 +77,14 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>type</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>attachments</propertyName>
             <ignore>false</ignore>
             <type>List</type>

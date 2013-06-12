@@ -11,7 +11,7 @@
 			<field name="insuranceProduct"/>
 			<field name="policyNo"/>
 		</section>
-		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
+		<section name="CompanySearchCard" template="SearchCard" icon="card-policy.png">
 			<field name="policyNo"/>
 			<field name="insuranceCompany" label="Company"/>
 			<field name="category"/>
@@ -29,9 +29,9 @@
 	<view name="PolicyView" template="EntityEditView" entity="Policy">
 		<section name="prdtPolicy" label="Product of Policy">
 			<field name="customer" style="ref" expression="name"/>
-			<field name="insuranceCompany" label="Company"/>
-			<field name="category"/>
-			<field name="insuranceProduct" label="Product"/>
+			<field name="insuranceCompany" label="Company" style="unit"/>
+			<field name="category" style="unit"/>
+			<field name="insuranceProduct" label="Product" style="unit"/>
 		</section>
 		<section name="policyInfo" label="Policy Information">
 			<field name="policyNo" changeLine="true"/>

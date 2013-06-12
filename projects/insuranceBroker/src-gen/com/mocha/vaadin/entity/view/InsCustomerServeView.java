@@ -37,7 +37,7 @@ public class InsCustomerServeView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Mark").setPath("mark").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Mark").setPath("mark").setType("String").setStyle("textarea").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		sectionPanel = createSectionPanel("activityFeedback");

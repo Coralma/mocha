@@ -10,9 +10,9 @@
 			<field name="date"/>
 		</section>
 		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard" icon="card-serve.png">
-			<field name="type"/>
+			<field name="type" codeTable="serve-type" />
+			<field name="priority" codeTable="serve-priority"/>
 			<field name="date"/>
-			<field name="status"/>
 			<field name="result"/>
 			<field name="feedback" wholeRow="true"/>
 			<action name="edit" label="Edit" action="Edit"/>
@@ -28,7 +28,7 @@
 			<field name="priority" codeTable="serve-priority"/>
 			<field name="date"/>
 			<field name="status"/>
-			<field name="mark"/>
+			<field name="mark" wholeRow="true" style="textarea"/>
 		</section>
 		<section name="activityFeedback" label="Feedback">
 			<field name="result"/>

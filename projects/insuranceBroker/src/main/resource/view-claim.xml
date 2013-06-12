@@ -8,7 +8,7 @@
 		<section name="ClaimCondition" template="SearchCondition">
 			<field name="status" />
 		</section>
-		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
+		<section name="CompanySearchCard" template="SearchCard" icon="card-claim.png">
 			<field name="status"/>
 			<field name="claimAmount"/>
 			<field name="claimReason" wholeRow="true" style="textarea"/>

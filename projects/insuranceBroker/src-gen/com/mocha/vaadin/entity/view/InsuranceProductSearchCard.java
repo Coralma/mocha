@@ -29,13 +29,13 @@ public class InsuranceProductSearchCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Product Name").setPath("productName").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Category").setPath("category").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Category").setPath("category").setType("String").setCodeTableName("insurance-category");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Commission Rate").setPath("commissionRate").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Renewal Remind").setPath("renewalRemind").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Renewal Remind").setPath("renewalRemind").setType("String").setCodeTableName("yes-no");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Description").setPath("description").setType("String").setWholeRow(true);
@@ -53,7 +53,7 @@ public class InsuranceProductSearchCard extends SearchEntityCard {
 
 	@Override
 	public String getIconName() {
-		return "card-cust.png";
+		return "card-product.png";
 		
 	}
 
