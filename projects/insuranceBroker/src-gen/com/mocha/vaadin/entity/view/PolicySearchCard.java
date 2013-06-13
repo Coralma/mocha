@@ -29,6 +29,9 @@ public class PolicySearchCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
+		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer.name").setType("com.mocha.ib.model.InsuranceCustomer");
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
 		fieldStatus = FieldStatus.create().setLabel("Company").setPath("insuranceCompany").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		

@@ -26,6 +26,9 @@ public class InsCustomerServeSearchCard extends SearchEntityCard {
 		sectionPanel.setSpacing(false);
 		
 		FieldStatus fieldStatus = null;
+		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer.name").setType("com.mocha.ib.model.InsuranceCustomer");
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
 		fieldStatus = FieldStatus.create().setLabel("Type").setPath("type").setType("String").setCodeTableName("serve-type");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		

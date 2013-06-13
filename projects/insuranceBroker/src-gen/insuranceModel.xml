@@ -1232,6 +1232,7 @@
             <viewFields>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>status</fieldName>
+                <codeTable>claim-status</codeTable>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1424,6 +1425,16 @@
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[4]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
+                <fieldName>customer</fieldName>
+                <label>Customer</label>
+                <path>customer.name</path>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[4]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
                 <fieldName>insuranceCompany</fieldName>
                 <label>Company</label>
                 <required>false</required>
@@ -1511,7 +1522,7 @@
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>customer</fieldName>
                 <style>ref</style>
-                <expression>name</expression>
+                <expression>name,mobile,email</expression>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
@@ -1676,6 +1687,16 @@
             <template>SearchCard</template>
             <icon>card-serve.png</icon>
             <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>customer</fieldName>
+                <label>Customer</label>
+                <path>customer.name</path>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>type</fieldName>
                 <codeTable>serve-type</codeTable>

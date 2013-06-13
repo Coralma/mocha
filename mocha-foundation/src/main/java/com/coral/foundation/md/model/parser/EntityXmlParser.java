@@ -327,6 +327,9 @@ public class EntityXmlParser {
 	}
 	
 	public Property getEntityProperty(Entity entity, String fieldName, String fieldPath) {
+		if(fieldName.equals("customer.name")) {
+			System.out.println("fieldName");
+		}
 		for(Property property : entity.getProperties()) {
 			if(fieldName.equals(property.getPropertyName())) {
 				return property;

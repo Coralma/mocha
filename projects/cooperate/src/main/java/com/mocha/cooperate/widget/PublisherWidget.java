@@ -261,7 +261,6 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 		}
 
 		public void build() {
-//			String widgetWidth = "720px";
 			titleField.setWidth(widgetWidth);
 			titleField.setInputPrompt(message.getString("cooperate.publisher.topicTitle"));
 			this.addComponent(titleField);
@@ -274,7 +273,6 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 
 			inputArea.setWidth(widgetWidth);
 			inputArea.setHeight("200px");
-			inputArea.addStyleName("input-area");
 			this.addComponent(inputArea);
 		}
 		

@@ -35,7 +35,7 @@ public class CommonEntitySearchWindow extends Window {
 	private Class entityClass;
 	private VerticalLayout layout = new VerticalLayout();
 	private VerticalLayout resultLayout = new VerticalLayout();
-	private Button selectBtn = WidgetFactory.createButton("Select");
+//	private Button selectBtn = WidgetFactory.createButton("Select");
 	private Button cancelBtn = WidgetFactory.createButton("Cancel");
 	private SearchResultCard selectedCard;
 	private List<SearchResultCard> cards = Lists.newArrayList();
@@ -58,6 +58,7 @@ public class CommonEntitySearchWindow extends Window {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		GlobleSearchWidget globleSearchWidget = new GlobleSearchWidget();
+		globleSearchWidget.focus();
 		globleSearchWidget.setTextFieldWidth("420px");
 		globleSearchWidget.setWidth("460px");
 		globleSearchWidget.setListener(new GlobleSearchListener() {
@@ -75,10 +76,10 @@ public class CommonEntitySearchWindow extends Window {
 		resultLayout.setSpacing(true);
 		layout.addComponent(resultLayout);
 		
-		selectBtn.setVisible(false);
+//		selectBtn.setVisible(false);
 		HorizontalLayout btnLayout = new HorizontalLayout();
 		btnLayout.setSpacing(true);
-		btnLayout.addComponent(selectBtn);
+//		btnLayout.addComponent(selectBtn);
 		btnLayout.addComponent(cancelBtn);
 		layout.addComponent(btnLayout);
 		layout.setComponentAlignment(btnLayout,Alignment.MIDDLE_RIGHT);
@@ -105,13 +106,13 @@ public class CommonEntitySearchWindow extends Window {
 	}
 	
 	public void bind() {
-		selectBtn.addListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				CommonEntitySearchWindow.this.close();
-			}
-		});
+//		selectBtn.addListener(new ClickListener() {
+//			
+//			@Override
+//			public void buttonClick(ClickEvent event) {
+//				CommonEntitySearchWindow.this.close();
+//			}
+//		});
 		cancelBtn.addListener(new ClickListener() {
 			
 			@Override
@@ -123,11 +124,11 @@ public class CommonEntitySearchWindow extends Window {
 	}
 	
 	public void setSelectedCard(SearchResultCard card) {
-		if(card == null) {
-			selectBtn.setVisible(false);
-		} else {
-			selectBtn.setVisible(true);
-		}
+//		if(card == null) {
+//			selectBtn.setVisible(false);
+//		} else {
+//			selectBtn.setVisible(true);
+//		}
 		this.selectedCard = card;
 	}
 	
@@ -142,10 +143,15 @@ public class CommonEntitySearchWindow extends Window {
 		
 		public void attach() {
 			String showText = "";
+			String SEPERATE = " - ";
 			for(String searchField : searchFields) {
 				Property property = new NestedMethodProperty(entity, searchField);
-				showText += property.getValue() + "  ";
+				Object value = property.getValue();
+				if(value != null) {
+					showText += value + SEPERATE;
+				}
 			}
+			showText = showText.substring(0, showText.lastIndexOf(SEPERATE));
 			Label resultLabel = new Label(showText);
 			this.addComponent(resultLabel);
 		}
@@ -160,6 +166,7 @@ public class CommonEntitySearchWindow extends Window {
 				}
 			}
 			setSelectedCard(this);
+			CommonEntitySearchWindow.this.close();
 		}
 
 		/**

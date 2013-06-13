@@ -22,7 +22,7 @@ public class PolicyView extends EntityViewPanel implements Viewer {
 		sectionPanel.setLabel("Product of Policy");
 		viewPanel.addSection(sectionPanel);
 		
-		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer").setType("com.mocha.ib.model.InsuranceCustomer").setStyle("ref").setExpression("name");
+		fieldStatus = FieldStatus.create().setLabel("Customer").setPath("customer").setType("com.mocha.ib.model.InsuranceCustomer").setStyle("ref").setExpression("name,mobile,email");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Company").setPath("insuranceCompany").setType("String").setStyle("unit");

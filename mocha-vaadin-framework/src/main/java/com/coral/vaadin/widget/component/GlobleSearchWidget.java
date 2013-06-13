@@ -5,6 +5,7 @@ package com.coral.vaadin.widget.component;
 
 import com.coral.foundation.utils.StrUtils;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -36,6 +37,7 @@ public class GlobleSearchWidget extends HorizontalLayout {
 		textField.setWidth(textFieldWidth);
 		this.addComponent(textField);
 		
+		searchButton.setClickShortcut(KeyCode.ENTER);
 		searchButton.addStyleName(BaseTheme.BUTTON_LINK);
 		searchButton.setIcon(new ThemeResource("icons/search_btn_icon.png"));
 		this.addComponent(searchButton);
@@ -49,6 +51,10 @@ public class GlobleSearchWidget extends HorizontalLayout {
 				listener.search(value);
 			}
 		});
+	}
+	
+	public void focus() {
+		textField.focus();
 	}
 
 	public void setTextFieldWidth(String width) {

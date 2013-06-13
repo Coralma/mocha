@@ -13,6 +13,7 @@
 		</section>
 		<section name="CompanySearchCard" template="SearchCard" icon="card-policy.png">
 			<field name="policyNo"/>
+			<field name="customer" label="Customer" path="customer.name"/>
 			<field name="insuranceCompany" label="Company"/>
 			<field name="category"/>
 			<field name="insuranceProduct" label="Product"/>
@@ -28,7 +29,7 @@
 	<!-- 	customer edit view -->
 	<view name="PolicyView" template="EntityEditView" entity="Policy">
 		<section name="prdtPolicy" label="Product of Policy">
-			<field name="customer" style="ref" expression="name"/>
+			<field name="customer" style="ref" expression="name,mobile,email"/>
 			<field name="insuranceCompany" label="Company" style="unit"/>
 			<field name="category" style="unit"/>
 			<field name="insuranceProduct" label="Product" style="unit"/>

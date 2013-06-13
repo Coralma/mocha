@@ -348,21 +348,16 @@
 }
 
 .discuss-input-area {
-	background-color: #fff;
-	border: 1px solid #f5f5f5;
-}
-
-.discuss-input-area .v-verticallayout-spacing-on {
-	padding-top: 3px;
-}
-
-.discuss-input-area {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 /* 	padding: 20px; */
 	background: #ffffff;
 	border: 1px solid #f1f1f1;
+}
+
+.discuss-input-area .v-verticallayout-spacing-on {
+	padding-top: 3px;
 }
 
 .discuss-input-area .v-textfield {
@@ -380,14 +375,14 @@
     white-space: nowrap;
 }
 
-/* .c-publisher .input-area { */
-/* 	padding-right: 4px; */
-/* } */
+.c-publisher .input-area {
+	padding-right: 4px;
+}
 
-/* .c-publisher .input-area .v-textarea-prompt { */
-/* 	color: #999999; */
-/* 	font-style: normal; */
-/* } */
+.c-publisher .input-area .v-textarea-prompt {
+	color: #999999;
+	font-style: normal;
+}
 
 .c-publisher .attach-area {
 	margin-top: 3px;
@@ -404,7 +399,7 @@
 .todo-publisher-border {
 	border: 1px solid #F2F2F2;
 	background-color: #ffffff;
-	padding: 2px;
+/* 	padding: 2px; */
 }
 
 .todo-inputField-border {
@@ -1739,6 +1734,10 @@
 	-moz-border-radius: 4px;
 	padding: 5px;
 	background-color: #fff;
+}
+
+.v-verticallayout .search-result-card:HOVER {
+	background-color: #CEE3F6;
 }
 
 .v-verticallayout .search-result-card-selected {

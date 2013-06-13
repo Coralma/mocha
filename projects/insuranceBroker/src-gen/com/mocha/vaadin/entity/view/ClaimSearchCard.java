@@ -26,7 +26,7 @@ public class ClaimSearchCard extends SearchEntityCard {
 		sectionPanel.setSpacing(false);
 		
 		FieldStatus fieldStatus = null;
-		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String");
+		fieldStatus = FieldStatus.create().setLabel("Status").setPath("status").setType("String").setCodeTableName("claim-status");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Claim Amount").setPath("claimAmount").setType("String");

@@ -49,6 +49,7 @@ public abstract class SearchEntityCard extends AbstractViewLayout implements Lay
 		DisplayFieldWidget widget = new DisplayFieldWidget(fieldStatus.getLabel());
 		widget.setFieldStatus(fieldStatus);
 		widget.setProperty(createFieldProperty(fieldStatus.getPath()));
+		widget.setCodeTable(fieldStatus.getCodeTableName());
 		return widget;
 	}
 	

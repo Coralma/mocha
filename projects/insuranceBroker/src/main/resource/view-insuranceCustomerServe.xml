@@ -10,6 +10,7 @@
 			<field name="date"/>
 		</section>
 		<section name="CustomerServerSearchCard" label="Leave Apply" template="SearchCard" icon="card-serve.png">
+			<field name="customer" label="Customer" path="customer.name"/>
 			<field name="type" codeTable="serve-type" />
 			<field name="priority" codeTable="serve-priority"/>
 			<field name="date"/>
