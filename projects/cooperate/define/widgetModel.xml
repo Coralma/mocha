@@ -4,7 +4,7 @@
 	
 	<entity entityName="TimeLine">
 		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
-				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" />
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one"  refer="true"/>
 		<property name="status" type="Status" ref="Status" orm="one-to-one" />
 		<property name="discuss" type="Discuss" ref="Discuss" orm="one-to-one" />
 		<property name="todo" type="ToDo" ref="ToDo" orm="one-to-one" />
@@ -12,7 +12,7 @@
 	<entity entityName="Status">
 		<property name="content" required="true" length="1000"/>
 		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
-				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one"/>
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
 		<property name="type"/>		  
 		<property name="attachments" type="List" ref="Attachment" orm="one-to-many"/>
 		<property name="comments" type="List" ref="Comment" orm="one-to-many"/>

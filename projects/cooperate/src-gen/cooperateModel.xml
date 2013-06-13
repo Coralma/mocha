@@ -16,7 +16,7 @@
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>true</required>
-            <refer>false</refer>
+            <refer>true</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>status</propertyName>
@@ -74,7 +74,7 @@
             <orm>one-to-one</orm>
             <notnull>false</notnull>
             <required>true</required>
-            <refer>false</refer>
+            <refer>true</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>type</propertyName>
