@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.vaadin.teemu.wizards.Wizard;
 
+import com.coral.foundation.security.model.Account;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.google.common.collect.Lists;
@@ -18,6 +19,10 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+
+import javax.persistence.*;
+
+import java.lang.annotation.Annotation;
 
 public class NewReportViewer extends CommonViewer implements Viewer {
 	
@@ -82,12 +87,25 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 	}
 	
 	public List<ReportModel> getDemoReportModel() {
+		
+		
 		ReportModel[] rm = new ReportModel[]{
+				
 				new ReportModel("Customer","Customer Name", "Status", "Contect Person","Email","Phone"),
 				new ReportModel("Compaign","Campaign Name", "Start Date", "End Date"),
-				new ReportModel("Server","Customer Name", "Type", "Serve Date", "Result"),
+				new ReportModel("Server","Customer Name", "Type", "Serve Date", "Result")
+				
 		};
 		return Lists.newArrayList(rm);
+	}
+	
+	public String getTableName(Class entityClass) {
+		String tableName = null;
+		if (entityClass.getAnnotation(Table.class) != null) {
+			Table table = (Table) entityClass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+		return tableName;
 	}
 	
 	@Override

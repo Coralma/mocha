@@ -1,5 +1,7 @@
 package com.coral.foundation.report;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.coral.foundation.security.model.MochaReport;
@@ -10,7 +12,7 @@ public interface ReportService {
 	//load report template from db
 	public void loadReportTemplate(MochaReport mochaReport );
 	//run the template report
-	public Collection executeMochaReportQuery();
+	public ArrayList executeMochaReportQuery();
 	//build report
 	public String buildReport();
 }

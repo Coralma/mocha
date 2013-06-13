@@ -1,5 +1,6 @@
 package com.coral.foundation.report;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,8 @@ public abstract class AbstractCustomReportService implements ReportService {
 	private static String defaultJoinString = "";
 
 	private static String defaultFilterString = "where";
-	
-	private static String defalutQueryFromString="From";
+
+	private static String defalutQueryFromString = "From";
 
 	public MochaReportDao mochaReportDao = SpringContextUtils
 			.getBean(MochaReportDao.class);
@@ -70,12 +71,17 @@ public abstract class AbstractCustomReportService implements ReportService {
 	}
 
 	@Override
-	public Collection executeMochaReportQuery() {
-		String buildQueryString = getDefaultQueryString()
-				+ getDefaultOutputColumnsString() + getDefaultJoinString()
-				+ getDefaultFilterString();
-		mochaReport.setReportPureQuery(buildQueryString);
-		Collection reportResult = mochaReportDao.executeReport(mochaReport);
+	public ArrayList executeMochaReportQuery() {
+		// String buildQueryString = getDefaultQueryString()
+		// + getDefaultOutputColumnsString() + getDefaultJoinString()
+		// + getDefaultFilterString();
+		// mochaReport.setReportPureQuery(buildQueryString);
+
+		ArrayList reportResult = null;
+		if (mochaReport.getReportPureQuery() != null) {
+			reportResult = mochaReportDao.executeReport(mochaReport);
+		}
+		
 		return reportResult;
 
 	}

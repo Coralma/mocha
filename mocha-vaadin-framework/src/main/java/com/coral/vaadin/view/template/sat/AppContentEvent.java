@@ -11,6 +11,7 @@ public class AppContentEvent {
 
 	String viewName;
 	String customizeClass;
+	Long reportId;
 	/**
 	 * @return the viewName
 	 */
@@ -34,6 +35,12 @@ public class AppContentEvent {
 	 */
 	public void setCustomizeClass(String customizeClass) {
 		this.customizeClass = customizeClass;
+	}
+	public Long getReportId() {
+		return reportId;
+	}
+	public void setReportId(Long reportId) {
+		this.reportId = reportId;
 	}
 	
 }

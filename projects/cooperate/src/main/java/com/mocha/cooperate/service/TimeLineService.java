@@ -170,20 +170,20 @@ public class TimeLineService {
 				removeComment(comments.get(i));
 			}
 			timeLineDao.remove(timeLine.getID());
-			statusDao.remove(status.getID());
+//			statusDao.remove(status.getID());
 		} else if(discuss != null) {
 			for(Comment comment : discuss.getComments()) {
 				commentDao.remove(comment.getID());
 			}
 			timeLineDao.remove(timeLine.getID());
-			discussDao.remove(discuss.getID());
+//			discussDao.remove(discuss.getID());
 		} else if(todo !=null){
 //			for(SubToDoItem subToDo : todo.getSubToDoItems()) {
 //				todo.getSubToDoItems().remove(subToDo);
 //				toDoDao.merge(todo);
 //			}
 			timeLineDao.remove(timeLine.getID());
-			toDoDao.remove(todo.getID());
+//			toDoDao.remove(todo.getID());
 		
 		}
 	

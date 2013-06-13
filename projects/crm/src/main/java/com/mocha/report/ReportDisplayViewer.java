@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author Coral
- *
+ * 
  */
 public class ReportDisplayViewer extends CommonViewer implements Viewer {
 
@@ -31,14 +31,22 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 	private Button editButton;
 	private Button newButton;
 	private Button deleteButton;
+	private Long reportId;
 	
+	private IndexedContainer contactContainer = new IndexedContainer();
+
+
 	public ReportDisplayViewer() {
-		
+	
+	}
+
+	public ReportDisplayViewer(Long reportId) {
+		this.reportId=reportId;
 	}
 
 	public void attach() {
 		super.attach();
-		
+
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		backLink.setIcon(new ThemeResource("icons/back.png"));
 		editButton = WidgetFactory.createButton("Edit");
@@ -50,56 +58,67 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 		toolbar.addRightComponent(editButton);
 		toolbar.addRightComponent(newButton);
 		toolbar.addRightComponent(deleteButton);
-		
+
 		this.addComponent(toolbar);
-		
+
 		VerticalLayout filterLayout = new VerticalLayout();
 		filterLayout.addStyleName("report-filter-layout");
 		filterLayout.setWidth("745px");
 		HorizontalLayout filterFieldLayout = new HorizontalLayout();
 		filterFieldLayout.setSpacing(true);
 		filterFieldLayout.addComponent(getAvailableColumnField());
-		filterFieldLayout.addComponent(WidgetFactory.createDateField("Start Date"));
-		filterFieldLayout.addComponent(WidgetFactory.createDateField("End Date"));
+		filterFieldLayout.addComponent(WidgetFactory
+				.createDateField("Start Date"));
+		filterFieldLayout.addComponent(WidgetFactory
+				.createDateField("End Date"));
 		Button filterBtn = WidgetFactory.createButton("Filter");
 		filterFieldLayout.addComponent(filterBtn);
-		filterFieldLayout.setComponentAlignment(filterBtn, Alignment.BOTTOM_LEFT);
+		filterFieldLayout.setComponentAlignment(filterBtn,
+				Alignment.BOTTOM_LEFT);
 		filterLayout.addComponent(filterFieldLayout);
 		this.addComponent(filterLayout);
-		
+
 		// table area
 		VerticalLayout reportLayout = new VerticalLayout();
 		reportLayout.addStyleName("report-table-layout");
 		reportLayout.setWidth("745px");
-				
+
 		Table table = new Table();
 		table.setWidth("745px");
 		table.setHeight("128px");
 
-		IndexedContainer contactContainer = new IndexedContainer();
-        contactContainer.addContainerProperty("Customer Name",String.class, "");
-        contactContainer.addContainerProperty("Serve Type",String.class, "");
-        contactContainer.addContainerProperty("Serve Date",String.class, "");
-        setDemoReportData(contactContainer);
-        
-        table.setContainerDataSource(contactContainer);
-        reportLayout.addComponent(table);
+		
+		if (getReportId() == null) {		
+		
+			getContactContainer().addContainerProperty("Customer Name",
+					String.class, "");
+			getContactContainer().addContainerProperty("Serve Type", String.class,
+					"");
+			getContactContainer().addContainerProperty("Serve Date", String.class,
+					"");
+			setDemoReportData(getContactContainer());
+		}
+
+		table.setContainerDataSource(getContactContainer());
+		reportLayout.addComponent(table);
 		this.addComponent(reportLayout);
 	}
+
 	
+
 	public ComboBox getAvailableColumnField() {
 		List<String> datas = new ArrayList<String>();
 		datas.add("Serve Date");
 		datas.add("Create Date");
-		ComboBox box =new ComboBox("Column",datas);
+		ComboBox box = new ComboBox("Column", datas);
 		return box;
 	}
-	
+
 	@Override
 	public String getViewerTitle() {
 		return reportTitle;
 	}
-	
+
 	public void setDemoReportData(IndexedContainer contactContainer) {
 		String c = "Customer Name";
 		String t = "Serve Type";
@@ -108,22 +127,22 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 		item.getItemProperty(c).setValue("Judy");
 		item.getItemProperty(t).setValue("Call");
 		item.getItemProperty(d).setValue("2012-10-12");
-		
+
 		item = contactContainer.addItem("2");
 		item.getItemProperty(c).setValue("Caroline");
 		item.getItemProperty(t).setValue("Call");
 		item.getItemProperty(d).setValue("2012-5-20");
-		
+
 		item = contactContainer.addItem("3");
 		item.getItemProperty(c).setValue("Victoria");
 		item.getItemProperty(t).setValue("Visit");
 		item.getItemProperty(d).setValue("2013-1-1");
-		
+
 		item = contactContainer.addItem("4");
 		item.getItemProperty(c).setValue("Hellen");
 		item.getItemProperty(t).setValue("Call");
 		item.getItemProperty(d).setValue("2013-1-5");
-		
+
 		item = contactContainer.addItem("5");
 		item.getItemProperty(c).setValue("Ivy");
 		item.getItemProperty(t).setValue("Visit");
@@ -135,6 +154,22 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 	 */
 	public Button getBackLink() {
 		return backLink;
+	}
+
+	public Long getReportId() {
+		return reportId;
+	}
+
+	public void setReportId(Long reportId) {
+		this.reportId = reportId;
+	}
+
+	public IndexedContainer getContactContainer() {
+		return contactContainer;
+	}
+
+	public void setContactContainer(IndexedContainer contactContainer) {
+		this.contactContainer = contactContainer;
 	}
 
 }

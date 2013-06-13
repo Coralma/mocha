@@ -103,12 +103,14 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		private String name;
 		private String desc;
 		private String width = "230px";
+		private Long reportId ;
 		public ReportCard(AppReport appReport) {
 			this.name= appReport.getName();
 			this.desc = appReport.getDescription();
 			this.addStyleName("report-card");
 			this.setWidth(width);
 			this.setHeight("100px");
+			this.reportId=appReport.getAppReportId();
 			this.addListener(this);
 		}
 		
@@ -126,7 +128,15 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 
 		@Override
 		public void layoutClick(LayoutClickEvent event) {
-			listener.showReport(null);			
+			listener.showReport(getReportId());			
+		}
+
+		public Long getReportId() {
+			return reportId;
+		}
+
+		public void setReportId(Long reportId) {
+			this.reportId = reportId;
 		}
 	}
 	
@@ -152,6 +162,13 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		appReport.setDescription("This statistics report will display all visite serve detail information.");
 		reports.add(appReport);
 		
+		AppReport userAccountReport = new AppReport();
+		userAccountReport = new AppReport();
+		userAccountReport.setName("Default Report for User And Account Mapping");
+		userAccountReport.setDescription("This statistics report will display the users under account");
+		userAccountReport.setID(7L);
+		
+		reports.add(userAccountReport);
 		return reports;
 	}
 	

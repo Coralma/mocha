@@ -19,7 +19,7 @@ public class CustomerViewPresenter extends AppCommonPresenter implements Present
 	public CustomerViewPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		CustomerView newView = new CustomerView();
-		Object entity = this.eventBus.getContext().get("Entity");
+		Object entity = this.eventBus.getContext().get("reportID");
 		if(entity != null) {
 			newView.setEntity(entity);
 			eventBus.resetContext();

@@ -1,7 +1,9 @@
 package com.mocha.cooperate.service.test;
 
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -30,8 +32,8 @@ import com.mocha.cooperate.service.UserFileService;
 @ContextConfiguration(locations = {"applicationContext.xml"})
 public class AppReportServiceTest {
 
-//	private ReportTableDao reportTableDao = SpringContextUtils
-//			.getBean(ReportTableDao.class);
+	// private ReportTableDao reportTableDao = SpringContextUtils
+	// .getBean(ReportTableDao.class);
 
 	@Test
 	public void simpleJoinQueryTest() {
@@ -91,9 +93,9 @@ public class AppReportServiceTest {
 
 		// maintable join type
 		mainTable.setJoinType("inner join");
-		
-//		appReport.getReportTables().add(subTable);
-//		appCustomReportService.saveReferenceJoinTables();
+
+		// appReport.getReportTables().add(subTable);
+		// appCustomReportService.saveReferenceJoinTables();
 
 		// maintable join table
 		ReportJoinTable mainReportJoinTable = new ReportJoinTable();
@@ -102,16 +104,13 @@ public class AppReportServiceTest {
 		mainTableReportJoinTables.add(mainReportJoinTable);
 		mainTable.setReportJoinReportTableId(mainTableReportJoinTables);
 
-//		// subtable join table
-//		ReportJoinTable subTableReportJoinTable = new ReportJoinTable();
-//		subTableReportJoinTable.setReportJoinTableId(mainTable.getID());
-//		List<ReportJoinTable> subTableReportJoinTables = new ArrayList<ReportJoinTable>();
-//		subTableReportJoinTables.add(mainReportJoinTable);
-//		subTable.setReportJoinReportTableId(subTableReportJoinTables);
-		
 		appReport.getReportTables().add(mainTable);
-		appCustomReportService.saveMainReportTable();		
+		appCustomReportService.saveMainReportTable();
 		appCustomReportService.buildReport();
+		
+		ArrayList appCustomReportResult = appCustomReportService
+				.executeMochaReportQuery();
+		
 	}
 
 	public BasicUser loadTestUser() {

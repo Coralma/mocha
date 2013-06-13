@@ -1,5 +1,6 @@
 package com.coral.foundation.report;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.bcel.generic.RET;
@@ -32,6 +33,9 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 			.getBean(ReportJoinTableDao.class);
 
 	private AppReport appReport;
+	
+	private MochaReport mochaReport = new MochaReport();
+	
 
 	public AppCusteomReportService(AppReport appReport) {
 		super();
@@ -40,7 +44,7 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 
 	@Override
 	public String buildReport() {
-		MochaReport mochaReport = new MochaReport();
+		
 		mochaReport.setAppReport(getAppReport());
 		setMochaReport(mochaReport);
 		validateReportTemplate(mochaReport);
@@ -55,13 +59,14 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 		dynamicQuery.append(" ");
 		dynamicQuery.append(getDefaultJoinString());
 		dynamicQuery.append(" ");
-		dynamicQuery.append(appReport.getReportFilters().size()==0
+		dynamicQuery.append(appReport.getReportFilters().size() == 0
 				? ""
 				: getDefaultFilterString());
 		dynamicQuery.append(" ");
 		mochaReport.setReportPureQuery(dynamicQuery.toString());
 		mochaReportDao.merge(mochaReport);
-		mochaReportDao.executeReport(mochaReport);
+		
+//		Collection reportResult = mochaReportDao.executeReport(mochaReport);
 
 		return null;
 	}
