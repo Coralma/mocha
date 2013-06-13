@@ -30,6 +30,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.OptionGroup;
+import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -251,7 +252,7 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 	public class DiscussPublisher extends VerticalLayout implements IPublisher {
 		private TextField titleField = new TextField();
 		private OptionGroup statusGroup;
-		private ExpandingTextArea inputArea = new ExpandingTextArea();
+		private RichTextArea inputArea = new RichTextArea();
 
 		public DiscussPublisher() {
 			this.addStyleName("discuss-input-area");
@@ -260,6 +261,7 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 		}
 
 		public void build() {
+//			String widgetWidth = "720px";
 			titleField.setWidth(widgetWidth);
 			titleField.setInputPrompt(message.getString("cooperate.publisher.topicTitle"));
 			this.addComponent(titleField);
@@ -271,7 +273,7 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 			this.addComponent(statusGroup);
 
 			inputArea.setWidth(widgetWidth);
-			inputArea.setRows(2);
+			inputArea.setHeight("200px");
 			inputArea.addStyleName("input-area");
 			this.addComponent(inputArea);
 		}
