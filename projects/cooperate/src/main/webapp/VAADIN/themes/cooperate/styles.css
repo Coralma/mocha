@@ -373,6 +373,8 @@
     overflow: hidden;
     padding: 2px;
     white-space: nowrap;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
 }
 
 .c-publisher .input-area {

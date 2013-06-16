@@ -10,6 +10,7 @@ import java.util.Set;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
+import com.mocha.cooperate.basic.dao.AttachmentDao;
 import com.mocha.cooperate.basic.dao.CommentDao;
 import com.mocha.cooperate.basic.dao.DiscussDao;
 import com.mocha.cooperate.basic.dao.NotifyLineDao;
@@ -35,6 +36,7 @@ public class TimeLineService {
 	private StatusDao statusDao = SpringContextUtils.getBean(StatusDao.class);
 	private DiscussDao discussDao = SpringContextUtils.getBean(DiscussDao.class);
 	private CommentDao commentDao = SpringContextUtils.getBean(CommentDao.class);
+	private AttachmentDao attachmentDao = SpringContextUtils.getBean(AttachmentDao.class);
 	private NotifyLineDao notifyLineDao = SpringContextUtils.getBean(NotifyLineDao.class);
 	private ToDoDao toDoDao = SpringContextUtils.getBean(ToDoDao.class);
 	private SubToDoItemDao subToDoDao = SpringContextUtils.getBean(SubToDoItemDao.class);
@@ -107,6 +109,9 @@ public class TimeLineService {
 //			attachment.set
 //		}
 		status.setAttachments(attachments);
+		for(Attachment attachment : attachments) {
+			attachment.setStatus(status);
+		}
 		timeLine.setStatus(status);
 		timeLine.setCreator(creator);
 		timeLineDao.merge(timeLine);
@@ -115,6 +120,9 @@ public class TimeLineService {
 	
 	public TimeLine saveDiscuss(Discuss discuss, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
+		if(discuss.getID() != null) {
+			timeLine = queryTimelineByDiscuss(discuss);
+		}
 		discuss = discussDao.merge(discuss);
 		// store notification
 		List<NotifyLine> notifyLines = Lists.newArrayList();
@@ -128,6 +136,9 @@ public class TimeLineService {
 		}
 		discuss.setNotifyLines(notifyLines);
 		discuss.setAttachments(attachments);
+		for(Attachment attachment : attachments) {
+			attachment.setDiscuss(discuss);
+		}
 		timeLine.setDiscuss(discuss);
 		timeLine.setCreator(creator);
 		timeLineDao.merge(timeLine);
@@ -149,6 +160,9 @@ public class TimeLineService {
 		}
 		todo.setNotifyLines(notifyLines);
 		todo.setAttachments(attachments);
+		for(Attachment attachment : attachments) {
+			attachment.setTodo(todo);
+		}
 		timeLine.setTodo(todo);
 		timeLine.setCreator(creator);
 		timeLineDao.merge(timeLine);
@@ -222,6 +236,7 @@ public class TimeLineService {
 	public void removeComment(Comment comment) {
 		Status status = comment.getStatus();
 		Discuss discuss = comment.getDiscuss();
+		ToDo todo = comment.getTodo();
 		if(status != null) {
 			status.getComments().remove(comment);
 			statusDao.merge(status);
@@ -230,7 +245,30 @@ public class TimeLineService {
 			discuss.getComments().remove(comment);
 			discussDao.merge(discuss);
 		}
+		if(todo != null) {
+			todo.getComments().remove(comment);
+			toDoDao.merge(todo);
+		}
 		commentDao.remove(comment.getID());
+	}
+	
+	public void removeAttachment(Attachment attachment) {
+		Status status = attachment.getStatus();
+		Discuss discuss = attachment.getDiscuss();
+		ToDo todo = attachment.getTodo();
+		if(status != null) {
+			status.getAttachments().remove(attachment);
+			statusDao.merge(status);
+		}
+		if(discuss != null) {
+			discuss.getAttachments().remove(attachment);
+			discussDao.merge(discuss);
+		}
+		if(todo != null) {
+			todo.getAttachments().remove(attachment);
+			toDoDao.merge(todo);
+		}
+		attachmentDao.remove(attachment.getID());
 	}
 	
 	public Date queryOldestData(BasicUser user) {

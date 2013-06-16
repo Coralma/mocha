@@ -6,6 +6,7 @@ package com.mocha.cooperate.page;
 import java.util.List;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
@@ -32,14 +33,16 @@ public class ForumTopicsViewer extends CommonViewer implements Viewer, ClickList
 	private List<Discuss> topics;
 	private Discuss selectedTopic;
 	private ForumTopicListener listener;
-	DiscussCard selectedDiscussCard;
+	private DiscussCard selectedDiscussCard;
+	private MochaEventBus eventBus;
 	
-	public ForumTopicsViewer(String category, String categoryType, List<Discuss> topics) {
+	public ForumTopicsViewer(String category, String categoryType, List<Discuss> topics, MochaEventBus eventBus) {
 		this.setSpacing(true);
 		this.addStyleName("home-content");
 		this.topics = topics;
 		this.category = category;
 		this.categoryType = categoryType;
+		this.eventBus = eventBus;
 //		super.changeTitle(category);
 	}
 	
@@ -61,7 +64,7 @@ public class ForumTopicsViewer extends CommonViewer implements Viewer, ClickList
 	
 	public void buildTopic(List<Discuss> topics) {
 		for(Discuss topic : topics) {
-			DiscussCard discussCard = new DiscussCard(topic); 
+			DiscussCard discussCard = new DiscussCard(topic, eventBus); 
 			if(selectedTopic != null && selectedTopic.getID().equals(topic.getID())) {
 				discussCard.setDisplayReply(true);
 				selectedDiscussCard = discussCard;

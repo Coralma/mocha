@@ -32,12 +32,12 @@ public class ForumEditorPresenter extends CommonPresenter implements Presenter {
 	public ForumEditorPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		topicCategory = (String)eventBus.getContext().get(SystemProperty.FORUM_CATEGORY);
-		if(topicCategory == null) {
-			return;
-		} else {
-			eventBus.setContext(null);
-		}
-		this.viewer = new ForumEditorViewer(topicCategory);
+		Discuss discuss = (Discuss)eventBus.getContext().get("topic");
+//		if(topicCategory == null) {
+//			return;
+//		}
+		eventBus.resetContext();
+		this.viewer = new ForumEditorViewer(discuss, topicCategory);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ public class NotificationPresenter extends CommonPresenter implements Presenter 
 
 	public NotificationPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new NotificationViewer();
+		this.viewer = new NotificationViewer(eventBus);
 	}
 
 	

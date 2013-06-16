@@ -8,6 +8,7 @@ import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.mocha.cooperate.SystemProperty;
+import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.page.event.ForumEditorListener;
 import com.mocha.cooperate.widget.ForumEditor;
 import com.vaadin.terminal.ThemeResource;
@@ -23,8 +24,10 @@ public class ForumEditorViewer extends CommonViewer implements Viewer, ClickList
 	private ForumEditor forumEditor;
 	private String topicCategory;
 	private String categoryTitle;
+	private Discuss discuss;
 	
-	public ForumEditorViewer(String topicCategory) {
+	public ForumEditorViewer(Discuss discuss, String topicCategory) {
+		this.discuss = discuss;
 		this.topicCategory = topicCategory;
 		this.categoryTitle = SystemProperty.getForumCategoryTitle(topicCategory);
 //		super.changeTitle("New" + categoryTitle);
@@ -41,7 +44,7 @@ public class ForumEditorViewer extends CommonViewer implements Viewer, ClickList
 		this.addComponent(toolbar);
 		
 		this.setWidth(SystemProperty.content_widget_width);
-		forumEditor = new ForumEditor(topicCategory, categoryTitle);
+		forumEditor = new ForumEditor(discuss, topicCategory, categoryTitle);
 		this.addComponent(forumEditor);
 	}
 	

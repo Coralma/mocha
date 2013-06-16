@@ -40,7 +40,7 @@ public class ForumTopicsPresenter extends CommonPresenter implements Presenter {
 //			categoryTitle = "Discuss";
 //		}
 		topics = forumService.queryTopic(category, 0);
-		ForumTopicsViewer forumTopicsViewer = new ForumTopicsViewer(categoryTitle, category, topics);
+		ForumTopicsViewer forumTopicsViewer = new ForumTopicsViewer(categoryTitle, category, topics, eventBus);
 		forumTopicsViewer.setSelectedTopic(selectedTopic);
 		this.viewer = forumTopicsViewer;
 		

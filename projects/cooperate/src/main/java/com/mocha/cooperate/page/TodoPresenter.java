@@ -39,7 +39,7 @@ public class TodoPresenter extends CommonPresenter implements Presenter {
 //				todos.add(timeline.getTodo());
 //			}
 //		}
-		this.viewer = new TodoViewer(todos);
+		this.viewer = new TodoViewer(todos, eventBus);
 	}
 
 	@Override

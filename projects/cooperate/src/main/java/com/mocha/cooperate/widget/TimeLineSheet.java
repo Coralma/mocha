@@ -5,6 +5,7 @@ package com.mocha.cooperate.widget;
 
 import java.util.List;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.utils.Message;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.TimeLine;
@@ -37,8 +38,10 @@ public class TimeLineSheet extends VerticalLayout {
 	private PagingVerticalLayout todoLayout = new PagingVerticalLayout();
 	private PagingVerticalLayout workLayout = new PagingVerticalLayout();
 	private PagingVerticalLayout currentLayout;
+	private MochaEventBus eventBus;
 	
-	public TimeLineSheet() {
+	public TimeLineSheet(MochaEventBus eventBus) {
+		this.eventBus = eventBus;
 	}
 	
 	public void attach() {
@@ -118,14 +121,14 @@ public class TimeLineSheet extends VerticalLayout {
 				allLayout.addComponent(statusCard);
 			}
 			if(timeline.getDiscuss() != null) {
-				DiscussCard discussCard = new DiscussCard(timeline); 
+				DiscussCard discussCard = new DiscussCard(timeline, eventBus); 
 				allLayout.addComponent(discussCard);
 			}
 			if (timeline.getTodo() != null
 					&& timeline.getTodo().getAssginedUser() != null) {
 //				if (timeline.getTodo().getAssginedUser().getBasicUserId() == ((BasicUser) getApplication()
 //						.getUser()).getBasicUserId()) {
-					TodoCard toDoCard = new TodoCard(timeline);
+					TodoCard toDoCard = new TodoCard(timeline, eventBus);
 					allLayout.addComponent(toDoCard);
 //				}
 			}
@@ -148,7 +151,7 @@ public class TimeLineSheet extends VerticalLayout {
 //		discussLayout.removeAllComponents();
 		for(TimeLine timeline : timelines) {
 			if(timeline.getDiscuss() != null) {
-				DiscussCard discussCard = new DiscussCard(timeline); 
+				DiscussCard discussCard = new DiscussCard(timeline, eventBus); 
 				discussLayout.addComponent(discussCard);
 			}
 		}
@@ -159,7 +162,7 @@ public class TimeLineSheet extends VerticalLayout {
 //		todoLayout.removeAllComponents();
 		for (TimeLine timeline : timelines) {
 			if(timeline.getTodo()!=null){
-				TodoCard todoCard = new TodoCard(timeline);
+				TodoCard todoCard = new TodoCard(timeline, eventBus);
 				todoLayout.addComponent(todoCard);				
 			}
 		}
@@ -172,11 +175,11 @@ public class TimeLineSheet extends VerticalLayout {
 			getCurrentLayout().addComponentAsFirst(statusCard);
 		}
 		if(timeline.getDiscuss() != null) {
-			DiscussCard discussCard = new DiscussCard(timeline); 
+			DiscussCard discussCard = new DiscussCard(timeline, eventBus); 
 			getCurrentLayout().addComponentAsFirst(discussCard);
 		}
 		if (timeline.getTodo() != null && timeline.getTodo().getAssginedUser() != null) {
-			TodoCard toDoCard = new TodoCard(timeline);
+			TodoCard toDoCard = new TodoCard(timeline, eventBus);
 			getCurrentLayout().addComponentAsFirst(toDoCard);
 		}
 	}

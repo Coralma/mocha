@@ -6,6 +6,7 @@ package com.mocha.cooperate.widget;
 import java.util.Date;
 import java.util.List;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.DateUtils;
 import com.coral.foundation.utils.Message;
@@ -54,13 +55,14 @@ public class TodoProjectDisplayer extends TodoCard {
 	
 	public TodoProjectDisplayer(){}
 	
-	public TodoProjectDisplayer(ToDo toDo, BasicUser currentUser) {
+	public TodoProjectDisplayer(ToDo toDo, BasicUser currentUser, MochaEventBus eventBus) {
 		super.todo = toDo;
 		super.attachments = toDo.getAttachments();
 		super.comments = toDo.getComments();
 		super.createUser = currentUser;
 		this.currentUser = currentUser;
 		this.ownerUser = toDo.getAssginedUser();
+		super.eventBus = eventBus; 
 		//FIXME it should be a assignedUser.
 		if(ownerUser.getID().equals(currentUser.getID())) {
 			owner = true;

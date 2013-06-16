@@ -131,6 +131,16 @@ public abstract class AbstractCard extends VerticalLayout implements ICard, Clic
 		replyButton.setIcon(new ThemeResource("icons/reply_icon.png"));
 		replyButton.addListener(this);
 		buttonLayout.addComponent(replyButton);
+		
+		// get the ext button for different card.
+		List<Button> extButtons = getExtButtons();
+		if(extButtons != null) {
+			for(Button extButton : extButtons) {
+				buttonLayout.addComponent(extButton);	
+			}
+		}
+		
+		// create the delete button for the creator
 		if(createUser.getBasicUserId().equals(((BasicUser)getApplication().getUser()).getBasicUserId())) {
 			deleteButton = new Button(message.getString("cooperate.reply.Delete"));
 			deleteButton.addStyleName(BaseTheme.BUTTON_LINK);
@@ -139,6 +149,7 @@ public abstract class AbstractCard extends VerticalLayout implements ICard, Clic
 			deleteButton.addListener(this);
 			buttonLayout.addComponent(deleteButton);
 		}
+		
 		replyLayout.addComponent(buttonLayout);
 		cardReply = new CardReply(comments);
 		cardReply.setVisible(false);
@@ -151,6 +162,8 @@ public abstract class AbstractCard extends VerticalLayout implements ICard, Clic
 //		}
 		return replyLayout;
 	}
+	
+	public abstract List<Button> getExtButtons();
 	
 	public void setDisplayReply(boolean displayReply) {
 		this.displayReply = displayReply;

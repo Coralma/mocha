@@ -138,18 +138,6 @@ public class TodoProjectEditor extends VerticalLayout {
 				}
 			}
 		});
-//		todoTitle.addListener(new BlurListener() {
-//			@Override
-//			public void blur(BlurEvent event) {
-//				if(!StrUtils.isEmpty(todoTitle.getValue())) {
-//					todoTitleLabel.setValue(StrUtils.asciiToXhtml(todoTitle.getValue().toString()));
-//					todoTitleLayout.setVisible(false);
-//					todoTitleLabelLayout.setVisible(true);
-//					addTaskLayout.setVisible(true);
-//					titlePanel.addStyleName("todo-inputField-border");
-//				}
-//			}
-//		});
 		addTaskBtn.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {

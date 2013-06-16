@@ -2,6 +2,7 @@ package com.mocha.cooperate.page;
 
 import java.util.Date;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
@@ -27,10 +28,11 @@ public class UserTimeLineViewer extends CommonViewer implements Viewer {
 	
 	private VerticalLayout timelineListPanel = new VerticalLayout();;
 	private TimeOfLine timeOfLine;
-	
-	public UserTimeLineViewer(BasicUser user,Date oldestDate) {
+	private MochaEventBus eventBus;
+	public UserTimeLineViewer(BasicUser user,Date oldestDate, MochaEventBus eventBus) {
 		this.user = user;
 		this.oldestDate = oldestDate;
+		this.eventBus = eventBus;
 		this.addStyleName("timeline");
 	}
 	
@@ -76,7 +78,7 @@ public class UserTimeLineViewer extends CommonViewer implements Viewer {
 	public void buildTimelinePanel(Date date) {
 		timelineListPanel.removeAllComponents();
 
-		TimeLineSheetWrap timeLineSheetWrap = new TimeLineSheetWrap(user, date);
+		TimeLineSheetWrap timeLineSheetWrap = new TimeLineSheetWrap(user, date, eventBus);
 		timelineListPanel.addComponent(timeLineSheetWrap.getTimeLineSheet());
 	}
 	

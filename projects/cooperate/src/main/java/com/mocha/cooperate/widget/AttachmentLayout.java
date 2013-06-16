@@ -12,6 +12,7 @@ import com.coral.vaadin.widget.view.builder.PageBuildHelper;
 import com.google.common.collect.Lists;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.Attachment;
+import com.mocha.cooperate.service.TimeLineService;
 import com.mocha.cooperate.service.UserFileService;
 import com.mocha.cooperate.widget.listener.FileDownloadResource;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
@@ -40,12 +41,15 @@ public class AttachmentLayout extends VerticalLayout {
 	private static final long serialVersionUID = -1969759545672129384L;
 	private List<Attachment> attachments = Lists.newArrayList();
 	private UserFileService fileService;
+	private TimeLineService timeLineService;
 	private Message message;
 	private BasicUser basicUser;
+	private String attachPanelWidth = SystemProperty.content_widget_width;
 	
 	public AttachmentLayout(BasicUser basicUser) {
 		this.basicUser = basicUser;
 		fileService = new UserFileService(basicUser);
+		timeLineService = new TimeLineService();
 		this.setSizeFull();
 	}
 	
@@ -80,7 +84,7 @@ public class AttachmentLayout extends VerticalLayout {
 		protected Attachment attachment;
 		
 		public AttachmentPanel(final Attachment attachment) {
-			this.setWidth(SystemProperty.content_widget_width);
+			this.setWidth(attachPanelWidth);
 			this.attachment = attachment;
 			this.addStyleName("attachment-panel");
 		}
@@ -92,16 +96,25 @@ public class AttachmentLayout extends VerticalLayout {
 			addComponent(fileName);
 			
 			pi.setValue(0f);
-			pi.setVisible(true);
+			if(attachment.getID() != null) {
+				pi.setVisible(false);
+			} else {
+				pi.setVisible(true);
+			}
 			pi.setPollingInterval(500);
 			addComponent(pi);
+			
 			delete.setWidth("20px");
 			delete.addStyleName("attachment-panel-remove");
 			delete.addListener(new ClickListener() {
 				@Override
 				public void buttonClick(ClickEvent event) {
 					fileService.removeAttachment(attachment, (BasicUser)getApplication().getUser());
-					attachments.remove(AttachmentPanel.this);
+					// if the attachment already store in database then we have to remove the relationship
+					if(attachment.getID() != null) {
+						timeLineService.removeAttachment(attachment);
+					}
+					attachments.remove(attachment);
 					AttachmentLayout.this.removeComponent(AttachmentPanel.this);
 				}
 			});
@@ -308,5 +321,19 @@ public class AttachmentLayout extends VerticalLayout {
 	 */
 	public void setMessage(Message message) {
 		this.message = message;
+	}
+
+	/**
+	 * @return the attachPanelWidth
+	 */
+	public String getAttachPanelWidth() {
+		return attachPanelWidth;
+	}
+
+	/**
+	 * @param attachPanelWidth the attachPanelWidth to set
+	 */
+	public void setAttachPanelWidth(String attachPanelWidth) {
+		this.attachPanelWidth = attachPanelWidth;
 	}
 }

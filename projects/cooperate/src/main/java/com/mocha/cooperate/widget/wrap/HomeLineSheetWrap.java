@@ -6,6 +6,7 @@ package com.mocha.cooperate.widget.wrap;
 import java.util.List;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.google.common.collect.Lists;
 import com.mocha.cooperate.SystemProperty;
@@ -21,9 +22,9 @@ public class HomeLineSheetWrap {
 	protected TimeLineService timeLineService = new TimeLineService();
 	protected BasicUser currentUser;
 	
-	public HomeLineSheetWrap(BasicUser user) {
+	public HomeLineSheetWrap(BasicUser user, MochaEventBus eventBus) {
 		this.currentUser = user;
-		timeLineSheet = new TimeLineSheet();
+		timeLineSheet = new TimeLineSheet(eventBus);
 		timeLineSheet.setTimelineListener(new TimelineListener() {
 			@Override
 			public List<TimeLine> loadMessages(String type) {

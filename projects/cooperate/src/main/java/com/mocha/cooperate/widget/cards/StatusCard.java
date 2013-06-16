@@ -3,12 +3,15 @@
  */
 package com.mocha.cooperate.widget.cards;
 
+import java.util.List;
+
 import com.coral.foundation.utils.StrUtils;
 import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
 import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.widget.ConfirmDialog;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -109,5 +112,11 @@ public class StatusCard extends AbstractCard {
 	public void refreshCard() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Button> getExtButtons() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

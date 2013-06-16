@@ -1,6 +1,14 @@
 package com.mocha.cooperate.widget.cards;
 
+import java.util.List;
+
+import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
+import com.coral.vaadin.controller.ContentChangeEvent;
+import com.coral.vaadin.widget.WidgetFactory;
+import com.google.common.collect.Lists;
+import com.mocha.cooperate.PresenterProperty;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.basic.dao.TimeLineDao;
 import com.mocha.cooperate.model.Comment;
@@ -10,6 +18,8 @@ import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.widget.ConfirmDialog;
 import com.mocha.cooperate.widget.TodoProjectDisplayer;
 import com.mocha.cooperate.widget.wrap.TodoProjectDisplayerWrap;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -22,12 +32,15 @@ public class TodoCard extends AbstractCard {
 	private NotifyLine notifyLine;
 	private TimeLine timeLine;
 	private VerticalLayout todoLayout = new VerticalLayout();
-	
+	protected Button editButton;
+	protected MochaEventBus eventBus;
 	
 	public TodoCard() {}
-	public TodoCard(TimeLine timeLine) {
+	
+	public TodoCard(TimeLine timeLine, MochaEventBus eventBus) {
 		this.timeLine = timeLine;
 		this.createUser = timeLine.getCreator();
+		this.eventBus = eventBus;
 		initTodoCard(timeLine.getTodo());
 	}
 
@@ -60,7 +73,7 @@ public class TodoCard extends AbstractCard {
 		HorizontalLayout userInfo = buildUserInfoLabel(todo.getCreateTime());
 		layout.addComponent(userInfo);
 
-		TodoProjectDisplayerWrap projectDisplayerWrap = new TodoProjectDisplayerWrap(todo, getCurrentUser());
+		TodoProjectDisplayerWrap projectDisplayerWrap = new TodoProjectDisplayerWrap(todo, getCurrentUser(), eventBus);
 		TodoProjectDisplayer projectDisplayer = projectDisplayerWrap.getProjectDisplayer(); 
 		projectDisplayer.setProjectWidth(SystemProperty.content_card_width, "630px", "600px");
 		projectDisplayer.setNeedExpend(false);
@@ -109,11 +122,29 @@ public class TodoCard extends AbstractCard {
 			cardReply.setComments(todo.getComments());
 			cardReply.build();
 		}
+		if(event.getButton().equals(editButton)) {
+			ContentChangeEvent changeEvent = new ContentChangeEvent();
+			changeEvent.setPresenterName(PresenterProperty.TODO_EDIT);
+			eventBus.put("todo", todo);
+			eventBus.post(changeEvent);
+		}
 	}
-
+	
+	@Override
+	public List<Button> getExtButtons() {
+		List<Button> extButtons = Lists.newArrayList();
+		Long currentUserId = ((BasicUser)getApplication().getUser()).getBasicUserId();
+		if(createUser.getBasicUserId().equals(currentUserId) || todo.getAssginedUser().getBasicUserId().equals(currentUserId)) {
+			editButton = WidgetFactory.createLink("Edit");
+			editButton.setIcon(new ThemeResource("icons/change-icon.png"));
+			editButton.addListener(this);
+			extButtons.add(editButton);
+		}
+		return extButtons;
+	}
+	
 	@Override
 	public void refreshCard() {
 		
 	}
-
 }

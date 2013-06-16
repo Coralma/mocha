@@ -323,9 +323,9 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 	
 		private static final long serialVersionUID = -3411230743455414309L;
 		private String widgetWidth = "745px";
-		private String contentLayoutWidth = "743px";
-		private String contentWidth = "741px";
-		private String contentTextWidth = "739px";
+		private String contentLayoutWidth = "745px";
+		private String contentWidth = "745px";
+		private String contentTextWidth = "743px";
 		private ToDo todo = new ToDo();
 		private TodoProjectEditor todoProjectEditor;
 		

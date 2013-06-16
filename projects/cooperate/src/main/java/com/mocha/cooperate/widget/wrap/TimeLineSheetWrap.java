@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.google.common.collect.Lists;
 import com.mocha.cooperate.SystemProperty;
@@ -16,8 +17,8 @@ public class TimeLineSheetWrap extends HomeLineSheetWrap {
 
 	private Date date;
 	
-	public TimeLineSheetWrap(BasicUser user, Date date) {
-		super(user);
+	public TimeLineSheetWrap(BasicUser user, Date date, MochaEventBus eventBus) {
+		super(user, eventBus);
 		this.date = date;
 	}
 	

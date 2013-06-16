@@ -2,6 +2,7 @@ package com.mocha.cooperate.page;
 
 import java.util.List;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
@@ -15,8 +16,10 @@ import com.vaadin.ui.VerticalLayout;
 public class NotificationViewer extends CommonViewer implements Viewer {
 	
 	private VerticalLayout notifyLayout = new VerticalLayout();
+	private MochaEventBus eventBus;
 	
-	public NotificationViewer() {
+	public NotificationViewer(MochaEventBus eventBus) {
+		this.eventBus = eventBus;
 		this.setSpacing(true);
 		this.addStyleName("home-content");
 	}
@@ -40,7 +43,7 @@ public class NotificationViewer extends CommonViewer implements Viewer {
 				notifyLayout.addComponent(statusCard);
 			}
 			if(notifie.getDiscuss() != null) {
-				DiscussCard discussCard = new DiscussCard(notifie); 
+				DiscussCard discussCard = new DiscussCard(notifie, eventBus); 
 				notifyLayout.addComponent(discussCard);
 			}
 		}

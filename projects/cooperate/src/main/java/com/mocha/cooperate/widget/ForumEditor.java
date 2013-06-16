@@ -9,10 +9,13 @@ import java.util.Set;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.Message;
 import com.coral.foundation.utils.StrUtils;
+import com.coral.vaadin.widget.WidgetFactory;
 import com.google.common.collect.Lists;
 import com.mocha.cooperate.SystemProperty;
+import com.mocha.cooperate.model.Attachment;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.page.event.ForumEditorListener;
+import com.mocha.cooperate.widget.AttachmentLayout.AttachmentPanel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Alignment;
@@ -52,8 +55,14 @@ public class ForumEditor extends VerticalLayout implements ClickListener {
 	
 	private String topicCategory;
 	private String categoryTitle;
+	private Discuss discuss;
 	
-	public ForumEditor(String topicCategory, String categoryTitle) {
+	public ForumEditor(Discuss discuss, String topicCategory, String categoryTitle) {
+		if(discuss == null) {
+			discuss = new Discuss();
+		}
+		this.discuss = discuss;
+		
 		this.addStyleName("forum-editor");
 		this.setSpacing(true);
 		this.setWidth(widgetWidth);
@@ -72,16 +81,25 @@ public class ForumEditor extends VerticalLayout implements ClickListener {
 		titleLayout.addComponent(titleLabel);
 		
 		titleField.setWidth(editorWidth);
+		titleField.setPropertyDataSource(WidgetFactory.createProperty(discuss, "title"));
 		titleLayout.addComponent(titleField);
 		this.addComponent(titleLayout);
 
 		inputArea.setWidth(editorWidth);
 		inputArea.setHeight(inputHeight);
+		inputArea.setPropertyDataSource(WidgetFactory.createProperty(discuss, "content"));
 		inputArea.addStyleName("input-area");
 		this.addComponent(inputArea);
 		
 		// set attachment layout into page.
 		attachmentLayout = new AttachmentLayout((BasicUser)getApplication().getUser());
+		attachmentLayout.setAttachPanelWidth(editorWidth);
+		if(discuss.getAttachments().size() > 0) {
+			for(Attachment attachment : discuss.getAttachments()) {
+				AttachmentPanel attachmentPanel = attachmentLayout.new AttachmentPanel(attachment);
+				attachmentLayout.addAttachmentPanel(attachmentPanel);
+			}
+		}
 		this.addComponent(attachmentLayout);
 
 		Layout attachLayout = buildPostArea();
@@ -147,7 +165,6 @@ public class ForumEditor extends VerticalLayout implements ClickListener {
 		if (StrUtils.isEmpty(title) || StrUtils.isEmpty(input)) {
 			return null;
 		}
-		Discuss discuss = new Discuss();
 		discuss.setTitle((String) title);
 		discuss.setContent((String) input);
 		discuss.setStatus(topicCategory);

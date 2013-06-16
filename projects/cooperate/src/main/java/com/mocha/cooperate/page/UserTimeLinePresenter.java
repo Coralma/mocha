@@ -30,7 +30,7 @@ public class UserTimeLinePresenter extends CommonPresenter implements Presenter 
 		TimeLineService timeLineService = new TimeLineService();
 		Date oldestDate = timeLineService.queryOldestData(selectedUser);
 		
-		this.viewer = new UserTimeLineViewer(selectedUser, oldestDate);
+		this.viewer = new UserTimeLineViewer(selectedUser, oldestDate, eventBus);
 		eventBus.resetContext();
 	}
 	

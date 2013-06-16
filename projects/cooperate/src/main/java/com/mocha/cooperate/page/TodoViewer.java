@@ -2,6 +2,7 @@ package com.mocha.cooperate.page;
 
 import java.util.List;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
@@ -21,8 +22,11 @@ public class TodoViewer extends CommonViewer implements Viewer, ClickListener {
 	private List<ToDo> todos;
 	private TodoListener listener;
 	private VerticalLayout todoListPanel = new VerticalLayout();
-	public TodoViewer(List<ToDo> todos) {
+	private MochaEventBus eventBus;
+	
+	public TodoViewer(List<ToDo> todos, MochaEventBus eventBus) {
 		this.todos = todos;
+		this.eventBus = eventBus;
 		this.addStyleName("todo-viewer");
 		this.setSpacing(true);
 		this.setWidth(SystemProperty.content_page_width);
@@ -53,7 +57,7 @@ public class TodoViewer extends CommonViewer implements Viewer, ClickListener {
 		todoListPanel.removeAllComponents();
 		for(int i=0; i<todos.size(); i++) {
 			ToDo todo = todos.get(i);
-			TodoProjectDisplayerWrap displayerWrap = new TodoProjectDisplayerWrap(todo, (BasicUser)getApplication().getUser());
+			TodoProjectDisplayerWrap displayerWrap = new TodoProjectDisplayerWrap(todo, (BasicUser)getApplication().getUser(), eventBus);
 			TodoProjectDisplayer displayer = displayerWrap.getProjectDisplayer();
 			displayer.setListDisplay(true);
 			if(i % 2 == 1) {

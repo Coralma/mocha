@@ -5,6 +5,7 @@ package com.mocha.cooperate.widget.wrap;
 
 import java.util.Date;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.mocha.cooperate.basic.dao.SubToDoItemDao;
@@ -27,15 +28,17 @@ public class TodoProjectDisplayerWrap {
 	private SubToDoItemDao subToDoItemDao = SpringContextUtils.getBean(SubToDoItemDao.class);
 	private BasicUser currentUser;
 	private TodoProjectDisplayer projectDisplayer;
+	private MochaEventBus eventBus;
 	
-	public TodoProjectDisplayerWrap(ToDo toDo, BasicUser user) {
+	public TodoProjectDisplayerWrap(ToDo toDo, BasicUser user, MochaEventBus eventBus) {
 		this.toDo = toDo;
 		this.currentUser = user;
+		this.eventBus = eventBus;
 		this.build();
 	}
 	
 	public void build() {
-		projectDisplayer = new TodoProjectDisplayer(toDo, currentUser);
+		projectDisplayer = new TodoProjectDisplayer(toDo, currentUser, eventBus);
 		projectDisplayer.setListener(new TodoProjectDisplayerListener() {
 			@Override
 			public void todoProjectClick(TodoProjectDisplayer project) {

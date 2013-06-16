@@ -3,6 +3,7 @@
  */
 package com.mocha.cooperate.page;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.Message;
 import com.coral.vaadin.widget.Viewer;
@@ -24,9 +25,11 @@ public class HomeViewer extends CommonViewer implements Viewer {
 	private HomeLineSheetWrap homeLineSheetWrap;
 	private HomePageListener listener;
 	private BasicUser currentUser;
+	private MochaEventBus eventBus;
 	
-	public HomeViewer(BasicUser currentUser) {
+	public HomeViewer(BasicUser currentUser, MochaEventBus eventBus) {
 		this.currentUser = currentUser;
+		this.eventBus = eventBus;
 		this.setWidth(pageWidth);
 		this.setSpacing(true);
 	}
@@ -39,7 +42,7 @@ public class HomeViewer extends CommonViewer implements Viewer {
 //		}
 		this.addComponent(publisherWidget);
 		
-		homeLineSheetWrap = new HomeLineSheetWrap((BasicUser)getApplication().getUser());
+		homeLineSheetWrap = new HomeLineSheetWrap((BasicUser)getApplication().getUser(), eventBus);
 		this.addComponent(homeLineSheetWrap.getTimeLineSheet());
 	}
 	

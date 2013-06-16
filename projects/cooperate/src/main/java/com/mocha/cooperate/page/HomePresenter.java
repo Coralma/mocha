@@ -18,7 +18,7 @@ public class HomePresenter extends CommonPresenter implements Presenter {
 
 	public HomePresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new HomeViewer(eventBus.getUser());
+		this.viewer = new HomeViewer(eventBus.getUser(), eventBus);
 	}
 	
 	@Override
