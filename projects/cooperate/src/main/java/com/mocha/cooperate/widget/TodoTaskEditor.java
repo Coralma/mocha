@@ -11,17 +11,15 @@ import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.DateUtils;
 import com.coral.foundation.utils.Message;
 import com.coral.foundation.utils.StrUtils;
-import com.coral.vaadin.image.AbstractUserIconHelper;
-import com.coral.vaadin.widget.layout.AssginedUserSelect;
+import com.coral.vaadin.widget.WidgetFactory;
+import com.coral.vaadin.widget.component.UserComboBox;
 import com.mocha.cooperate.InnerStyle;
-import com.mocha.cooperate.image.UserIconHelper;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.InlineDateField;
@@ -46,7 +44,7 @@ public class TodoTaskEditor extends VerticalLayout implements LayoutClickListene
 	String selectFieldWidth = "100px";
 	VerticalLayout taskEditorLayout = new VerticalLayout();
 	ExpandingTextArea taskField = new ExpandingTextArea();
-	ComboBox userCombox;
+	UserComboBox userCombox;
 	DateField expireDateField = new DateField();
 	NativeButton addTaskButton = new NativeButton();
 	Button cancelTaskButton = new Button();
@@ -95,7 +93,6 @@ public class TodoTaskEditor extends VerticalLayout implements LayoutClickListene
 		taskEditorLayout.addStyleName("task-content");
 		this.addComponent(taskEditorLayout);
 		
-//		taskField.setRows(1);
 		taskField.setInputPrompt(message.getString("cooperate.todo.NewTask"));
 		taskField.setWidth(subtaskContentWidth);
 		taskEditorLayout.addComponent(taskField);
@@ -118,10 +115,8 @@ public class TodoTaskEditor extends VerticalLayout implements LayoutClickListene
 		// task information
 		HorizontalLayout taskInfoLayout = new HorizontalLayout();
 		taskInfoLayout.setSpacing(true);
-		AbstractUserIconHelper userIconHelper = new UserIconHelper();
-		AssginedUserSelect assginedUser = new AssginedUserSelect(userIconHelper);
-		userCombox = assginedUser.buildAssginedUser();
-		userCombox.setValue(getApplication().getUser());
+		
+		userCombox = WidgetFactory.createUserCombo((BasicUser)getApplication().getUser());
 		userCombox.setInputPrompt(message.getString("cooperate.todo.Assigner"));
 		userCombox.setWidth(selectFieldWidth);
 		taskInfoLayout.addComponent(userCombox);
@@ -150,22 +145,25 @@ public class TodoTaskEditor extends VerticalLayout implements LayoutClickListene
 		taskDisplayLayout.addListener(this);
 		taskDisplayLabel.setWidth(taskLabelWidth);
 		
-//		HorizontalLayout taskInfoDisplayControlLayout = new HorizontalLayout();
-//		taskInfoDisplayControlLayout.setSpacing(true);
 		taskDeleteButton.addStyleName(BaseTheme.BUTTON_LINK);
 		taskDeleteButton.setIcon(new ThemeResource("icons/error.png"));
-//		taskInfoDisplayControlLayout.addComponent(taskDeleteButton);
 		
 		taskDisplayLayout.addComponent(taskDisplayLabel);
 		taskDisplayLayout.addComponent(taskDeleteButton);
 		taskDisplayLayout.setComponentAlignment(taskDeleteButton, Alignment.MIDDLE_RIGHT);
 		
 		assignmentLayout.setSpacing(true);
-//		assignmentLayout.addComponent(assignerLabel);
-//		assignmentLayout.addComponent(duetoLabel);
 		taskCardLayout.addComponent(taskDisplayLayout);
 		taskCardLayout.addComponent(assignmentLayout);
 		taskCardLayout.setComponentAlignment(assignmentLayout, Alignment.MIDDLE_RIGHT);
+		
+		// init the value of 
+		if(subToDoItem.getID() != null) {
+			taskField.setValue(subToDoItem.getContent());
+			userCombox.resetDefaultUser(subToDoItem.getAssginedUser());
+			expireDateField.setValue(subToDoItem.getExpiredDate());
+			setDisplay(false);
+		}
 		
 		this.addComponent(taskCardLayout);
 	}
@@ -274,6 +272,27 @@ public class TodoTaskEditor extends VerticalLayout implements LayoutClickListene
 	 */
 	public void setSubtaskContentWidth(String subtaskContentWidth) {
 		this.subtaskContentWidth = subtaskContentWidth;
+	}
+
+	/**
+	 * @return the taskDeleteButton
+	 */
+	public Button getTaskDeleteButton() {
+		return taskDeleteButton;
+	}
+
+	/**
+	 * @return the subToDoItem
+	 */
+	public SubToDoItem getSubToDoItem() {
+		return subToDoItem;
+	}
+
+	/**
+	 * @param subToDoItem the subToDoItem to set
+	 */
+	public void setSubToDoItem(SubToDoItem subToDoItem) {
+		this.subToDoItem = subToDoItem;
 	}
 
 }

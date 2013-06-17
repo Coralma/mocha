@@ -10,12 +10,14 @@ import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
 import com.coral.vaadin.widget.view.CommonViewer;
+import com.mocha.cooperate.model.Attachment;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.page.event.TodoEditorListener;
 import com.mocha.cooperate.widget.AttachmentLayout;
 import com.mocha.cooperate.widget.AttachmentUpload;
 import com.mocha.cooperate.widget.NotifyTokenField;
 import com.mocha.cooperate.widget.TodoProjectEditor;
+import com.mocha.cooperate.widget.AttachmentLayout.AttachmentPanel;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -73,7 +75,13 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 		layout.addComponent(todoProjectEditor);
 		
 		attachmentLayout = new AttachmentLayout((BasicUser)getApplication().getUser());
-//		attachmentLayout.setVisible(false);
+		attachmentLayout.setAttachPanelWidth(editorWidth);
+		if(todo.getAttachments().size() > 0) {
+			for(Attachment attachment : todo.getAttachments()) {
+				AttachmentPanel attachmentPanel = attachmentLayout.new AttachmentPanel(attachment);
+				attachmentLayout.addAttachmentPanel(attachmentPanel);
+			}
+		}
 		layout.addComponent(attachmentLayout);
 		
 		Layout attachLayout = buildPostArea();
@@ -107,7 +115,6 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 		HorizontalLayout referLayout = new HorizontalLayout();
 		referLayout.setSpacing(true);
 		AttachmentUpload upload = new AttachmentUpload(attachmentLayout, currentUser);
-//		upload.setIcon(new ThemeResource("icons/file_icon.png"));
 		referLayout.addComponent(upload);
 		upload.setButtonCaption(message.getString("cooperate.publisher.File"));
 		
@@ -118,12 +125,7 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 		postBtn.addStyleName("mocha-button");
 		postBtn.setWidth("70px");
 		postBtn.addListener(this);
-//		cancelBtn = new Button("Cancel & Back");
-//		cancelBtn.addStyleName(BaseTheme.BUTTON_LINK);
-//		cancelBtn.addListener(this);
 		postLayout.addComponent(postBtn);
-//		postLayout.addComponent(cancelBtn);
-//		postLayout.setComponentAlignment(cancelBtn, Alignment.MIDDLE_LEFT);
 		attachLayout.addComponent(referLayout);
 		attachLayout.setComponentAlignment(referLayout,Alignment.MIDDLE_RIGHT);
 		attachLayout.addComponent(postLayout);

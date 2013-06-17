@@ -8,7 +8,9 @@ import java.util.List;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
+import com.mocha.cooperate.basic.dao.SubToDoItemDao;
 import com.mocha.cooperate.basic.dao.ToDoDao;
+import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
 
 /**
@@ -18,6 +20,7 @@ import com.mocha.cooperate.model.ToDo;
 public class ToDoService {
 
 	private ToDoDao toDoDao = SpringContextUtils.getBean(ToDoDao.class);
+	private SubToDoItemDao subItemDao = SpringContextUtils.getBean(SubToDoItemDao.class);
 	
 	public List<ToDo> loadActivityTodo(BasicUser basicUser) {
 		List<ToDo> todoList = Lists.newArrayList();
@@ -45,5 +48,13 @@ public class ToDoService {
 				todoList.add(todo);
 			}
 		}
+	}
+	
+	public void merge(ToDo todo) {
+		toDoDao.merge(todo);
+	}
+	
+	public void removeSubItem(SubToDoItem subItem) {
+		subItemDao.remove(subItem.getID());
 	}
 }

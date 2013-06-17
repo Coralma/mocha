@@ -27,8 +27,8 @@ public class ToDoEditorPresenter extends CommonPresenter implements Presenter {
 		ToDo todo = (ToDo) eventBus.getContext().get("todo");
 		if(todo == null) {
 			todo = new ToDo();
-			eventBus.resetContext();
 		}
+		eventBus.resetContext();
 		this.viewer = new ToDoEditorViewer(todo, eventBus.getUser());
 	}
 

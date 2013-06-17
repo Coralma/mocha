@@ -13,6 +13,7 @@ import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.app.MochaApplication;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
+import com.vaadin.terminal.gwt.server.WebBrowser;
 
 /**
  * @author Administrator
@@ -33,6 +34,10 @@ public class CooperateApplication extends MochaApplication  {
 		} else {
 			setLocale(((WebApplicationContext)getContext()).getBrowser().getLocale());
 		}
+		// get Web Browser info. 
+//		WebBrowser webBrowser = ((WebApplicationContext)getContext()).getBrowser();
+//		webBrowser.isTouchDevice();
+		
 		// real code
 		super.init();
 		

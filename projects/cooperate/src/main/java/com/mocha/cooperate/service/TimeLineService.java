@@ -147,6 +147,9 @@ public class TimeLineService {
 	
 	public TimeLine saveToDo(ToDo todo, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
+		if(todo.getID() != null) {
+			timeLine = queryTimelineByTodo(todo);
+		}
 		todo = toDoDao.merge(todo);
 		// store notification
 		List<NotifyLine> notifyLines = Lists.newArrayList();
@@ -175,32 +178,26 @@ public class TimeLineService {
 		Discuss discuss = timeLine.getDiscuss();
 		ToDo todo=timeLine.getTodo();
 		if(status != null) {
-			List<NotifyLine> notifyLines = status.getNotifyLines();
-			for(int i=0; i < notifyLines.size(); i++) {
-				removeNotifyLine(notifyLines.get(i));
-			}
-			List<Comment> comments = status.getComments();
-			for(int i=0; i < comments.size(); i++) {
-				removeComment(comments.get(i));
-			}
+//			List<NotifyLine> notifyLines = status.getNotifyLines();
+//			List<Comment> comments = status.getComments();
+//			removeNotifysAndComments(notifyLines, comments);
 			timeLineDao.remove(timeLine.getID());
-//			statusDao.remove(status.getID());
 		} else if(discuss != null) {
-			for(Comment comment : discuss.getComments()) {
-				commentDao.remove(comment.getID());
-			}
+//			removeNotifysAndComments(discuss.getNotifyLines(), discuss.getComments());
 			timeLineDao.remove(timeLine.getID());
-//			discussDao.remove(discuss.getID());
 		} else if(todo !=null){
-//			for(SubToDoItem subToDo : todo.getSubToDoItems()) {
-//				todo.getSubToDoItems().remove(subToDo);
-//				toDoDao.merge(todo);
-//			}
+//			removeNotifysAndComments(todo.getNotifyLines(), todo.getComments());
 			timeLineDao.remove(timeLine.getID());
-//			toDoDao.remove(todo.getID());
-		
 		}
+	}
 	
+	public void removeNotifysAndComments(List<NotifyLine> notifyLines, List<Comment> comments) {
+		for(int i=0; i < notifyLines.size(); i++) {
+			removeNotifyLine(notifyLines.get(i));
+		}
+		for(int i=0; i < comments.size(); i++) {
+			removeComment(comments.get(i));
+		}
 	}
 	
 	public void saveComment(Comment comment) {

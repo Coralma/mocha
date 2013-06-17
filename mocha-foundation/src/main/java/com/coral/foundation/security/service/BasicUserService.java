@@ -3,6 +3,8 @@
  */
 package com.coral.foundation.security.service;
 
+import java.util.List;
+
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
@@ -17,5 +19,9 @@ public class BasicUserService {
 	
 	public BasicUser loadUserById(Long id) {
 		return basicUserDao.findById(id);
+	}
+	
+	public List<BasicUser> findAll() {
+		return basicUserDao.findAll();
 	}
 }

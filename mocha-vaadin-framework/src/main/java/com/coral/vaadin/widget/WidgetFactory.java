@@ -4,6 +4,8 @@
 package com.coral.vaadin.widget;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.security.model.BasicUser;
+import com.coral.vaadin.widget.component.UserComboBox;
 import com.coral.vaadin.widget.listener.EnterClickListener;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
@@ -165,6 +167,13 @@ public class WidgetFactory {
 		}
 		comboBox.setWidth(defaultTextFieldWidth);
 		return comboBox;
+	}
+	/**
+	 * Create user list combo
+	 */
+	public static UserComboBox createUserCombo(BasicUser defaultUser) {
+		UserComboBox userCombox = new UserComboBox(defaultUser);
+		return userCombox;
 	}
 	
 	/**
