@@ -87,8 +87,11 @@
 	<entity entityName="ReportColumn">
 		<property name="columnName"/>
 		<property name="columnIndex"/><!-- order of column, sort by the index  -->
-		<property name="columnUseMode"/><!-- Check the usage for the column: 1 for output, 2 for join column -->
+		<property name="columnUseMode"/><!-- Check the usage for the column: 1 for output, 2 for join column 3 for foreign key column-->
 		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
+		<property name="referenceTableName" label="referenceTableName"></property>
+		<property name="referenceColumnName" label="referenceColumnName"></property>
+		
 	</entity>
 	
 	<entity entityName="ReportFilter">

@@ -587,6 +587,24 @@
             <required>false</required>
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>referenceTableName</propertyName>
+            <ignore>false</ignore>
+            <label>referenceTableName</label>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>referenceColumnName</propertyName>
+            <ignore>false</ignore>
+            <label>referenceColumnName</label>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
         </properties>
         <views/>
         <needView>false</needView>
