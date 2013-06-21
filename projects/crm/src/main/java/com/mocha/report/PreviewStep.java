@@ -55,9 +55,11 @@ public class PreviewStep extends AbstarctReportWizardStep {
 	}
 
 	private Component buildPreviewStep() {
-		ReportModel rm = AbstarctReportWizardStep.getUserSelectReport().get();
-		final AppReport appReport=rm.getAppReport();
-		
+		final ReportModel rm = AbstarctReportWizardStep.getUserSelectReport().get();
+		AppReport appReport=new AppReport();
+		if(rm!=null && rm.getAppReport()==null){
+			rm.setAppReport(appReport);
+		}
 		VerticalLayout layout = new VerticalLayout();
 		layout.addComponent(new Label("Report Review"));
 		
@@ -70,7 +72,10 @@ public class PreviewStep extends AbstarctReportWizardStep {
 			
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				appReport.setName(reportName.getValue().toString());
+				if(rm.getAppReport()!=null){
+					rm.getAppReport().setName(reportName.getValue().toString());
+					
+				}
 			}
 		});
 		reportName.setWidth(fieldWidth);
@@ -81,7 +86,9 @@ public class PreviewStep extends AbstarctReportWizardStep {
 			
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				appReport.setDescription(reportDesc.getValue().toString());
+				if(rm.getAppReport()!=null){
+				rm.getAppReport().setDescription(reportDesc.getValue().toString());
+				}
 			}
 		});
 		reportDesc.setWidth(fieldWidth);

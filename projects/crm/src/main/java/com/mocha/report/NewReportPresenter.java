@@ -121,6 +121,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				}
 				
 				appReport.getReportTables().add(mainTable);
+				appCustomReportService.setAppReport(appReport);
 				appCustomReportService.saveMainReportTable();
 				appCustomReportService.buildReport();
 				
