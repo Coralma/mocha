@@ -29,7 +29,7 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 	@Override
 	public void attach() {
 		super.attach();
-		
+
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setToolbarWidth(RuntimeConstant.APP_CONTENT_WIDTH);
 		toolbar.addLeftComponent(WidgetFactory.createLink("All Report"));

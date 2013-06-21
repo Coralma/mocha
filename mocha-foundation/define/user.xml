@@ -111,6 +111,6 @@
 			required="true" orm="many-to-one" refer="true" />
 		<property name="createdDate" type="Date"/>
 		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
-		<property name="reportPureQuery"/>
+		<property name="reportPureQuery" type="String" length="65536"/>
 	</entity>
 </mocha>

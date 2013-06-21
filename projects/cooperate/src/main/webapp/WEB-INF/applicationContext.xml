@@ -64,5 +64,5 @@
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
 	<import resource="classpath*:crm-beans.xml" />
-	<tx:annotation-driven />
+     <tx:annotation-driven />
 </beans>

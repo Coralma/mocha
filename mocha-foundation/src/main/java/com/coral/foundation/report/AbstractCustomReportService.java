@@ -47,13 +47,12 @@ public abstract class AbstractCustomReportService implements ReportService {
 		AppReport appReport = mochaReport.getAppReport();
 		// first get the related tables first
 		List<ReportTable> reportTables = appReport.getReportTables();
-
 		for (ReportTable table : reportTables) {
-			if (table.getType() == "1") {
+			if (table.getType() == ReportConfiguration.ReportType.MainTable.toString()) {
 				buildOutputColumnString(table);
 				buildQueryFromString(table);
 				buildJoinString(table);
-			} else if (table.getType() == "2") {
+			} else if (table.getType() == ReportConfiguration.ReportType.SubTable.toString()) {
 				buildOutputColumnString(table);
 			}
 		}

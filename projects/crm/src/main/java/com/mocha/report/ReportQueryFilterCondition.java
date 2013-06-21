@@ -40,7 +40,7 @@ public class ReportQueryFilterCondition{
 	}
 	
 	String buildQueryStrings(){
-		if(getColumn()!=null&& reportTable!=null && queryFilterType!=null){
+		if(getColumn()!=null&& reportTable!=null && queryFilterType!=null && filterValue!=null){
 			queryStrings=reportTable.getTableName()+"."+getColumn()+" "+queryFilterType+" "+filterValue;
 		}
 		return queryStrings;

@@ -711,6 +711,7 @@
             <propertyName>reportPureQuery</propertyName>
             <ignore>false</ignore>
             <type>String</type>
+            <length>65536</length>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
