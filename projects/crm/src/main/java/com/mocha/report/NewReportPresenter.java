@@ -3,7 +3,11 @@
  */
 package com.mocha.report;
 
+import java.util.Map;
+
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.jdbc.impl.DBToolUtil;
+import com.coral.foundation.security.model.ReportTable;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.widget.view.CommonPresenter;
 
@@ -16,6 +20,9 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		this.viewer = new NewReportViewer();
+		
+		
+		
 	}
 
 	@Override

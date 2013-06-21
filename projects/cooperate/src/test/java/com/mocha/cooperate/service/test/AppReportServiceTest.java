@@ -1,20 +1,39 @@
 package com.mocha.cooperate.service.test;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import junit.framework.Assert;
 
+import org.hibernate.annotations.Table;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import ch.qos.logback.core.db.dialect.DBUtil;
+
+import com.coral.foundation.filter.HibernateUtil;
+import com.coral.foundation.jdbc.impl.DBToolUtil;
+import com.coral.foundation.md.model.Entity;
+import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.report.AppCusteomReportService;
+import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.security.basic.dao.ReportTableDao;
 import com.coral.foundation.security.model.Account;
 import com.coral.foundation.security.model.AppReport;
@@ -25,8 +44,10 @@ import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.security.service.BasicUserService;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.foundation.utils.UUIDGenerater;
+import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.File;
 import com.mocha.cooperate.service.UserFileService;
+import com.thoughtworks.xstream.XStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"applicationContext.xml"})
@@ -35,7 +56,6 @@ public class AppReportServiceTest {
 	// private ReportTableDao reportTableDao = SpringContextUtils
 	// .getBean(ReportTableDao.class);
 
-	@Test
 	public void simpleJoinQueryTest() {
 		AppReport appReport = new AppReport();
 		AppCusteomReportService appCustomReportService = new AppCusteomReportService(
@@ -107,14 +127,94 @@ public class AppReportServiceTest {
 		appReport.getReportTables().add(mainTable);
 		appCustomReportService.saveMainReportTable();
 		appCustomReportService.buildReport();
-		
+
 		ArrayList appCustomReportResult = appCustomReportService
 				.executeMochaReportQuery();
-		
+
 	}
 
 	public BasicUser loadTestUser() {
 		BasicUserService service = new BasicUserService();
 		return service.loadUserById(new Long(1));
 	}
+
+	public <T> void loadEntityTest() {
+		ArrayList<Mocha> entities = load("foundationModel.xml");
+
+		TreeMap<String, ReportTable> allModels = new TreeMap<String, ReportTable>();
+
+		for (Mocha mocha : entities) {
+			for (Entity entity : mocha.getEntityList()) {
+
+				ReportTable reportTable = new ReportTable();
+				List<ReportColumn> reportColumns = new ArrayList<ReportColumn>();
+
+				Class<?> c = null;
+				try {
+					c = Class.forName(entity.getEntityClass());
+					reportTable.setTableName(entity.getEntityName());
+
+					for (Annotation ann : c.getAnnotations()) {
+						System.out.println(ann.getClass().getName());
+					}
+
+					for (Field field : c.getDeclaredFields()) {
+						ReportColumn reportColumn = new ReportColumn();
+						if (field.getAnnotations().length > 0) {
+							for (Annotation ann : field.getAnnotations()) {
+								System.out.println(ann.annotationType()
+										.toString());
+								reportColumn.setColumnName(field.getName());
+								if (ann.annotationType().toString()
+										.contains("OneToMany")
+										|| ann.annotationType().toString()
+												.contains("ManyToOne")) {
+									reportColumn
+											.setColumnUseMode(ReportConfiguration.ReportColumnType.JoinColumn
+													.toString());
+									System.out.println("found!");
+								} else if (ann.annotationType().toString()
+										.contains("ManyToMany")) {
+								} else {
+									reportColumn
+											.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn
+													.toString());
+								}
+							}
+						}
+						reportColumns.add(reportColumn);
+					}
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				reportTable.setReportColumns(reportColumns);
+				allModels.put(reportTable.getTableName(), reportTable);
+			}
+		}
+		System.out.println("Done");
+	}
+	public static <T> T load(String fileName) {
+		T entity = null;
+		try {
+			Resource resource = SpringContextUtils.getApplicationContext()
+					.getResource("classpath:" + fileName);
+			if (resource != null) {
+				XStream stream = new XStream();
+				entity = (T) stream.fromXML(resource.getInputStream());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	@Test
+	public void loadDBSchemaTest() {
+		DBToolUtil dbToolUtil = new DBToolUtil();
+		Map<String,ReportTable> reportTables=dbToolUtil.loadBasicTableInfo();
+		
+//		dbToolUtil.loadAdvancedTableInfo(reportTables);
+	}
+
 }

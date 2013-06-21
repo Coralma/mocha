@@ -39,6 +39,16 @@ public class ReportColumn extends BaseEntity {
 	@Fetch(FetchMode.JOIN)
 	private ReportTable reportTable;
 	
+	@Basic(optional = true)
+	@Column(name = "REFERENCE_TABLE_NAME" )
+	private String referenceTableName;
+	
+	
+	@Basic(optional = true)
+	@Column(name = "REFERENCE_COLUMN_NAME" )
+	private String referenceColumnName;
+	
+	
 
 	public void setReportColumnId (Long reportColumnId) {
 		this.reportColumnId = reportColumnId;
@@ -69,6 +79,18 @@ public class ReportColumn extends BaseEntity {
 	} 
 	public ReportTable getReportTable () {
 		return reportTable;
+	}
+	public void setReferenceTableName (String referenceTableName) {
+		this.referenceTableName = referenceTableName;
+	} 
+	public String getReferenceTableName () {
+		return referenceTableName;
+	}
+	public void setReferenceColumnName (String referenceColumnName) {
+		this.referenceColumnName = referenceColumnName;
+	} 
+	public String getReferenceColumnName () {
+		return referenceColumnName;
 	}
 
 	public Long getID() {
