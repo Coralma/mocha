@@ -102,6 +102,14 @@ public class InsuranceCustomer extends BaseEntity {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
 	
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
+	private com.coral.foundation.security.model.BasicUser referUser;
+	
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
+	private com.coral.foundation.security.model.BasicUser agent;
+	
 	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
@@ -215,6 +223,18 @@ public class InsuranceCustomer extends BaseEntity {
 	} 
 	public List<InsuranceCustomerServe> getServe () {
 		return serve;
+	}
+	public void setReferUser (com.coral.foundation.security.model.BasicUser referUser) {
+		this.referUser = referUser;
+	} 
+	public com.coral.foundation.security.model.BasicUser getReferUser () {
+		return referUser;
+	}
+	public void setAgent (com.coral.foundation.security.model.BasicUser agent) {
+		this.agent = agent;
+	} 
+	public com.coral.foundation.security.model.BasicUser getAgent () {
+		return agent;
 	}
 	public void setMark (String mark) {
 		this.mark = mark;

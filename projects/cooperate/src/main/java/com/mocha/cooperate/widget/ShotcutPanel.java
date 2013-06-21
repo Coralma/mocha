@@ -36,15 +36,17 @@ public class ShotcutPanel extends VerticalLayout {
 	private MochaEventBus eventBus;
 	private List<ShotcutSection> shotcutPanelList = Lists.newArrayList();
 	private Message message;
+	private List<Shotcut> shotcuts;
 	
-	public ShotcutPanel(MochaEventBus eventBus) {
+	public ShotcutPanel(MochaEventBus eventBus, List<Shotcut> shotcuts) {
 		this.eventBus = eventBus; 
+		this.shotcuts = shotcuts; 
 		eventBus.register(this);
 	}
 	
 	public void attach() {
 		message = new Message(getApplication().getLocale());
-		List<Shotcut> shotcuts = ExampleData.getShotcut();
+//		List<Shotcut> shotcuts = ExampleData.getShotcut();
 		for(Shotcut shotcut : shotcuts) {
 			ShotcutSection shotcutPanel = new ShotcutSection(shotcut, eventBus);
 			shotcutPanelList.add(shotcutPanel);

@@ -35,13 +35,16 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("name").setType("String").setRequired(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
+		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String").setRequired(true);
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
 		fieldStatus = FieldStatus.create().setLabel("District").setPath("district").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Address").setPath("address").setType("String").setStyle("textarea").setWholeRow(true);
+		fieldStatus = FieldStatus.create().setLabel("Postcode").setPath("postcode").setType("String").setChangeLine(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Postcode").setPath("postcode").setType("String").setChangeLine(true);
+		fieldStatus = FieldStatus.create().setLabel("Address").setPath("address").setType("String").setStyle("textarea").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Mobile").setPath("mobile").setType("String");
@@ -51,9 +54,6 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Fax").setPath("fax").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
-		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		sectionPanel = createSectionPanel("companyCustInfo");
@@ -79,6 +79,9 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		fieldStatus = FieldStatus.create().setLabel("Contect Person").setPath("contectPerson").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
+		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String").setRequired(true);
+		sectionPanel.addField(createFieldWidget(fieldStatus));
+		
 		fieldStatus = FieldStatus.create().setLabel("Mobile").setPath("mobile").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
@@ -86,9 +89,6 @@ public class InsCustomerView extends EntityViewPanel implements Viewer {
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Fax").setPath("fax").setType("String");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
-		
-		fieldStatus = FieldStatus.create().setLabel("Email").setPath("email").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		sectionPanel = createSectionPanel("accountInfo");

@@ -19,6 +19,8 @@ import com.mocha.cooperate.page.TodoPresenter;
 import com.mocha.cooperate.page.UserTimeLinePresenter;
 import com.mocha.cooperate.page.admin.CompanyFilePresenter;
 import com.mocha.cooperate.page.admin.UserPermissionPresenter;
+import com.mocha.cooperate.page.cust.CustomerHomePresenter;
+import com.mocha.cooperate.page.index.CustomerIndexPresenter;
 import com.mocha.cooperate.page.index.IndexPresenter;
 
 /**
@@ -69,6 +71,13 @@ public class CooperateFactory implements PageFactory {
 		}
 		if(PresenterProperty.COMPANY_FILE.equals(entityName)) {
 			return new CompanyFilePresenter(eventBus);
+		}
+		/* customer page*/
+		if(PresenterProperty.CUSTOMER_INDEX.equals(entityName)) {
+			return new CustomerIndexPresenter(eventBus);
+		}
+		if(PresenterProperty.CUSTOMER_HOME.equals(entityName)) {
+			return new CustomerHomePresenter(eventBus);
 		}
 		return null;
 	}

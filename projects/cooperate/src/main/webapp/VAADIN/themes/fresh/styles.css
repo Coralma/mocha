@@ -15,8 +15,7 @@
 	z-index: 300;
 }
 
-.mocha-page {
-/* 	margin-top: 10px; */
+.mocha-page { /* 	margin-top: 10px; */
 	padding-top: 5px;
 	padding-bottom: 20px;
 	margin-bottom: 10px;
@@ -56,7 +55,7 @@
 	border-bottom: none;
 	font-weight: normal;
 	color: #ffffff;
-/* 	color: #D5D5D5; */
+	/* 	color: #D5D5D5; */
 }
 
 .mocha-app .mocha-index {
@@ -72,7 +71,7 @@
 }
 
 .mocha-shotcut .v-panel-content {
-	border: 1px solid #b9f3b9; 
+	border: 1px solid #b9f3b9;
 }
 
 .index-content-panel {
@@ -83,12 +82,13 @@
 .publisher-widget {
 	padding: 10px;
 	background-color: #fff6ed;
-	border: 1px solid #fed8b1;
+	border: 1px solid #faefe3;
 }
 
 .home-content {
 	background-color: #ffffff;
 }
+
 .home-content .home-tab-layout {
 	padding-top: 10px;
 	padding-left: 10px;
@@ -112,12 +112,13 @@
 	white-space: normal;
 }
 
-.c-publisher .publisher-control .v-nativebutton .v-nativebutton-caption {
+.c-publisher .publisher-control .v-nativebutton .v-nativebutton-caption
+	{
 	color: inherit;
-    font: inherit;
-    vertical-align: middle;
-    white-space: nowrap;
-    padding-left: 5px;
+	font: inherit;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-left: 5px;
 }
 
 .c-publisher .publisher-control .v-nativebutton-selected {
@@ -137,15 +138,15 @@
 	border: none;
 	text-align: left;
 	font-weight: normal;
-/* 	background: #fff6ed; */
-	background-image:none;
+	/* 	background: #fff6ed; */
+	background-image: none;
 	font-size: 13px;
 	cursor: pointer;
 }
 
 .attachment-upload .v-button .v-button-wrap .v-button-caption {
-    cursor: pointer;
-/*     background: #fff6ed; */
+	cursor: pointer;
+	/*     background: #fff6ed; */
 }
 
 .attachment-panel {
@@ -173,24 +174,26 @@
 	background-color: #FFE4C4;
 }
 
-.v-tabsheet-tabs-minimal .v-tabsheet-tabitem, .white .v-tabsheet-tabs-minimal .v-tabsheet-tabitem {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background: none repeat scroll 0 0 transparent;
-    border-color: -moz-use-text-color -moz-use-text-color #FFFFFF;
-    border-bottom: 1px solid transparent;
-    border-image: none;
-    border-style: none none solid;
-    border-width: medium medium 1px;
-    color: #4D748F;
-    height: auto;
-    padding: 0;
-    text-shadow: none;
+.v-tabsheet-tabs-minimal .v-tabsheet-tabitem,.white .v-tabsheet-tabs-minimal .v-tabsheet-tabitem
+	{
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background: none repeat scroll 0 0 transparent;
+	border-color: -moz-use-text-color -moz-use-text-color #FFFFFF;
+	border-bottom: 1px solid transparent;
+	border-image: none;
+	border-style: none none solid;
+	border-width: medium medium 1px;
+	color: #4D748F;
+	height: auto;
+	padding: 0;
+	text-shadow: none;
 }
 
-.v-tabsheet-tabs-minimal .v-tabsheet-tabitem-selected,.white .v-tabsheet-tabs-minimal .v-tabsheet-tabitem-selected {
+.v-tabsheet-tabs-minimal .v-tabsheet-tabitem-selected,.white .v-tabsheet-tabs-minimal .v-tabsheet-tabitem-selected
+	{
 	background: none repeat scroll 0 0 transparent;
 	background-color: #e9eef2;
 	color: #222222;
@@ -200,10 +203,11 @@
 	border-top: 1px solid #e9eef2;
 }
 
-.v-tabsheet-tabs-minimal .v-tabsheet-spacertd div, .white .v-tabsheet-tabs-minimal .v-tabsheet-spacertd div {
-    background: none repeat scroll 0 0 transparent;
-    border-bottom: 1px solid transparent;
-    height: auto;
+.v-tabsheet-tabs-minimal .v-tabsheet-spacertd div,.white .v-tabsheet-tabs-minimal .v-tabsheet-spacertd div
+	{
+	background: none repeat scroll 0 0 transparent;
+	border-bottom: 1px solid transparent;
+	height: auto;
 }
 
 .file-widget {
@@ -219,7 +223,6 @@
 	background-color: #ffffff;
 }
 
-
 /* application style. */
 .app-page {
 	margin-top: 15px;
@@ -227,8 +230,8 @@
 	background-color: #edf4ed;
 	border: none;
 	box-shadow: none;
-	-webkit-box-shadow:none;
-    -moz-box-shadow:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 }
 
 .controller-menu {
@@ -237,7 +240,7 @@
 	background-color: #edf4ed;
 	border: none;
 	border-left: 1px solid #edf4ed;
-/* 	border: 1px solid #b9f3b9; */
+	/* 	border: 1px solid #b9f3b9; */
 }
 
 .controller-menu .app-title {
@@ -288,8 +291,8 @@
 
 .controller-menu .menu-clicked-item:HOVER {
 	border: none;
-	border-top: #ffffff 1px solid; 
-	border-bottom: #b9f3b9 1px solid; 
+	border-top: #ffffff 1px solid;
+	border-bottom: #b9f3b9 1px solid;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	background: #ffffff;
@@ -298,7 +301,7 @@
 .app-function-main {
 	width: 760px;
 	border: none;
-	border-left:  #ffffff 2px solid;
+	border-left: #ffffff 2px solid;
 	box-shadow: 0 0 5px #C3C3C3;
 	background: #ffffff;
 	min-height: 640px;
@@ -362,4 +365,64 @@
 .advance-search-button-panel {
 	padding-top: 10px;
 	padding-right: 30px;
+}
+
+/* help content*/
+.gs-content {
+	padding: 0 10px;
+}
+
+.gs-content .gs-helptext {
+	font-size: 14px;
+	line-height: 27px;
+}
+
+.gs-content .gs-title {
+	font-size: 16px;
+	color: #1577af;
+	padding-bottom: 6px;
+	font-weight: normal;
+	line-height: normal;
+}
+
+
+
+/* customer-home*/
+.customer-home-info-layout {
+	padding: 10px;
+	background-color: #fff6ed;
+	border: 1px solid #faefe3;
+	border-width: 0 1px;
+}
+
+.customer-home-info-layout .customer-section {
+	margin-top: 5px;
+	background-color: white;
+	border: 1px solid #faefe3;
+	padding-bottom: 5px;
+}
+
+.customer-home-info-layout .display-field-widget {
+	padding-bottom: 3px;
+}
+
+.customer-home-info-layout .display-field-widget .v-label {
+	padding-left: 5px;
+	font-weight: bold;
+}
+
+.customer-home-info-layout .info-title {
+}
+.customer-home-info-layout .info-title .v-label {
+	padding-top: 5px;
+	font-size: 16px;
+	color: #1577af;
+	font-weight: bold;
+}
+.customer-home-info-layout .v-formlayout .v-caption {
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	width: 100px;
+	color: #6E6E6E;	
 }

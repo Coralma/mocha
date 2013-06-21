@@ -9,7 +9,7 @@ import java.util.Set;
 import org.vaadin.tokenfield.TokenField;
 
 import com.coral.foundation.security.model.BasicUser;
-import com.mocha.cooperate.service.UserService;
+import com.coral.foundation.security.service.BasicUserService;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanItemContainer;
 
@@ -34,8 +34,8 @@ public class NotifyTokenField extends TokenField {
 	
 	private Container basicUserContainer() {
 		BeanItemContainer<BasicUser> container = new BeanItemContainer<BasicUser>(BasicUser.class);
-		UserService userService = new UserService();
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		BasicUserService userService = new BasicUserService();
+		List<BasicUser> basicUsers = userService.findAll();
 		container.addAll(basicUsers);
 		return container;
 	}

@@ -21,4 +21,8 @@ public class PresenterProperty {
 
 	public static String USER_PERMISSION = "userPermission";
 	public static String COMPANY_FILE = "companyFile";
+	
+	/** customer page*/
+	public static String CUSTOMER_INDEX = "customerIndex";
+	public static String CUSTOMER_HOME = "customerHome";
 }

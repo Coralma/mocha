@@ -1,6 +1,7 @@
 package com.mocha.ib.dao;
 import java.util.List;
 import com.coral.foundation.jpa.Dao;
+import com.coral.foundation.security.model.BasicUser;
 import com.mocha.ib.model.*;
 
 /**
@@ -9,5 +10,6 @@ import com.mocha.ib.model.*;
   */
 public interface InsuranceCustomerDao extends Dao<InsuranceCustomer> {
 	
+	public InsuranceCustomer findCustomerByUser(BasicUser customerUser);
 }
 

@@ -387,6 +387,26 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>referUser</propertyName>
+            <ignore>false</ignore>
+            <type>com.coral.foundation.security.model.BasicUser</type>
+            <ref>com.coral.foundation.security.model.BasicUser</ref>
+            <orm>one-to-one</orm>
+            <notnull>false</notnull>
+            <required>true</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>agent</propertyName>
+            <ignore>false</ignore>
+            <type>com.coral.foundation.security.model.BasicUser</type>
+            <ref>com.coral.foundation.security.model.BasicUser</ref>
+            <orm>one-to-one</orm>
+            <notnull>false</notnull>
+            <required>true</required>
+            <refer>true</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>mark</propertyName>
             <ignore>false</ignore>
             <type>String</type>
@@ -973,12 +993,28 @@
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
+                <fieldName>email</fieldName>
+                <required>true</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[4]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>postcode</fieldName>
+                <required>false</required>
+                <changeLine>true</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>address</fieldName>
@@ -988,14 +1024,6 @@
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[6]"/>
-              </com.coral.foundation.md.model.ViewField>
-              <com.coral.foundation.md.model.ViewField>
-                <fieldName>postcode</fieldName>
-                <required>false</required>
-                <changeLine>true</changeLine>
-                <wholeRow>false</wholeRow>
-                <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -1020,14 +1048,6 @@
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[10]"/>
-              </com.coral.foundation.md.model.ViewField>
-              <com.coral.foundation.md.model.ViewField>
-                <fieldName>email</fieldName>
-                <required>false</required>
-                <changeLine>false</changeLine>
-                <wholeRow>false</wholeRow>
-                <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1086,6 +1106,14 @@
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
+                <fieldName>email</fieldName>
+                <required>true</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
                 <required>false</required>
                 <changeLine>false</changeLine>
@@ -1108,14 +1136,6 @@
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
                 <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[10]"/>
-              </com.coral.foundation.md.model.ViewField>
-              <com.coral.foundation.md.model.ViewField>
-                <fieldName>email</fieldName>
-                <required>false</required>
-                <changeLine>false</changeLine>
-                <wholeRow>false</wholeRow>
-                <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1171,7 +1191,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[18]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[20]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.coral.foundation.jpa.impl.JpaDao;
+import com.coral.foundation.security.model.BasicUser;
 import com.mocha.ib.dao.InsuranceCustomerDao;
 import com.mocha.ib.model.InsuranceCustomer;
 
@@ -39,6 +40,16 @@ public class InsuranceCustomerDaoImpl extends JpaDao<InsuranceCustomer> implemen
 		query.setParameter("id", id);
 		query.setFirstResult(1);
 		query.setMaxResults(1);
+		List<InsuranceCustomer> customers = query.getResultList();
+		if(customers.size() > 0) {
+			return customers.get(0);
+		}
+		return null;
+	}
+	
+	public InsuranceCustomer findCustomerByUser(BasicUser customerUser) {
+		Query query = entityManager.createQuery("from InsuranceCustomer where referUser=:referUser",InsuranceCustomer.class);
+		query.setParameter("referUser", customerUser);
 		List<InsuranceCustomer> customers = query.getResultList();
 		if(customers.size() > 0) {
 			return customers.get(0);

@@ -19,6 +19,7 @@ public class DefaultSectionPanel extends AbstractViewLayout implements ISectionP
 
 //	public int column = 2;
 	public String label;
+	private boolean readOnly;
 //	public List<Field> fields = Lists.newArrayList();
 //	public HashMap<Field, FieldStatus> fieldStatusMap = Maps.newHashMap();
 	
@@ -53,25 +54,6 @@ public class DefaultSectionPanel extends AbstractViewLayout implements ISectionP
 //		}
 	}
 	
-	@Override
-	public List<Result> validate() {
-		List<Result> errorResultList = Lists.newArrayList(); 
-		boolean valid = true;
-		for(Field field : fields) {
-			Result result = field.validate(null);
-			boolean fieldValidate = result.isPass();
-			if(fieldValidate == false) {
-				errorResultList.add(result);
-			}
-		}
-		return errorResultList;
-	}
-	
-	public void addField(Field field) {
-		fields.add(field);
-//		fieldStatusMap.put(field, status);
-	}
-	
 	private void initTitle() {
 		if(label != null) {
 			Label sectionTitle = new Label(label);
@@ -81,11 +63,14 @@ public class DefaultSectionPanel extends AbstractViewLayout implements ISectionP
 		}
 	}
 	
-	public void setReadOnly(boolean readonly) {
+	public void setReadOnly(boolean readOnly) {
 		for(Field field : fields) {
-			field.setReadOnly(readonly);
+			field.setReadOnly(readOnly);
 		}
+		this.readOnly = readOnly;
 	}
+	
+	
 
 	@Override
 	public String getLabel() {
@@ -95,5 +80,12 @@ public class DefaultSectionPanel extends AbstractViewLayout implements ISectionP
 	@Override
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	/**
+	 * @return the readOnly
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
 	}
 }

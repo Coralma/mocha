@@ -3,12 +3,12 @@
 	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
 	servicePackage="com.mocha.crm.service">
 
-	<codeTable name="ins-customer-type" ids="1;2;3;4">
+	<codeTable name="customer-type" ids="1;2;3;4">
 		<values language="zh">企业客户;个人客户</values>
 		<values language="en">Company Customer;Individual Customer</values>
 	</codeTable>
 	
-	<codeTable name="ins-customer-status" ids="1;2;3;4">
+	<codeTable name="customer-status" ids="1;2;3;4">
 		<values language="zh">已获得客户;潜在客户;失败客户;关闭</values>
 		<values language="en">Achieved;Potential;Failure;Close</values>
 	</codeTable>
