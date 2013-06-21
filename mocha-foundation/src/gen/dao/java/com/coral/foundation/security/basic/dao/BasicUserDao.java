@@ -12,6 +12,5 @@ public interface BasicUserDao extends Dao<BasicUser> {
 	public List<BasicUser> findActiveUsers(int page);
 	public List<BasicUser> findInActiveUsers(int page);
 	public List<BasicUser> fuzzyUserSearch(String condition);
-	
 }
 

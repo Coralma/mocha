@@ -34,7 +34,7 @@ public class ExampleData {
 		shotcutItem.setAction(PresenterProperty.HOME);
 		shotcutItem.setIcon("icons/home_icon.png");
 		shotcutItemList.add(shotcutItem);
-		
+
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("cooperate.shotcut.Notification");
 		shotcutItem.setAction(PresenterProperty.NOTIFICATION);
@@ -109,6 +109,58 @@ public class ExampleData {
 		shotcut.setShotcutItems(shotcutItemList);
 		shotcutList.add(shotcut);
 		
+		
+		return shotcutList;
+	}
+	
+	
+	public static List<Shotcut> getCustomerShotcut() {
+		List<Shotcut> shotcutList = new ArrayList<Shotcut>();
+
+		// general
+		List<ShotcutItem> shotcutItemList = new ArrayList<ShotcutItem>();
+		Shotcut shotcut= new Shotcut();
+		shotcut.setTitle("cooperate.shotcut.GeneralOperation");
+		ShotcutItem shotcutItem = new ShotcutItem(); 
+		shotcutItem.setLabel("My Business");
+		shotcutItem.setAction(PresenterProperty.CUSTOMER_HOME);
+		shotcutItem.setIcon("icons/home_icon.png");
+		shotcutItemList.add(shotcutItem);
+		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("cooperate.shotcut.Notification");
+		shotcutItem.setAction(PresenterProperty.NOTIFICATION);
+		shotcutItem.setIcon("icons/notify_icon.png");
+		shotcutItemList.add(shotcutItem);
+
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("cooperate.shotcut.Forum");
+		shotcutItem.setAction(PresenterProperty.FORUM);
+		shotcutItem.setIcon("icons/discuss_icon.png");
+		shotcutItemList.add(shotcutItem);
+		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("cooperate.shotcut.File");
+		shotcutItem.setAction(PresenterProperty.FILE);
+		shotcutItem.setIcon("icons/file_icon.png");
+		shotcutItemList.add(shotcutItem);
+		
+		shotcut.setShotcutItems(shotcutItemList);
+		shotcutList.add(shotcut);
+		
+		// application
+		shotcutItemList = new ArrayList<ShotcutItem>();
+		shotcut= new Shotcut();
+		shotcut.setTitle("cooperate.shotcut.Application");
+		
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("Direct Sales");
+		shotcutItem.setIcon("icons/ib_icon.png");
+		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+		shotcutItemList.add(shotcutItem);
+		
+		shotcut.setShotcutItems(shotcutItemList);
+		shotcutList.add(shotcut);
 		
 		return shotcutList;
 	}

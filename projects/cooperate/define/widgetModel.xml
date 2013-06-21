@@ -100,4 +100,26 @@
     	<property name="fileType" type="Long" default="0"/>
     	<property name="creator" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" orm="one-to-one" refer="true"/>
     </entity>
+    
+    <entity entityName="Chat">
+    	<property name="title"/>
+    	<property name="chatPersons" type="List" ref="ChatPerson" orm="one-to-many"/>
+    	<property name="chatMessages" type="List" ref="ChatMessage" orm="one-to-many"/>
+    </entity>
+    <entity entityName="ChatNotify">
+    	<property name="notifiedUser" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" orm="one-to-one" refer="true"/>
+    	<property name="messageIndex" type="Long" default="0"/>
+    </entity>
+    <!-- ? whether needs it -->
+    <entity entityName="ChatPerson">
+    	<property name="person" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" orm="one-to-one" refer="true"/>
+    	<!-- 1 means leader, 0 means follower -->
+    	<property name="leader" type="Long" default="0"/>
+    </entity>
+    <entity entityName="ChatMessage">
+    	<property name="personName"/>
+    	<property name="message"/>
+    	<property name="chat" type="Chat" ref="Chat" orm="many-to-one"/>
+    </entity>
+    
 </mocha>

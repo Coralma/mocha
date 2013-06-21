@@ -1,6 +1,8 @@
 package com.mocha.vaadin.entity.presenter;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.security.service.BasicUserService;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
@@ -18,6 +20,7 @@ import com.vaadin.ui.Button.ClickListener;
 public class InsCustomerViewPresenter extends AppCommonPresenter implements Presenter {
 
 	private InsuranceCustomerDao dao = SpringContextUtils.getBean(InsuranceCustomerDao.class);
+	private BasicUserService userService = new BasicUserService();
 	
 	public InsCustomerViewPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
@@ -95,6 +98,16 @@ public class InsCustomerViewPresenter extends AppCommonPresenter implements Pres
 	  */
 	public void save() {
 		InsuranceCustomer value = (InsuranceCustomer)viewer.getValue();
+		if(value.getCustomerType().equals("1") && value.getReferUser() == null) {
+			BasicUser referUser = new BasicUser();
+			referUser.setRealName(value.getName());
+			referUser.setUserName(value.getEmail());
+			referUser.setPassword("12345");
+			referUser.setType("5");
+			referUser.setAccount(eventBus.getUser().getAccount());
+//			userService.merge(referUser);
+			value.setReferUser(referUser);
+		}
 		if(value != null) {
 			dao.persist(value);
 			back();

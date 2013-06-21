@@ -41,6 +41,11 @@ public class DisplayFieldWidget extends FieldWidget {
 		}
 		this.addComponent(displayField);
 	}
+	
+	@Override
+	public void setReadOnly(boolean readonly) {
+		
+	}
 
 	/**
 	 * @return the codeTable

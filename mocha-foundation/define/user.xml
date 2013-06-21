@@ -24,6 +24,8 @@
 		<property name="extension" />
 		<property name="mobile" />
 		<property name="status" />
+		<property name="type" />
+		<property name="init" type="Long" default="0"/>
 		<property name="rememberMe" type="Boolean" ignore="true"/>
 		<property name="simpleAuthorizationInfo" type="org.apache.shiro.authz.SimpleAuthorizationInfo" ignore="true"/>
 <!-- 	<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->

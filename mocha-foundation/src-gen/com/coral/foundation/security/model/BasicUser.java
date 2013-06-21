@@ -84,6 +84,16 @@ public class BasicUser extends BaseEntity {
 	private String status;
 	
 	
+	@Basic(optional = true)
+	@Column(name = "TYPE" )
+	private String type;
+	
+	
+	@Basic(optional = true)
+	@Column(name = "INIT" )
+	private Long init = new Long(0);
+	
+	
 	@Transient
 	private Boolean rememberMe;
 	
@@ -186,6 +196,18 @@ public class BasicUser extends BaseEntity {
 	} 
 	public String getStatus () {
 		return status;
+	}
+	public void setType (String type) {
+		this.type = type;
+	} 
+	public String getType () {
+		return type;
+	}
+	public void setInit (Long init) {
+		this.init = init;
+	} 
+	public Long getInit () {
+		return init;
 	}
 	public void setRememberMe (Boolean rememberMe) {
 		this.rememberMe = rememberMe;

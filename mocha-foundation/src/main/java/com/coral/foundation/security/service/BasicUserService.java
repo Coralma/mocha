@@ -24,4 +24,8 @@ public class BasicUserService {
 	public List<BasicUser> findAll() {
 		return basicUserDao.findAll();
 	}
+	
+	public void merge(BasicUser entity) {
+		basicUserDao.merge(entity);
+	}
 }

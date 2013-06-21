@@ -40,13 +40,13 @@
 		</section>
 		<section name="indiCustInfo" label="Individual Customer Information">
 			<field name="name" label="Customer Name" required="true"/>
+			<field name="email" required="true"/>
 			<field name="district"/>
-			<field name="address" wholeRow="true" style="textarea"/>
 			<field name="postcode" changeLine="true"/>
+			<field name="address" wholeRow="true" style="textarea"/>
 			<field name="mobile"/>
 			<field name="phone"/>
 			<field name="fax"/>
-			<field name="email"/>
 		</section>
 		<section name="companyCustInfo" label="Company Customer Information">
 			<field name="name" label="Company Name" required="true"/>
@@ -56,10 +56,10 @@
 		</section>
 		<section name="companyContectPerson" label="Company Contect Person">
 			<field name="contectPerson"/>
+			<field name="email" required="true"/>
 			<field name="mobile"/>
 			<field name="phone"/>
 			<field name="fax"/>
-			<field name="email"/>
 		</section>
 		<section name="accountInfo" label="Customer Bank Account">
 			<field name="accountBank"/>

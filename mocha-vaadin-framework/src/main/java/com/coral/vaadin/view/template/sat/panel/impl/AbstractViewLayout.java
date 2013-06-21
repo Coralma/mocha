@@ -6,6 +6,7 @@ package com.coral.vaadin.view.template.sat.panel.impl;
 import java.util.List;
 
 import com.coral.vaadin.widget.Field;
+import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.fields.FieldStatus;
 import com.google.common.collect.Lists;
 import com.vaadin.ui.HorizontalLayout;
@@ -43,7 +44,38 @@ public abstract class AbstractViewLayout extends VerticalLayout {
 		}
 	}
 	
+	public List<Result> validate() {
+		List<Result> errorResultList = Lists.newArrayList(); 
+		boolean valid = true;
+		for(Field field : fields) {
+			Result result = field.validate(null);
+			boolean fieldValidate = result.isPass();
+			if(fieldValidate == false) {
+				errorResultList.add(result);
+			}
+		}
+		return errorResultList;
+	}
+	
 	public String getWholeRowWidth() {
 		return "610px";
+	}
+	
+	public void addField(Field field) {
+		fields.add(field);
+	}
+
+	/**
+	 * @return the column
+	 */
+	public int getColumn() {
+		return column;
+	}
+
+	/**
+	 * @param column the column to set
+	 */
+	public void setColumn(int column) {
+		this.column = column;
 	}
 }

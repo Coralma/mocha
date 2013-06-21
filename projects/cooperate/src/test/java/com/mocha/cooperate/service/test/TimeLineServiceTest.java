@@ -3,18 +3,13 @@ package com.mocha.cooperate.service.test;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.security.service.BasicUserService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mocha.cooperate.model.Attachment;
@@ -22,7 +17,6 @@ import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.model.Status;
 import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.service.TimeLineService;
-import com.mocha.cooperate.service.UserService;
 
 /**
  * 
@@ -44,9 +38,9 @@ public class TimeLineServiceTest {
 //	@Test
 	public void testSaveStatus() {
 		TimeLineService timeLineService = new TimeLineService();
-		UserService userService = new UserService();
+		BasicUserService userService = new BasicUserService();
 				
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		List<BasicUser> basicUsers = userService.findAll();
 		Status status = new Status();
 		Set<BasicUser> notifiedUsers = Sets.newHashSet(basicUsers);
 		timeLineService.saveStatus(status, basicUsers.get(0), notifiedUsers, attachments);
@@ -55,9 +49,9 @@ public class TimeLineServiceTest {
 //	@Test
 	public void testUpdateStatus() {
 		TimeLineService timeLineService = new TimeLineService();
-		UserService userService = new UserService();
+		BasicUserService userService = new BasicUserService();
 		
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		List<BasicUser> basicUsers = userService.findAll();
 		List<TimeLine> timelines = timeLineService.loadTimeLine(basicUsers.get(0));
 		for(int i=0; i<timelines.size();i++) {
 			TimeLine timeLine = timelines.get(i);
@@ -74,9 +68,9 @@ public class TimeLineServiceTest {
 //	@Test
 	public void testRemoveTimeLine() {
 		TimeLineService timeLineService = new TimeLineService();
-		UserService userService = new UserService();
+		BasicUserService userService = new BasicUserService();
 		
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		List<BasicUser> basicUsers = userService.findAll();
 		List<TimeLine> timelines = timeLineService.loadTimeLine(basicUsers.get(0));
 		for(int i=0; i<timelines.size();i++) {
 			timeLineService.removeTimeLine(timelines.get(i));
@@ -86,9 +80,9 @@ public class TimeLineServiceTest {
 //	@Test
 	public void testLoadTimeLine() {
 		TimeLineService timeLineService = new TimeLineService();
-		UserService userService = new UserService();
+		BasicUserService userService = new BasicUserService();
 		
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		List<BasicUser> basicUsers = userService.findAll();
 		List<TimeLine> timelines = timeLineService.loadTimeLine(basicUsers.get(0), 0);
 		System.out.println(timelines);
 	}
@@ -96,9 +90,9 @@ public class TimeLineServiceTest {
 	@Test
 	public void testLoadStatus() {
 		TimeLineService timeLineService = new TimeLineService();
-		UserService userService = new UserService();
+		BasicUserService userService = new BasicUserService();
 		
-		List<BasicUser> basicUsers = userService.loadAllBasicUser();
+		List<BasicUser> basicUsers = userService.findAll();
 		List<TimeLine> timelines = timeLineService.loadStatus(basicUsers.get(0), 0);
 		System.out.println(timelines);
 	}

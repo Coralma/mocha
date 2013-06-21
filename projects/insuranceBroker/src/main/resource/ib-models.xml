@@ -24,6 +24,10 @@
 		<property name="accountMark"/>
 		<property name="policy" type="List" ref="Policy" orm="one-to-many"/>
 		<property name="serve" type="List" ref="InsuranceCustomerServe" orm="one-to-many"/>
+		<property name="referUser" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+	    <property name="agent" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
 		<property name="mark"/>
 	</entity>
 	

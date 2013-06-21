@@ -16,6 +16,7 @@ import com.coral.vaadin.controller.RefreshMainPageEvent;
 import com.coral.vaadin.widget.component.SearchTextField;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
+import com.mocha.cooperate.help.GettingStartedWindow;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -36,7 +37,6 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 	private static String logoWidth = "160px";
 	private static String headHeight = "38px";
 	private List<Button> menuButtons = Lists.newArrayList();
-	
 	public CooperateMainPage() {
 		super();
 		eventBus.register(this);
@@ -44,8 +44,15 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 	
 	@Override
 	public PageChangeEvent indexPage() {
-		PageChangeEvent changeEvent = new PageChangeEvent(PresenterProperty.INDEX);
-		changeEvent.setContentPresenterName(PresenterProperty.HOME);
+		BasicUser currentUser = (BasicUser)getApplication().getUser();
+		PageChangeEvent changeEvent = null;
+		if("5".equals(currentUser.getType())) {
+			changeEvent = new PageChangeEvent(PresenterProperty.CUSTOMER_INDEX);
+			changeEvent.setContentPresenterName(PresenterProperty.CUSTOMER_HOME);
+		} else {
+			changeEvent = new PageChangeEvent(PresenterProperty.INDEX);
+			changeEvent.setContentPresenterName(PresenterProperty.HOME);
+		}
 		return changeEvent;
 	}
 	
@@ -166,9 +173,10 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
     	parentBtn.setDebugId("settingMenu");
         final ContextMenu cm = new ContextMenu();
 		final ContextMenuItem profile = cm.addItem("Profile");
+		final ContextMenuItem gettingStarted = cm.addItem("Getting Started");
 		final ContextMenuItem signOut = cm.addItem("Sign out");
 		// Enable separator line under this item
-		profile.setSeparatorVisible(true);
+		gettingStarted.setSeparatorVisible(true);
         parentBtn.addListener(new ClickListener() {
             private static final long serialVersionUID = -3199636718233539982L;
             public void buttonClick(final com.vaadin.ui.Button.ClickEvent event) {
@@ -186,6 +194,8 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 					PageChangeEvent changeEvent = new PageChangeEvent(PresenterProperty.INDEX);
 					changeEvent.setContentPresenterName(PresenterProperty.SETTING);
 					eventBus.post(changeEvent);
+				} else if(gettingStarted.equals(clickedItem)) {
+					getWindow().addWindow(new GettingStartedWindow());
 				} else if(signOut.equals(clickedItem)) {
 					getApplication().setUser(null);
 					getWindow().getApplication().close();
