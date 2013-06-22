@@ -29,6 +29,11 @@ public class ReportFilter extends BaseEntity {
 	private String filterType;
 	
 	
+	@Basic(optional = true)
+	@Column(name = "FILTER_BUILD_STRING" )
+	private String filterBuildString;
+	
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "appReport") })
 	@Fetch(FetchMode.JOIN)
@@ -52,6 +57,12 @@ public class ReportFilter extends BaseEntity {
 	} 
 	public String getFilterType () {
 		return filterType;
+	}
+	public void setFilterBuildString (String filterBuildString) {
+		this.filterBuildString = filterBuildString;
+	} 
+	public String getFilterBuildString () {
+		return filterBuildString;
 	}
 	public void setAppReport (AppReport appReport) {
 		this.appReport = appReport;

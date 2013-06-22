@@ -41,7 +41,7 @@ public class ReportConfiguration {
 	}
 	
 	public enum ReportQueryFilterType{
-		Larger(">"),Equal("="),Smaller("<"),LargerOrEqual(">="),SmallerOrEqual("<=");
+		Larger(">"),Equal("="),Smaller("<"),LargerOrEqual(">="),SmallerOrEqual("<="),Like("like");
 		
 		private String queryFilterType;
 		

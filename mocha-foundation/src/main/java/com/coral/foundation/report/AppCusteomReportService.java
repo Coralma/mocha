@@ -13,6 +13,7 @@ import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.MochaReport;
 import com.coral.foundation.security.model.ReportColumn;
+import com.coral.foundation.security.model.ReportFilter;
 import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.spring.bean.SpringContextUtils;
@@ -157,6 +158,10 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 	@Override
 	void buildFilterString(MochaReport table) {
 		// where clause
+		if(table.getAppReport().getReportFilters().size()>0){
+			ReportFilter rf=table.getAppReport().getReportFilters().get(0);
+			setDefaultFilterString("where "+rf.getFilterBuildString());
+		}
 		StringBuilder filterString = new StringBuilder("");
 		if (getDefaultFilterString().equals("where")) {
 			setDefaultFilterString(getDefaultFilterString() + " ");

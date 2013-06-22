@@ -9,6 +9,7 @@ import org.vaadin.teemu.wizards.event.WizardProgressListener;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
+import com.vaadin.Application;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
@@ -32,10 +33,11 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	protected static List<ReportModel> finalReportModels = new ArrayList<ReportModel>();
 	ReportQueryFilterCondition queryFilterCondition= new ReportQueryFilterCondition();
 	
-	private static ThreadLocal<ReportModel> userSelectReport=new ThreadLocal<ReportModel>();
+//	private static ArrayList<ReportModel> userSelectReport=new ArrayList<ReportModel>();
 	
 	public AbstarctReportWizardStep(){
 		super();
+		
 	}
 	
 	public AbstarctReportWizardStep(String caption, Component content) {
@@ -87,13 +89,26 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 		}
 		return null;
 	}
-	public static ThreadLocal<ReportModel> getUserSelectReport() {
-		return userSelectReport;
-	}
+	
+	
+//	public static ThreadLocal<ReportModel> getUserSelectReport(){
+//		return userSelectReport;			
+//	}
+//
+//	public static void setUserSelectReport(ThreadLocal<ReportModel> userSelectReport) {
+//		AbstarctReportWizardStep.userSelectReport = userSelectReport;
+//	}
 
-	public static void setUserSelectReport(ThreadLocal<ReportModel> userSelectReport) {
-		AbstarctReportWizardStep.userSelectReport = userSelectReport;
-	}
+//	public static ArrayList<ReportModel> getUserSelectReport() {
+//		if(getUserSelectReport()==null){
+//			
+//		}
+//		return userSelectReport;
+//	}
+//
+//	public static void setUserSelectReport(ArrayList<ReportModel> userSelectReport) {
+//		AbstarctReportWizardStep.userSelectReport = userSelectReport;
+//	}
 
 	public class ReportColumnCard extends VerticalLayout implements LayoutClickListener {
 		/**

@@ -24,6 +24,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -100,7 +101,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 
 	private List<ReportModel> getReportFilterModel() {
 		HashSet<ReportTable> reportTables = new HashSet<ReportTable>();
-		for(ReportTable r:AbstarctReportWizardStep.getUserSelectReport().get().getReportTables())
+		for(ReportTable r:ReportModelPool.getUserSelectReport().get().getReportTables())
 		{
 				if(r!=null){					
 					reportTables.add(r);
@@ -188,57 +189,97 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 						}
 					};
 					gridLayout.addComponent(reportColumnCard);
-//					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
-//					columnLayout.addComponent(checkBox);
-//					checkBox.addListener(new ClickListener() {
-//						/**
-//						 * 
-//						 */
-//						private static final long serialVersionUID = 1L;
-//
-//						@Override
-//						public void buttonClick(ClickEvent event) {
-//							ReportColumn reportColumn=new ReportColumn();
-//							reportColumn.setColumnName(checkBox.getCaption().toString());
-//							rqfc.setColumn(checkBox.getCaption());
-//						}
-//					});
+
 				}
 				Label queryFilterLabel=new Label("Select Query filter condition");
 				columnLayout.addComponent(queryFilterLabel);
+				
+				GridLayout filerValueLayout=new GridLayout(2,1);
+				filerValueLayout.setSpacing(true);	
+				columnLayout.addComponent(filerValueLayout);
+				
 				final ComboBox queryFilterBox = new ComboBox();
 				queryFilterBox.setImmediate(true);
+				filerValueLayout.addComponent(queryFilterBox);
 				for (ReportQueryFilterType filterType : ReportConfiguration.ReportQueryFilterType.values()) {
 					queryFilterBox.addItem(filterType.name().toString());
 				}
-				columnLayout.addComponent(queryFilterBox);
-				Label queryConditionLabel=new Label("Query Filter Value");
-				columnLayout.addComponent(queryConditionLabel);
-				final TextField queryCondition = new TextField("");
-				queryCondition.addListener(new Property.ValueChangeListener() {
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						rqfc.setFilterValue(queryCondition.getValue().toString());
-						System.out.println("System to read the report query");
-						System.out.println(rqfc.getReportTable().getTableName());
-						System.out.println(rqfc.getColumn());
-						System.out.println(rqfc.getQueryFilterType().toString());
-						System.out.println(rqfc.getFilterValue());
-						if(rqfc.buildQueryStrings()!=null){
-							AbstarctReportWizardStep.getUserSelectReport().get().getReportQueryFilterCondition().add(rqfc);
-						}
-						System.out.println(rqfc.buildQueryStrings());
-						
-					}
-				});
 				
+				final TextField queryCondition = new TextField("");
+				queryCondition.setWidth("250px");
+				filerValueLayout.addComponent(queryCondition);
+				
+				Button saveFilterBtn=new Button("Save Filter");
+				columnLayout.addComponent(saveFilterBtn);
 				queryFilterBox.addListener(new Property.ValueChangeListener() {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						rqfc.setQueryFilterType(ReportConfiguration.ReportQueryFilterType.valueOf(queryFilterBox.getValue().toString()));
-						columnLayout.addComponent(queryCondition);
+						
 					}
 				});
+				saveFilterBtn.addListener(new ClickListener() {
+					@Override
+					public void buttonClick(ClickEvent event) {
+						Label queryFilterLabel=new Label();
+						String queryFilterString="";
+					
+						if (queryFilterBox.getValue().toString().equals(ReportConfiguration.ReportQueryFilterType.Like)) {
+							queryCondition.setValue("'" + "%"+ queryCondition.getValue() + "%" + "'");
+						} else {
+							queryCondition.setValue("'"
+									+ queryCondition.getValue() + "'");
+						}
+						queryFilterString=rqfc.getReportTable().getTableName()+"."+rqfc.getColumn()+" "+
+								rqfc.getQueryFilterType().getQueryFilterType().toString()+" "+queryCondition.getValue();
+						rqfc.setQueryStrings(queryFilterString);
+						if(rqfc.buildQueryStrings()!=null){
+							ReportModelPool.getUserSelectReport().get().getReportQueryFilterCondition().add(rqfc);
+						}
+						System.out.println("Query Fileter String is: "+ReportModelPool.getUserSelectReport().get().
+								getReportQueryFilterCondition().get(0).getQueryStrings().toString());
+						queryFilterLabel.setCaption(ReportModelPool.getUserSelectReport().get().
+								getReportQueryFilterCondition().get(0).getQueryStrings().toString());
+						columnLayout.addComponent(queryFilterLabel);
+					}
+				});	
+				
+				
+//				queryCondition.addListener(new Property.ValueChangeListener() {
+//					@Override
+//					public void valueChange(ValueChangeEvent event) {
+//						System.out.println("user input query filter: "+queryCondition.getValue());
+//						if (queryFilterBox.getValue() != null) {
+//							if (queryFilterBox
+//									.getValue()
+//									.toString()
+//									.equals(ReportConfiguration.ReportQueryFilterType.Like)) {
+//								queryCondition.setValue("'" + "%"
+//										+ queryCondition.getValue() + "%" + "'");
+//							} else {
+//								queryCondition.setValue("'"
+//										+ queryCondition.getValue() + "'");
+//							}
+//						}
+//						rqfc.setFilterValue(queryCondition.getValue().toString());
+//						
+//						System.out.println("System to read the report query");
+//						System.out.println(rqfc.getReportTable().getTableName());
+//						System.out.println(rqfc.getColumn());
+//						System.out.println(rqfc.getQueryFilterType().toString());
+//						System.out.println(rqfc.getFilterValue());
+//						String queryFilterString=rqfc.getReportTable().getTableName()+"."+rqfc.getReportTable().getTableName()+
+//								rqfc.getQueryFilterType()+rqfc.getFilterValue();
+//						rqfc.setQueryStrings(queryFilterString);
+//						
+//						if(rqfc.buildQueryStrings()!=null){
+//							AbstarctReportWizardStep.getUserSelectReport().get().getReportQueryFilterCondition().add(rqfc);
+//						}
+//						System.out.println("Query Fileter String is: "+AbstarctReportWizardStep.getUserSelectReport().get().getReportQueryFilterCondition().toString());
+//					}
+//				});
+				
+				
 				
 				this.addComponent(columnLayout);
 

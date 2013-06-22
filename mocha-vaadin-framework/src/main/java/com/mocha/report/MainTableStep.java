@@ -1,6 +1,7 @@
 package com.mocha.report;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
+import com.vaadin.Application;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -41,7 +43,6 @@ public class MainTableStep extends AbstarctReportWizardStep {
 	private Map<String, ReportTable> reportTables;
 	private Wizard w;
 	private WizardStep nStep;
-	
 	
 	public MainTableStep(Wizard w){
 		this.setW(w);
@@ -205,6 +206,9 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		@Override
 		public void valueChange(ValueChangeEvent event) {
 			rm = (ReportModel) box.getValue();
+			
+			clearMainTableReslut();
+			
 			if (rm != null) {
 				columnLayout.removeAllComponents();
 				columnLayout.addComponent(reportColmnDesc);
@@ -268,10 +272,10 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				rm.getReportTables().add(mainReportTable);
 				
 				// init the report model -- main table				
-				if(AbstarctReportWizardStep.getUserSelectReport().get()!=null){
-					AbstarctReportWizardStep.getUserSelectReport().set(null);
+				if(ReportModelPool.getUserSelectReport().get()!=null){
+					ReportModelPool.getUserSelectReport().get().getReportTables().clear();
 				}
-				AbstarctReportWizardStep.getUserSelectReport().set(rm);
+				ReportModelPool.getUserSelectReport().set(rm);
 				
 				// auto add the step
 				RelatedTableStep secondeStep = new RelatedTableStep(w);
@@ -289,6 +293,17 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				}
 				w.addStep(secondeStep, "Related Table Step");
 				w.addStep(new PreviewStep(w),"Preview Step");
+			}
+		}
+
+		private void clearMainTableReslut() {
+			if(ReportModelPool.getUserSelectReport().get()!=null &&ReportModelPool.getUserSelectReport().get().getReportTables()!=null ){				
+				for(Iterator<ReportTable> it=ReportModelPool.getUserSelectReport().get().getReportTables().iterator();it.hasNext();){
+					ReportTable rt=it.next();
+					if(rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())){
+						it.remove();
+					}
+				}
 			}
 		}
 

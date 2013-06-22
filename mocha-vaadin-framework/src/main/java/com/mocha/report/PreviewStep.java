@@ -65,7 +65,7 @@ public class PreviewStep extends AbstarctReportWizardStep {
 
 	private Component buildPreviewStep() {
 		layout= new VerticalLayout();
-		rm = AbstarctReportWizardStep.getUserSelectReport().get();
+		rm = ReportModelPool.getUserSelectReport().get();
 		AppReport appReport=new AppReport();
 		if(rm!=null && rm.getAppReport()==null){
 			rm.setAppReport(appReport);
@@ -109,19 +109,12 @@ public class PreviewStep extends AbstarctReportWizardStep {
 		if (rm!=null && rm.getReportTables() != null) {
 			// build query tables
 			for (ReportTable reportTable : rm.getReportTables()) {
-				
 				if (reportTable.getType().toString().equals(ReportConfiguration.ReportType.MainTable.toString())) {
-					
-					
-					
 					buildTableInfo(reportTable);
 				}
-				
 				if (reportTable.getType().toString().equals(ReportConfiguration.ReportType.SubTable.toString())) {
-
 					buildTableInfo(reportTable);
 				}
-				
 			}
 //			Label queryConditions = new Label("Filter and Conditions");
 //			layout.addComponent(queryConditions);
@@ -150,6 +143,9 @@ public class PreviewStep extends AbstarctReportWizardStep {
 			Label mainTableLabelName=new Label("Main Table");
 			getLayout().addComponent(mainTableLabelName);
 			
+			Label mainTableName=new Label(reportTable.getTableName());
+			getLayout().addComponent(mainTableName);
+			
 			outputReportColumns=rm.getMainTableSelectedColumns();
 			mainTableLayout.removeAllComponents();
 			mainTableLayout.setSpacing(true);
@@ -159,14 +155,15 @@ public class PreviewStep extends AbstarctReportWizardStep {
 				ReportColumnCard reportColumnCard=new ReportColumnCard(columnField);
 				mainTableLayout.addComponent(reportColumnCard);
 			}
-			
 			getLayout().addComponent(mainTableLayout);
-			
 		}
 		
 		if(reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString()) && rm.getSubTableSelectedColumns().size()>0){
-			Label subTableLabelName=new Label("Main Table");
+			Label subTableLabelName=new Label("Related Table");
 			getLayout().addComponent(subTableLabelName);
+			
+			Label subTableName=new Label(reportTable.getTableName());
+			getLayout().addComponent(subTableName);
 			
 			outputReportColumns=rm.getSubTableSelectedColumns();
 			subTablesLayout.removeAllComponents();

@@ -11,6 +11,7 @@ import com.coral.foundation.security.basic.dao.ReportTableDao;
 import com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.MochaReport;
+import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 
@@ -52,6 +53,9 @@ public abstract class AbstractCustomReportService implements ReportService {
 				buildOutputColumnString(table);
 				buildQueryFromString(table);
 				buildJoinString(table);
+				for(ReportJoinTable joinTable:table.getReportJoinReportTableId()){
+					buildOutputColumnString(joinTable.getReportTable());
+				}
 			} else if (table.getType() == ReportConfiguration.ReportType.SubTable.toString()) {
 				buildOutputColumnString(table);
 			}

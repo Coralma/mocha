@@ -22,6 +22,7 @@ import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
+import com.coral.foundation.security.model.ReportFilter;
 import com.coral.foundation.security.model.ReportJoinTable;
 
 /**
@@ -51,7 +52,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 
 			@Override
 			public void wizardCompleted(WizardCompletedEvent event) {
-				ReportModel reportModel=AbstarctReportWizardStep.getUserSelectReport().get();
+				ReportModel reportModel=ReportModelPool.getUserSelectReport().get();
 				AppReport appReport = reportModel.getAppReport();
 				BasicUser creator=getEventBus().getUser();
 				AppCusteomReportService appCustomReportService = new AppCusteomReportService(appReport,creator);
@@ -68,7 +69,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 					if(reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
 						//build subTable name
 						subTable.setTableName(reportTable.getTableName());
-						//build subTable report columns
+						//build subTable output columns
 						for(ReportColumn subReportColumn: reportModel.getSubTableSelectedColumns()){
 //							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
 							subTableReportColumns.add(subReportColumn);
@@ -78,7 +79,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				subTable.setReportColumns(subTableReportColumns);
 				for (Iterator<ReportTable> it = reportModel.getReportTables().iterator(); it.hasNext();) {
 					ReportTable reportTable=(ReportTable) it.next();
-					// build mainTable relate infor
+					// build mainTable infor
 					String mainTableType=ReportConfiguration.ReportType.MainTable.toString();
 					if(reportTable.getType().toString().contains(mainTableType)){
 						//build mainTable name and join type
@@ -120,11 +121,17 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 					}
 				}
 				
+				ReportFilter reportFilter=new ReportFilter();
+				if(reportModel.getReportQueryFilterCondition().size()>0){
+					ReportQueryFilterCondition rqfc=reportModel.getReportQueryFilterCondition().get(0);					
+					reportFilter.setFilterBuildString(rqfc.getQueryStrings());
+					appReport.getReportFilters().add(reportFilter);				
+				}
+				
 				appReport.getReportTables().add(mainTable);
 				appCustomReportService.setAppReport(appReport);
 				appCustomReportService.saveMainReportTable();
 				appCustomReportService.buildReport();
-				
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
 				eventBus.post(appContentEvent);

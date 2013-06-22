@@ -1,6 +1,7 @@
 package com.mocha.report;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
@@ -72,11 +73,11 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		formLayout.setReadOnly(true);
 		layout.addComponent(formLayout);
 		
-		if(AbstarctReportWizardStep.getUserSelectReport().get()==null){
+		if(ReportModelPool.getUserSelectReport().get()==null){
 			throw new Exception("Error occurs when initialing the related data");
 		}
 		relateReportTables=new ArrayList<ReportTable>();
-		for(ReportTable r:AbstarctReportWizardStep.getUserSelectReport().get().getReportTables())
+		for(ReportTable r:ReportModelPool.getUserSelectReport().get().getReportTables())
 		{
 			if(r.getType().toString().equals(ReportConfiguration.ReportType.SubTable.toString())){
 				if(relateReportTables!=null){					
@@ -169,8 +170,14 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 						public void layoutClick(LayoutClickEvent event) {
 							ReportColumn reportColumn=new ReportColumn();
 							reportColumn.setColumnName(columnField.getColumnName());
-							reportColumn.setColumnUseMode(ReportConfiguration.ReportType.SubTable.getTableType());
-							AbstarctReportWizardStep.getUserSelectReport().get().getSubTableSelectedColumns().add(reportColumn);
+							reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+							if(ReportModelPool.getUserSelectReport().get().getSubTableSelectedColumns()==null){
+								HashSet<ReportColumn> reportColumns=new HashSet<ReportColumn>();
+								reportColumns.add(reportColumn);
+								ReportModelPool.getUserSelectReport().get().setSubTableSelectedColumns(reportColumns);
+							}else{
+								ReportModelPool.getUserSelectReport().get().getSubTableSelectedColumns().add(reportColumn);
+							}
 						}
 					};
 					gridLayout.addComponent(reportColumnCard);
@@ -195,7 +202,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 				}
 				this.addComponent(columnLayout);
 				ReportTable selectSubReportTable=rm.getReportTables().iterator().next();
-				AbstarctReportWizardStep.getUserSelectReport().get().getReportTables().add(selectSubReportTable);
+				ReportModelPool.getUserSelectReport().get().getReportTables().add(selectSubReportTable);
 				boolean removeStepflg = false;
 				for (WizardStep step : w.getSteps()) {
 					if (step.getCaption() != null) {
