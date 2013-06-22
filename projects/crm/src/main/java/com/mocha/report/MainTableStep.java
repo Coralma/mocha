@@ -20,10 +20,13 @@ import com.google.common.collect.Lists;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -73,19 +76,11 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		formLayout.setSpacing(true);
 		layout.addComponent(formLayout);
 
-		TextField tableNameField = new TextField("New Table Name");
-		tableNameField.setWidth(fieldWidth);
-		formLayout.addComponent(tableNameField);
-
 		ReportTableEditor editor = new ReportTableEditor(
 				getMainTableStepModel(),
 				ReportConfiguration.ReportType.MainTable.toString());
-		editor.setCaption("Select Main Table");
 		formLayout.addComponent(editor);
 
-		TextArea textArea = new TextArea("Table Description");
-		textArea.setWidth("600px");
-		formLayout.addComponent(textArea);
 		return layout;
 	}
 
@@ -93,7 +88,6 @@ public class MainTableStep extends AbstarctReportWizardStep {
 	private List<ReportModel> getMainTableStepModel() {
 		DBToolUtil dbToolUtil = new DBToolUtil();
 		setReportTables(dbToolUtil.loadBasicTableInfo());
-		
 		List<ReportTable> dbModels = new ArrayList<ReportTable>();
 		for (String key : getReportTables().keySet()) {
 			dbModels.add(getReportTables().get(key));
@@ -128,9 +122,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				// TODO Auto-generated method stub
 
 			}
-
 		};
-		this.listener = listener;
 	}
 
 	public Map<String, ReportTable> getReportTables() {
@@ -159,7 +151,10 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		private boolean queryFilterFlg = false;
 		private List<String> queryFilters = new ArrayList<String>();
 		private ReportModel rm;
-		
+		private GridLayout gridLayout  = new GridLayout(3, 1);
+		private Label reportColumnLabel=new Label("Main Table Columns");
+		private Label reportColumnStepDesc=new Label("Select Custom Report Columns");
+		private GridLayout reportColmnDesc=new GridLayout(2,1);
 		
 		public ReportTableEditor(List<ReportModel> reportModels, String stepType) {
 			this.setReportModels(reportModels);
@@ -174,8 +169,18 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		}
 
 		public void attach() {
+			this.addStyleName("custom-report-step-caption");
+			Label mainTableCaption=new Label("Main Table");
+			Label mainTableDesc=new Label("Select Custom Report Table");
+			mainTableDesc.addStyleName("custom-report-step-column-desc");
+			GridLayout reportTableDesc=new GridLayout(2,1);
+			reportTableDesc.setSpacing(true);
+			reportTableDesc.addComponent(mainTableCaption);
+			reportTableDesc.addComponent(mainTableDesc);
+			this.addComponent(reportTableDesc);
 			box.setWidth(fieldWidth);
 			box.setImmediate(true);
+			box.addStyleName("custom-report-step-box");
 			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
 					ReportModel.class);
 			container.addAll(getReportModels());
@@ -186,35 +191,63 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			columnLayout.setSpacing(true);
 			columnLayout.setVisible(false);
 			this.addComponent(columnLayout);
+			reportColumnLabel.setStyleName("custom-report-step-column-caption");
+			reportColumnStepDesc.setStyleName("custom-report-step-column-desc");
+			reportTableDesc.setSpacing(true);
+			reportColmnDesc.addComponent(reportColumnLabel);
+			reportColmnDesc.addComponent(reportColumnStepDesc);
+			gridLayout.setSizeFull();
+			gridLayout.setImmediate(true);
+			gridLayout.addStyleName("custom-report-step-column-gridlayout");
+			reportColmnDesc.setSpacing(true);
 		}
 
 		@Override
 		public void valueChange(ValueChangeEvent event) {
 			rm = (ReportModel) box.getValue();
 			if (rm != null) {
-				//build main table info
 				columnLayout.removeAllComponents();
+				columnLayout.addComponent(reportColmnDesc);
+				columnLayout.setVisible(true);
+				columnLayout.setImmediate(true);
+				columnLayout.addComponent(gridLayout);
+				//build main table info
 				mainReportTable=rm.getReportTables().iterator().next();
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
 				List<ReportColumn> columnFields =mainReportTable.getReportColumns();
-				for (ReportColumn columnField : columnFields) {
-					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
-					columnLayout.addComponent(checkBox);
-					checkBox.addListener(new ClickListener() {
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
-
+				gridLayout.removeAllComponents();
+				gridLayout.setSpacing(true);
+				gridLayout.requestRepaintAll();
+				gridLayout.setRows(columnFields.size());
+				for (final ReportColumn columnField : columnFields) {
+					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
-						public void buttonClick(ClickEvent event) {
-							ReportColumn reportColumn=new ReportColumn();
-							reportColumn.setColumnName(checkBox.getCaption().toString());
-							rm.getMainTableSelectedColumns().put(mainReportTable.getTableName(),reportColumn);
+						public void layoutClick(LayoutClickEvent event) {
+							System.out.println("user click"+columnField.getColumnName());							
+							ReportColumn reportColumn=columnField;
+							rm.getMainTableSelectedColumns().add(reportColumn);							
 						}
-					});
+					};
+					gridLayout.addComponent(reportColumnCard);
 				}
+//				for (ReportColumn columnField : columnFields) {
+//					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
+//					gridLayout.addComponent(checkBox);
+//					checkBox.addListener(new ClickListener() {
+//						/**
+//						 * 
+//						 */
+//						private static final long serialVersionUID = 1L;
+//
+//						@Override
+//						public void buttonClick(ClickEvent event) {
+//							ReportColumn reportColumn=new ReportColumn();
+//							reportColumn.setColumnName(checkBox.getCaption().toString());
+//							rm.getMainTableSelectedColumns().put(mainReportTable.getTableName(),reportColumn);
+//						}
+//					});
+//				}
 				this.addComponent(columnLayout);
 				
 				//build related table info

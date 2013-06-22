@@ -19,8 +19,8 @@ public class ReportModel {
 	private HashSet<ReportTable> reportTables=new HashSet<ReportTable>();
 	private List<ReportQueryFilterCondition> reportQueryFilterCondition=new ArrayList<ReportQueryFilterCondition>();
 	private List<ReportQueryOrders> orderConditions=new ArrayList<ReportQueryOrders>();
-	private HashMap<String,ReportColumn> mainTableSelectedColumns=new HashMap<String,ReportColumn>();
-	private HashMap<String,ReportColumn> subTableSelectedColumns=new HashMap<String,ReportColumn>();
+	private HashSet<ReportColumn> mainTableSelectedColumns=new HashSet<ReportColumn>();
+	private HashSet<ReportColumn> subTableSelectedColumns=new HashSet<ReportColumn>();
 	private AppReport appReport=new AppReport();
 	
 	private StringBuilder reportQueryJoinStrings=new StringBuilder();
@@ -73,22 +73,6 @@ public class ReportModel {
 		this.reportQueryFilterCondition = reportQueryFilterCondition;
 	}
 
-	public HashMap<String,ReportColumn> getMainTableSelectedColumns() {
-		return mainTableSelectedColumns;
-	}
-	public void setMainTableSelectedColumns(HashMap<String,ReportColumn> mainTableSelectedColumns) {
-		this.mainTableSelectedColumns = mainTableSelectedColumns;
-	}
-
-
-	public HashMap<String,ReportColumn> getSubTableSelectedColumns() {
-		return subTableSelectedColumns;
-	}
-	public void setSubTableSelectedColumns(HashMap<String,ReportColumn> subTableSelectedColumns) {
-		this.subTableSelectedColumns = subTableSelectedColumns;
-	}
-
-
 	public HashSet<ReportTable> getReportTables() {
 		return reportTables;
 	}
@@ -102,6 +86,22 @@ public class ReportModel {
 	}
 	public void setAppReport(AppReport appReport) {
 		this.appReport = appReport;
+	}
+
+
+	public HashSet<ReportColumn> getMainTableSelectedColumns() {
+		return mainTableSelectedColumns;
+	}
+	public void setMainTableSelectedColumns(HashSet<ReportColumn> mainTableSelectedColumns) {
+		this.mainTableSelectedColumns = mainTableSelectedColumns;
+	}
+
+
+	public HashSet<ReportColumn> getSubTableSelectedColumns() {
+		return subTableSelectedColumns;
+	}
+	public void setSubTableSelectedColumns(HashSet<ReportColumn> subTableSelectedColumns) {
+		this.subTableSelectedColumns = subTableSelectedColumns;
 	}
 
 

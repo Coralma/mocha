@@ -18,14 +18,18 @@ import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
+import com.mocha.report.AbstarctReportWizardStep.ReportColumnCard;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
@@ -90,7 +94,6 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 		layout.addComponent(formLayout);
 		ReportTableEditor editor = new ReportTableEditor(
 				getReportFilterModel(), "Report Filters", true);
-		editor.setCaption("Select Table To Filter");
 		formLayout.addComponent(editor);
 		return layout;
 	}
@@ -109,7 +112,6 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 	public class ReportTableEditor extends VerticalLayout
 			implements
 				ValueChangeListener {
-
 		private static final long serialVersionUID = 1L;
 		private List<ReportModel> reportModels;
 		private ComboBox box = new ComboBox();
@@ -119,6 +121,9 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 		private List<String> queryFilters = new ArrayList<String>();
 		private ReportModel rm;
 		final StringBuilder queryFilter = new StringBuilder();
+		private GridLayout gridLayout  = new GridLayout(3, 1);
+		private Label reportColumnLabel=new Label("Report Columns");
+		private Label reportColumnStepDesc=new Label("Select Costom Report Columns");
 
 		public ReportTableEditor(List<ReportModel> reportModels, String stepType) {
 			this.setReportModels(reportModels);
@@ -133,6 +138,10 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 		}
 
 		public void attach() {
+			this.addStyleName("custom-report-step-caption");
+			Label caption=new Label("Report Filter Table");
+			caption.setStyleName("caption");
+			this.addComponent(caption);
 			box.setWidth(fieldWidth);
 			box.setImmediate(true);
 			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
@@ -145,6 +154,13 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 			columnLayout.setSpacing(true);
 			columnLayout.setVisible(false);
 			this.addComponent(columnLayout);
+			reportColumnLabel.setStyleName("custom-report-step-column-caption");
+			reportColumnLabel.setVisible(false);
+			this.addComponent(reportColumnLabel);
+			gridLayout.setSizeFull();
+			gridLayout.setImmediate(true);
+			gridLayout.addStyleName("custom-report-step-column-gridlayout");
+			this.addComponent(gridLayout);
 		}
 
 		@Override
@@ -153,38 +169,52 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 			if (rm != null) {
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
+				reportColumnLabel.setVisible(true);
+				columnLayout.removeAllComponents();
+				gridLayout.removeAllComponents();
+				gridLayout.setSpacing(true);
+				gridLayout.requestRepaintAll();
 				ReportTable selectReport=rm.getReportTables().iterator().next();
 				rqfc.setReportTable(selectReport);
 				List<ReportColumn> columnFields = selectReport.getReportColumns();
-				for (ReportColumn columnField : columnFields) {
-					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
-					columnLayout.addComponent(checkBox);
-					checkBox.addListener(new ClickListener() {
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
-
+				gridLayout.setRows(columnFields.size());
+				for (final ReportColumn columnField : columnFields) {
+					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
-						public void buttonClick(ClickEvent event) {
+						public void layoutClick(LayoutClickEvent event) {
 							ReportColumn reportColumn=new ReportColumn();
-							reportColumn.setColumnName(checkBox.getCaption().toString());
-							rqfc.setColumn(checkBox.getCaption());
+							reportColumn.setColumnName(columnField.getColumnName());
+							rqfc.setColumn(columnField.getColumnName());
 						}
-					});
+					};
+					gridLayout.addComponent(reportColumnCard);
+//					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
+//					columnLayout.addComponent(checkBox);
+//					checkBox.addListener(new ClickListener() {
+//						/**
+//						 * 
+//						 */
+//						private static final long serialVersionUID = 1L;
+//
+//						@Override
+//						public void buttonClick(ClickEvent event) {
+//							ReportColumn reportColumn=new ReportColumn();
+//							reportColumn.setColumnName(checkBox.getCaption().toString());
+//							rqfc.setColumn(checkBox.getCaption());
+//						}
+//					});
 				}
-				final ComboBox queryFilterBox = new ComboBox(
-						"Select one query filter condition");
+				Label queryFilterLabel=new Label("Select Query filter condition");
+				columnLayout.addComponent(queryFilterLabel);
+				final ComboBox queryFilterBox = new ComboBox();
 				queryFilterBox.setImmediate(true);
-
-				for (ReportQueryFilterType filterType : ReportConfiguration.ReportQueryFilterType
-						.values()) {
+				for (ReportQueryFilterType filterType : ReportConfiguration.ReportQueryFilterType.values()) {
 					queryFilterBox.addItem(filterType.name().toString());
 				}
-
-				
 				columnLayout.addComponent(queryFilterBox);
-				final TextField queryCondition = new TextField("Filter Values");
+				Label queryConditionLabel=new Label("Query Filter Value");
+				columnLayout.addComponent(queryConditionLabel);
+				final TextField queryCondition = new TextField("");
 				queryCondition.addListener(new Property.ValueChangeListener() {
 					@Override
 					public void valueChange(ValueChangeEvent event) {

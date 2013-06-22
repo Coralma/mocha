@@ -69,8 +69,8 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 						//build subTable name
 						subTable.setTableName(reportTable.getTableName());
 						//build subTable report columns
-						for(String tableKey: reportModel.getSubTableSelectedColumns().keySet()){
-							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
+						for(ReportColumn subReportColumn: reportModel.getSubTableSelectedColumns()){
+//							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
 							subTableReportColumns.add(subReportColumn);
 						}	
 					}
@@ -85,8 +85,8 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 						mainTable.setTableName(reportTable.getTableName());
 						mainTable.setJoinType("inner join");
 						//build maintable output
-						for(String tableKey: reportModel.getMainTableSelectedColumns().keySet()){
-							ReportColumn mainTableSelectReportColumn = reportModel.getMainTableSelectedColumns().get(tableKey);
+						for(ReportColumn mainTableSelectReportColumn : reportModel.getMainTableSelectedColumns()){
+//							ReportColumn mainTableSelectReportColumn = reportModel.getMainTableSelectedColumns().get(tableKey);
 							mainTableSelectReportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
 							mainTableReportColumns.add(mainTableSelectReportColumn);
 						}

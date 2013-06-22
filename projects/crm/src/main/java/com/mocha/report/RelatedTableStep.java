@@ -13,13 +13,17 @@ import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
+import com.mocha.report.AbstarctReportWizardStep.ReportColumnCard;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -67,16 +71,6 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		formLayout.setSpacing(true);
 		formLayout.setReadOnly(true);
 		layout.addComponent(formLayout);
-
-		TextField tableNameField = new TextField("New Table Name");
-		tableNameField.setReadOnly(true);
-		tableNameField.setWidth(fieldWidth);
-		formLayout.addComponent(tableNameField);
-
-		TextArea textArea = new TextArea("Table Description");
-		textArea.setReadOnly(true);
-		textArea.setWidth("600px");
-		formLayout.addComponent(textArea);
 		
 		if(AbstarctReportWizardStep.getUserSelectReport().get()==null){
 			throw new Exception("Error occurs when initialing the related data");
@@ -92,7 +86,6 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 				
 		}
 		ReportTableEditor editor = new ReportTableEditor(getRelateTableModel(),ReportConfiguration.ReportType.SubTable.toString());
-		editor.setCaption("Select Main Table");
 		formLayout.addComponent(editor);
 		return layout;
 	}
@@ -112,6 +105,9 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		private boolean queryFilterFlg = false;
 		private List<String> queryFilters = new ArrayList<String>();
 		private ReportModel rm;
+		private GridLayout gridLayout  = new GridLayout(3, 1);
+		private Label reportColumnLabel=new Label("Report Columns");
+		private Label reportColumnStepDesc=new Label("Select Costom Report Columns");
 
 		public ReportTableEditor(List<ReportModel> reportModels, String stepType) {
 			this.setReportModels(reportModels);
@@ -126,8 +122,13 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		}
 
 		public void attach() {
+			this.addStyleName("custom-report-step-caption");
+			Label caption=new Label("Select Reference Table");
+			caption.setStyleName("caption");
+			this.addComponent(caption);
 			box.setWidth(fieldWidth);
 			box.setImmediate(true);
+			box.addStyleName("custom-report-step-box");
 			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
 					ReportModel.class);
 			container.addAll(getReportModels());
@@ -136,7 +137,18 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 			box.addListener(this);
 			this.addComponent(box);
 			columnLayout.setSpacing(true);
+			columnLayout.setVisible(false);
 			this.addComponent(columnLayout);
+			reportColumnLabel.setStyleName("custom-report-step-column-caption");
+			reportColumnLabel.setVisible(false);
+			reportColumnStepDesc.setStyleName("custom-report-step-column-desc");
+			reportColumnStepDesc.setVisible(false);
+			this.addComponent(reportColumnLabel);
+			this.addComponent(reportColumnStepDesc);
+			gridLayout.setSizeFull();
+			gridLayout.setImmediate(true);
+			gridLayout.addStyleName("custom-report-step-column-gridlayout");
+			this.addComponent(gridLayout);
 		}
 
 		@Override
@@ -145,26 +157,41 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 			if (rm != null) {
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
+				reportColumnStepDesc.setVisible(true);
 				List<ReportColumn> columnFields = rm.getReportTables().iterator().next().getReportColumns();
-				for (ReportColumn columnField : columnFields) {
-					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
-					columnLayout.addComponent(checkBox);
-					checkBox.addListener(new ClickListener() {
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
-
+				gridLayout.removeAllComponents();
+				gridLayout.requestRepaintAll();
+				gridLayout.setRows(columnFields.size());
+				gridLayout.setSpacing(true);
+				for (final ReportColumn columnField : columnFields) {
+					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
-						public void buttonClick(ClickEvent event) {
+						public void layoutClick(LayoutClickEvent event) {
 							ReportColumn reportColumn=new ReportColumn();
-							reportColumn.setColumnName(checkBox.getCaption().toString());
+							reportColumn.setColumnName(columnField.getColumnName());
 							reportColumn.setColumnUseMode(ReportConfiguration.ReportType.SubTable.getTableType());
-							AbstarctReportWizardStep.getUserSelectReport()
-									.get().getSubTableSelectedColumns()
-									.put(rm.getTableName(), reportColumn);
+							AbstarctReportWizardStep.getUserSelectReport().get().getSubTableSelectedColumns().add(reportColumn);
 						}
-					});
+					};
+					gridLayout.addComponent(reportColumnCard);
+//					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
+//					gridLayout.addComponent(checkBox);
+//					checkBox.addListener(new ClickListener() {
+//						/**
+//						 * 
+//						 */
+//						private static final long serialVersionUID = 1L;
+//
+//						@Override
+//						public void buttonClick(ClickEvent event) {
+//							ReportColumn reportColumn=new ReportColumn();
+//							reportColumn.setColumnName(checkBox.getCaption().toString());
+//							reportColumn.setColumnUseMode(ReportConfiguration.ReportType.SubTable.getTableType());
+//							AbstarctReportWizardStep.getUserSelectReport()
+//									.get().getSubTableSelectedColumns()
+//									.put(rm.getTableName(), reportColumn);
+//						}
+//					});
 				}
 				this.addComponent(columnLayout);
 				ReportTable selectSubReportTable=rm.getReportTables().iterator().next();
