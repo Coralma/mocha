@@ -19,6 +19,8 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		AppContentEvent event = new AppContentEvent();
 		event.setCustomizeClass("com.mocha.ib.presenter.IBDashboardPresenter");
 		controllerMenu.setMenuStyle(null, "com.mocha.ib.presenter.IBDashboardPresenter");
+		InsuranceBrokerReport ib=new InsuranceBrokerReport();
+		eventBus.put("appCustomReprotRowData", ib.getReportTables());
 		eventBus.post(event);
 		
 	}

@@ -30,24 +30,26 @@ public class InsuranceBrokerReport {
 		insuranceCustomerReportaddress.setColumnLabel("Address");
 		insuranceCustomerReport.getReportColumns().add(insuranceCustomerReportaddress);
 		ReportColumn insuranceCustomerReportcontectPerson = new ReportColumn();
-		insuranceCustomerReportcontectPerson.setColumnName("contectPerson");
+		insuranceCustomerReportcontectPerson.setColumnName("contect_Person");
 		insuranceCustomerReportcontectPerson.setColumnLabel("Contect Person");
 		insuranceCustomerReport.getReportColumns().add(insuranceCustomerReportcontectPerson);
+		
+		
 		
 		ReportTable policyReport = new ReportTable();
 		reportTables.add(policyReport);
 		policyReport.setTableName("T_POLICY");
 		policyReport.setTableLabel("Policy");
 		ReportColumn policyReportpolicyNo = new ReportColumn();
-		policyReportpolicyNo.setColumnName("policyNo");
+		policyReportpolicyNo.setColumnName("policy_No");
 		policyReportpolicyNo.setColumnLabel("Policy No");
 		policyReport.getReportColumns().add(policyReportpolicyNo);
 		ReportColumn policyReporteffectiveDate = new ReportColumn();
-		policyReporteffectiveDate.setColumnName("effectiveDate");
+		policyReporteffectiveDate.setColumnName("effective_Date");
 		policyReporteffectiveDate.setColumnLabel("Effective Date");
 		policyReport.getReportColumns().add(policyReporteffectiveDate);
 		ReportColumn policyReportexpiryDate = new ReportColumn();
-		policyReportexpiryDate.setColumnName("expiryDate");
+		policyReportexpiryDate.setColumnName("expiry_Date");
 		policyReportexpiryDate.setColumnLabel("Expiry Date");
 		policyReport.getReportColumns().add(policyReportexpiryDate);
 		ReportColumn policyReportpremium = new ReportColumn();
@@ -58,6 +60,8 @@ public class InsuranceBrokerReport {
 		policyReportcommission.setColumnName("commission");
 		policyReportcommission.setColumnLabel("Commission");
 		policyReport.getReportColumns().add(policyReportcommission);
+
+		
 		
 		ReportTable claimReport = new ReportTable();
 		reportTables.add(claimReport);

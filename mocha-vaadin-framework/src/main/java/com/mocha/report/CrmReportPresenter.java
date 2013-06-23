@@ -11,6 +11,7 @@ import com.coral.foundation.security.basic.dao.AppReportDao;
 import com.coral.foundation.security.basic.dao.MochaReportDao;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.MochaReport;
+import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppContentEvent;

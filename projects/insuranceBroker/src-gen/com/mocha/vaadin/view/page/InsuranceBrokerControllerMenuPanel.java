@@ -1,6 +1,7 @@
 package com.mocha.vaadin.view.page;
 
 import com.coral.vaadin.view.template.sat.ControllerMenuPanel;
+import com.coral.vaadin.view.template.sat.ControllerMenuPanel.MenuAction;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
@@ -54,7 +55,8 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			groupTitle = createMenuTitle("Report Center");
 			addComponent(groupTitle);
 			action = new MenuAction();
-			menuItem = createMenu("Reports",action);
+			action.setPanel(Class.forName("com.mocha.report.CrmReportPresenter"));
+			menuItem = createMenu("Customer  Report",action);
 			addComponent(menuItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

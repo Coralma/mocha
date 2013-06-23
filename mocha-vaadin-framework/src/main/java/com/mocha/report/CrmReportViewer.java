@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.security.model.AppReport;
+import com.coral.foundation.security.model.ReportTable;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;

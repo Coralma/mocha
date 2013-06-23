@@ -135,10 +135,7 @@ public class PreviewStep extends AbstarctReportWizardStep {
 					getLayout().addComponent(reportQueryCondition);
 				}
 			}
-			
-			
-
-			// build query order sequnces
+			//build query order sequnces
 			// TBD
 		}
 		return getLayout();
@@ -148,11 +145,13 @@ public class PreviewStep extends AbstarctReportWizardStep {
 		HashSet<ReportColumn> outputReportColumns=null;
 		mainTableLayout.addStyleName("custom-report-step-caption");
 		subTablesLayout.addStyleName("custom-report-step-caption");
+		
+		//main table layout
 		if(reportTable.getType().equals(ReportConfiguration.ReportType.MainTable.toString()) && rm.getMainTableSelectedColumns().size()>0){
 			Label mainTableLabelName=new Label("Main Table");
 			getLayout().addComponent(mainTableLabelName);
 			
-			Label mainTableName=new Label(reportTable.getTableName());
+			Label mainTableName=new Label(reportTable.getTableLabel());
 			getLayout().addComponent(mainTableName);
 			
 			outputReportColumns=rm.getMainTableSelectedColumns();
@@ -161,17 +160,20 @@ public class PreviewStep extends AbstarctReportWizardStep {
 			mainTableLayout.requestRepaintAll();
 			mainTableLayout.setRows(outputReportColumns.size());
 			for (final ReportColumn columnField : outputReportColumns) {
+				if(columnField.getColumnLabel()!=null){
 				ReportColumnCard reportColumnCard=new ReportColumnCard(columnField);
 				mainTableLayout.addComponent(reportColumnCard);
+				}
 			}
 			getLayout().addComponent(mainTableLayout);
 		}
 		
+		//sub table layout
 		if(reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString()) && rm.getSubTableSelectedColumns().size()>0){
 			Label subTableLabelName=new Label("Related Table");
 			getLayout().addComponent(subTableLabelName);
 			
-			Label subTableName=new Label(reportTable.getTableName());
+			Label subTableName=new Label(reportTable.getTableLabel());
 			getLayout().addComponent(subTableName);
 			
 			outputReportColumns=rm.getSubTableSelectedColumns();
@@ -180,10 +182,11 @@ public class PreviewStep extends AbstarctReportWizardStep {
 			subTablesLayout.requestRepaintAll();
 			subTablesLayout.setRows(outputReportColumns.size());
 			for (final ReportColumn columnField : outputReportColumns) {
-				ReportColumnCard reportColumnCard=new ReportColumnCard(columnField);
-				subTablesLayout.addComponent(reportColumnCard);
+				if(columnField.getColumnLabel()!=null){
+					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField);
+					subTablesLayout.addComponent(reportColumnCard);					
+				}
 			}
-			
 			getLayout().addComponent(subTablesLayout);
 		}
 		

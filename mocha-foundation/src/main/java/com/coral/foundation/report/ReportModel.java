@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 public class ReportModel {
 
 	public String tableName;
+	private String tableLabel;
 	public List<String> columnFields = Lists.newArrayList();
 	private HashSet<ReportTable> reportTables=new HashSet<ReportTable>();
 	private List<ReportQueryFilterCondition> reportQueryFilterCondition=new ArrayList<ReportQueryFilterCondition>();
@@ -26,8 +27,9 @@ public class ReportModel {
 	private StringBuilder reportQueryJoinStrings=new StringBuilder();
 	
 	
-	public ReportModel(String tableName, String... fields){
+	public ReportModel(String tableName,String tableLabel, String... fields){
 		this.tableName = tableName;
+		this.tableLabel=tableLabel;
 		for(String f : fields) {
 			columnFields.add(f);
 		}
@@ -102,6 +104,14 @@ public class ReportModel {
 	}
 	public void setSubTableSelectedColumns(HashSet<ReportColumn> subTableSelectedColumns) {
 		this.subTableSelectedColumns = subTableSelectedColumns;
+	}
+
+
+	public String getTableLabel() {
+		return tableLabel;
+	}
+	public void setTableLabel(String tableLabel) {
+		this.tableLabel = tableLabel;
 	}
 
 

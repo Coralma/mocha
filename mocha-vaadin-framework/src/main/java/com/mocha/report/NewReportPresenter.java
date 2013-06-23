@@ -33,13 +33,14 @@ import com.coral.foundation.security.model.ReportJoinTable;
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
-	
+	List<ReportTable> appCustomReprotRowData;
 
+	
 	public NewReportPresenter(MochaEventBus eventBus) {
+		appCustomReprotRowData=(List<ReportTable>) eventBus.getContext().get("appCustomReprotRowData");
 		this.eventBus = eventBus;
-		this.viewer = new NewReportViewer(eventBus.getUser());
-		ReportModelPool reportModelPool=new ReportModelPool(eventBus.getUser(), new ReportModel("", ""));
-		
+		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
+		ReportModelPool.init(eventBus.getUser(), new ReportModel("", ""));
 	}
 
 	@Override

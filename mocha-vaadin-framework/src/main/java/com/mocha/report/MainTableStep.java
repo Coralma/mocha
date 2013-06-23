@@ -1,6 +1,8 @@
 package com.mocha.report;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import com.coral.foundation.report.ReportModel;
 import com.coral.foundation.report.ReportModelPool;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
+import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
 import com.vaadin.Application;
@@ -43,9 +46,10 @@ public class MainTableStep extends AbstarctReportWizardStep {
 
 	String fieldWidth = "300px";
 	private ReportModel reportModel;
-	private Map<String, ReportTable> reportTables;
+	private static Map<String, ReportTable> reportTables;
 	private Wizard w;
 	private WizardStep nStep;
+	private static List<ReportTable> appCustomReprotRowData;
 	private static BasicUser user;
 	
 	
@@ -53,6 +57,14 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		this.setW(w);
 		this.listener=listener;
 		this.setUser(user);
+		
+	}
+
+	public MainTableStep(Wizard wizard, BasicUser user,List<ReportTable> appCustomReprotRowData) {
+		this.setW(wizard);
+		this.listener=listener;
+		this.setUser(user);
+		this.setAppCustomReprotRowData(appCustomReprotRowData);
 	}
 
 	@Override
@@ -93,15 +105,39 @@ public class MainTableStep extends AbstarctReportWizardStep {
 
 	// get db entity models
 	private List<ReportModel> getMainTableStepModel() {
-		DBToolUtil dbToolUtil = new DBToolUtil();
-		setReportTables(dbToolUtil.loadBasicTableInfo());
-		List<ReportTable> dbModels = new ArrayList<ReportTable>();
-		for (String key : getReportTables().keySet()) {
-			dbModels.add(getReportTables().get(key));
+		
+//		DBToolUtil dbToolUtil = new DBToolUtil();
+//		setReportTables(dbToolUtil.loadBasicTableInfo());
+//		List<ReportTable> dbModels = new ArrayList<ReportTable>();
+//		for (String key : getReportTables().keySet()) {
+//			dbModels.add(getReportTables().get(key));
+//		}
+		reportTables=new HashMap<String,ReportTable>();
+		ArrayList<ReportTable> r=new ArrayList<ReportTable>();
+		for(ReportTable reportTable:getAppCustomReprotRowData()){
+			for(ReportJoinTable rj:reportTable.getReportJoinReportTableId()){
+				ReportColumn reportJoinColumn=new ReportColumn();
+				String refernceId=reportTable.getTableName()+"_ID";
+				refernceId=refernceId.trim().substring(2, refernceId.length());
+				reportJoinColumn.setColumnName(refernceId);
+				String subReferenceid=rj.getReportTable().getTableName()+"_ID";
+				subReferenceid=subReferenceid.trim().substring(2, subReferenceid.length());
+				reportJoinColumn.setReferenceTableName(rj.getReportTable().getTableName());
+				reportJoinColumn.setReferenceColumnName(subReferenceid);
+				reportJoinColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.ForeignKeyRefernceColumn.toString());
+				reportTable.getReportColumns().add(reportJoinColumn);
+				reportTable.setReportTableId(null);
+			}
+			r.add(reportTable);
+			reportTables.put(reportTable.getTableName(),reportTable);
 		}
-		return getReportTableModels(dbModels);
+		setReportTables(reportTables);
+		return getReportTableModels(r);
 	}
 
+
+	
+	
 
 	@Override
 	void buildlistener() {
@@ -155,6 +191,15 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		MainTableStep.user = user;
 	}
 
+	public static List<ReportTable> getAppCustomReprotRowData() {
+		return appCustomReprotRowData;
+	}
+
+	public static void setAppCustomReprotRowData(
+			List<ReportTable> appCustomReprotRowData) {
+		MainTableStep.appCustomReprotRowData = appCustomReprotRowData;
+	}
+
 	public class ReportTableEditor extends VerticalLayout implements ValueChangeListener {
 
 		private static final long serialVersionUID = 1L;
@@ -199,7 +244,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 					ReportModel.class);
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
-			box.setItemCaptionPropertyId("tableName");
+			box.setItemCaptionPropertyId("tableLabel");
 			box.addListener(this);
 			this.addComponent(box);
 			columnLayout.setSpacing(true);
@@ -238,15 +283,18 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				gridLayout.requestRepaintAll();
 				gridLayout.setRows(columnFields.size());
 				for (final ReportColumn columnField : columnFields) {
-					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
-						@Override
-						public void layoutClick(LayoutClickEvent event) {
-							System.out.println("user click"+columnField.getColumnName());							
-							ReportColumn reportColumn=columnField;
-							rm.getMainTableSelectedColumns().add(reportColumn);							
-						}
-					};
+					if(columnField.getColumnLabel()!=null){						
+						ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
+							@Override
+							public void layoutClick(LayoutClickEvent event) {
+								System.out.println("user click"+columnField.getColumnName());							
+								ReportColumn reportColumn=columnField;
+								reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+								rm.getMainTableSelectedColumns().add(reportColumn);							
+							}
+						};
 					gridLayout.addComponent(reportColumnCard);
+					}
 				}
 				this.addComponent(columnLayout);				
 				
@@ -256,7 +304,6 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				for (ReportColumn reportColumn : mainReportTable.getReportColumns()) {
 					if (reportColumn.getColumnUseMode() != null
 							&& reportColumn.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.ForeignKeyRefernceColumn.toString())) {
-						
 						//find reference tables first
 						if (reportTables.get(reportColumn.getReferenceTableName()) != null) {
 							String referenceTableName = reportTables.get(reportColumn.getReferenceTableName()).getTableName().toString();
