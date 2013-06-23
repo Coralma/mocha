@@ -231,7 +231,7 @@
 
 .chat-content .chat-io {
 	border-right: 1px solid #e0e0e0;
-	min-height: 500px;
+	min-height: 552px;
 }
 .chat-content .chat-input {
 	padding: 10px;
@@ -307,7 +307,7 @@
 }
 
 .chat-content .chat-persons {
-	min-height: 500px;
+/* 	min-height: 500px; */
 }
 
 .chat-content .chat-persons .chat-person {
@@ -545,4 +545,44 @@
 	font-weight: bold;
 	width: 100px;
 	color: #6E6E6E;	
+}
+.cust-home-dashboard {
+	margin-top: 10px;
+}
+
+.cust-home-dashboard .v-horizontallayout-spacing-on {
+	padding-left: 10px;
+}
+
+.cust-home-dashboard .v-panel {
+	din-top: 20px;
+	background: rgb(255, 255, 255);
+	min-width: 50px;
+}
+
+.cust-home-dashboard .v-panel .v-panel-caption {
+	border: 1px solid #E5E5E5;
+	height: 20px;
+	font-weight: bold;
+	color: #000000;
+	font-size: 13px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.cust-home-dashboard .v-formlayout .v-caption {
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	width: 100px;
+	color: #6E6E6E;	
+}
+
+.cust-home-dashboard .portal-section {
+	padding-bottom: 20px;
+}
+
+.cust-home-dashboard .portal-section-more {
+	padding-top: 10px;
+	border-top: 1px dashed #6E6E6E;
 }

@@ -56,6 +56,7 @@ public class ClaimViewPresenter extends AppCommonPresenter implements Presenter 
 	  */
 	public void save() {
 		Claim value = (Claim)viewer.getValue();
+		value.getPolicy().getClaim().add(value);
 		if(value != null) {
 			dao.persist(value);
 			back();

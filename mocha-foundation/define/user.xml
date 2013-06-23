@@ -58,7 +58,7 @@
 		<property name="parent"/>
 		<property name="codeTableValues" type="List" ref="CodeTableValue" orm="one-to-many"/>
 		<property name="app" type="App" ref="App" orm="many-to-one"/>
-		<property name="unitCodeTables" type="List" ref="CodeTable" orm="one-to-many"/>
+<!-- 		<property name="unitCodeTables" type="List" ref="CodeTable" orm="one-to-many"/> -->
 	</entity>
 	
 	<entity entityName="CodeTableValue">

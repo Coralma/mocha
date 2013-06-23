@@ -38,6 +38,8 @@ public class CustomerHomePresenter extends CommonPresenter implements Presenter 
 					homeViewer.getSectionPanel().setReadOnly(false);
 					homeViewer.getEditBtn().setCaption("Save");
 				} else {
+					InsuranceCustomer customer = homeViewer.getCustomer();
+					customerDao.merge(customer);
 					homeViewer.getSectionPanel().setReadOnly(true);
 					homeViewer.getEditBtn().setCaption("Edit");
 				}

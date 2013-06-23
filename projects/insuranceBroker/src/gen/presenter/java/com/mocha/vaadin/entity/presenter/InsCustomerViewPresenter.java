@@ -98,7 +98,7 @@ public class InsCustomerViewPresenter extends AppCommonPresenter implements Pres
 	  */
 	public void save() {
 		InsuranceCustomer value = (InsuranceCustomer)viewer.getValue();
-		if(value.getCustomerType().equals("1") && value.getReferUser() == null) {
+		if("1".equals(value.getStatus()) && value.getReferUser() == null) {
 			BasicUser referUser = new BasicUser();
 			referUser.setRealName(value.getName());
 			referUser.setUserName(value.getEmail());

@@ -81,6 +81,7 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 	  */
 	public void save() {
 		Policy value = (Policy)viewer.getValue();
+		value.getCustomer().getPolicy().add(value);
 		if(value != null) {
 			dao.persist(value);
 			back();

@@ -44,11 +44,6 @@ public class CodeTable extends BaseEntity {
 	@Fetch(FetchMode.JOIN)
 	private App app;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CodeTable.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	@JoinColumn(name="CODE_TABLE_ID")
-	private List<CodeTable> unitCodeTables = new ArrayList<CodeTable>();
-	
 
 	public void setCodeTableId (Long codeTableId) {
 		this.codeTableId = codeTableId;
@@ -85,12 +80,6 @@ public class CodeTable extends BaseEntity {
 	} 
 	public App getApp () {
 		return app;
-	}
-	public void setUnitCodeTables (List<CodeTable> unitCodeTables) {
-		this.unitCodeTables = unitCodeTables;
-	} 
-	public List<CodeTable> getUnitCodeTables () {
-		return unitCodeTables;
 	}
 
 	public Long getID() {

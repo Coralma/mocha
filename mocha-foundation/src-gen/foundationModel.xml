@@ -391,16 +391,6 @@
             <required>false</required>
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
-          <com.coral.foundation.md.model.Property>
-            <propertyName>unitCodeTables</propertyName>
-            <ignore>false</ignore>
-            <type>List</type>
-            <ref>CodeTable</ref>
-            <orm>one-to-many</orm>
-            <notnull>false</notnull>
-            <required>false</required>
-            <refer>false</refer>
-          </com.coral.foundation.md.model.Property>
         </properties>
         <views/>
         <needView>false</needView>

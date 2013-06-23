@@ -140,8 +140,8 @@ public class ExampleData {
 		shotcutItemList.add(shotcutItem);
 
 		shotcutItem = new ShotcutItem();
-		shotcutItem.setLabel("cooperate.shotcut.Forum");
-		shotcutItem.setAction(PresenterProperty.FORUM);
+		shotcutItem.setLabel("Chat");
+		shotcutItem.setAction(PresenterProperty.CHAT);
 		shotcutItem.setIcon("icons/discuss_icon.png");
 		shotcutItemList.add(shotcutItem);
 		
