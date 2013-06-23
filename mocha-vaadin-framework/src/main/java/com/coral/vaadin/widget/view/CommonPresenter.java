@@ -4,6 +4,7 @@
 package com.coral.vaadin.widget.view;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.builder.ViewContext;
@@ -16,6 +17,7 @@ public abstract class CommonPresenter implements Presenter {
 
 	protected MochaEventBus eventBus;
 	protected Viewer viewer;
+	protected BasicUser currentUser;
 	
 	@Override
 	public Viewer go() {

@@ -45,7 +45,7 @@ public class UserPermissionPresenter extends CommonPresenter {
 		userPermissionViewer.setListener(new UserPermissionListener() {
 			@Override
 			public void saveUser(BasicUser user) {
-				basicUserDao.persist(user);
+//				basicUserDao.persist(user);
 				if(user.getAccount() == null) {
 					Account account = accountDao.findById(currentUser.getAccount().getID());
 					user.setAccount(account);

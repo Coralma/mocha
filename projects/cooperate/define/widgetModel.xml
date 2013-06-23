@@ -103,6 +103,7 @@
     
     <entity entityName="Chat">
     	<property name="title"/>
+    	<property name="personNumber" type="Long"/>
     	<property name="chatPersons" type="List" ref="ChatPerson" orm="one-to-many"/>
     	<property name="chatMessages" type="List" ref="ChatMessage" orm="one-to-many"/>
     </entity>
@@ -117,7 +118,7 @@
     	<property name="leader" type="Long" default="0"/>
     </entity>
     <entity entityName="ChatMessage">
-    	<property name="personName"/>
+    	<property name="person" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" orm="many-to-one" refer="true"/>
     	<property name="message"/>
     	<property name="chat" type="Chat" ref="Chat" orm="many-to-one"/>
     </entity>

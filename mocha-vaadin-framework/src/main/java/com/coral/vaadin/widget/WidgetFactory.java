@@ -7,6 +7,8 @@ import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.component.UserComboBox;
 import com.coral.vaadin.widget.listener.EnterClickListener;
+import com.coral.vaadin.widget.view.builder.PageBuildHelper;
+import com.vaadin.Application;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -16,12 +18,15 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Reindeer;
@@ -112,7 +117,7 @@ public class WidgetFactory {
 		return label;
 	}
 	public static Label createLabel(String value) {
-		Label label = new Label(value);
+		Label label = new Label(value, Label.CONTENT_XHTML);
 		return label;
 	}
 	
@@ -207,5 +212,52 @@ public class WidgetFactory {
 		datePickup.setImmediate(true);
 		datePickup.setResolution(InlineDateField.RESOLUTION_DAY);
 		return datePickup;
+	}
+	
+	public static Component createMidAvatar(BasicUser createUser, Application application) {
+		String frame_size = "58px";
+		String photo_size = "50px";
+		VerticalLayout userArea = new VerticalLayout();
+		userArea.addStyleName("user-card-photo");
+		userArea.setWidth(frame_size);
+		userArea.setHeight(frame_size);
+		// add user photo
+		String url = createUser.getUserPhoto();
+		Embedded userPhoto = PageBuildHelper.buildUserPhoto(url, application);
+		userPhoto.setWidth(photo_size);
+		userPhoto.setHeight(photo_size);
+		userArea.addComponent(userPhoto);
+		return userArea;
+	}
+	
+	public static Component createSmallAvatar(BasicUser createUser, Application application) {
+		String url = createUser.getUserPhoto();
+		String frame_size = "37px";
+		String photo_size = "35px";
+		VerticalLayout userArea = new VerticalLayout();
+		userArea.setWidth(frame_size);
+		userArea.setHeight(frame_size);
+		// add user photo
+		Embedded userPhoto = PageBuildHelper.buildUserPhoto(url, application);
+		userPhoto.addStyleName("user-card-reply-photo");
+		userPhoto.setWidth(photo_size);
+		userPhoto.setHeight(photo_size);
+		userArea.addComponent(userPhoto);
+		return userArea;
+	}
+	
+	public static Component createSmallAvatar(String url, Application application) {
+		String frame_size = "37px";
+		String photo_size = "35px";
+		VerticalLayout userArea = new VerticalLayout();
+		userArea.setWidth(frame_size);
+		userArea.setHeight(frame_size);
+		// add user photo
+		Embedded userPhoto = PageBuildHelper.buildThemeUserPhoto(url, application);
+		userPhoto.addStyleName("user-card-reply-photo");
+		userPhoto.setWidth(photo_size);
+		userPhoto.setHeight(photo_size);
+		userArea.addComponent(userPhoto);
+		return userArea;
 	}
 }

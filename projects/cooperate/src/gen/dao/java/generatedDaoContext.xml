@@ -24,8 +24,10 @@
 		<bean id="ToDoDao" class="com.mocha.cooperate.basic.dao.impl.ToDoDaoImpl"></bean>
 		<bean id="SubToDoItemDao" class="com.mocha.cooperate.basic.dao.impl.SubToDoItemDaoImpl"></bean>
 		<bean id="FileDao" class="com.mocha.cooperate.basic.dao.impl.FileDaoImpl"></bean>
-		
-		
+		<bean id="ChatDao" class="com.mocha.cooperate.basic.dao.impl.ChatDaoImpl"></bean>
+		<bean id="ChatNotifyDao" class="com.mocha.cooperate.basic.dao.impl.ChatNotifyDaoImpl"></bean>
+		<bean id="ChatPersonDao" class="com.mocha.cooperate.basic.dao.impl.ChatPersonDaoImpl"></bean>
+		<bean id="ChatMessageDao" class="com.mocha.cooperate.basic.dao.impl.ChatMessageDaoImpl"></bean>
 </beans>
 
 

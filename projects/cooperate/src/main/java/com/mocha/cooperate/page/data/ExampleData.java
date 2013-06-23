@@ -42,6 +42,12 @@ public class ExampleData {
 		shotcutItemList.add(shotcutItem);
 
 		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("Chat");
+		shotcutItem.setAction(PresenterProperty.CHAT);
+		shotcutItem.setIcon("icons/discuss_icon.png");
+		shotcutItemList.add(shotcutItem);
+		
+		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("cooperate.shotcut.Colleague");
 		shotcutItem.setAction(PresenterProperty.COLLEAGUE);
 		shotcutItem.setIcon("icons/userOper_icon.png");

@@ -129,6 +129,10 @@
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>wizards-for-vaadin</artifactId>
 		</dependency>
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>refresher</artifactId>
+		</dependency>
 <!-- 		<dependency> -->
 <!-- 		   <groupId>org.vaadin.alump.fancylayouts</groupId> -->
 <!-- 		   <artifactId>fancylayouts-addon</artifactId> -->

@@ -13,7 +13,8 @@ public class PresenterProperty {
 	public static String TODO = "todo";
 	public static String TODO_EDIT = "todoEdit";
 	public static String TIMELINE = "timeline";
-
+	public static String CHAT = "chat";
+	
 	@Deprecated
 	public static String DOCUMENT = "document";
 	public static String DISCUSS = "discuss";

@@ -58,6 +58,11 @@ public class PageBuildHelper {
 		}
 		return userPhoto;
 	}
+	
+	public static Embedded buildThemeUserPhoto(String url, Application application) {
+		Embedded userPhoto = new Embedded(null, new ThemeResource(url));
+		return userPhoto;
+	}
 
 	public static Embedded buildUserPhoto(File imageFile,
 			Application application) {
