@@ -2,6 +2,7 @@ package com.mocha.report;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
@@ -11,6 +12,9 @@ import org.vaadin.teemu.wizards.WizardStep;
 import org.vaadin.teemu.wizards.event.WizardProgressListener;
 
 import com.coral.foundation.report.ReportConfiguration;
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportModelPool;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
@@ -38,11 +42,14 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 	private Wizard w;
 	private WizardStep nStep;
 	private WizardStep pStep;
+	private static BasicUser user;
 	
-	public RelatedTableStep(Wizard w) {
+	public RelatedTableStep(Wizard w,BasicUser user) {
 		this.w=w;
-		nStep=new ReportFilterStep(w);
-		pStep = new MainTableStep(w);
+		nStep=new ReportFilterStep(w,user);
+		pStep = new MainTableStep(w,user);
+		this.user=user;
+		getContent();
 	}
 
 	@Override
@@ -57,8 +64,12 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 
 	@Override
 	public Component getContent() {
+		System.out.println();
 		try {
-			return buildRelatedTableStep();
+			if(user!=null && ReportModelPool.findReportModelByCurrentUser(user)!=null){
+				return buildRelatedTableStep();				
+			}
+			return new Label("");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,11 +84,11 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		formLayout.setReadOnly(true);
 		layout.addComponent(formLayout);
 		
-		if(ReportModelPool.getUserSelectReport().get()==null){
+		if(ReportModelPool.findReportModelByCurrentUser(user)==null){
 			throw new Exception("Error occurs when initialing the related data");
 		}
 		relateReportTables=new ArrayList<ReportTable>();
-		for(ReportTable r:ReportModelPool.getUserSelectReport().get().getReportTables())
+		for(ReportTable r:ReportModelPool.findReportModelByCurrentUser(user).getReportTables())
 		{
 			if(r.getType().toString().equals(ReportConfiguration.ReportType.SubTable.toString())){
 				if(relateReportTables!=null){					
@@ -94,6 +105,8 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 	private List<ReportModel> getRelateTableModel() {
 		return getReportTableModels(relateReportTables);
 	}
+
+
 
 	public class ReportTableEditor extends VerticalLayout implements ValueChangeListener {
 
@@ -156,6 +169,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		public void valueChange(ValueChangeEvent event) {
 			rm = (ReportModel) box.getValue();
 			if (rm != null) {
+				cleanRelateTableResult();
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
 				reportColumnStepDesc.setVisible(true);
@@ -171,12 +185,12 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 							ReportColumn reportColumn=new ReportColumn();
 							reportColumn.setColumnName(columnField.getColumnName());
 							reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
-							if(ReportModelPool.getUserSelectReport().get().getSubTableSelectedColumns()==null){
+							if(ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns()==null){
 								HashSet<ReportColumn> reportColumns=new HashSet<ReportColumn>();
 								reportColumns.add(reportColumn);
-								ReportModelPool.getUserSelectReport().get().setSubTableSelectedColumns(reportColumns);
+								ReportModelPool.findReportModelByCurrentUser(user).setSubTableSelectedColumns(reportColumns);
 							}else{
-								ReportModelPool.getUserSelectReport().get().getSubTableSelectedColumns().add(reportColumn);
+								ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns().add(reportColumn);
 							}
 						}
 					};
@@ -202,7 +216,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 				}
 				this.addComponent(columnLayout);
 				ReportTable selectSubReportTable=rm.getReportTables().iterator().next();
-				ReportModelPool.getUserSelectReport().get().getReportTables().add(selectSubReportTable);
+				ReportModelPool.findReportModelByCurrentUser(user).getReportTables().add(selectSubReportTable);
 				boolean removeStepflg = false;
 				for (WizardStep step : w.getSteps()) {
 					if (step.getCaption() != null) {
@@ -215,10 +229,22 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 					w.removeStep("Report Filter Step");
 				}
 				w.removeStep("Preview Step");
-				w.addStep(new ReportFilterStep(w), "Report Filter Step");
-				w.addStep(new PreviewStep(w),"Preview Step");
+				w.addStep(new ReportFilterStep(w,user), "Report Filter Step");
+				w.addStep(new PreviewStep(w,user),"Preview Step");
 				
 			}
+		}
+
+		private void cleanRelateTableResult() {
+				if(ReportModelPool.findReportModelByCurrentUser(user)!=null &&ReportModelPool.findReportModelByCurrentUser(user).getReportTables()!=null ){				
+					for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(user).getReportTables().iterator();it.hasNext();){
+						ReportTable rt=it.next();
+						if(rt.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
+							it.remove();	
+						}
+					}
+				}
+			
 		}
 
 		public List<ReportModel> getReportModels() {

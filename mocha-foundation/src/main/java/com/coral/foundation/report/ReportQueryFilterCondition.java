@@ -1,4 +1,4 @@
-package com.mocha.report;
+package com.coral.foundation.report;
 
 import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
 import com.coral.foundation.security.model.ReportTable;
@@ -39,7 +39,7 @@ public class ReportQueryFilterCondition{
 		this.queryStrings = queryStrings;
 	}
 	
-	String buildQueryStrings(){
+	public String buildQueryStrings(){
 		if(getColumn()!=null&& reportTable!=null && queryFilterType!=null && filterValue!=null){
 			queryStrings=reportTable.getTableName()+"."+getColumn()+" "+queryFilterType+" "+filterValue;
 		}

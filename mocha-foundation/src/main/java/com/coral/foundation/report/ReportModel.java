@@ -1,4 +1,4 @@
-package com.mocha.report;
+package com.coral.foundation.report;
 
 import java.util.ArrayList;
 import java.util.HashMap;
