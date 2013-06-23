@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportModelPool;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
@@ -30,10 +32,14 @@ import com.coral.foundation.security.model.ReportJoinTable;
  *
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
+	
+	
 
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new NewReportViewer();
+		this.viewer = new NewReportViewer(eventBus.getUser());
+		ReportModelPool reportModelPool=new ReportModelPool(eventBus.getUser(), new ReportModel("", ""));
+		
 	}
 
 	@Override
@@ -52,7 +58,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 
 			@Override
 			public void wizardCompleted(WizardCompletedEvent event) {
-				ReportModel reportModel=ReportModelPool.getUserSelectReport().get();
+				ReportModel reportModel=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser());
 				AppReport appReport = reportModel.getAppReport();
 				BasicUser creator=getEventBus().getUser();
 				AppCusteomReportService appCustomReportService = new AppCusteomReportService(appReport,creator);
@@ -123,7 +129,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				
 				ReportFilter reportFilter=new ReportFilter();
 				if(reportModel.getReportQueryFilterCondition().size()>0){
-					ReportQueryFilterCondition rqfc=reportModel.getReportQueryFilterCondition().get(0);					
+					com.coral.foundation.report.ReportQueryFilterCondition rqfc=reportModel.getReportQueryFilterCondition().get(0);					
 					reportFilter.setFilterBuildString(rqfc.getQueryStrings());
 					appReport.getReportFilters().add(reportFilter);				
 				}
@@ -139,7 +145,9 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 
 			@Override
 			public void wizardCancelled(WizardCancelledEvent event) {
-				// TODO Auto-generated method stub
+				AppContentEvent appContentEvent = new AppContentEvent();
+				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
+				eventBus.post(appContentEvent);
 
 			}
 		});

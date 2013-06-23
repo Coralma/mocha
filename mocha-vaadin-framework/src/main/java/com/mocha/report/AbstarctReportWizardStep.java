@@ -6,6 +6,9 @@ import java.util.Map;
 
 import org.vaadin.teemu.wizards.event.WizardProgressListener;
 
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportQueryFilterCondition;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
@@ -22,10 +25,11 @@ import com.vaadin.ui.VerticalLayout;
 public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	
 	String caption;
-	Component content=getContent();
 	boolean advance = true;
 	boolean back = true;
 	WizardProgressListener listener;
+	BasicUser basicUser;
+	Component content=getContent();
 	
 	static Map<String, ReportTable> reportTables;
 	static ReportTable mainReportTable;
@@ -37,7 +41,6 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	
 	public AbstarctReportWizardStep(){
 		super();
-		
 	}
 	
 	public AbstarctReportWizardStep(String caption, Component content) {
@@ -66,7 +69,6 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	public boolean onBack() {
 		return advance;
 	}
-	
 	
 	protected List<ReportModel> getReportTableModels(List<ReportTable> reportTables) {
 		ArrayList<ReportModel> rm = new ArrayList<ReportModel>();

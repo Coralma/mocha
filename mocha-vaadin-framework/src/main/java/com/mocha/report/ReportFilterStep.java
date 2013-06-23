@@ -15,6 +15,10 @@ import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 
 import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportModelPool;
+import com.coral.foundation.report.ReportQueryFilterCondition;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
@@ -43,10 +47,12 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 	private Map<String, ReportTable> reportTables;
 	private Wizard w;
 	final ReportQueryFilterCondition rqfc=new ReportQueryFilterCondition();
+	private static BasicUser user;
 	
-	public ReportFilterStep(Wizard w) {
+	
+	public ReportFilterStep(Wizard w,BasicUser user) {
 		this.w = w;
-		
+		this.user=user;
 		w.addListener(new WizardProgressListener() {
 			
 			@Override
@@ -84,7 +90,10 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 
 	@Override
 	public Component getContent() {
-		return buildReportQueryFilterStep();
+		if(user!=null&&ReportModelPool.findReportModelByCurrentUser(user)!=null){
+			return buildReportQueryFilterStep();
+		}
+		return new Label("");
 	}
 
 	private Component buildReportQueryFilterStep() {
@@ -101,9 +110,9 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 
 	private List<ReportModel> getReportFilterModel() {
 		HashSet<ReportTable> reportTables = new HashSet<ReportTable>();
-		for(ReportTable r:ReportModelPool.getUserSelectReport().get().getReportTables())
+		for(ReportTable r:ReportModelPool.findReportModelByCurrentUser(user).getReportTables())
 		{
-				if(r!=null){					
+				if(r!=null){						
 					reportTables.add(r);
 				}	
 		}
@@ -234,12 +243,12 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 								rqfc.getQueryFilterType().getQueryFilterType().toString()+" "+queryCondition.getValue();
 						rqfc.setQueryStrings(queryFilterString);
 						if(rqfc.buildQueryStrings()!=null){
-							ReportModelPool.getUserSelectReport().get().getReportQueryFilterCondition().add(rqfc);
+							ReportModelPool.findReportModelByCurrentUser(user).getReportQueryFilterCondition().add(rqfc);
 						}
-						System.out.println("Query Fileter String is: "+ReportModelPool.getUserSelectReport().get().
+						System.out.println("Query Fileter String is: "+ReportModelPool.findReportModelByCurrentUser(user).
 								getReportQueryFilterCondition().get(0).getQueryStrings().toString());
-						queryFilterLabel.setCaption(ReportModelPool.getUserSelectReport().get().
-								getReportQueryFilterCondition().get(0).getQueryStrings().toString());
+						queryFilterLabel.setCaption(ReportModelPool.findReportModelByCurrentUser(user).
+								getReportQueryFilterCondition().get(0).getQueryStrings());
 						columnLayout.addComponent(queryFilterLabel);
 					}
 				});	
@@ -283,7 +292,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 				
 				this.addComponent(columnLayout);
 
-				RelatedTableStep secondeStep = new RelatedTableStep(w);
+				RelatedTableStep secondeStep = new RelatedTableStep(w,user);
 				boolean removeStepflg = false;
 				for (WizardStep step : w.getSteps()) {
 					if (step.getCaption().equals(secondeStep.getCaption())) {

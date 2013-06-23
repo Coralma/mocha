@@ -11,6 +11,7 @@ import org.vaadin.teemu.wizards.event.WizardProgressListener;
 import org.vaadin.teemu.wizards.event.WizardStepActivationEvent;
 import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.vaadin.ui.Component;
 
 /**
@@ -26,6 +27,7 @@ public class ReportWizardStep implements WizardStep {
 	boolean back = true;
 	WizardProgressListener listener;
 	WizardStep w;
+	private static BasicUser user;
 	
 	public ReportWizardStep(WizardStep w,WizardStep nStep){
 		this.w=w;
@@ -61,6 +63,14 @@ public class ReportWizardStep implements WizardStep {
 		return advance;
 	}
 	
+	public static BasicUser getUser() {
+		return user;
+	}
+
+	public static void setUser(BasicUser user) {
+		ReportWizardStep.user = user;
+	}
+
 	public class ReportWizardProgressListener implements WizardProgressListener {
 
 		@Override
@@ -88,4 +98,6 @@ public class ReportWizardStep implements WizardStep {
 		}
 
 	}
+
+	
 }

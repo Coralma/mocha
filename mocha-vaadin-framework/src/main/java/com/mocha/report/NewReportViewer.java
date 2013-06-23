@@ -19,9 +19,12 @@ import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
 import com.coral.foundation.report.ReportConfiguration.ReportType;
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportQueryFilterCondition;
 import com.coral.foundation.security.CommonWebSessionManager;
 import com.coral.foundation.security.model.Account;
 import com.coral.foundation.security.model.AppReport;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
@@ -58,9 +61,10 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 	private List<ReportModel> finalReportModels = new ArrayList<ReportModel>();
 	final ReportQueryFilterCondition queryFilterCondition = new ReportQueryFilterCondition();
 	private ReportWizardProgressListener listener;
-
-	public NewReportViewer(){
-		
+	private static BasicUser user;
+	
+	public NewReportViewer(BasicUser user) {
+		this.setUser(user);
 	}
 
 	@Override
@@ -71,9 +75,9 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 		layout.addStyleName("app-new-report");
 		wizard.setWidth("760px");
 	
-		MainTableStep firstStep=new MainTableStep(wizard);
+		MainTableStep firstStep=new MainTableStep(wizard,getUser());
 		wizard.addStep(firstStep,"Main Table Step");
-		wizard.addStep(new PreviewStep(wizard),"Preview Step");
+		wizard.addStep(new PreviewStep(wizard,getUser()),"Preview Step");
 		wizard.setImmediate(true);
 		layout.addComponent(wizard);
 		this.addComponent(layout);
@@ -92,5 +96,14 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 		this.wizard.addListener(listener);
 //		this.listener = listener;
 	}
+
+	public static BasicUser getUser() {
+		return user;
+	}
+
+	public static void setUser(BasicUser user) {
+		NewReportViewer.user = user;
+	}
+
 
 }

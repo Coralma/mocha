@@ -15,8 +15,11 @@ import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.report.ReportConfiguration.ReportColumnType;
+import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportModelPool;
 import com.coral.foundation.security.basic.dao.AppReportDao;
 import com.coral.foundation.security.model.AppReport;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
@@ -47,9 +50,11 @@ public class PreviewStep extends AbstarctReportWizardStep {
 	private GridLayout subTablesLayout;
 	private ReportModel rm;
 	private VerticalLayout layout;
+	private BasicUser user;
 	
-	public PreviewStep(Wizard w) {
+	public PreviewStep(Wizard w,BasicUser user) {
 		this.setW(w);
+		this.user=user;
 		buildlistener();
 	}
 
@@ -60,12 +65,16 @@ public class PreviewStep extends AbstarctReportWizardStep {
 
 	@Override
 	public Component getContent() {
-		return buildPreviewStep();
+		if(user!=null){
+			
+			return buildPreviewStep();
+		}
+		return new Label("");
 	}
 
 	private Component buildPreviewStep() {
 		layout= new VerticalLayout();
-		rm = ReportModelPool.getUserSelectReport().get();
+		rm = ReportModelPool.findReportModelByCurrentUser(user);
 		AppReport appReport=new AppReport();
 		if(rm!=null && rm.getAppReport()==null){
 			rm.setAppReport(appReport);
@@ -121,7 +130,7 @@ public class PreviewStep extends AbstarctReportWizardStep {
 
 			// build query filter conditions
 			if (rm.getReportQueryFilterCondition()!=null && rm.getReportQueryFilterCondition().size() > 0) {
-				for (ReportQueryFilterCondition conditions : rm.getReportQueryFilterCondition()) {
+				for (com.coral.foundation.report.ReportQueryFilterCondition conditions : rm.getReportQueryFilterCondition()) {
 					Label reportQueryCondition = new Label(conditions.buildQueryStrings());
 					getLayout().addComponent(reportQueryCondition);
 				}
