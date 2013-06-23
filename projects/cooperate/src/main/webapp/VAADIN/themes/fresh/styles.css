@@ -223,6 +223,126 @@
 	background-color: #ffffff;
 }
 
+
+/** chat style */
+.chat-content {
+	border: 1px solid #e0e0e0;
+}
+
+.chat-content .chat-io {
+	border-right: 1px solid #e0e0e0;
+	min-height: 500px;
+}
+.chat-content .chat-input {
+	padding: 10px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: #f2f2f2;
+}
+.chat-content .chat-control {
+	padding-top: 2px;
+}
+.chat-content .chat-message-layout {
+	padding: 10px;
+}
+
+.chat-content .chat-message-layout .my-message-arrow {
+	padding-top: 20px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.chat-content .chat-message-layout .chat-message {
+	padding-top: 10px;
+}
+
+.chat-content .chat-message-layout .other-chat-message {
+	text-align:right;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+
+.chat-content .chat-message-layout .my-message {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+/*     box-shadow: 0 1px 0 #AAAAAA; */
+    font-size: 13px;
+/*     margin-left: 9px; */
+    opacity: 1;
+    padding: 10px;
+    position: relative;
+    vertical-align: top;
+    word-wrap: break-word;
+	word-break: normal;
+	white-space : normal;
+    max-width: 400px;
+}
+
+.chat-content .chat-message-layout .other-message {
+    background-color: #F4F4F4;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+/*     box-shadow: 0 1px 0 #AAAAAA; */
+    font-size: 13px;
+/*     margin-right: 9px; */
+    opacity: 1;
+    padding: 10px;
+    position: relative;
+    vertical-align: top;
+}
+
+.chat-persons-title .v-label {
+	font-size: 14px;
+	font-weight: bold;
+}
+.chat-content .title-layout {
+	padding: 10px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: #f9f9f9;
+	color: #4A8DF8;
+	font-weight: bold;
+}
+
+.chat-content .title-layout .v-label {
+	font-size: 14px;
+}
+
+.chat-content .chat-persons {
+	min-height: 500px;
+}
+
+.chat-content .chat-persons .chat-person {
+	padding: 10px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: #FFFFFF;
+}
+
+.chat-content .chat-persons .chat-person:HOVER {
+	background-color: #DEF0F7;
+}
+.chat-content .chat-persons .chat-person .name-label {
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+}
+
+.chat-content .chat-persons .chat-person-selected {
+	padding: 10px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: #4A8DF8;
+}
+
+.chat-content .chat-persons .chat-person-selected .name-label {
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+}
+
+.newchat-buttons {
+	padding-top: 5px;
+	margin-right: 18px;
+}
+
+
 /* application style. */
 .app-page {
 	margin-top: 15px;

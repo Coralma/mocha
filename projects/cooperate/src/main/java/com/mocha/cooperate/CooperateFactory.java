@@ -6,6 +6,7 @@ package com.mocha.cooperate;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.vaadin.controller.PageFactory;
 import com.coral.vaadin.controller.Presenter;
+import com.mocha.cooperate.page.ChatPresenter;
 import com.mocha.cooperate.page.ColleaguePresenter;
 import com.mocha.cooperate.page.FilePresenter;
 import com.mocha.cooperate.page.ForumEditorPresenter;
@@ -72,6 +73,10 @@ public class CooperateFactory implements PageFactory {
 		if(PresenterProperty.COMPANY_FILE.equals(entityName)) {
 			return new CompanyFilePresenter(eventBus);
 		}
+		if(PresenterProperty.CHAT.equals(entityName)) {
+			return new ChatPresenter(eventBus);
+		}
+		
 		/* customer page*/
 		if(PresenterProperty.CUSTOMER_INDEX.equals(entityName)) {
 			return new CustomerIndexPresenter(eventBus);
