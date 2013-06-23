@@ -304,17 +304,43 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		@Override
 		public void layoutClick(LayoutClickEvent event) {
 			if(!currentChat.equals(this.chat)) {
-				for(PersonPanel personPanel : personPanels) {
-					if(personPanel.equals(this)) {
-						personPanel.setStyleName("chat-person-selected");
-					} else {
-						personPanel.setStyleName("chat-person");
-					}
-				}
-				listener.selectChat(this.chat);
-				setChatPersonsTitle(chatTitle);
+				changePersonPanelStyle(chat);
+//				for(PersonPanel personPanel : personPanels) {
+//					if(personPanel.equals(this)) {
+//						personPanel.setStyleName("chat-person-selected");
+//					} else {
+//						personPanel.setStyleName("chat-person");
+//					}
+//				}
+				
 			}
 		}
+
+		/**
+		 * @return the chat
+		 */
+		public Chat getChat() {
+			return chat;
+		}
+
+		/**
+		 * @return the chatTitle
+		 */
+		public String getChatTitle() {
+			return chatTitle;
+		}
+	}
+	
+	public void changePersonPanelStyle(Chat chat) {
+		for(PersonPanel personPanel : personPanels) {
+			if(personPanel.getChat().getID().equals(chat.getID())) {
+				personPanel.setStyleName("chat-person-selected");
+				setChatPersonsTitle(personPanel.getChatTitle());
+			} else {
+				personPanel.setStyleName("chat-person");
+			}
+		}
+		listener.selectChat(chat);
 	}
 	
 	private void setChatPersonsTitle(String chatTitle) {

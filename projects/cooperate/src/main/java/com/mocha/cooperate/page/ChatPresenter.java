@@ -37,6 +37,8 @@ public class ChatPresenter extends CommonPresenter implements Presenter {
 				chatViewer.setCurrentChat(chat);
 				loadChats();
 				chatViewer.buildPersons();
+				chatViewer.buildOutputMessage();
+				chatViewer.changePersonPanelStyle(chat);
 			}
 
 			@Override
