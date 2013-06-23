@@ -10,14 +10,36 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
 public class JPAEntityTemplate {
-  public CharSequence generate(final Mocha coral, final Entity entity) {
+  private Mocha coral;
+  
+  private Entity entity;
+  
+  private String packageName;
+  
+  private String entityName;
+  
+  private String entityIdField;
+  
+  public String init(final Mocha coral, final Entity entity) {
+    String _xblockexpression = null;
+    {
+      this.coral = coral;
+      this.entity = entity;
+      String _entityPackage = coral.getEntityPackage();
+      this.packageName = _entityPackage;
+      this.entityName = entity.entityName;
+      String _lowCaseFirstLetter = StrUtils.lowCaseFirstLetter(this.entityName);
+      String _plus = (_lowCaseFirstLetter + "Id");
+      String _entityIdField = this.entityIdField = _plus;
+      _xblockexpression = (_entityIdField);
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence generate() {
     StringConcatenation _builder = new StringConcatenation();
-    final String packageName = coral.getEntityPackage();
-    _builder.newLineIfNotEmpty();
-    final String entityName = entity.entityName;
-    _builder.newLineIfNotEmpty();
     _builder.append("package ");
-    _builder.append(packageName, "");
+    _builder.append(this.packageName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import java.util.*;");
@@ -37,55 +59,51 @@ public class JPAEntityTemplate {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("* <p>Title: ");
-    _builder.append(packageName, "  ");
+    _builder.append(this.packageName, "  ");
     _builder.append(".");
-    _builder.append(entityName, "  ");
+    _builder.append(this.entityName, "  ");
     _builder.append(" + \"</p>");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("* <p>Description: The ");
-    _builder.append(entityName, "  ");
+    _builder.append(this.entityName, "  ");
     _builder.append(" entity </p>");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("*/");
     _builder.newLine();
-    String _tableName = entity.getTableName();
-    CharSequence _entityAnnotation = this.getEntityAnnotation(entityName, _tableName);
+    String _tableName = this.entity.getTableName();
+    CharSequence _entityAnnotation = this.getEntityAnnotation(this.entityName, _tableName);
     _builder.append(_entityAnnotation, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public class ");
-    _builder.append(entityName, "");
+    _builder.append(this.entityName, "");
     _builder.append(" extends BaseEntity {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    String _lowCaseFirstLetter = StrUtils.lowCaseFirstLetter(entityName);
-    final String entityIdField = (_lowCaseFirstLetter + "Id");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    CharSequence _idAnnotation = this.getIdAnnotation(entityIdField);
+    CharSequence _idAnnotation = this.getIdAnnotation(this.entityIdField);
     _builder.append(_idAnnotation, "	");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("private Long ");
-    _builder.append(entityIdField, "	");
+    _builder.append(this.entityIdField, "	");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    CharSequence _generatePropertyAnnotation = this.generatePropertyAnnotation(entity);
+    CharSequence _generatePropertyAnnotation = this.generatePropertyAnnotation(this.entity);
     _builder.append(_generatePropertyAnnotation, "	");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
-    CharSequence _generateNormalGetterSetter = this.generateNormalGetterSetter("Long", entityIdField);
+    CharSequence _generateNormalGetterSetter = this.generateNormalGetterSetter("Long", this.entityIdField);
     _builder.append(_generateNormalGetterSetter, "	");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    CharSequence _generateEntityMethod = this.generateEntityMethod(entity);
+    CharSequence _generateEntityMethod = this.generateEntityMethod(this.entity);
     _builder.append(_generateEntityMethod, "	");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -94,7 +112,7 @@ public class JPAEntityTemplate {
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("return ");
-    String _ter = StrUtils.getter(entityIdField);
+    String _ter = StrUtils.getter(this.entityIdField);
     _builder.append(_ter, "		");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
@@ -107,7 +125,7 @@ public class JPAEntityTemplate {
     _builder.append("public void setID(Long id) {");
     _builder.newLine();
     _builder.append("\t\t");
-    String _setter = StrUtils.setter(entityIdField);
+    String _setter = StrUtils.setter(this.entityIdField);
     _builder.append(_setter, "		");
     _builder.append("(id);");
     _builder.newLineIfNotEmpty();
@@ -486,6 +504,11 @@ public class JPAEntityTemplate {
     _builder.newLineIfNotEmpty();
     _builder.append("@Fetch(FetchMode.SUBSELECT)");
     _builder.newLine();
+    _builder.append("@JoinColumn(name=\"");
+    String _genDBName = StrUtils.genDBName(this.entityIdField);
+    _builder.append(_genDBName, "");
+    _builder.append("\")");
+    _builder.newLineIfNotEmpty();
     return _builder;
   }
   

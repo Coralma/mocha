@@ -26,6 +26,7 @@ public class Shotcut extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ShotcutItem.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="SHOTCUT_ID")
 	private List<ShotcutItem> shotcutItems = new ArrayList<ShotcutItem>();
 	
 

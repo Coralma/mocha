@@ -36,6 +36,7 @@ public class InsuranceCompany extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = InsuranceProduct.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="INSURANCE_COMPANY_ID")
 	private List<InsuranceProduct> products = new ArrayList<InsuranceProduct>();
 	
 

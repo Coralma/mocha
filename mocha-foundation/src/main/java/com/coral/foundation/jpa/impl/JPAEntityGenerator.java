@@ -72,7 +72,8 @@ public class JPAEntityGenerator extends AbstractGenerator implements IEntityGene
 				}
 				JPAEntityTemplate entityTemplate = new JPAEntityTemplate();
 //				String classContent = parseEntity(coral,entity);
-				String classContent =entityTemplate.generate(coral, entity).toString();
+				entityTemplate.init(coral, entity);
+				String classContent =entityTemplate.generate().toString();
 				fw = new FileWriter(genPath + entity.getEntityName() + ".java");
 				pw = new PrintWriter(fw);
 				pw.println(classContent);

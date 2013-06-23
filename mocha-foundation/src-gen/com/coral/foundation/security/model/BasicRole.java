@@ -31,10 +31,12 @@ public class BasicRole extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = BasicUser.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="BASIC_ROLE_ID")
 	private List<BasicUser> user = new ArrayList<BasicUser>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = MenuPermission.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="BASIC_ROLE_ID")
 	private List<MenuPermission> menuPermissions = new ArrayList<MenuPermission>();
 	
 

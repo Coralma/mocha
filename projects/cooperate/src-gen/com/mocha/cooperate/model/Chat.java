@@ -31,10 +31,12 @@ public class Chat extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ChatPerson.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="CHAT_ID")
 	private List<ChatPerson> chatPersons = new ArrayList<ChatPerson>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ChatMessage.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="CHAT_ID")
 	private List<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
 	
 

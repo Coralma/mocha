@@ -1294,32 +1294,32 @@
     <apps/>
     <codeTableList>
       <com.coral.foundation.md.model.CodeTable>
-        <name>ins-customer-type</name>
+        <name>customer-type</name>
         <ids>1;2;3;4</ids>
         <values>
           <com.coral.foundation.md.model.CodeTableValue>
-            <codeTableName>ins-customer-type</codeTableName>
+            <codeTableName>customer-type</codeTableName>
             <language>zh</language>
             <datas>企业客户;个人客户</datas>
           </com.coral.foundation.md.model.CodeTableValue>
           <com.coral.foundation.md.model.CodeTableValue>
-            <codeTableName>ins-customer-type</codeTableName>
+            <codeTableName>customer-type</codeTableName>
             <language>en</language>
             <datas>Company Customer;Individual Customer</datas>
           </com.coral.foundation.md.model.CodeTableValue>
         </values>
       </com.coral.foundation.md.model.CodeTable>
       <com.coral.foundation.md.model.CodeTable>
-        <name>ins-customer-status</name>
+        <name>customer-status</name>
         <ids>1;2;3;4</ids>
         <values>
           <com.coral.foundation.md.model.CodeTableValue>
-            <codeTableName>ins-customer-status</codeTableName>
+            <codeTableName>customer-status</codeTableName>
             <language>zh</language>
             <datas>已获得客户;潜在客户;失败客户;关闭</datas>
           </com.coral.foundation.md.model.CodeTableValue>
           <com.coral.foundation.md.model.CodeTableValue>
-            <codeTableName>ins-customer-status</codeTableName>
+            <codeTableName>customer-status</codeTableName>
             <language>en</language>
             <datas>Achieved;Potential;Failure;Close</datas>
           </com.coral.foundation.md.model.CodeTableValue>

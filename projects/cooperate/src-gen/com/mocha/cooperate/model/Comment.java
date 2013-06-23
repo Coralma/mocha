@@ -45,6 +45,7 @@ public class Comment extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Attachment.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="COMMENT_ID")
 	private List<Attachment> attachments = new ArrayList<Attachment>();
 	
 

@@ -96,10 +96,12 @@ public class InsuranceCustomer extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Policy.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<Policy> policy = new ArrayList<Policy>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = InsuranceCustomerServe.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
 	
 	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)

@@ -54,7 +54,8 @@ public class JPAGenerator implements IGenerator {
 	
 	public void entityGenerate(Mocha coral, Entity entity) throws Exception {
 		JPAEntityTemplate entityTemplate = new JPAEntityTemplate();
-		fileGenerater(srcGenPath, entity.getEntityName(), coral.getEntityPackage(), entityTemplate.generate(coral, entity).toString(), false);
+		entityTemplate.init(coral, entity);
+		fileGenerater(srcGenPath, entity.getEntityName(), coral.getEntityPackage(), entityTemplate.generate().toString(), false);
 	}
 	
 	public void daoGenerate(Mocha coral, Entity entity) throws Exception {

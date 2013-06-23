@@ -40,14 +40,17 @@ public class Discuss extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Attachment.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="DISCUSS_ID")
 	private List<Attachment> attachments = new ArrayList<Attachment>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Comment.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="DISCUSS_ID")
 	private List<Comment> comments = new ArrayList<Comment>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = NotifyLine.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="DISCUSS_ID")
 	private List<NotifyLine> notifyLines = new ArrayList<NotifyLine>();
 	
 

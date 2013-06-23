@@ -36,10 +36,12 @@ public class AppReport extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportFilter.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="APP_REPORT_ID")
 	private List<ReportFilter> reportFilters = new ArrayList<ReportFilter>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="APP_REPORT_ID")
 	private List<ReportTable> reportTables = new ArrayList<ReportTable>();
 	
 

@@ -36,6 +36,7 @@ public class CodeTable extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CodeTableValue.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="CODE_TABLE_ID")
 	private List<CodeTableValue> codeTableValues = new ArrayList<CodeTableValue>();
 	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = App.class, fetch=FetchType.EAGER)
@@ -45,6 +46,7 @@ public class CodeTable extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CodeTable.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="CODE_TABLE_ID")
 	private List<CodeTable> unitCodeTables = new ArrayList<CodeTable>();
 	
 

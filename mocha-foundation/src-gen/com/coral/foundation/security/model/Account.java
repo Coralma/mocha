@@ -31,10 +31,12 @@ public class Account extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = BasicUser.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="ACCOUNT_ID")
 	private List<BasicUser> users = new ArrayList<BasicUser>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = App.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="ACCOUNT_ID")
 	private List<App> apps = new ArrayList<App>();
 	
 

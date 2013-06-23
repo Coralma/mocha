@@ -33,7 +33,8 @@ public class ChatPresenter extends CommonPresenter implements Presenter {
 			
 			@Override
 			public void saveChat(Chat chat) {
-				chatService.saveChat(chat);
+				chat = chatService.saveChat(chat);
+				chatViewer.setCurrentChat(chat);
 				loadChats();
 				chatViewer.buildPersons();
 			}
@@ -49,7 +50,7 @@ public class ChatPresenter extends CommonPresenter implements Presenter {
 				// reload all new message to display
 				List<ChatMessage> newChatMsgs = chatService.loadNewMessage(chatViewer.getLastMessage(), chatViewer.getCurrentChat());
 				chat.getChatMessages().addAll(newChatMsgs);
-				chatService.saveChat(chat);
+				chat = chatService.saveChat(chat);
 				chatViewer.setCurrentChat(chat);
 				chatViewer.buildNewOutputMessage(newChatMsgs);
 			}

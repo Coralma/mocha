@@ -26,6 +26,7 @@ public class Policy extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Claim.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="POLICY_ID")
 	private List<Claim> claim = new ArrayList<Claim>();
 	
 	@Basic(optional = true)

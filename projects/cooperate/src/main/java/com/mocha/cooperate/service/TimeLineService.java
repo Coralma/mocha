@@ -109,8 +109,10 @@ public class TimeLineService {
 //			attachment.set
 //		}
 		status.setAttachments(attachments);
-		for(Attachment attachment : attachments) {
-			attachment.setStatus(status);
+		if(attachments != null) {
+			for(Attachment attachment : attachments) {
+				attachment.setStatus(status);
+			}
 		}
 		timeLine.setStatus(status);
 		timeLine.setCreator(creator);

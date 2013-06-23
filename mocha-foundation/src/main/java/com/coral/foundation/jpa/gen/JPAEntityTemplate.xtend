@@ -6,9 +6,23 @@ import com.coral.foundation.md.model.Mocha
 
 class JPAEntityTemplate {
 	
-	def generate(Mocha coral,Entity entity) '''
-		«val packageName = coral.getEntityPackage»
-		«val entityName = entity.entityName»
+	Mocha coral
+	Entity entity
+	String packageName
+	String entityName
+	String entityIdField
+	
+	def init(Mocha coral,Entity entity) {
+		this.coral = coral;
+		this.entity = entity;
+  		this.packageName = coral.getEntityPackage;
+  		this.entityName = entity.entityName; 
+  		this.entityIdField = StrUtils::lowCaseFirstLetter(entityName) + "Id";
+  	}
+  	
+	def generate() '''
+«««		«val packageName = coral.getEntityPackage»
+«««		«val entityName = entity.entityName»
 		package «packageName»;
 		import java.util.*;
 		import java.math.BigDecimal;
@@ -25,7 +39,7 @@ class JPAEntityTemplate {
 		public class «entityName» extends BaseEntity {
 			
 «««			generate entity ID
-			«val entityIdField = StrUtils::lowCaseFirstLetter(entityName) + "Id"»
+«««			«val entityIdField = StrUtils::lowCaseFirstLetter(entityName) + "Id"»
 			«getIdAnnotation(entityIdField)»
 			private Long «entityIdField»;
 			
@@ -168,6 +182,7 @@ class JPAEntityTemplate {
 	def getOneToManyAnnotation(String ref)'''
 		@OneToMany(cascade = { CascadeType.ALL }, targetEntity = «ref».class, fetch=FetchType.EAGER)
 		@Fetch(FetchMode.SUBSELECT)
+		@JoinColumn(name="«StrUtils::genDBName(entityIdField)»")
 	'''
 	def getManyToOneAnnotation(String ref, String fieldName)'''
 		@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = «ref».class, fetch=FetchType.EAGER)

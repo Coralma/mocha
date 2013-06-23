@@ -36,6 +36,7 @@ public class App extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CodeTable.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="APP_ID")
 	private List<CodeTable> codeTables = new ArrayList<CodeTable>();
 	
 
