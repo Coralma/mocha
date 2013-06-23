@@ -44,14 +44,19 @@ public class UserPermissionPresenter extends CommonPresenter {
 		final UserPermissionViewer userPermissionViewer = (UserPermissionViewer)viewer;
 		userPermissionViewer.setListener(new UserPermissionListener() {
 			@Override
-			public void saveUser(BasicUser user) {
+			public BasicUser saveUser(BasicUser user) {
 //				basicUserDao.persist(user);
 				if(user.getAccount() == null) {
 					Account account = accountDao.findById(currentUser.getAccount().getID());
 					user.setAccount(account);
 				}
-				basicUserDao.persist(user);
-				userPermissionViewer.buildUserPanel();
+				user = basicUserDao.merge(user);
+				return user; 
+			}
+
+			@Override
+			public void refreshPanel() {
+				userPermissionViewer.buildUserListPanel();
 				userPermissionViewer.requestRepaintAll();
 			}
 
