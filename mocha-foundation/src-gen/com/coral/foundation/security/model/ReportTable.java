@@ -25,6 +25,11 @@ public class ReportTable extends BaseEntity {
 	
 	
 	@Basic(optional = true)
+	@Column(name = "TABLE_LABEL" )
+	private String tableLabel;
+	
+	
+	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
@@ -61,6 +66,12 @@ public class ReportTable extends BaseEntity {
 	} 
 	public String getTableName () {
 		return tableName;
+	}
+	public void setTableLabel (String tableLabel) {
+		this.tableLabel = tableLabel;
+	} 
+	public String getTableLabel () {
+		return tableLabel;
 	}
 	public void setType (String type) {
 		this.type = type;

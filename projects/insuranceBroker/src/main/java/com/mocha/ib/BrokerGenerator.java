@@ -26,6 +26,7 @@ public class BrokerGenerator {
        mappingXMLs.add("src/main/resource/ib-app.xml");
        mappingXMLs.add("src/main/resource/ib-codetable.xml");
        mappingXMLs.add("src/main/resource/ib-models.xml");
+       mappingXMLs.add("src/main/resource/ib-report.xml");
        mappingXMLs.add("src/main/resource/view-insuranceCustomer.xml");
        mappingXMLs.add("src/main/resource/view-claim.xml");
        mappingXMLs.add("src/main/resource/view-policy.xml");

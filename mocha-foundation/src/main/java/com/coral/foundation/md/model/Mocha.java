@@ -26,6 +26,7 @@ public class Mocha implements Serializable {
 	private List<CodeTable> codeTableList = Lists.newArrayList();
 	private List<Menu> menuList = Lists.newArrayList();
 	private List<MobileMenu> mobileMenuList = Lists.newArrayList();
+	private List<ReportDef> reportDefList = Lists.newArrayList();
 	
 	public List<Menu> getMenuList() {
 		return menuList;
@@ -152,5 +153,17 @@ public class Mocha implements Serializable {
 	 */
 	public void setApps(List<App> apps) {
 		this.apps = apps;
+	}
+	/**
+	 * @return the reportDefList
+	 */
+	public List<ReportDef> getReportDefList() {
+		return reportDefList;
+	}
+	/**
+	 * @param reportDefList the reportDefList to set
+	 */
+	public void setReportDefList(List<ReportDef> reportDefList) {
+		this.reportDefList = reportDefList;
 	}
 }

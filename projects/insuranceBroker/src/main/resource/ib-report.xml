@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+
+	<report name="InsuranceBrokerReport">
+		<reportTable entity="InsuranceCustomer">
+			<columns>name,district,postcode,address,contectPerson</columns>
+			<joinEntitys>Policy</joinEntitys>
+		</reportTable>
+		<reportTable entity="Policy">
+			<columns>policyNo,effectiveDate,expiryDate,premium,commission</columns>
+			<joinEntitys>InsuranceCustomer</joinEntitys>
+		</reportTable>
+		<reportTable entity="Claim">
+			<columns>status,claimReason,claimAmount</columns>
+			<joinEntitys>Policy</joinEntitys>
+		</reportTable>
+	</report>
+	
+</mocha>

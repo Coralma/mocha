@@ -25,6 +25,11 @@ public class ReportColumn extends BaseEntity {
 	
 	
 	@Basic(optional = true)
+	@Column(name = "COLUMN_LABEL" )
+	private String columnLabel;
+	
+	
+	@Basic(optional = true)
 	@Column(name = "COLUMN_INDEX" )
 	private String columnIndex;
 	
@@ -56,6 +61,12 @@ public class ReportColumn extends BaseEntity {
 	} 
 	public String getColumnName () {
 		return columnName;
+	}
+	public void setColumnLabel (String columnLabel) {
+		this.columnLabel = columnLabel;
+	} 
+	public String getColumnLabel () {
+		return columnLabel;
 	}
 	public void setColumnIndex (String columnIndex) {
 		this.columnIndex = columnIndex;

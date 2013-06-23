@@ -9,6 +9,7 @@ import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.App;
 import com.coral.foundation.md.model.CodeTable;
 import com.coral.foundation.md.model.Mocha;
+import com.coral.foundation.md.model.ReportDef;
 import com.coral.foundation.md.model.Resource;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
@@ -18,6 +19,7 @@ import com.coral.vaadin.template.common.EntityCardSearch;
 import com.coral.vaadin.template.common.EntityCardSearchPresenter;
 import com.coral.vaadin.template.common.EntityEditPresenter;
 import com.coral.vaadin.template.common.EntityEditView;
+import com.coral.vaadin.template.common.ReportDefinition;
 import com.coral.vaadin.template.sat.TAppMainPage;
 import com.coral.vaadin.template.sat.TAppMainPagePresenter;
 import com.coral.vaadin.template.sat.TControllerMenuPanel;
@@ -53,6 +55,9 @@ public class SATFaceGenerator extends AbstractFaceGenerator {
 						generateEntitySearch(view);
 						generateEntitySearchPresenter(view);
 					}
+				}
+				for(ReportDef reportDef : mocha.getReportDefList()) {
+					generateReportDef(reportDef);
 				}
 			}
 			generateCodeTableScript();
@@ -189,6 +194,18 @@ public class SATFaceGenerator extends AbstractFaceGenerator {
 		generateModel.setPkg(SystemConstant.ENTITY_EDIT_PRESENTER_PKG);
 		generateModel.setPath(resource.getPresenterGenPath());
 		generateModel.setIgnoreExisted(true);
+		fileGenerater(generateModel);
+	}
+	
+	public void generateReportDef(ReportDef reportDef) {
+		ReportDefinition reportDefinition = new ReportDefinition();
+		reportDefinition.init(mochas, reportDef);
+		
+		GenerateModel generateModel = new GenerateModel();
+		generateModel.setClassName(reportDef.getName());
+		generateModel.setClassContent(reportDefinition.generate().toString());
+		generateModel.setPkg(SystemConstant.GENERATED_PAGE);
+		generateModel.setPath(srcGenPath);
 		fileGenerater(generateModel);
 	}
 }

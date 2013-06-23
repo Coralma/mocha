@@ -505,6 +505,14 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
+            <propertyName>tableLabel</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>type</propertyName>
             <ignore>false</ignore>
             <type>String</type>
@@ -562,6 +570,14 @@
         <properties>
           <com.coral.foundation.md.model.Property>
             <propertyName>columnName</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>columnLabel</propertyName>
             <ignore>false</ignore>
             <type>String</type>
             <notnull>false</notnull>
@@ -733,5 +749,6 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
 </list>

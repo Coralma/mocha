@@ -25,6 +25,10 @@ import com.coral.foundation.md.model.Menu;
 import com.coral.foundation.md.model.MobileMenu;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.Property;
+import com.coral.foundation.md.model.ReportColumnDef;
+import com.coral.foundation.md.model.ReportDef;
+import com.coral.foundation.md.model.ReportJoinDef;
+import com.coral.foundation.md.model.ReportTableDef;
 import com.coral.foundation.md.model.Resource;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.ViewAction;
@@ -111,7 +115,8 @@ public class EntityXmlParser {
 			mocha.setViewList(parseView(coralRoot));
 			// parse the menu
 			mocha.setMenuList(createMenu(coralRoot.elements("menu"), null));
-			
+			// parse the report
+			mocha.setReportDefList(createReportDef(coralRoot.elements("report")));
 			//TODO Mobile menu.
 //			mocha.setMobileMenuList(createMobileMenu(coralRoot.elements("mobileMenu"), null));
 		}
@@ -466,7 +471,63 @@ public class EntityXmlParser {
 		return menuList;
 	}
 	
-	public boolean isExistedCode(List<CodeTable> codeTableList, String codeTableName) throws Exception {
+	/** report */
+	public List<ReportDef> createReportDef(List<Element> reportNodeList) throws Exception {
+		List<ReportDef> reportDefs = Lists.newArrayList();
+		for (Element reportNode : reportNodeList) {
+			ReportDef reportDef = new ReportDef();
+			reportDefs.add(reportDef);
+			reportDef.setName(reportNode.attributeValue("name"));
+			List<Element> reportTableNodeList = reportNode.elements("reportTable");
+			// set reportTable
+			for(Element reportTable : reportTableNodeList) {
+				ReportTableDef reportTableDef = new ReportTableDef();
+				reportDef.addReportTable(reportTableDef);
+				String entityName = reportTable.attributeValue("entity");
+				Entity entity = findEntity(entityName);
+				reportTableDef.setEntity(entity);
+				reportTableDef.setName(StrUtils.lowCaseFirstLetter(entityName));
+				reportTableDef.setLabel(StrUtils.genLabel(entityName));
+				reportTableDef.setTableName("T_" + StrUtils.genDBName(entityName));
+
+				// set column				
+				String columnValue = reportTable.element("columns").getText();
+				String[] cols = columnValue.split(",");
+				for(String col : cols) {
+					String column = col.trim();
+					ReportColumnDef columnDef = new ReportColumnDef();
+					reportTableDef.addColumn(columnDef);
+					columnDef.setName(column);
+					columnDef.setColumnName(StrUtils.genDBName(column));
+					Property property = findProperty(entity, column);
+					if(property.getLabel() != null) {
+						columnDef.setLabel(property.getLabel());
+					} else {
+						columnDef.setLabel(StrUtils.genLabel(column));
+					}
+				}
+				
+				// set Join def
+				String joinEntitys = reportTable.element("joinEntitys").getText();
+				String[] jes = joinEntitys.split(",");
+				for(String je : jes) {
+					String joinEntity = je.trim();
+					ReportJoinDef reportJoinDef = new ReportJoinDef();
+					reportTableDef.addJoinDefs(reportJoinDef);
+					reportJoinDef.setName(StrUtils.lowCaseFirstLetter(joinEntity));
+				}
+			}
+		}
+		return reportDefs;
+	}
+	
+	
+	/***************************************************************************************************/
+    /*																								   */	
+	/*									Validation Function											   */
+	/*																								   */
+	/***************************************************************************************************/
+	private boolean isExistedCode(List<CodeTable> codeTableList, String codeTableName) throws Exception {
 		for(CodeTable codeTable : codeTableList) {
 			if(codeTable.getName().equals(codeTableName)) {
 				return true;
@@ -484,5 +545,14 @@ public class EntityXmlParser {
 			}
 		}
 		throw new Exception(entityName + "didn't existed, Please check your configuration file.");
+	}
+	
+	private Property findProperty(Entity entity, String propertyName) throws Exception {
+		for(Property property : entity.getProperties()) {
+			if(property.getPropertyName().equals(propertyName)) {
+				return property;
+			}
+		}
+		throw new Exception(propertyName + "didn't existed in entity "+ entity.getEntityName() +", Please check your configuration file.");
 	}
 }

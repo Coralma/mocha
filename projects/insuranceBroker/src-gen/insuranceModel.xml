@@ -93,6 +93,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>insuranceBroker</name>
@@ -235,6 +236,7 @@
     </codeTableList>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>insuranceBroker</name>
@@ -755,6 +757,131 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
+  </com.coral.foundation.md.model.Mocha>
+  <com.coral.foundation.md.model.Mocha>
+    <name>insuranceBroker</name>
+    <entityPackage>com.mocha.ib.model</entityPackage>
+    <daoIntfPackage>com.mocha.ib.dao</daoIntfPackage>
+    <daoImplPackage>com.mocha.ib.dao.impl</daoImplPackage>
+    <servicePackage>com.mocha.ib.service</servicePackage>
+    <entityList/>
+    <viewList/>
+    <apps/>
+    <codeTableList/>
+    <menuList/>
+    <mobileMenuList/>
+    <reportDefList>
+      <com.coral.foundation.md.model.ReportDef>
+        <name>InsuranceBrokerReport</name>
+        <reportTables>
+          <com.coral.foundation.md.model.ReportTableDef>
+            <entity reference="../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity"/>
+            <tableName>T_INSURANCE_CUSTOMER</tableName>
+            <name>insuranceCustomer</name>
+            <label>Insurance Customer</label>
+            <columns>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>name</name>
+                <columnName>NAME</columnName>
+                <label>Name</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>district</name>
+                <columnName>DISTRICT</columnName>
+                <label>District</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>postcode</name>
+                <columnName>POSTCODE</columnName>
+                <label>Postcode</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>address</name>
+                <columnName>ADDRESS</columnName>
+                <label>Address</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>contectPerson</name>
+                <columnName>CONTECT_PERSON</columnName>
+                <label>Contect Person</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+            </columns>
+            <joinDefs>
+              <com.coral.foundation.md.model.ReportJoinDef>
+                <name>policy</name>
+              </com.coral.foundation.md.model.ReportJoinDef>
+            </joinDefs>
+          </com.coral.foundation.md.model.ReportTableDef>
+          <com.coral.foundation.md.model.ReportTableDef>
+            <entity reference="../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[4]"/>
+            <tableName>T_POLICY</tableName>
+            <name>policy</name>
+            <label>Policy</label>
+            <columns>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>policyNo</name>
+                <columnName>POLICY_NO</columnName>
+                <label>Policy No</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>effectiveDate</name>
+                <columnName>EFFECTIVE_DATE</columnName>
+                <label>Effective Date</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>expiryDate</name>
+                <columnName>EXPIRY_DATE</columnName>
+                <label>Expiry Date</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>premium</name>
+                <columnName>PREMIUM</columnName>
+                <label>Premium</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>commission</name>
+                <columnName>COMMISSION</columnName>
+                <label>Commission</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+            </columns>
+            <joinDefs>
+              <com.coral.foundation.md.model.ReportJoinDef>
+                <name>insuranceCustomer</name>
+              </com.coral.foundation.md.model.ReportJoinDef>
+            </joinDefs>
+          </com.coral.foundation.md.model.ReportTableDef>
+          <com.coral.foundation.md.model.ReportTableDef>
+            <entity reference="../../../../../../com.coral.foundation.md.model.Mocha[3]/entityList/com.coral.foundation.md.model.Entity[5]"/>
+            <tableName>T_CLAIM</tableName>
+            <name>claim</name>
+            <label>Claim</label>
+            <columns>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>status</name>
+                <columnName>STATUS</columnName>
+                <label>Status</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>claimReason</name>
+                <columnName>CLAIM_REASON</columnName>
+                <label>Claim Reason</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+              <com.coral.foundation.md.model.ReportColumnDef>
+                <name>claimAmount</name>
+                <columnName>CLAIM_AMOUNT</columnName>
+                <label>Claim Amount</label>
+              </com.coral.foundation.md.model.ReportColumnDef>
+            </columns>
+            <joinDefs>
+              <com.coral.foundation.md.model.ReportJoinDef>
+                <name>policy</name>
+              </com.coral.foundation.md.model.ReportJoinDef>
+            </joinDefs>
+          </com.coral.foundation.md.model.ReportTableDef>
+        </reportTables>
+      </com.coral.foundation.md.model.ReportDef>
+    </reportDefList>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>Insurance</name>
@@ -1216,6 +1343,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>Insurance</name>
@@ -1378,6 +1506,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>Insurance</name>
@@ -1664,6 +1793,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>officeAdmin</name>
@@ -1887,6 +2017,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>Insurance</name>
@@ -2022,6 +2153,7 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
   <com.coral.foundation.md.model.Mocha>
     <name>Insurance</name>
@@ -2210,5 +2342,6 @@
     <codeTableList/>
     <menuList/>
     <mobileMenuList/>
+    <reportDefList/>
   </com.coral.foundation.md.model.Mocha>
 </list>
