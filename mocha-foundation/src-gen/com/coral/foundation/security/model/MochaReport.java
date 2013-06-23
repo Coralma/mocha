@@ -40,7 +40,7 @@ public class MochaReport extends BaseEntity {
 	private AppReport appReport;
 	
 	@Basic(optional = true)
-	@Column(name = "REPORT_PURE_QUERY" )
+	@Column(name = "REPORT_PURE_QUERY" ,length = 65536)
 	private String reportPureQuery;
 	
 	

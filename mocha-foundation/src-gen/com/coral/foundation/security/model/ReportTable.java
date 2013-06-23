@@ -31,6 +31,7 @@ public class ReportTable extends BaseEntity {
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportColumn.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="REPORT_TABLE_ID")
 	private List<ReportColumn> reportColumns = new ArrayList<ReportColumn>();
 	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportJoinTable.class, fetch=FetchType.EAGER)

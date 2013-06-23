@@ -595,16 +595,6 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
-            <propertyName>reportTable</propertyName>
-            <ignore>false</ignore>
-            <type>ReportTable</type>
-            <ref>ReportTable</ref>
-            <orm>many-to-one</orm>
-            <notnull>false</notnull>
-            <required>false</required>
-            <refer>false</refer>
-          </com.coral.foundation.md.model.Property>
-          <com.coral.foundation.md.model.Property>
             <propertyName>referenceTableName</propertyName>
             <ignore>false</ignore>
             <label>referenceTableName</label>
@@ -641,6 +631,14 @@
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>filterType</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>filterBuildString</propertyName>
             <ignore>false</ignore>
             <type>String</type>
             <notnull>false</notnull>
@@ -728,6 +726,7 @@
             <propertyName>reportPureQuery</propertyName>
             <ignore>false</ignore>
             <type>String</type>
+            <length>65536</length>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>

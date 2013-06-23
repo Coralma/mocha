@@ -25,11 +25,16 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 	private static final long serialVersionUID = 8828931259387636566L;
 	public ReportCategoryListener listener;
 	public Button createButton;
+	private List<AppReport> customizedAppReports=new ArrayList<AppReport>(); 
+	
+	public CrmReportViewer(List<AppReport> customizedAppReports){
+		this.customizedAppReports=customizedAppReports;
+	}
 	
 	@Override
 	public void attach() {
 		super.attach();
-		
+
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setToolbarWidth(RuntimeConstant.APP_CONTENT_WIDTH);
 		toolbar.addLeftComponent(WidgetFactory.createLink("All Report"));
@@ -77,23 +82,26 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 
 			GridLayout gridLayout  = new GridLayout(3, 1);
 			gridLayout.setSizeFull();
-	        
-			for(AppReport appReport : appReports) {
-				ReportCard reportCard = new ReportCard(appReport);
-				gridLayout.addComponent(reportCard);
-			    gridLayout.setComponentAlignment(reportCard, Alignment.MIDDLE_LEFT);
-			}
-			// add the empty
-			int appSize = appReports.size();
-			int c = appSize % 3;
-			if(c != 0) {
-				c = 3 - c;
-			}
-			for(int i=0; i<c;i++) {
-				VerticalLayout layout = new VerticalLayout();
-				layout.setWidth("248px");
-				layout.addComponent(WidgetFactory.createLabel(" "));
-				gridLayout.addComponent(layout);
+		    if(appReports==null || appReports.size()==0){
+				gridLayout.setCaption("Empty Customered Report View");
+			}else{
+				for(AppReport appReport : appReports) {
+					ReportCard reportCard = new ReportCard(appReport);
+					gridLayout.addComponent(reportCard);
+				    gridLayout.setComponentAlignment(reportCard, Alignment.MIDDLE_LEFT);
+				}
+				// add the empty
+				int appSize = appReports.size();
+				int c = appSize % 3;
+				if(c != 0) {
+					c = 3 - c;
+				}
+				for(int i=0; i<c;i++) {
+					VerticalLayout layout = new VerticalLayout();
+					layout.setWidth("248px");
+					layout.addComponent(WidgetFactory.createLabel(" "));
+					gridLayout.addComponent(layout);
+				}
 			}
 			this.addComponent(gridLayout);
 		}
@@ -172,21 +180,20 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		return reports;
 	}
 	
-	public List<AppReport> getCustomizedAppReports() {
-		List<AppReport> reports = new ArrayList<AppReport>();
-		AppReport appReport = new AppReport();
-		appReport.setName("Call Serve of Custome Report");
-		appReport.setDescription("This statistics report will display all call serve detail of custome.");
-		reports.add(appReport);
-		
-		appReport = new AppReport();
-		appReport.setName("Potential Custome Report all potential custome");
-		appReport.setDescription("This statistics report will display all potential custome.");
-		reports.add(appReport);
-		
-		
-		return reports;
-	}
+//	public List<AppReport> getCustomizedAppReports() {
+//		List<AppReport> reports = new ArrayList<AppReport>();
+////		AppReport appReport = new AppReport();
+////		appReport.setName("Call Serve of Custome Report");
+////		appReport.setDescription("This statistics report will display all call serve detail of custome.");
+////		reports.add(appReport);
+////		
+////		appReport = new AppReport();
+////		appReport.setName("Potential Custome Report all potential custome");
+////		appReport.setDescription("This statistics report will display all potential custome.");
+////		reports.add(appReport);
+//		
+//		return reports;
+//	}
 	
 	@Override
 	public String getViewerTitle() {
@@ -205,5 +212,13 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 	 */
 	public void setListener(ReportCategoryListener listener) {
 		this.listener = listener;
+	}
+
+	public List<AppReport> getCustomizedAppReports() {
+		return customizedAppReports;
+	}
+
+	public void setCustomizedAppReports(List<AppReport> customizedAppReports) {
+		this.customizedAppReports = customizedAppReports;
 	}
 }

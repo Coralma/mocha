@@ -24,6 +24,8 @@ public interface MochaReportDao extends Dao<MochaReport> {
 	public  Map<String,ReportTable> loadDBBasicInfo();
 	//load db foreign keys
 	public Map<String,ReportTable> loadDBAdvanceInfo(Map<String,ReportTable> reportTable);
+
+	public List<MochaReport> findByCreator(BasicUser basicUser);
 	
 	
 }

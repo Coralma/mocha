@@ -34,11 +34,6 @@ public class ReportColumn extends BaseEntity {
 	private String columnUseMode;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "reportTable") })
-	@Fetch(FetchMode.JOIN)
-	private ReportTable reportTable;
-	
 	@Basic(optional = true)
 	@Column(name = "REFERENCE_TABLE_NAME" )
 	private String referenceTableName;
@@ -73,12 +68,6 @@ public class ReportColumn extends BaseEntity {
 	} 
 	public String getColumnUseMode () {
 		return columnUseMode;
-	}
-	public void setReportTable (ReportTable reportTable) {
-		this.reportTable = reportTable;
-	} 
-	public ReportTable getReportTable () {
-		return reportTable;
 	}
 	public void setReferenceTableName (String referenceTableName) {
 		this.referenceTableName = referenceTableName;

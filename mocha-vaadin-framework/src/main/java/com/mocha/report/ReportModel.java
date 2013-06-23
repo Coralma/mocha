@@ -1,10 +1,13 @@
 package com.mocha.report;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.coral.foundation.report.ReportConfiguration.QueryOrder;
 import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
+import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
 import com.google.common.collect.Lists;
@@ -13,10 +16,15 @@ public class ReportModel {
 
 	public String tableName;
 	public List<String> columnFields = Lists.newArrayList();
-	private List<ReportTable> reportTables=new ArrayList<ReportTable>();
+	private HashSet<ReportTable> reportTables=new HashSet<ReportTable>();
 	private List<ReportQueryFilterCondition> reportQueryFilterCondition=new ArrayList<ReportQueryFilterCondition>();
 	private List<ReportQueryOrders> orderConditions=new ArrayList<ReportQueryOrders>();
-	private List<ReportColumn> selectedColumns=new ArrayList<ReportColumn>();
+	private HashSet<ReportColumn> mainTableSelectedColumns=new HashSet<ReportColumn>();
+	private HashSet<ReportColumn> subTableSelectedColumns=new HashSet<ReportColumn>();
+	private AppReport appReport=new AppReport();
+	
+	private StringBuilder reportQueryJoinStrings=new StringBuilder();
+	
 	
 	public ReportModel(String tableName, String... fields){
 		this.tableName = tableName;
@@ -49,14 +57,6 @@ public class ReportModel {
 		this.columnFields = columnFields;
 	}
 	
-	
-	public List<ReportTable> getReportTables() {
-		return reportTables;
-	}
-	public void setReportTables(List<ReportTable> reportTables) {
-		this.reportTables = reportTables;
-	}
-	
 	public List<ReportQueryOrders> getOrderConditions() {
 		return orderConditions;
 	}
@@ -73,12 +73,35 @@ public class ReportModel {
 		this.reportQueryFilterCondition = reportQueryFilterCondition;
 	}
 
-
-	public List<ReportColumn> getSelectedColumns() {
-		return selectedColumns;
+	public HashSet<ReportTable> getReportTables() {
+		return reportTables;
 	}
-	public void setSelectedColumns(List<ReportColumn> selectedColumns) {
-		this.selectedColumns = selectedColumns;
+	public void setReportTables(HashSet<ReportTable> reportTables) {
+		this.reportTables = reportTables;
+	}
+
+
+	public AppReport getAppReport() {
+		return appReport;
+	}
+	public void setAppReport(AppReport appReport) {
+		this.appReport = appReport;
+	}
+
+
+	public HashSet<ReportColumn> getMainTableSelectedColumns() {
+		return mainTableSelectedColumns;
+	}
+	public void setMainTableSelectedColumns(HashSet<ReportColumn> mainTableSelectedColumns) {
+		this.mainTableSelectedColumns = mainTableSelectedColumns;
+	}
+
+
+	public HashSet<ReportColumn> getSubTableSelectedColumns() {
+		return subTableSelectedColumns;
+	}
+	public void setSubTableSelectedColumns(HashSet<ReportColumn> subTableSelectedColumns) {
+		this.subTableSelectedColumns = subTableSelectedColumns;
 	}
 
 

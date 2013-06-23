@@ -10,8 +10,10 @@ import com.coral.foundation.security.basic.dao.ReportJoinTableDao;
 import com.coral.foundation.security.basic.dao.ReportTableDao;
 import com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl;
 import com.coral.foundation.security.model.AppReport;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.MochaReport;
 import com.coral.foundation.security.model.ReportColumn;
+import com.coral.foundation.security.model.ReportFilter;
 import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.spring.bean.SpringContextUtils;
@@ -28,24 +30,31 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 
 	private ReportTableDao reportTableDao = SpringContextUtils
 			.getBean(ReportTableDao.class);
-
 	private ReportJoinTableDao reportJoinTableDao = SpringContextUtils
 			.getBean(ReportJoinTableDao.class);
-
 	private AppReport appReport;
-	
 	private MochaReport mochaReport = new MochaReport();
-	
+	private BasicUser creator;
 
-	public AppCusteomReportService(AppReport appReport) {
+	public AppCusteomReportService(AppReport appRepor,BasicUser creator) {
+		super();
+		setAppReport(appReport);
+		this.creator=creator;
+	}
+	
+	
+	public AppCusteomReportService(AppReport appRepor) {
 		super();
 		setAppReport(appReport);
 	}
 
 	@Override
 	public String buildReport() {
-		
 		mochaReport.setAppReport(getAppReport());
+		mochaReport.setReportName(getAppReport().getName());
+		if(creator!=null){
+			mochaReport.setCreator(creator);			
+		}
 		setMochaReport(mochaReport);
 		validateReportTemplate(mochaReport);
 
@@ -59,15 +68,12 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 		dynamicQuery.append(" ");
 		dynamicQuery.append(getDefaultJoinString());
 		dynamicQuery.append(" ");
-		dynamicQuery.append(appReport.getReportFilters().size() == 0
-				? ""
-				: getDefaultFilterString());
+		dynamicQuery.append(appReport.getReportFilters().size() == 0 ? "": getDefaultFilterString());
 		dynamicQuery.append(" ");
 		mochaReport.setReportPureQuery(dynamicQuery.toString());
+		System.out.println("dynamicQuery is: "+dynamicQuery.toString());
 		mochaReportDao.merge(mochaReport);
-		
 //		Collection reportResult = mochaReportDao.executeReport(mochaReport);
-
 		return null;
 	}
 
@@ -76,21 +82,31 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 		List<ReportColumn> reportColumns = table.getReportColumns();
 		StringBuilder outputColumnString = new StringBuilder();
 		for (ReportColumn reportColumn : reportColumns) {
-			outputColumnString.append(table.getTableName() + ".");
-			outputColumnString.append(reportColumn.getColumnName());
-			outputColumnString.append(", ");
+			if (reportColumn.getColumnUseMode().equals(
+					ReportConfiguration.ReportColumnType.OutputColumn.toString())) {
+				outputColumnString.append(table.getTableName() + ".");
+				outputColumnString.append(reportColumn.getColumnName());
+				outputColumnString.append(", ");
+			}
 		}
 		setDefaultOutputColumnsString(getDefaultOutputColumnsString()
 				+ outputColumnString.toString());
 	}
 
+
 	@Override
 	void buildJoinString(ReportTable mainTable) {
+		String aliname="t";
+		int i=0;
 		String joinType = mainTable.getJoinType().toString();
+		// support one main join with multi sub join tables
+		// e.g from Table A Inner Join B on A.id=B.id
+		//     Inner Join B on A.name=B.name
+		//     Inner Join C on A.value=C.value
+		
 		// find the subTables and connect with mainTable
-		for (ReportJoinTable referenceTable : mainTable
-				.getReportJoinReportTableId()) {
-
+		for (ReportJoinTable referenceTable : mainTable.getReportJoinReportTableId()) {
+			
 			// get all the reference join tables;
 
 			ReportTable subTable = referenceTable.getReportTable();
@@ -101,16 +117,15 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 			List<ReportColumn> mainReportColums = mainTable.getReportColumns();
 
 			for (ReportColumn reportColumn : mainReportColums) {
-				if (reportColumn.getColumnUseMode() == "2") {
+				if (reportColumn.getColumnUseMode() == ReportConfiguration.ReportColumnType.JoinColumn.toString()) {
 					mainTableJoinColumn = reportColumn.getColumnName();
 					break;
 				}
 			}
-
 			List<ReportColumn> subReportColums = subTable.getReportColumns();
 
 			for (ReportColumn reportColumn : subReportColums) {
-				if (reportColumn.getColumnUseMode() == "2") {
+				if (reportColumn.getColumnUseMode() == ReportConfiguration.ReportColumnType.JoinColumn.toString()) {
 					subTableJoinColumn = reportColumn.getColumnName();
 					break;
 				}
@@ -128,18 +143,25 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 						+ " = " + subTable.getTableName() + "."
 						+ subTableJoinColumn;
 			} else {
-				joinString = joinString + " and " + joinType + ""
+				if(i>0){
+					subTable.setTableName(subTable.getTableName()+" "+aliname+i);
+				}
+				joinString = joinString + " " + joinType + " "+subTable.getTableName()+" "+" on "
 						+ mainTable.getTableName() + "." + mainTableJoinColumn
-						+ " = " + subTable.getTableName() + "."
-						+ subTableJoinColumn;
+						+ " = " + aliname+i+ "."+ subTableJoinColumn;
 			}
 			setDefaultJoinString(joinString);
+			i++;
 		}
 	}
 
 	@Override
 	void buildFilterString(MochaReport table) {
 		// where clause
+		if(table.getAppReport().getReportFilters().size()>0){
+			ReportFilter rf=table.getAppReport().getReportFilters().get(0);
+			setDefaultFilterString("where "+rf.getFilterBuildString());
+		}
 		StringBuilder filterString = new StringBuilder("");
 		if (getDefaultFilterString().equals("where")) {
 			setDefaultFilterString(getDefaultFilterString() + " ");
@@ -149,7 +171,7 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 	public void saveReferenceJoinTables() {
 		if (appReport != null) {
 			for (ReportTable reportTable : appReport.getReportTables()) {
-				if (reportTable.getType() == "2") {
+				if (reportTable.getType() == ReportConfiguration.ReportType.SubTable.toString()) {
 					reportTableDao.merge(reportTable);
 				}
 			}
@@ -159,7 +181,7 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 	public void saveMainReportTable() {
 		if (appReport != null) {
 			for (ReportTable reportTable : appReport.getReportTables()) {
-				if (reportTable.getType() == "1") {
+				if (reportTable.getType() ==ReportConfiguration.ReportType.MainTable.toString()) {
 					reportTableDao.merge(reportTable);
 				}
 			}
@@ -179,6 +201,14 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 		setDefalutQueryFromString(getDefalutQueryFromString() + " "
 				+ reportTable.getTableName());
 
+	}
+
+	public BasicUser getCreator() {
+		return creator;
+	}
+
+	public void setCreator(BasicUser creator) {
+		this.creator = creator;
 	}
 
 }

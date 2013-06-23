@@ -21,6 +21,8 @@ import com.coral.foundation.security.basic.dao.*;
 import com.coral.foundation.security.model.*;
 import com.coral.foundation.jpa.impl.JpaDao;
 import org.hibernate.Session;
+import org.hibernate.connection.ConnectionProvider;
+import org.hibernate.engine.SessionFactoryImplementor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +66,7 @@ public class MochaReportDaoImpl extends JpaDao<MochaReport>
 
 		ResultSet rs = null;
 		Statement st;
-		ArrayList reportRowDataReslt = new ArrayList();
+		ArrayList<String[]> reportRowDataReslt = new ArrayList<String[]>();
 		try {
 			Connection conn = getConnection();
 			st = conn.createStatement();
@@ -111,8 +113,16 @@ public class MochaReportDaoImpl extends JpaDao<MochaReport>
 	}
 
 	private Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
+		 Session session = entityManager.unwrap(Session.class);
+		    SessionFactoryImplementor sessionFactoryImplementation = (SessionFactoryImplementor) session.getSessionFactory();
+		    ConnectionProvider connectionProvider = sessionFactoryImplementation.getConnectionProvider();
+		    try {
+				return connectionProvider.getConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    return null;
 	}
 
 	@Override
@@ -250,6 +260,18 @@ public class MochaReportDaoImpl extends JpaDao<MochaReport>
 			setConn(hibernateSession.connection());
 		}
 		return conn;
+	}
+	
+	
+	@Override
+	public List<MochaReport> findByCreator(BasicUser basicUser) {
+		Query query = entityManager.createQuery("from MochaReport where creator = :creator",MochaReport.class);
+		query.setParameter("creator", basicUser);
+		List<MochaReport> mochaReports = query.getResultList();
+		if(mochaReports.size() > 0) {
+			return mochaReports;
+		}
+		return null;
 	}
 
 	public static void setConn(Connection conn) {
