@@ -40,3 +40,7 @@ projects/homepage/target/
 projects/officeAdmin/target/
 projects/insuranceBroker/target/
 projects/cooperate-mobile/target/
+projects/cooperate/cooperate.2013-06-22.log
+projects/cooperate/cooperate_exceptions.2013-06-22.log
+projects/cooperate/src/test/java/com/mocha/cooperate/service/test/crmModel.xml
+projects/cooperate/src/test/java/com/mocha/cooperate/service/test/foundationModel.xml

@@ -18,6 +18,8 @@ import com.mocha.ib.model.InsuranceCompany;
 import com.mocha.ib.model.InsuranceProduct;
 import com.mocha.ib.model.Policy;
 import com.mocha.vaadin.entity.view.PolicyView;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button;
@@ -69,7 +71,7 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 	
 	public void initViewer(PolicyView policyView) {
 		// filter
-		UnitSelectionWidget companyWidget = (UnitSelectionWidget)policyView.getField("insuranceCompany");
+		final UnitSelectionWidget companyWidget = (UnitSelectionWidget)policyView.getField("insuranceCompany");
 		final UnitSelectionWidget categoryWidget = (UnitSelectionWidget)policyView.getField("category");
 		final UnitSelectionWidget productWidget = (UnitSelectionWidget)policyView.getField("insuranceProduct");
 		List<InsuranceCompany> companys = companyDao.findAll();
@@ -77,6 +79,16 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 		companyWidget.setItems(companys, InsuranceCompany.class, "companyName");
 		categoryWidget.setItems("Vehicle","Accident","Life","Property","Liability","Contract");
 		productWidget.setItems(products, InsuranceProduct.class, "productName");
+		companyWidget.addValueChangeListener(new ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				InsuranceCompany company = (InsuranceCompany)companyWidget.getSeletedItem();
+				if(company != null) {
+					List<InsuranceProduct> relatedProducts = productDao.findProductByCompany(company);
+					productWidget.setItems(relatedProducts, InsuranceProduct.class, "productName");
+				}
+			}
+		});
 		
 		// commission calculator
 		final StringFieldWidget commissionWidget = (StringFieldWidget)policyView.getField("commission");
@@ -86,7 +98,7 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 			public void blur(BlurEvent event) {
 				String premium = (String)premiumWidget.getValue();
 				if(!StrUtils.isEmpty(premium) && StrUtils.isNumber(premium)) {
-					InsuranceProduct insuranceProduct = (InsuranceProduct)productWidget.getValue();
+					InsuranceProduct insuranceProduct = (InsuranceProduct)productWidget.getSeletedItem();
 					if(insuranceProduct != null && StrUtils.isNumber(insuranceProduct.getCommissionRate())) {
 						BigDecimal premiumDecimal = new BigDecimal(premium);
 						BigDecimal rateDecimal = new BigDecimal(insuranceProduct.getCommissionRate());

@@ -189,6 +189,8 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 				List<ReportColumn> columnFields = selectReport.getReportColumns();
 				gridLayout.setRows(columnFields.size());
 				for (final ReportColumn columnField : columnFields) {
+					if(columnField.getColumnLabel()!=null){
+					
 					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
 						public void layoutClick(LayoutClickEvent event) {
@@ -198,7 +200,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 						}
 					};
 					gridLayout.addComponent(reportColumnCard);
-
+					}
 				}
 				Label queryFilterLabel=new Label("Select Query filter condition");
 				columnLayout.addComponent(queryFilterLabel);

@@ -41,18 +41,16 @@ VALUES      ('root',
              'root',
              1);
 
-/*4. add role to user*/
-INSERT INTO `t_role_t_user`
-            (`t_role_basic_role_id`,
-             `user_basic_user_id`)
-VALUES      (1,
-             1);
-
-/*5. add user to default account*/
+/*4. add user to default account*/
 UPDATE t_user
 SET    account = (SELECT account_id
                   FROM   t_account
                   WHERE  name = 'root');  
+                  
+/*5. Verify the init data*/
+set @missAllCodeScript=(select count(*) from t_code_table);
+select if(@missAllCodeScript>0,'Data Init Successfully','Miss AllCode Sql');
+
                   
 use homepage;
 
@@ -109,6 +107,3 @@ begin
 end; $$ 
 
 
-/*Verify the init data*/
-set @missAllCodeScript=(select count(*) from t_code_table);
-select if(@missAllCodeScript>0,'Data Init Successfully','Miss AllCode Sql');

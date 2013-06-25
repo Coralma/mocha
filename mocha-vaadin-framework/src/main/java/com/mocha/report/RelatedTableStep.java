@@ -178,12 +178,16 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 				gridLayout.requestRepaintAll();
 				gridLayout.setRows(columnFields.size());
 				gridLayout.setSpacing(true);
+				
 				for (final ReportColumn columnField : columnFields) {
+					if(columnField.getColumnLabel()!=null){
 					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
 						public void layoutClick(LayoutClickEvent event) {
+							System.out.println("User click related column: "+columnField.getColumnLabel());
 							ReportColumn reportColumn=new ReportColumn();
 							reportColumn.setColumnName(columnField.getColumnName());
+							reportColumn.setColumnLabel(columnField.getColumnLabel());
 							reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
 							if(ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns()==null){
 								HashSet<ReportColumn> reportColumns=new HashSet<ReportColumn>();
@@ -195,6 +199,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 						}
 					};
 					gridLayout.addComponent(reportColumnCard);
+					}
 //					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
 //					gridLayout.addComponent(checkBox);
 //					checkBox.addListener(new ClickListener() {

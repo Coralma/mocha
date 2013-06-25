@@ -1,5 +1,6 @@
 package com.coral.foundation.report;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 	private AppReport appReport;
 	private MochaReport mochaReport = new MochaReport();
 	private BasicUser creator;
+	
+	private static ArrayList<String> duplicateOuputColumns=new ArrayList<String>();
 
 	public AppCusteomReportService(AppReport appRepor,BasicUser creator) {
 		super();
@@ -84,21 +87,28 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 		for (ReportColumn reportColumn : reportColumns) {
 			if (reportColumn.getColumnUseMode().equals(
 					ReportConfiguration.ReportColumnType.OutputColumn.toString())) {
+				if(!duplicateOuputColumns.contains(table.getTableName()+"."+reportColumn.getColumnName())){
+				duplicateOuputColumns.add(table.getTableName()+"."+reportColumn.getColumnName());
 				outputColumnString.append(table.getTableName() + ".");
 				outputColumnString.append(reportColumn.getColumnName());
+				outputColumnString.append(" ");
+				outputColumnString.append("'"+reportColumn.getColumnLabel()+"'");
 				outputColumnString.append(", ");
+				}
 			}
 		}
 		setDefaultOutputColumnsString(getDefaultOutputColumnsString()
 				+ outputColumnString.toString());
 	}
 
-
 	@Override
 	void buildJoinString(ReportTable mainTable) {
 		String aliname="t";
 		int i=0;
 		String joinType = mainTable.getJoinType().toString();
+		
+		ArrayList<String> subDuplicateTables=new ArrayList<String>();
+		
 		// support one main join with multi sub join tables
 		// e.g from Table A Inner Join B on A.id=B.id
 		//     Inner Join B on A.name=B.name
@@ -110,6 +120,8 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 			// get all the reference join tables;
 
 			ReportTable subTable = referenceTable.getReportTable();
+			if(!subDuplicateTables.contains(subTable.getTableName())){
+			subDuplicateTables.add(subTable.getTableName());
 			String joinString = getDefaultJoinString();
 			String mainTableJoinColumn = "";
 			String subTableJoinColumn = "";
@@ -152,6 +164,7 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 			}
 			setDefaultJoinString(joinString);
 			i++;
+		}
 		}
 	}
 

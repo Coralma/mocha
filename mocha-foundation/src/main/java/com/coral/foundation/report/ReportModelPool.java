@@ -66,6 +66,11 @@ public class ReportModelPool {
 		ReportModelPool.basicUser = basicUser;
 	}
 
+	public static void init(BasicUser user, ReportModel reportModel) {
+		setBasicUser(user);
+		initUserSessionReportModel(user,reportModel);
+	}
+
 	
 
 

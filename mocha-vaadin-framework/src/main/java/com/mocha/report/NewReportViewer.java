@@ -52,7 +52,7 @@ import javax.persistence.*;
 
 
 public class NewReportViewer extends CommonViewer implements Viewer {
-
+	
 	String fieldWidth = "300px";
 	private Wizard wizard = new Wizard();
 	static Map<String, ReportTable> reportTables;
@@ -62,9 +62,11 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 	final ReportQueryFilterCondition queryFilterCondition = new ReportQueryFilterCondition();
 	private ReportWizardProgressListener listener;
 	private static BasicUser user;
+	private static List<ReportTable>  appCustomReprotRowData;
 	
-	public NewReportViewer(BasicUser user) {
+	public NewReportViewer(BasicUser user,List<ReportTable> appCustomReprotRowData) {
 		this.setUser(user);
+		this.setAppCustomReprotRowData(appCustomReprotRowData);
 	}
 
 	@Override
@@ -74,8 +76,8 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 		layout.setWidth("760px");
 		layout.addStyleName("app-new-report");
 		wizard.setWidth("760px");
-	
-		MainTableStep firstStep=new MainTableStep(wizard,getUser());
+		MainTableStep.setAppCustomReprotRowData(getAppCustomReprotRowData());
+		MainTableStep firstStep=new MainTableStep(wizard,getUser(),getAppCustomReprotRowData());
 		wizard.addStep(firstStep,"Main Table Step");
 		wizard.addStep(new PreviewStep(wizard,getUser()),"Preview Step");
 		wizard.setImmediate(true);
@@ -103,6 +105,15 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 
 	public static void setUser(BasicUser user) {
 		NewReportViewer.user = user;
+	}
+
+	public static List<ReportTable> getAppCustomReprotRowData() {
+		return appCustomReprotRowData;
+	}
+
+	public static void setAppCustomReprotRowData(
+			List<ReportTable> appCustomReprotRowData) {
+		NewReportViewer.appCustomReprotRowData = appCustomReprotRowData;
 	}
 
 

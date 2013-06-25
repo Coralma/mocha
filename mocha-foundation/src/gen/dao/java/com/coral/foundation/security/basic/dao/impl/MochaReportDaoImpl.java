@@ -147,12 +147,12 @@ public class MochaReportDaoImpl extends JpaDao<MochaReport>
 					ResultSet primaryKeyRS = getMeta().getPrimaryKeys(null,
 							null, tableName);
 					java.util.List list = new java.util.ArrayList();
-					while (primaryKeyRS.next()) {
-						String columnName = primaryKeyRS
-								.getString("COLUMN_NAME");
-						System.out.println("getPrimaryKeys(): columnName="
-								+ columnName);
-					}
+//					while (primaryKeyRS.next()) {
+//						String columnName = primaryKeyRS
+//								.getString("COLUMN_NAME");
+//						System.out.println("getPrimaryKeys(): columnName="
+//								+ columnName);
+//					}
 
 					ResultSet collumnKeyRs = getMeta().getColumns(
 							conn.getCatalog(), null, tableName, null);

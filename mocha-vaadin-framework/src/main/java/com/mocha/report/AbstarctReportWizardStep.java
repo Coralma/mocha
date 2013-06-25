@@ -82,8 +82,8 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 					reportColumnNames[i] = reportColumn.getColumnName();
 					i++;
 				}
-				ReportModel reportModel = new ReportModel(
-						reportTable.getTableName(), reportColumnNames);
+				ReportModel reportModel = new ReportModel(reportTable.getTableName(),
+						reportTable.getTableLabel(), reportColumnNames);
 				reportModel.getReportTables().add(reportTable);
 				rm.add(reportModel);
 			}
@@ -126,7 +126,7 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 		
 		ReportColumnCard(ReportColumn reportColumn){
 			this.setReportColumn(reportColumn);
-			this.name= reportColumn.getColumnName();
+			this.name= reportColumn.getColumnLabel();
 			this.addStyleName("custom-report-column-card");
 			this.setWidth(width);
 			this.setHeight("20px");
