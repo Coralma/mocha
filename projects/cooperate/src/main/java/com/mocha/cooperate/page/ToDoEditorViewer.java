@@ -37,6 +37,7 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 	private static final long serialVersionUID = -5736772858193532820L;
 	private TodoEditorListener listener;
 	private ToDo todo;
+	private ToolbarAdvance toolbar = new ToolbarAdvance();
 	private AttachmentLayout attachmentLayout;
 	private TodoProjectEditor todoProjectEditor;
 	private String editorWidth = "745px";
@@ -91,7 +92,6 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 	}
 	
 	public ToolbarAdvance buildToolbar() {
-		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setWidth("768px");
 		Button backLink = WidgetFactory.createLink(message.getString("cooperate.todo.backtoTaskList"),"back",this);
 		backLink.setIcon(new ThemeResource("icons/back.png"));
@@ -162,6 +162,20 @@ public class ToDoEditorViewer extends CommonViewer implements Viewer, ClickListe
 	 */
 	public void setListener(TodoEditorListener listener) {
 		this.listener = listener;
+	}
+
+	/**
+	 * @return the toolbar
+	 */
+	public ToolbarAdvance getToolbar() {
+		return toolbar;
+	}
+
+	/**
+	 * @param toolbar the toolbar to set
+	 */
+	public void setToolbar(ToolbarAdvance toolbar) {
+		this.toolbar = toolbar;
 	}
 
 }

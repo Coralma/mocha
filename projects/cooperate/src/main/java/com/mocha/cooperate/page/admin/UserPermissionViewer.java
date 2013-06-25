@@ -260,9 +260,12 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 					}
 				}
 				if(user.getID() == null) {
+					user = listener.saveUser(user);
 					userList.add(0, user);
+					listener.refreshPanel();
+				} else {
+					listener.saveUser(user);
 				}
-				listener.saveUser(user);
 				this.close();
 			}
 			if(cancelButton.equals(event.getButton())) {

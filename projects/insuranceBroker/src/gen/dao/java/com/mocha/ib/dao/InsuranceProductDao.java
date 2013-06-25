@@ -9,5 +9,6 @@ import com.mocha.ib.model.*;
   */
 public interface InsuranceProductDao extends Dao<InsuranceProduct> {
 	
+	public List<InsuranceProduct> findProductByCompany(InsuranceCompany company);
 }
 

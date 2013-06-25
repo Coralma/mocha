@@ -81,6 +81,9 @@ public class StatusCard extends AbstractCard {
 			ConfirmDialog confirmDialog = new ConfirmDialog("Do you want to delete this Status ?") {
 				@Override
 				public void confirm() {
+					if(timeLine == null) {
+						timeLine = timeLineService.queryTimelineByStatus(status); 
+					}
 					timeLineService.removeTimeLine(timeLine);
 					Layout layout = (Layout) StatusCard.this.getParent();
 					layout.removeComponent(StatusCard.this);

@@ -5,6 +5,7 @@ package com.coral.foundation.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -188,7 +189,22 @@ public class StrUtils {
 		}
 	}
 	
+	public static String getRandomString(int length) {
+	 	String base = "abcdefghijkmnpqrstuvwxy3456789";
+	    Random random = new Random();   
+	    StringBuffer sb = new StringBuffer();   
+	    for (int i = 0; i < length; i++) {   
+	        int number = random.nextInt(base.length());   
+	        sb.append(base.charAt(number));   
+	    }   
+	    return sb.toString();   
+	}
+
 	public static void main(String[] args) {
+		System.out.println(isNumber("0.2"));
+//		for(int i=0;i<10000;i++) {
+//			System.out.println(getRandomString(6));
+//		}
 //	    System.out.println(genDBName("user"));
 //	    System.out.println(genDBName("userName"));
 //	    System.out.println(genDBName("disctinct"));
@@ -202,6 +218,6 @@ public class StrUtils {
 //	    System.out.println(asciiToXhtml("Share the file Sea.jpg by the link http://localhost:9090/cooperate/share?key=092af515-a15c-4e2d-893e-988b601af57e is good!"));
 //	    System.out.println(asciiToXhtml("Share the file Sea.jpg by the link http://localhost:9090/cooperate/share?key=092af515-a15c-4e2d-893e-988b601af57e"));
 //	    System.out.println(asciiToXhtml("Over on the Emergent Futures Tumblr (http://emergentfutures.tumblr.com) we caught this post by +Paul Higgins about RoboEarth. Book share."));
-	    System.out.println(asciiToXhtml("The easiest ways to get the latest version of Vaadin 7 are described at http://vaadin.com/download. If you are using Maven or Ivy, the 7.0.2 version is already available in the central maven repository."));
+//	    System.out.println(asciiToXhtml("The easiest ways to get the latest version of Vaadin 7 are described at http://vaadin.com/download. If you are using Maven or Ivy, the 7.0.2 version is already available in the central maven repository."));
 	}
 }

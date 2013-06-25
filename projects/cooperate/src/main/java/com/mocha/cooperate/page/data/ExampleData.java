@@ -56,7 +56,7 @@ public class ExampleData {
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("cooperate.shotcut.Forum");
 		shotcutItem.setAction(PresenterProperty.FORUM);
-		shotcutItem.setIcon("icons/discuss_icon.png");
+		shotcutItem.setIcon("icons/forum-icon.png");
 		shotcutItemList.add(shotcutItem);
 		
 		shotcutItem = new ShotcutItem();
@@ -80,9 +80,9 @@ public class ExampleData {
 		shotcut.setTitle("cooperate.shotcut.Application");
 		
 		shotcutItem = new ShotcutItem();
-		shotcutItem.setLabel("Insurance Broker");
+		shotcutItem.setLabel("Financial Advisor");
 		shotcutItem.setAction("ib");
-		shotcutItem.setIcon("icons/ib_icon.png");
+		shotcutItem.setIcon("icons/fa_icon.png");
 		shotcutItem.setType(SystemProperty.PAGE_TYPE);
 		shotcutItemList.add(shotcutItem);
 		
