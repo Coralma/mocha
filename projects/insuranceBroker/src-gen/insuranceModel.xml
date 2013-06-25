@@ -10,7 +10,7 @@
     <apps>
       <com.coral.foundation.md.model.App>
         <name>InsuranceBroker</name>
-        <label>Insurance Broker</label>
+        <label>Financial Advisor</label>
         <appNavigation>
           <appMenus>
             <com.coral.foundation.md.model.AppMenu>
@@ -23,12 +23,8 @@
               <label>Customer Management</label>
               <appMenus>
                 <com.coral.foundation.md.model.AppMenu>
-                  <name>Customer Manage</name>
+                  <name>Manage Customers</name>
                   <viewName>InsCustomerSearch</viewName>
-                </com.coral.foundation.md.model.AppMenu>
-                <com.coral.foundation.md.model.AppMenu>
-                  <name>Customer Serve</name>
-                  <viewName>InsCustomerServeSearch</viewName>
                 </com.coral.foundation.md.model.AppMenu>
               </appMenus>
             </com.coral.foundation.md.model.AppMenuGroup>
@@ -49,11 +45,11 @@
               <label>Company and Product</label>
               <appMenus>
                 <com.coral.foundation.md.model.AppMenu>
-                  <name>Cooperated Company</name>
+                  <name>Cooperating Companies</name>
                   <viewName>InsuranceCompanySearch</viewName>
                 </com.coral.foundation.md.model.AppMenu>
                 <com.coral.foundation.md.model.AppMenu>
-                  <name>Product Management</name>
+                  <name>Products and Services</name>
                   <viewName>InsuranceProductSearch</viewName>
                 </com.coral.foundation.md.model.AppMenu>
               </appMenus>
@@ -81,10 +77,6 @@
             <com.coral.foundation.md.model.AppMenu>
               <name>Create Cliam</name>
               <viewName>ClaimView</viewName>
-            </com.coral.foundation.md.model.AppMenu>
-            <com.coral.foundation.md.model.AppMenu>
-              <name>Create Serve</name>
-              <viewName>InsCustomerServeView</viewName>
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
         </appCreation>
@@ -894,6 +886,7 @@
       <com.coral.foundation.md.model.View>
         <name>InsCustomerSearch</name>
         <template>EntityCardSearch</template>
+        <label>Search Customer</label>
         <root>false</root>
         <sections>
           <com.coral.foundation.md.model.ViewSection>

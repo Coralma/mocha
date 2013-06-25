@@ -5,6 +5,22 @@
 	version="2.0">
 
 	<persistence-unit name="cooperate" transaction-type="RESOURCE_LOCAL">
+		<!-- 	cooperate -->
+		<class>com.mocha.cooperate.model.Attachment</class>
+		<class>com.mocha.cooperate.model.Chat</class>
+		<class>com.mocha.cooperate.model.ChatMessage</class>
+		<class>com.mocha.cooperate.model.ChatNotify</class>
+		<class>com.mocha.cooperate.model.ChatPerson</class>
+		<class>com.mocha.cooperate.model.Comment</class>
+		<class>com.mocha.cooperate.model.Discuss</class>
+		<class>com.mocha.cooperate.model.File</class>
+		<class>com.mocha.cooperate.model.NotifyLine</class>
+		<class>com.mocha.cooperate.model.Shotcut</class>
+		<class>com.mocha.cooperate.model.ShotcutItem</class>
+		<class>com.mocha.cooperate.model.Status</class>
+		<class>com.mocha.cooperate.model.SubToDoItem</class>
+		<class>com.mocha.cooperate.model.TimeLine</class>
+		<class>com.mocha.cooperate.model.ToDo</class>
 		<!-- 	foundation -->
 		<class>com.coral.foundation.security.model.Account</class>
 		<class>com.coral.foundation.security.model.App</class>

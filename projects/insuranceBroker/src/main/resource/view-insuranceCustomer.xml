@@ -4,7 +4,7 @@
 	servicePackage="com.mocha.ib.service">
 	
 	<!-- 	customer search view -->
-	<view name="InsCustomerSearch" template="EntityCardSearch" entity="InsuranceCustomer">
+	<view name="InsCustomerSearch" template="EntityCardSearch" label="Search Customer" entity="InsuranceCustomer">
 		<section name="CompanyCustomerCondition" template="SearchCondition">
 			<field name="customerType" />
 			<field name="status" />

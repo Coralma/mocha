@@ -6,6 +6,7 @@ package com.mocha.cooperate.page.admin;
 import java.util.List;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.email.EmailUtils;
 import com.coral.foundation.security.basic.dao.AccountDao;
 import com.coral.foundation.security.basic.dao.BasicRoleDao;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
@@ -17,6 +18,7 @@ import com.coral.vaadin.widget.view.CommonPresenter;
 import com.mocha.cooperate.PresenterProperty;
 import com.mocha.cooperate.page.event.UserPermissionListener;
 import com.mocha.cooperate.widget.listener.PagingListener;
+import com.mocha.email.cooperate.CooperateMailFactory;
 
 
 /**
@@ -45,12 +47,13 @@ public class UserPermissionPresenter extends CommonPresenter {
 		userPermissionViewer.setListener(new UserPermissionListener() {
 			@Override
 			public BasicUser saveUser(BasicUser user) {
-//				basicUserDao.persist(user);
 				if(user.getAccount() == null) {
 					Account account = accountDao.findById(currentUser.getAccount().getID());
 					user.setAccount(account);
 				}
 				user = basicUserDao.merge(user);
+//				user.setPassword(StrUtils.getRandomString(6));
+				EmailUtils.send(CooperateMailFactory.getUserRegister(user));
 				return user; 
 			}
 

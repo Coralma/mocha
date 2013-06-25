@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.vaadin.hene.expandingtextarea.ExpandingTextArea;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.Viewer;
@@ -18,6 +19,7 @@ import com.mocha.cooperate.model.Chat;
 import com.mocha.cooperate.model.ChatMessage;
 import com.mocha.cooperate.page.event.ChatListener;
 import com.mocha.cooperate.service.ChatService;
+import com.mocha.cooperate.widget.CheckBoxPrepose;
 import com.mocha.cooperate.widget.NotifyTokenField;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -44,15 +46,17 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 	private VerticalLayout outputMessageLayout = new VerticalLayout();
 	private VerticalLayout personsListLayout = new VerticalLayout();
 	private BasicUser currentUser;
-	private String personWidth = "216px";
+	private String personWidth = "236px";
 	private ChatListener listener;
 	private List<Chat> chats;
 	private List<PersonPanel> personPanels;
 	private Chat currentChat;
 	private ChatMessage lastMessage;
+	private MochaEventBus eventBus;
 	
-	public ChatViewer(BasicUser currentUser) {
-		this.currentUser = currentUser;
+	public ChatViewer(MochaEventBus eventBus) {
+		this.eventBus = eventBus;
+		this.currentUser = eventBus.getUser();
 	}
 	
 	public void attach() {
@@ -62,8 +66,11 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		toolbar.addStyleName("chat-persons-title");
 		chatPersonsTitle = WidgetFactory.createLabel("Conversation");
 		toolbar.addLeftComponent(chatPersonsTitle);
+		toolbar.setNeedRightSeperate(false);
 		Button newChat = WidgetFactory.createButton("New Chat", "new", this);
+		Button newTodo = WidgetFactory.createButton("New Todo", "todo", this);
 		toolbar.addRightComponent(newChat);
+		toolbar.addRightComponent(newTodo);
 		this.addComponent(toolbar);
 		
 		if(chats.size() > 0) {
@@ -77,24 +84,32 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		
 		// input and output message panel
 		VerticalLayout chatIOLayout = new VerticalLayout();
-		chatIOLayout.setWidth("550px");
+		chatIOLayout.setWidth("530px");
 		chatIOLayout.addStyleName("chat-io");
 		VerticalLayout inputLayout = new VerticalLayout();
 		inputLayout.addStyleName("chat-input");
-		inputArea.setWidth("530px");
+		inputArea.setWidth("510px");
 		inputAreaEnable(false);
 		inputLayout.addComponent(inputArea);
+		
 		HorizontalLayout inputControl = new HorizontalLayout();
 		inputControl.addStyleName("chat-control");
-		inputControl.setWidth("532px");
+		inputControl.setWidth("512px");
 //		inputControl.addComponent(addFButton);
 //		inputControl.setComponentAlignment(addFButton, Alignment.MIDDLE_LEFT);
-		inputControl.addComponent(replyButton);
-		inputControl.setComponentAlignment(replyButton, Alignment.MIDDLE_RIGHT);
+		
+		HorizontalLayout postControl = new HorizontalLayout();
+		postControl.setSpacing(true);
+		CheckBoxPrepose checkBoxPrepose = new CheckBoxPrepose("Press Enter to send");
+		postControl.addComponent(checkBoxPrepose);
+		postControl.setComponentAlignment(checkBoxPrepose, Alignment.MIDDLE_CENTER);
+		postControl.addComponent(replyButton);
+		inputControl.addComponent(postControl);
+		inputControl.setComponentAlignment(postControl, Alignment.MIDDLE_RIGHT);
 		inputLayout.addComponent(inputControl);
 		chatIOLayout.addComponent(inputLayout);
 		
-		outputMessageLayout.setWidth("520px");
+		outputMessageLayout.setWidth("500px");
 		outputMessageLayout.setSpacing(true);
 		outputMessageLayout.addStyleName("chat-message-layout");
 		buildOutputMessage();
@@ -104,7 +119,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		
 		// person list panel
 		VerticalLayout personsLayout = new VerticalLayout();
-		personsLayout.setWidth("216px");
+		personsLayout.setWidth(personWidth);
 		personsLayout.addStyleName("chat-persons");
 		VerticalLayout personsTitleLayout = new VerticalLayout();
 		personsTitleLayout.addStyleName("title-layout");
@@ -137,6 +152,10 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 				inputArea.setValue("");
 				listener.postMessage(value);
 			}
+		} else if("todo".equals(data)) {
+			ToDoEditorWindowPresenter todoWindow = new ToDoEditorWindowPresenter(eventBus);
+			todoWindow.bind();
+			getWindow().addWindow(todoWindow.getWindow());
 		}
 	}
 	
@@ -221,7 +240,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 			this.addComponent(arrowLayout);
 			
 			Label contentLabel = new Label(message, Label.CONTENT_XHTML);
-			if(message.length() > 35) {
+			if(message.length() > 60) {
 				contentLayout.setWidth("360px");
 				contentLabel.setWidth("350px");
 			}
@@ -243,7 +262,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 			VerticalLayout contentLayout = new VerticalLayout();
 			contentLayout.addStyleName("other-message");
 			Label contentLabel = new Label(message, Label.CONTENT_XHTML);
-			if(message.length() > 35) {
+			if(message.length() > 60) {
 				contentLayout.setWidth("360px");
 				contentLabel.setWidth("350px");
 			}
@@ -273,7 +292,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		
 		public PersonPanel(Chat chat, boolean selected) {
 			this.chat = chat;
-			this.setWidth("196px");
+			this.setWidth("216px");
 			this.addListener(this);
 			this.chatTitle = chatService.getChatTitle(chat, currentUser);
 			if(selected) {

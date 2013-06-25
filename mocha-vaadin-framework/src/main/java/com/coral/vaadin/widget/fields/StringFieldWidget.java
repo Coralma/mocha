@@ -3,6 +3,7 @@
  */
 package com.coral.vaadin.widget.fields;
 
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.TextField;
 
 /**
@@ -20,6 +21,10 @@ public class StringFieldWidget extends FieldWidget {
 		((TextField)field).setNullRepresentation("");
 		((TextField)field).setNullSettingAllowed(true);
 		field.addListener(this);
+	}
+	
+	public void addBlurListener(BlurListener blurListener) {
+		((TextField)field).addListener(blurListener);
 	}
 
 }

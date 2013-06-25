@@ -3,7 +3,9 @@
  */
 package com.coral.vaadin.widget.fields;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -12,6 +14,9 @@ import com.vaadin.ui.ComboBox;
 
 
 public class UnitSelectionWidget extends FieldWidget {
+	
+	private List<?> entities;
+	private Map<String,Object> entityMap = new HashMap<String,Object>();
 
 	public UnitSelectionWidget(String label) {
 		super(label);
@@ -32,9 +37,11 @@ public class UnitSelectionWidget extends FieldWidget {
 	}
 	
 	public <T> void setItems(List<T> entities, Class<T> clazz, String value) {
+		this.entities = entities;
 		for(T entity : entities) {
 			Property valueProperty = new NestedMethodProperty(entity, value);
 			Object itemValue = valueProperty.getValue();
+			entityMap.put(key, value)
 			((ComboBox)field).addItem(itemValue);
 		}
 	}

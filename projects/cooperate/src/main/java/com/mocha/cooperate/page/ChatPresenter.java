@@ -17,7 +17,7 @@ public class ChatPresenter extends CommonPresenter implements Presenter {
 	public ChatPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		this.currentUser = eventBus.getUser();
-		this.viewer = new ChatViewer(currentUser);
+		this.viewer = new ChatViewer(eventBus);
 		loadChats();
 	}
 	

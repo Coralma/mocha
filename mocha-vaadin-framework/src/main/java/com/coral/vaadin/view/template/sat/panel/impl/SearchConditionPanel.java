@@ -25,6 +25,9 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 	public Button globleButton = WidgetFactory.createLink("Globle");
 	private String panelWidth="765px";
 	private Button createBtn = WidgetFactory.createButton("Create");
+	private Button importBtn = WidgetFactory.createButton("Import");
+	private Button exportBtn = WidgetFactory.createButton("Export");
+	
 	public SearchConditionPanel() {
 		this.setSpacing(false);
 		this.setWidth(panelWidth);
@@ -69,8 +72,11 @@ public class SearchConditionPanel extends AbstractViewLayout implements ISearchC
 		
 		// create button
 		HorizontalLayout btnLayout = new HorizontalLayout();
+		btnLayout.setSpacing(true);
 		btnLayout.setStyleName("search-create-btn");
 		btnLayout.addComponent(createBtn);
+		btnLayout.addComponent(importBtn);
+		btnLayout.addComponent(exportBtn);
 		searcLayout.addComponent(btnLayout);
 		searcLayout.setComponentAlignment(btnLayout, Alignment.MIDDLE_RIGHT);
 		

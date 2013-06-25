@@ -32,7 +32,9 @@ local.properties
 
 mocha-foundation/target/
 mocha-vaadin-framework/target/
+mocha-mobile-framework/target/
 projects/cooperate/target/
+projects/cooperate-core/target/
 projects/crm/target/
 projects/homepage/target/
 projects/officeAdmin/target/

@@ -37,7 +37,7 @@ public class AttachmentUpload extends Upload implements Upload.StartedListener,U
 		this.addStyleName("attachment-upload");
 		this.setReceiver(new AttachmentReceiver());
 		this.setImmediate(true);
-		this.setButtonCaption("File");
+		this.setButtonCaption("Add File");
 
 		this.addListener((FinishedListener) this);
 		this.addListener((FailedListener) this);

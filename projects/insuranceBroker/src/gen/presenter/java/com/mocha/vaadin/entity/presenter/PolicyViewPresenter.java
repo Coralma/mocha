@@ -1,12 +1,14 @@
 package com.mocha.vaadin.entity.presenter;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.security.model.CodeTable;
 import com.coral.foundation.spring.bean.SpringContextUtils;
-import com.coral.foundation.utils.CodeTableUtils;
+import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.controller.Presenter;
+import com.coral.vaadin.widget.fields.StringFieldWidget;
 import com.coral.vaadin.widget.fields.UnitSelectionWidget;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.ib.dao.InsuranceCompanyDao;
@@ -16,8 +18,8 @@ import com.mocha.ib.model.InsuranceCompany;
 import com.mocha.ib.model.InsuranceProduct;
 import com.mocha.ib.model.Policy;
 import com.mocha.vaadin.entity.view.PolicyView;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -66,6 +68,7 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 	}
 	
 	public void initViewer(PolicyView policyView) {
+		// filter
 		UnitSelectionWidget companyWidget = (UnitSelectionWidget)policyView.getField("insuranceCompany");
 		final UnitSelectionWidget categoryWidget = (UnitSelectionWidget)policyView.getField("category");
 		final UnitSelectionWidget productWidget = (UnitSelectionWidget)policyView.getField("insuranceProduct");
@@ -74,6 +77,28 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 		companyWidget.setItems(companys, InsuranceCompany.class, "companyName");
 		categoryWidget.setItems("Vehicle","Accident","Life","Property","Liability","Contract");
 		productWidget.setItems(products, InsuranceProduct.class, "productName");
+		
+		// commission calculator
+		final StringFieldWidget commissionWidget = (StringFieldWidget)policyView.getField("commission");
+		final StringFieldWidget premiumWidget = (StringFieldWidget)policyView.getField("premium");
+		premiumWidget.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				String premium = (String)premiumWidget.getValue();
+				if(!StrUtils.isEmpty(premium) && StrUtils.isNumber(premium)) {
+					InsuranceProduct insuranceProduct = (InsuranceProduct)productWidget.getValue();
+					if(insuranceProduct != null && StrUtils.isNumber(insuranceProduct.getCommissionRate())) {
+						BigDecimal premiumDecimal = new BigDecimal(premium);
+						BigDecimal rateDecimal = new BigDecimal(insuranceProduct.getCommissionRate());
+						BigDecimal commission = premiumDecimal.multiply(rateDecimal); 
+						DecimalFormat df = new DecimalFormat("0.00");
+						String commissionValue = df.format(commission);
+						commissionWidget.setValue(commissionValue);
+					}
+					
+				}
+			}
+		});
 	}
 	
 	/**

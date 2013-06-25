@@ -8,7 +8,7 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 	public void build() {
 		try {
 			// init app name title
-			Label InsuranceBrokertitle = createAppTitle("Insurance Broker");
+			Label InsuranceBrokertitle = createAppTitle("Financial Advisor");
 			addComponent(InsuranceBrokertitle);
 			
 			MenuAction action = null;
@@ -25,11 +25,7 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			addComponent(groupTitle);
 			action = new MenuAction();
 			action.setView("InsCustomerSearch");
-			menuItem = createMenu("Customer  Manage",action);
-			addComponent(menuItem);
-			action = new MenuAction();
-			action.setView("InsCustomerServeSearch");
-			menuItem = createMenu("Customer  Serve",action);
+			menuItem = createMenu("Manage  Customers",action);
 			addComponent(menuItem);
 			groupTitle = createMenuTitle("Policy Management");
 			addComponent(groupTitle);
@@ -45,11 +41,11 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			addComponent(groupTitle);
 			action = new MenuAction();
 			action.setView("InsuranceCompanySearch");
-			menuItem = createMenu("Cooperated  Company",action);
+			menuItem = createMenu("Cooperating  Companies",action);
 			addComponent(menuItem);
 			action = new MenuAction();
 			action.setView("InsuranceProductSearch");
-			menuItem = createMenu("Product  Management",action);
+			menuItem = createMenu("Products and  Services",action);
 			addComponent(menuItem);
 			groupTitle = createMenuTitle("Report Center");
 			addComponent(groupTitle);

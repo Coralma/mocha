@@ -3,20 +3,20 @@
 	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
 	servicePackage="com.mocha.ib.service">
 
-	<app name="InsuranceBroker" label="Insurance Broker">
+	<app name="InsuranceBroker" label="Financial Advisor">
 		<navigation>
 			<menu name="Home" customizedClass="com.mocha.ib.presenter.IBDashboardPresenter"/>
 			<group label="Customer Management">
-				<menu name="Customer Manage" viewName="InsCustomerSearch"/>
-				<menu name="Customer Serve" viewName="InsCustomerServeSearch"/>
+				<menu name="Manage Customers" viewName="InsCustomerSearch"/>
+<!-- 				<menu name="Customer Serve" viewName="InsCustomerServeSearch"/> -->
 			</group>
 			<group label="Policy Management">
 				<menu name="Policy Manage" viewName="PolicySearch"/>
 				<menu name="Cliam Register" viewName="ClaimSearch"/>
 			</group>
 			<group label="Company and Product">
-				<menu name="Cooperated Company" viewName="InsuranceCompanySearch"/>
-				<menu name="Product Management" viewName="InsuranceProductSearch"/>
+				<menu name="Cooperating Companies" viewName="InsuranceCompanySearch"/>
+				<menu name="Products and Services" viewName="InsuranceProductSearch"/>
 			</group>
 			<group label="Report Center">
 				<menu name="Reports"/>
@@ -26,7 +26,7 @@
 			<menu name="Create Customer" viewName="InsCustomerView"></menu>
 			<menu name="Create Policy" viewName="PolicyView"></menu>
 			<menu name="Create Cliam" viewName="ClaimView"></menu>
-			<menu name="Create Serve" viewName="InsCustomerServeView"></menu>
+<!-- 			<menu name="Create Serve" viewName="InsCustomerServeView"></menu> -->
 		</creation>
 		<setting>
 		</setting>

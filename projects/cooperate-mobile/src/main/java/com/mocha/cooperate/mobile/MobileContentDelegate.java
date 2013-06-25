@@ -32,16 +32,19 @@ public class MobileContentDelegate extends VerticalLayout {
 				this.addComponent(new PadLoginView());
 			}
 			if(type.equals(MobileConstants.PHONE)) {
-//				this.addComponent(new PhoneLoginView());
-				this.addComponent(new PhoneMainTabView());
-			}
-		} else {
-			if(type.equals(MobileConstants.PAD)) {
-//				this.addComponent(new PadLoginView());
-			}
-			if(type.equals(MobileConstants.PHONE)) {
-				this.addComponent(new PhoneMainTabView());
+				this.addComponent(new PhoneLoginView());
+//				this.addComponent(new PhoneMainTabView());
 			}
 		}
+//		else {
+//			if(type.equals(MobileConstants.PAD)) {
+//				this.addComponent(new PadLoginView());
+//			}
+//			if(type.equals(MobileConstants.PHONE)) {
+//				this.addComponent(new PhoneMainTabView());
+//			}
+//		}
 	}
+	
+	
 }

@@ -280,6 +280,10 @@ public class TimeLineService {
 		}
 	}
 	
+	public TimeLine queryTimelineByStatus(Status status) {
+		return timeLineDao.queryTimelineByStatus(status);
+	}
+	
 	public TimeLine queryTimelineByTodo(ToDo todo) {
 		return timeLineDao.queryTimelineByTodo(todo);
 	}

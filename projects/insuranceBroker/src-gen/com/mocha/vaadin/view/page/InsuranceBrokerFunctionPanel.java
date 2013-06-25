@@ -14,7 +14,6 @@ public class InsuranceBrokerFunctionPanel extends FunctionPanel {
 		creationMenus.add(FunctionMenu.create().setName("Create Customer").setLabel("Create  Customer").setViewName("InsCustomerView"));
 		creationMenus.add(FunctionMenu.create().setName("Create Policy").setLabel("Create  Policy").setViewName("PolicyView"));
 		creationMenus.add(FunctionMenu.create().setName("Create Cliam").setLabel("Create  Cliam").setViewName("ClaimView"));
-		creationMenus.add(FunctionMenu.create().setName("Create Serve").setLabel("Create  Serve").setViewName("InsCustomerServeView"));
 		return creationMenus;
 	}
 	

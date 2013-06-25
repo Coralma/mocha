@@ -57,7 +57,7 @@ public class InsCustomerSearch extends SearchPanel {
 	}
 	
 	public String getViewerTitle() {
-		return "Search Insurance Customer";
+		return "Search Customer";
 	}
 	
 	@Override
