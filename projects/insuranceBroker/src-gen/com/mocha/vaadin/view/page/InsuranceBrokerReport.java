@@ -2,11 +2,20 @@ package com.mocha.vaadin.view.page;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.foundation.security.model.*;
 
 
-public class InsuranceBrokerReport {
+public class InsuranceBrokerReport extends AbstrctAppRawData{
 
+	private static String appName="InsuranceBrokerReport";
+	
+	InsuranceBrokerReport() {
+		super(appName);
+	}
+
+	@Override
 	public List<ReportTable> getReportTables() {
 		List<ReportTable> reportTables = new ArrayList<ReportTable>();
 		ReportTable insuranceCustomerReport = new ReportTable();

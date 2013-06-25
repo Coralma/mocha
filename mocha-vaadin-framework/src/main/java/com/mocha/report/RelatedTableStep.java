@@ -42,12 +42,12 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 	private Wizard w;
 	private WizardStep nStep;
 	private WizardStep pStep;
-	private static BasicUser user;
+	private BasicUser user;
 	
 	public RelatedTableStep(Wizard w,BasicUser user) {
 		this.w=w;
 		nStep=new ReportFilterStep(w,user);
-		pStep = new MainTableStep(w,user);
+//		pStep = new MainTableStep(w,user);
 		this.user=user;
 		getContent();
 	}
@@ -67,6 +67,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		System.out.println();
 		try {
 			if(user!=null && ReportModelPool.findReportModelByCurrentUser(user)!=null){
+				removeDuplciateRelateResult();
 				return buildRelatedTableStep();				
 			}
 			return new Label("");
@@ -147,7 +148,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 					ReportModel.class);
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
-			box.setItemCaptionPropertyId("tableName");
+			box.setItemCaptionPropertyId("tableLabel");
 			box.addListener(this);
 			this.addComponent(box);
 			columnLayout.setSpacing(true);
@@ -169,7 +170,6 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		public void valueChange(ValueChangeEvent event) {
 			rm = (ReportModel) box.getValue();
 			if (rm != null) {
-				cleanRelateTableResult();
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
 				reportColumnStepDesc.setVisible(true);
@@ -184,40 +184,25 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 					ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 						@Override
 						public void layoutClick(LayoutClickEvent event) {
-							System.out.println("User click related column: "+columnField.getColumnLabel());
-							ReportColumn reportColumn=new ReportColumn();
-							reportColumn.setColumnName(columnField.getColumnName());
-							reportColumn.setColumnLabel(columnField.getColumnLabel());
-							reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
-							if(ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns()==null){
-								HashSet<ReportColumn> reportColumns=new HashSet<ReportColumn>();
-								reportColumns.add(reportColumn);
-								ReportModelPool.findReportModelByCurrentUser(user).setSubTableSelectedColumns(reportColumns);
-							}else{
-								ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns().add(reportColumn);
+							if(clearDuplicateRelateColumnResult(columnField)){
+								System.out.println("User click related column: "+columnField.getColumnLabel());
+								ReportColumn reportColumn=new ReportColumn();
+								reportColumn.setColumnName(columnField.getColumnName());
+								reportColumn.setColumnLabel(columnField.getColumnLabel());
+								reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+								if(ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns()==null){
+									HashSet<ReportColumn> reportColumns=new HashSet<ReportColumn>();
+									reportColumns.add(reportColumn);
+									ReportModelPool.findReportModelByCurrentUser(user).setSubTableSelectedColumns(reportColumns);
+								}else{
+									ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns().add(reportColumn);
+								}
 							}
 						}
 					};
-					gridLayout.addComponent(reportColumnCard);
+						gridLayout.addComponent(reportColumnCard);
 					}
-//					final CheckBox checkBox = new CheckBox(columnField.getColumnName());
-//					gridLayout.addComponent(checkBox);
-//					checkBox.addListener(new ClickListener() {
-//						/**
-//						 * 
-//						 */
-//						private static final long serialVersionUID = 1L;
-//
-//						@Override
-//						public void buttonClick(ClickEvent event) {
-//							ReportColumn reportColumn=new ReportColumn();
-//							reportColumn.setColumnName(checkBox.getCaption().toString());
-//							reportColumn.setColumnUseMode(ReportConfiguration.ReportType.SubTable.getTableType());
-//							AbstarctReportWizardStep.getUserSelectReport()
-//									.get().getSubTableSelectedColumns()
-//									.put(rm.getTableName(), reportColumn);
-//						}
-//					});
+
 				}
 				this.addComponent(columnLayout);
 				ReportTable selectSubReportTable=rm.getReportTables().iterator().next();
@@ -240,18 +225,6 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 			}
 		}
 
-		private void cleanRelateTableResult() {
-				if(ReportModelPool.findReportModelByCurrentUser(user)!=null &&ReportModelPool.findReportModelByCurrentUser(user).getReportTables()!=null ){				
-					for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(user).getReportTables().iterator();it.hasNext();){
-						ReportTable rt=it.next();
-						if(rt.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
-							it.remove();	
-						}
-					}
-				}
-			
-		}
-
 		public List<ReportModel> getReportModels() {
 			return reportModels;
 		}
@@ -259,6 +232,24 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		public void setReportModels(List<ReportModel> reportModels) {
 			this.reportModels = reportModels;
 		}
+		
+		public boolean clearDuplicateRelateColumnResult(ReportColumn reportColumn) {
+			for(ReportColumn sReportColumn:ReportModelPool.findReportModelByCurrentUser(user).getSubTableSelectedColumns()){
+				if(sReportColumn.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())){
+					if(sReportColumn.getColumnName().equals(reportColumn.getColumnName())&&
+							sReportColumn.getColumnLabel().equals(reportColumn.getColumnLabel())){
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 	}
+
+	private void removeDuplciateRelateResult() {
+		
+	}
+
+	
 
 }

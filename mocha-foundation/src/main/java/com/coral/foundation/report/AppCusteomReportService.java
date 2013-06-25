@@ -37,7 +37,7 @@ public class AppCusteomReportService extends AbstractCustomReportService {
 	private MochaReport mochaReport = new MochaReport();
 	private BasicUser creator;
 	
-	private static ArrayList<String> duplicateOuputColumns=new ArrayList<String>();
+	private  ArrayList<String> duplicateOuputColumns=new ArrayList<String>();
 
 	public AppCusteomReportService(AppReport appRepor,BasicUser creator) {
 		super();

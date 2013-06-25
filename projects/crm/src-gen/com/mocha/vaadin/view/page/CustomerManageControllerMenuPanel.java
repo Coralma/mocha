@@ -39,9 +39,10 @@ public class CustomerManageControllerMenuPanel extends ControllerMenuPanel {
 			addComponent(menuItem);
 			groupTitle = createMenuTitle("Report Center");
 			addComponent(groupTitle);
-			action = new MenuAction();
-			action.setPanel(Class.forName("com.mocha.report.CrmReportPresenter"));
-			menuItem = createMenu("Customer  Report",action);
+//			action = new MenuAction();
+//			action.setPanel(Class.forName("com.mocha.report.CrmReportPresenter"));
+//			menuItem = createMenu("Customer  Report",action);
+//			
 			addComponent(menuItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
