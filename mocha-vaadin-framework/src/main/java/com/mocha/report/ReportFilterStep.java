@@ -151,9 +151,11 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 		public void attach() {
 			this.addStyleName("custom-report-step-caption");
 			Label caption=new Label("Report Filter Table");
+			caption.setStyleName("custom-report-step-column-caption");
 			caption.setStyleName("caption");
 			this.addComponent(caption);
 			box.setWidth(fieldWidth);
+			box.addStyleName("custom-report-step-box");
 			box.setImmediate(true);
 			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
 					ReportModel.class);
@@ -211,6 +213,9 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 				columnLayout.addComponent(filerValueLayout);
 				
 				final ComboBox queryFilterBox = new ComboBox();
+				queryFilterBox.setCaption("Filter Conditions");
+				queryFilterBox.setSizeFull();
+				queryFilterBox.setScrollToSelectedItem(true);
 				queryFilterBox.setImmediate(true);
 				filerValueLayout.addComponent(queryFilterBox);
 				for (ReportQueryFilterType filterType : ReportConfiguration.ReportQueryFilterType.values()) {
@@ -219,6 +224,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 				
 				final TextField queryCondition = new TextField("");
 				queryCondition.setWidth("250px");
+				queryCondition.setCaption("Condition Values");
 				filerValueLayout.addComponent(queryCondition);
 				
 				Button saveFilterBtn=new Button("Save Filter");

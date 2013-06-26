@@ -81,8 +81,9 @@ public class PreviewStep extends AbstarctReportWizardStep {
 		}
 		mainTableLayout=new GridLayout(3,1);
 		subTablesLayout=new GridLayout(3,1);
-		
-		getLayout().addComponent(new Label("Report Review"));
+		Label stepCaption=new Label("Report Review");
+		stepCaption.addStyleName("custom-report-step-column-caption");
+		getLayout().addComponent(stepCaption);
 		
 		
 		FormLayout formLayout = new FormLayout();
@@ -149,6 +150,7 @@ public class PreviewStep extends AbstarctReportWizardStep {
 		//main table layout
 		if(reportTable.getType().equals(ReportConfiguration.ReportType.MainTable.toString()) && rm.getMainTableSelectedColumns().size()>0){
 			Label mainTableLabelName=new Label("Main Table");
+			mainTableLabelName.setStyleName("custom-report-step-column-caption");
 			getLayout().addComponent(mainTableLabelName);
 			
 			Label mainTableName=new Label(reportTable.getTableLabel());
@@ -171,6 +173,7 @@ public class PreviewStep extends AbstarctReportWizardStep {
 		//sub table layout
 		if(reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString()) && rm.getSubTableSelectedColumns().size()>0){
 			Label subTableLabelName=new Label("Related Table");
+			subTableLabelName.setStyleName("custom-report-step-column-caption");
 			getLayout().addComponent(subTableLabelName);
 			
 			Label subTableName=new Label(reportTable.getTableLabel());
