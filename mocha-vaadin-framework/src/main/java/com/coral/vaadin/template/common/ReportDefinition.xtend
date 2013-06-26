@@ -9,16 +9,19 @@ class ReportDefinition {
 	
 	List<Mocha> mochas
 	ReportDef reportDef;
+	String reportName;
 	
 	def init(List<Mocha> mochas, ReportDef reportDef) {
   		this.mochas = mochas;
   		this.reportDef = reportDef;
+  		this.reportName = reportDef.name;
 	}
 	
 	def generate()'''
 		«GENPackageImport»
 		
 		«GENClassHead»
+			«GENConstructor»
 		
 			«GENBuildMethod»
 		
@@ -31,10 +34,20 @@ class ReportDefinition {
 		import java.util.List;
 		import java.util.ArrayList;
 		import com.coral.foundation.security.model.*;
+		import com.coral.foundation.report.AbstrctAppRawData;
 		
 	'''
 	def GENClassHead() '''
-		public class «reportDef.name» {
+		public class «reportName» extends AbstrctAppRawData {
+			private static String appName="«reportName»";
+			
+	'''
+	
+	def GENConstructor() '''
+		public «reportName»() {
+			super(appName);
+			
+		}
 	'''
 	
 	def GENBuildMethod() '''
@@ -49,7 +62,7 @@ class ReportDefinition {
 				«FOR columnDef : reportTableDef.getColumns»
 					«val columnVariable = reportVariable + columnDef.getName»
 					ReportColumn «columnVariable» = new ReportColumn();
-					«columnVariable».setColumnName("«columnDef.getName»");
+					«columnVariable».setColumnName("«columnDef.getColumnName»");
 					«columnVariable».setColumnLabel("«columnDef.getLabel»");
 					«reportVariable».getReportColumns().add(«columnVariable»);
 				«ENDFOR»

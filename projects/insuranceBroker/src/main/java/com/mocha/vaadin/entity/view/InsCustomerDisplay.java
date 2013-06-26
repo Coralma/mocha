@@ -14,8 +14,10 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TabSheet;
 
 public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 	
@@ -163,9 +165,17 @@ public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 		
 		this.addComponent(viewPanel);
 		
-		this.addComponent(createListSectionPanel("Policy"));
+		TabSheet tabSheet = new TabSheet();
+		tabSheet.addStyleName(Reindeer.TABSHEET_MINIMAL);
+		tabSheet.setWidth("760px");
+		tabSheet.addTab(createListSectionPanel("Policy"), "General Insurance");
+		tabSheet.addTab(createListSectionPanel("Life"), "Life Insurance");
+		tabSheet.addTab(createListSectionPanel("Investment"), "Investment");
+		tabSheet.addTab(createListSectionPanel("Morgage"), "Morgage");
+		this.addComponent(tabSheet);
+//		this.addComponent(createListSectionPanel("Policy"));
 		
-		this.addComponent(createListSectionPanel("Serve"));
+//		this.addComponent(createListSectionPanel("Serve"));
 	}
 
 	public Class getEntityClass() {

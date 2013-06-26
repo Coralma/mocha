@@ -81,16 +81,16 @@ public class InsCustomerDisplayPresenter extends AppCommonPresenter implements P
 			}
 		});
 		
-		ListSectionPanel servePanel = (ListSectionPanel)customerView.getSection("Serve");
-		servePanel.getNewButton().addListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				InsuranceCustomerServe serve = new InsuranceCustomerServe();
-				serve.setCustomer((InsuranceCustomer) customerView.getEntity());
-				postViewer("InsCustomerServeView", serve);
-			}
-		});
+//		ListSectionPanel servePanel = (ListSectionPanel)customerView.getSection("Serve");
+//		servePanel.getNewButton().addListener(new ClickListener() {
+//			
+//			@Override
+//			public void buttonClick(ClickEvent event) {
+//				InsuranceCustomerServe serve = new InsuranceCustomerServe();
+//				serve.setCustomer((InsuranceCustomer) customerView.getEntity());
+//				postViewer("InsCustomerServeView", serve);
+//			}
+//		});
 	}
 	
 	public void initViewer(InsCustomerDisplay viewer) {

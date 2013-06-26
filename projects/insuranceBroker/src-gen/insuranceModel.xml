@@ -29,19 +29,6 @@
               </appMenus>
             </com.coral.foundation.md.model.AppMenuGroup>
             <com.coral.foundation.md.model.AppMenuGroup>
-              <label>Policy Management</label>
-              <appMenus>
-                <com.coral.foundation.md.model.AppMenu>
-                  <name>Policy Manage</name>
-                  <viewName>PolicySearch</viewName>
-                </com.coral.foundation.md.model.AppMenu>
-                <com.coral.foundation.md.model.AppMenu>
-                  <name>Cliam Register</name>
-                  <viewName>ClaimSearch</viewName>
-                </com.coral.foundation.md.model.AppMenu>
-              </appMenus>
-            </com.coral.foundation.md.model.AppMenuGroup>
-            <com.coral.foundation.md.model.AppMenuGroup>
               <label>Company and Product</label>
               <appMenus>
                 <com.coral.foundation.md.model.AppMenu>
@@ -59,6 +46,7 @@
               <appMenus>
                 <com.coral.foundation.md.model.AppMenu>
                   <name>Reports</name>
+                  <customizedClass>com.mocha.report.CrmReportPresenter</customizedClass>
                 </com.coral.foundation.md.model.AppMenu>
               </appMenus>
             </com.coral.foundation.md.model.AppMenuGroup>
@@ -77,6 +65,12 @@
             <com.coral.foundation.md.model.AppMenu>
               <name>Create Cliam</name>
               <viewName>ClaimView</viewName>
+            </com.coral.foundation.md.model.AppMenu>
+            <com.coral.foundation.md.model.AppMenu>
+              <name>Create Investment</name>
+            </com.coral.foundation.md.model.AppMenu>
+            <com.coral.foundation.md.model.AppMenu>
+              <name>Create Mortgage</name>
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
         </appCreation>

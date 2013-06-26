@@ -21,7 +21,7 @@ public class ListSectionPanel extends VerticalLayout implements ISectionPanel {
 	
 	public ListSectionPanel(String label) {
 		this.label = label;
-		this.setWidth("100%");
+		this.setWidth("750px");
 		this.setSpacing(true);
 		this.addStyleName("list-section-panel");
 	}
@@ -31,10 +31,10 @@ public class ListSectionPanel extends VerticalLayout implements ISectionPanel {
 	}
 	
 	private void initTitle() {
-		Label sectionTitle = new Label(label);
-		sectionTitle.setWidth("100%");
-		sectionTitle.addStyleName("section-label");
-		this.addComponent(sectionTitle);
+//		Label sectionTitle = new Label(label);
+//		sectionTitle.setWidth("100%");
+//		sectionTitle.addStyleName("section-label");
+//		this.addComponent(sectionTitle);
 		
 		HorizontalLayout layout = new HorizontalLayout();
 		layout.setSpacing(true);

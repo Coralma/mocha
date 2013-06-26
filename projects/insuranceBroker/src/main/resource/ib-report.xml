@@ -5,11 +5,11 @@
 
 	<report name="InsuranceBrokerReport">
 		<reportTable entity="InsuranceCustomer">
-			<columns>name,district,postcode,address,contect_Person</columns>
+			<columns>name,district,postcode,address,contectPerson</columns>
 			<joinEntitys>Policy</joinEntitys>
 		</reportTable>
 		<reportTable entity="Policy">
-			<columns>policy_No,effective_Date,expiry_Date,premium,commission</columns>
+			<columns>policyNo,effectiveDate,expiryDate,premium,commission</columns>
 			<joinEntitys>InsuranceCustomer</joinEntitys>
 		</reportTable>
 		<reportTable entity="Claim">

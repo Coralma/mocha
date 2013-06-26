@@ -15,12 +15,16 @@ public class ReportDefinition {
   
   private ReportDef reportDef;
   
-  public ReportDef init(final List<Mocha> mochas, final ReportDef reportDef) {
-    ReportDef _xblockexpression = null;
+  private String reportName;
+  
+  public String init(final List<Mocha> mochas, final ReportDef reportDef) {
+    String _xblockexpression = null;
     {
       this.mochas = mochas;
-      ReportDef _reportDef = this.reportDef = reportDef;
-      _xblockexpression = (_reportDef);
+      this.reportDef = reportDef;
+      String _name = reportDef.getName();
+      String _reportName = this.reportName = _name;
+      _xblockexpression = (_reportName);
     }
     return _xblockexpression;
   }
@@ -33,6 +37,10 @@ public class ReportDefinition {
     _builder.newLine();
     CharSequence _GENClassHead = this.GENClassHead();
     _builder.append(_GENClassHead, "");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    CharSequence _GENConstructor = this.GENConstructor();
+    _builder.append(_GENConstructor, "	");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
@@ -59,6 +67,8 @@ public class ReportDefinition {
     _builder.newLine();
     _builder.append("import com.coral.foundation.security.model.*;");
     _builder.newLine();
+    _builder.append("import com.coral.foundation.report.AbstrctAppRawData;");
+    _builder.newLine();
     _builder.newLine();
     return _builder;
   }
@@ -66,10 +76,32 @@ public class ReportDefinition {
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("public class ");
-    String _name = this.reportDef.getName();
-    _builder.append(_name, "");
-    _builder.append(" {");
+    _builder.append(this.reportName, "");
+    _builder.append(" extends AbstrctAppRawData {");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("private static String appName=\"");
+    _builder.append(this.reportName, "	");
+    _builder.append("\";");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence GENConstructor() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("public ");
+    _builder.append(this.reportName, "");
+    _builder.append("() {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("super(appName);");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
     return _builder;
   }
   
@@ -126,8 +158,8 @@ public class ReportDefinition {
             _builder.append("\t");
             _builder.append(columnVariable, "	");
             _builder.append(".setColumnName(\"");
-            String _name_2 = columnDef.getName();
-            _builder.append(_name_2, "	");
+            String _columnName = columnDef.getColumnName();
+            _builder.append(_columnName, "	");
             _builder.append("\");");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");
@@ -155,19 +187,19 @@ public class ReportDefinition {
       List<ReportTableDef> _reportTables_1 = this.reportDef.getReportTables();
       for(final ReportTableDef reportTableDef_1 : _reportTables_1) {
         _builder.append("\t");
-        String _name_3 = reportTableDef_1.getName();
-        final String reportVariable_1 = (_name_3 + "Report");
+        String _name_2 = reportTableDef_1.getName();
+        final String reportVariable_1 = (_name_2 + "Report");
         _builder.newLineIfNotEmpty();
         {
           List<ReportJoinDef> _joinDefs = reportTableDef_1.getJoinDefs();
           for(final ReportJoinDef joinTableDef : _joinDefs) {
             _builder.append("\t");
-            String _name_4 = joinTableDef.getName();
-            final String joinTableRef = (_name_4 + "Report");
+            String _name_3 = joinTableDef.getName();
+            final String joinTableRef = (_name_3 + "Report");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");
-            String _name_5 = joinTableDef.getName();
-            String _plus = (reportVariable_1 + _name_5);
+            String _name_4 = joinTableDef.getName();
+            String _plus = (reportVariable_1 + _name_4);
             final String joinTableVariable = (_plus + "Join");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");

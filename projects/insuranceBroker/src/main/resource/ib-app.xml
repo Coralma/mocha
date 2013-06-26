@@ -10,22 +10,28 @@
 				<menu name="Manage Customers" viewName="InsCustomerSearch"/>
 <!-- 				<menu name="Customer Serve" viewName="InsCustomerServeSearch"/> -->
 			</group>
-			<group label="Policy Management">
-				<menu name="Policy Manage" viewName="PolicySearch"/>
-				<menu name="Cliam Register" viewName="ClaimSearch"/>
-			</group>
+<!-- 			<group label="Policy Management"> -->
+<!-- 				<menu name="Policy Manage" viewName="PolicySearch"/> -->
+<!-- 				<menu name="Claim Register" viewName="ClaimSearch"/> -->
+<!-- 			</group> -->
+<!-- 			<group label="Investments and Mortgage"> -->
+<!-- 				<menu name="Investments"/> -->
+<!-- 				<menu name="Mortgage"/>  -->
+<!-- 			</group> -->
 			<group label="Company and Product">
 				<menu name="Cooperating Companies" viewName="InsuranceCompanySearch"/>
 				<menu name="Products and Services" viewName="InsuranceProductSearch"/>
 			</group>
 			<group label="Report Center">
-				<menu name="Reports"/>
+				<menu name="Reports" customizedClass="com.mocha.report.CrmReportPresenter"/>
 			</group>
 		</navigation>
 		<creation>
 			<menu name="Create Customer" viewName="InsCustomerView"></menu>
 			<menu name="Create Policy" viewName="PolicyView"></menu>
 			<menu name="Create Cliam" viewName="ClaimView"></menu>
+			<menu name="Create Investment"></menu>
+			<menu name="Create Mortgage"></menu>
 <!-- 			<menu name="Create Serve" viewName="InsCustomerServeView"></menu> -->
 		</creation>
 		<setting>
