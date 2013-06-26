@@ -82,11 +82,13 @@ public class ForumEditor extends VerticalLayout implements ClickListener {
 		
 		titleField.setWidth(editorWidth);
 		titleField.setPropertyDataSource(WidgetFactory.createProperty(discuss, "title"));
+		titleField.setNullRepresentation("");
 		titleLayout.addComponent(titleField);
 		this.addComponent(titleLayout);
 
 		inputArea.setWidth(editorWidth);
 		inputArea.setHeight(inputHeight);
+		inputArea.setNullRepresentation("");
 		inputArea.setPropertyDataSource(WidgetFactory.createProperty(discuss, "content"));
 		inputArea.addStyleName("input-area");
 		this.addComponent(inputArea);

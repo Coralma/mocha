@@ -169,8 +169,8 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 			FormLayout basicInfo = new FormLayout();
 			basicInfo.setSpacing(true);
 //			basicInfo.setCaption(user.getRealName());
-			basicInfo.addComponent(WidgetFactory.createCaptionLabel(message.getString("cooperate.up.JobTitle"), WidgetFactory.createProperty(user, "jobTitle")));
 			basicInfo.addComponent(WidgetFactory.createCaptionLabel(message.getString("cooperate.up.Email"), WidgetFactory.createProperty(user, "email")));
+			basicInfo.addComponent(WidgetFactory.createCaptionLabel(message.getString("cooperate.up.JobTitle"), WidgetFactory.createProperty(user, "jobTitle")));
 			basicInfo.addComponent(WidgetFactory.createCaptionLabel(message.getString("cooperate.up.Mobile"), WidgetFactory.createProperty(user, "mobile")));
 			userDetailPanel.addComponent(basicInfo);
 
@@ -226,10 +226,12 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 			}
 			
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.LoginName"), WidgetFactory.createProperty(user, "userName")));
-			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.InitPassword"), WidgetFactory.createProperty(user, "password")));
+			if(user.getID() == null) {
+				editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.InitPassword"), WidgetFactory.createProperty(user, "password")));
+				editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Email"), WidgetFactory.createProperty(user, "email")));
+			}
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.JobTitle"), WidgetFactory.createProperty(user, "jobTitle")));
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Extension"), WidgetFactory.createProperty(user, "extension")));
-			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Email"), WidgetFactory.createProperty(user, "email")));
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Mobile"), WidgetFactory.createProperty(user, "mobile")));
 //			editor.addComponent(WidgetFactory.createCaptionLabel("Role", user.getEmail())); //FIXME add the role choose combo.
 			Property property = WidgetFactory.createProperty(user, "language");
