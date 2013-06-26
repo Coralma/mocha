@@ -17,19 +17,19 @@ import com.coral.foundation.spring.bean.SpringContextUtils;
 
 public abstract class AbstractCustomReportService implements ReportService {
 
-	private static String defaultQueryString = "Select";
+	private  String defaultQueryString = "Select";
 
-	private static String defaultMaintableString = "";
+	private  String defaultMaintableString = "";
 
-	private static String defaultSubTableString = "";
+	private  String defaultSubTableString = "";
 
-	private static String defaultOutputColumnsString = "";
+	private  String defaultOutputColumnsString = "";
 
-	private static String defaultJoinString = "";
+	private  String defaultJoinString = "";
 
-	private static String defaultFilterString = "where";
+	private  String defaultFilterString = "where";
 
-	private static String defalutQueryFromString = "From";
+	private  String defalutQueryFromString = "From";
 
 	public MochaReportDao mochaReportDao = SpringContextUtils
 			.getBean(MochaReportDao.class);
@@ -81,60 +81,68 @@ public abstract class AbstractCustomReportService implements ReportService {
 		// mochaReport.setReportPureQuery(buildQueryString);
 
 		ArrayList reportResult = null;
-		if (mochaReport.getReportPureQuery() != null) {
-			reportResult = mochaReportDao.executeReport(mochaReport);
+		if (getMochaReport().getReportPureQuery() != null) {
+			reportResult = mochaReportDao.executeReport(getMochaReport());
 		}
 		
 		return reportResult;
 
 	}
-	public static String getDefaultQueryString() {
+
+	public String getDefaultQueryString() {
 		return defaultQueryString;
 	}
 
-	public static void setDefaultQueryString(String defaultQueryString) {
-		AbstractCustomReportService.defaultQueryString = defaultQueryString;
+	public void setDefaultQueryString(String defaultQueryString) {
+		this.defaultQueryString = defaultQueryString;
 	}
 
-	public static String getDefaultMaintableString() {
+	public String getDefaultMaintableString() {
 		return defaultMaintableString;
 	}
 
-	public static void setDefaultMaintableString(String defaultMaintableString) {
-		AbstractCustomReportService.defaultMaintableString = defaultMaintableString;
+	public void setDefaultMaintableString(String defaultMaintableString) {
+		this.defaultMaintableString = defaultMaintableString;
 	}
 
-	public static String getDefaultSubTableString() {
+	public String getDefaultSubTableString() {
 		return defaultSubTableString;
 	}
 
-	public static void setDefaultSubTableString(String defaultSubTableString) {
-		AbstractCustomReportService.defaultSubTableString = defaultSubTableString;
+	public void setDefaultSubTableString(String defaultSubTableString) {
+		this.defaultSubTableString = defaultSubTableString;
 	}
 
-	public static String getDefaultOutputColumnsString() {
+	public String getDefaultOutputColumnsString() {
 		return defaultOutputColumnsString;
 	}
 
-	public static void setDefaultOutputColumnsString(
-			String defaultOutputColumnsString) {
-		AbstractCustomReportService.defaultOutputColumnsString = defaultOutputColumnsString;
+	public void setDefaultOutputColumnsString(String defaultOutputColumnsString) {
+		this.defaultOutputColumnsString = defaultOutputColumnsString;
 	}
 
-	public static String getDefaultJoinString() {
+	public String getDefaultJoinString() {
 		return defaultJoinString;
 	}
 
-	public static void setDefaultJoinString(String defaultJoinString) {
-		AbstractCustomReportService.defaultJoinString = defaultJoinString;
+	public void setDefaultJoinString(String defaultJoinString) {
+		this.defaultJoinString = defaultJoinString;
 	}
 
-	public static String getDefaultFilterString() {
+	public String getDefaultFilterString() {
 		return defaultFilterString;
 	}
 
-	public static void setDefaultFilterString(String defaultFilterString) {
-		AbstractCustomReportService.defaultFilterString = defaultFilterString;
+	public void setDefaultFilterString(String defaultFilterString) {
+		this.defaultFilterString = defaultFilterString;
+	}
+
+	public String getDefalutQueryFromString() {
+		return defalutQueryFromString;
+	}
+
+	public void setDefalutQueryFromString(String defalutQueryFromString) {
+		this.defalutQueryFromString = defalutQueryFromString;
 	}
 
 	public MochaReport getMochaReport() {
@@ -144,13 +152,6 @@ public abstract class AbstractCustomReportService implements ReportService {
 	public void setMochaReport(MochaReport mochaReport) {
 		this.mochaReport = mochaReport;
 	}
-
-	public static String getDefalutQueryFromString() {
-		return defalutQueryFromString;
-	}
-
-	public static void setDefalutQueryFromString(String defalutQueryFromString) {
-		AbstractCustomReportService.defalutQueryFromString = defalutQueryFromString;
-	}
+	
 
 }

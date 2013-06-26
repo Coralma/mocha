@@ -15,11 +15,13 @@ import org.vaadin.teemu.wizards.event.WizardStepActivationEvent;
 import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 
 import com.coral.foundation.jdbc.impl.DBToolUtil;
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
 import com.coral.foundation.report.ReportConfiguration.ReportType;
 import com.coral.foundation.report.ReportModel;
+import com.coral.foundation.report.ReportModelPool;
 import com.coral.foundation.report.ReportQueryFilterCondition;
 import com.coral.foundation.security.CommonWebSessionManager;
 import com.coral.foundation.security.model.Account;
@@ -55,18 +57,13 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 	
 	String fieldWidth = "300px";
 	private Wizard wizard = new Wizard();
-	static Map<String, ReportTable> reportTables;
-	static ReportTable mainReportTable;
-	static List<ReportTable> relateReportTables = new ArrayList<ReportTable>();
-	private List<ReportModel> finalReportModels = new ArrayList<ReportModel>();
-	final ReportQueryFilterCondition queryFilterCondition = new ReportQueryFilterCondition();
 	private ReportWizardProgressListener listener;
-	private static BasicUser user;
-	private static List<ReportTable>  appCustomReprotRowData;
+	private BasicUser user;
+	private AbstrctAppRawData appCustomReprotRowData;
 	
-	public NewReportViewer(BasicUser user,List<ReportTable> appCustomReprotRowData) {
+	public NewReportViewer(BasicUser user,AbstrctAppRawData appCustomReprotRowData) {
 		this.setUser(user);
-		this.setAppCustomReprotRowData(appCustomReprotRowData);
+		this.appCustomReprotRowData=appCustomReprotRowData;
 	}
 
 	@Override
@@ -76,8 +73,20 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 		layout.setWidth("760px");
 		layout.addStyleName("app-new-report");
 		wizard.setWidth("760px");
-		MainTableStep.setAppCustomReprotRowData(getAppCustomReprotRowData());
-		MainTableStep firstStep=new MainTableStep(wizard,getUser(),getAppCustomReprotRowData());
+		setAppCustomReprotRowData(getAppCustomReprotRowData());
+//		ReportModel reportModel=new ReportModel("","","");
+//
+//		reportModel.setAppRawRata(getAppCustomReprotRowData());
+//		
+//		 if(ReportModelPool.findReportModelByCurrentUser(getUser()).getAppRawRata()==null){
+//			if(!reportModel.getAppRawRata()
+//					.getAppName().equals(ReportModelPool
+//							.findReportModelByCurrentUser(getUser()).getAppRawRata().getAppName())){				
+//				ReportModelPool.initInstance(getUser(),reportModel);			
+//			}
+//		}
+		wizard.getBackButton().setVisible(false);
+		MainTableStep firstStep=new MainTableStep(wizard,getUser());
 		wizard.addStep(firstStep,"Main Table Step");
 		wizard.addStep(new PreviewStep(wizard,getUser()),"Preview Step");
 		wizard.setImmediate(true);
@@ -99,21 +108,20 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 //		this.listener = listener;
 	}
 
-	public static BasicUser getUser() {
+	public BasicUser getUser() {
 		return user;
 	}
 
-	public static void setUser(BasicUser user) {
-		NewReportViewer.user = user;
+	public void setUser(BasicUser user) {
+		this.user = user;
 	}
 
-	public static List<ReportTable> getAppCustomReprotRowData() {
+	public AbstrctAppRawData getAppCustomReprotRowData() {
 		return appCustomReprotRowData;
 	}
 
-	public static void setAppCustomReprotRowData(
-			List<ReportTable> appCustomReprotRowData) {
-		NewReportViewer.appCustomReprotRowData = appCustomReprotRowData;
+	public void setAppCustomReprotRowData(AbstrctAppRawData appCustomReprotRowData) {
+		this.appCustomReprotRowData = appCustomReprotRowData;
 	}
 
 

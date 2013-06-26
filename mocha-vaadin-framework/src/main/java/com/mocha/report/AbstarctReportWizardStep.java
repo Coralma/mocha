@@ -27,25 +27,27 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	String caption;
 	boolean advance = true;
 	boolean back = true;
-	WizardProgressListener listener;
+	protected WizardProgressListener listener;
 	BasicUser basicUser;
-	Component content=getContent();
+	Component content;
 	
-	static Map<String, ReportTable> reportTables;
-	static ReportTable mainReportTable;
-	static List<ReportTable> relateReportTables = new ArrayList<ReportTable>();
-	protected static List<ReportModel> finalReportModels = new ArrayList<ReportModel>();
-	ReportQueryFilterCondition queryFilterCondition= new ReportQueryFilterCondition();
+//	 Map<String, ReportTable> reportTables;
+//	 ReportTable mainReportTable;
+//	 List<ReportTable> relateReportTables = new ArrayList<ReportTable>();
+//	protected List<ReportModel> finalReportModels = new ArrayList<ReportModel>();
+//	ReportQueryFilterCondition queryFilterCondition= new ReportQueryFilterCondition();
 	
 //	private static ArrayList<ReportModel> userSelectReport=new ArrayList<ReportModel>();
 	
 	public AbstarctReportWizardStep(){
 		super();
+//		content=getContent();
 	}
 	
 	public AbstarctReportWizardStep(String caption, Component content) {
 		super(caption, content);
 		buildlistener();
+//		content=getContent();
 	}
 	
 	abstract void buildlistener();
@@ -111,6 +113,15 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 //	public static void setUserSelectReport(ArrayList<ReportModel> userSelectReport) {
 //		AbstarctReportWizardStep.userSelectReport = userSelectReport;
 //	}
+
+	public WizardProgressListener getListener() {
+		return listener;
+	}
+
+	public void setListener(WizardProgressListener listener) {
+		this.listener = listener;
+	}
+
 
 	public class ReportColumnCard extends VerticalLayout implements LayoutClickListener {
 		/**

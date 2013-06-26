@@ -46,26 +46,21 @@ public class MainTableStep extends AbstarctReportWizardStep {
 
 	String fieldWidth = "300px";
 	private ReportModel reportModel;
-	private static Map<String, ReportTable> reportTables;
+	private Map<String, ReportTable> reportTables=new HashMap<String,ReportTable>();
 	private Wizard w;
 	private WizardStep nStep;
-	private static List<ReportTable> appCustomReprotRowData;
-	private static BasicUser user;
+	private BasicUser user;
+	private List<ReportTable> appCustomReprotRowData;
 	
 	
 	public MainTableStep(Wizard w, BasicUser user){
-		this.setW(w);
-		this.listener=listener;
-		this.setUser(user);
-		
+		setW(w);
+		setListener(listener);
+		setUser(user);
+		this.appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(user).getAppRawRata().getReportTables();
+		getContent();
 	}
 
-	public MainTableStep(Wizard wizard, BasicUser user,List<ReportTable> appCustomReprotRowData) {
-		this.setW(wizard);
-		this.listener=listener;
-		this.setUser(user);
-		this.setAppCustomReprotRowData(appCustomReprotRowData);
-	}
 
 	@Override
 	public String getCaption() {
@@ -112,6 +107,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 //		for (String key : getReportTables().keySet()) {
 //			dbModels.add(getReportTables().get(key));
 //		}
+		
 		reportTables=new HashMap<String,ReportTable>();
 		ArrayList<ReportTable> r=new ArrayList<ReportTable>();
 		for(ReportTable reportTable:getAppCustomReprotRowData()){
@@ -135,13 +131,9 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		return getReportTableModels(r);
 	}
 
-
-	
-	
-
 	@Override
 	void buildlistener() {
-		this.listener = new WizardProgressListener() {
+		this.setListener(new WizardProgressListener() {
 
 			@Override
 			public void activeStepChanged(WizardStepActivationEvent event) {
@@ -164,7 +156,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				// TODO Auto-generated method stub
 
 			}
-		};
+		});
 	}
 
 	public Map<String, ReportTable> getReportTables() {
@@ -183,21 +175,13 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		this.w = w;
 	}
 
-	public static BasicUser getUser() {
-		return user;
-	}
 
-	public static void setUser(BasicUser user) {
-		MainTableStep.user = user;
-	}
-
-	public static List<ReportTable> getAppCustomReprotRowData() {
+	public List<ReportTable> getAppCustomReprotRowData() {
 		return appCustomReprotRowData;
 	}
 
-	public static void setAppCustomReprotRowData(
-			List<ReportTable> appCustomReprotRowData) {
-		MainTableStep.appCustomReprotRowData = appCustomReprotRowData;
+	public void setAppCustomReprotRowData(List<ReportTable> appCustomReprotRowData) {
+		this.appCustomReprotRowData = appCustomReprotRowData;
 	}
 
 	public class ReportTableEditor extends VerticalLayout implements ValueChangeListener {
@@ -220,8 +204,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			this.stepType = stepType;
 		}
 
-		public ReportTableEditor(List<ReportModel> reportModels,
-				String stepType, boolean queryFilterFlg) {
+		public ReportTableEditor(List<ReportModel> reportModels,String stepType, boolean queryFilterFlg) {
 			this.setReportModels(reportModels);
 			this.stepType = stepType;
 			this.queryFilterFlg = queryFilterFlg;
@@ -263,10 +246,9 @@ public class MainTableStep extends AbstarctReportWizardStep {
 
 		@Override
 		public void valueChange(ValueChangeEvent event) {
+			
 			rm = (ReportModel) box.getValue();
-			
-			clearMainTableReslut();
-			
+//			clearMainTableReslut();
 			if (rm != null) {
 				columnLayout.removeAllComponents();
 				columnLayout.addComponent(reportColmnDesc);
@@ -274,7 +256,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				columnLayout.setImmediate(true);
 				columnLayout.addComponent(gridLayout);
 				//build main table info
-				mainReportTable=rm.getReportTables().iterator().next();
+				ReportTable mainReportTable=rm.getReportTables().iterator().next();
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
 				List<ReportColumn> columnFields =mainReportTable.getReportColumns();
@@ -286,8 +268,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 					if(columnField.getColumnLabel()!=null){						
 						ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
 							@Override
-							public void layoutClick(LayoutClickEvent event) {
-								System.out.println("user click"+columnField.getColumnName());							
+							public void layoutClick(LayoutClickEvent event) {								
 								ReportColumn reportColumn=columnField;
 								reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
 								rm.getMainTableSelectedColumns().add(reportColumn);							
@@ -299,7 +280,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				this.addComponent(columnLayout);				
 				
 				//build related table info
-				relateReportTables.clear();
+				List<ReportTable> relateReportTables=new ArrayList<ReportTable>();
 				mainReportTable.setType(ReportConfiguration.ReportType.MainTable.toString());
 				for (ReportColumn reportColumn : mainReportTable.getReportColumns()) {
 					if (reportColumn.getColumnUseMode() != null
@@ -315,6 +296,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 						
 					}
 				}
+				
 				for(ReportTable reportTable:reportTables.values()){
 					for(ReportColumn reportColumn : reportTable.getReportColumns()){
 						if (reportColumn.getColumnUseMode() != null
@@ -332,18 +314,27 @@ public class MainTableStep extends AbstarctReportWizardStep {
 						
 					}
 				}
+				//clear duplicate relate table result
+				if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null &&ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables()!=null ){				
+					for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables().iterator();it.hasNext();){
+						ReportTable rt=it.next();
+							if(rt.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
+									it.remove();
+							}
+					}
+				}			
 				
 				rm.getReportTables().addAll(relateReportTables);
 				rm.getReportTables().add(mainReportTable);
 				
 				// init the report model -- main table				
 				if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null){
-					ReportModelPool.findReportModelByCurrentUser(user).getReportTables().clear();
+					ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables().clear();
 				}
-				ReportModelPool.putUserReportModel(user, rm);
+				ReportModelPool.putUserReportModel(getUser(), rm);
 								
 				// auto add the step
-				RelatedTableStep secondeStep = new RelatedTableStep(w,user);
+				RelatedTableStep secondeStep = new RelatedTableStep(w,getUser());
 				boolean removeStepflg = false;
 				for (WizardStep step : w.getSteps()) {
 					if (step.getCaption().equals(secondeStep.getCaption())) {
@@ -357,20 +348,20 @@ public class MainTableStep extends AbstarctReportWizardStep {
 					w.removeStep("Preview Step");
 				}
 				w.addStep(secondeStep, "Related Table Step");
-				w.addStep(new PreviewStep(w,user),"Preview Step");
+				w.addStep(new PreviewStep(w,getUser()),"Preview Step");
 			}
 		}
 
-		private void clearMainTableReslut() {
-			if(ReportModelPool.findReportModelByCurrentUser(user)!=null &&ReportModelPool.findReportModelByCurrentUser(user).getReportTables()!=null ){				
-				for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(user).getReportTables().iterator();it.hasNext();){
-					ReportTable rt=it.next();
-					if(rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())){
-						it.remove();	
-					}
-				}
-			}
-		}
+//		private void clearMainTableReslut() {
+//			if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null &&ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables()!=null ){				
+//				for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables().iterator();it.hasNext();){
+//					ReportTable rt=it.next();
+//					if(rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())){
+//						it.remove();	
+//					}
+//				}
+//			}
+//		}
 
 		public List<ReportModel> getReportModels() {
 			return reportModels;

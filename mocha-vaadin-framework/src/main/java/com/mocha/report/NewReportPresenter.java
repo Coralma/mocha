@@ -17,6 +17,8 @@ import com.coral.vaadin.widget.view.CommonPresenter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
 import com.coral.foundation.report.ReportModel;
@@ -33,14 +35,18 @@ import com.coral.foundation.security.model.ReportJoinTable;
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
-	List<ReportTable> appCustomReprotRowData;
-
+	AbstrctAppRawData appCustomReprotRowData;
 	
 	public NewReportPresenter(MochaEventBus eventBus) {
-		appCustomReprotRowData=(List<ReportTable>) eventBus.getContext().get("appCustomReprotRowData");
 		this.eventBus = eventBus;
+		ReportModelPool.clearReportModelByUser(eventBus.getUser());
+		ReportModel reportModel=new ReportModel("","","");
+		appCustomReprotRowData=(AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
+		reportModel.setAppRawRata(appCustomReprotRowData);
+		if(ReportModelPool.findReportModelByCurrentUser(eventBus.getUser())==null){
+			ReportModelPool.initInstance(eventBus.getUser(),reportModel);
+		}
 		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
-		ReportModelPool.init(eventBus.getUser(), new ReportModel("", ""));
 	}
 
 	@Override
@@ -70,6 +76,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				subTable.setType(ReportConfiguration.ReportType.SubTable.toString());
 				List<ReportColumn> subTableReportColumns = new ArrayList<ReportColumn>();
 				List<ReportColumn> mainTableReportColumns =new ArrayList<ReportColumn>(); 
+				
 				for (Iterator<ReportTable> it = reportModel.getReportTables().iterator(); it.hasNext();) {
 					ReportTable reportTable=(ReportTable) it.next();
 					//build subTable relate info
@@ -80,15 +87,19 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 						for(ReportColumn subReportColumn: reportModel.getSubTableSelectedColumns()){
 //							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
 							subTableReportColumns.add(subReportColumn);
-						}	
+						}
+						
 					}
-				}	
+					
+				}
+				
 				subTable.setReportColumns(subTableReportColumns);
+				
 				for (Iterator<ReportTable> it = reportModel.getReportTables().iterator(); it.hasNext();) {
 					ReportTable reportTable=(ReportTable) it.next();
 					// build mainTable infor
 					String mainTableType=ReportConfiguration.ReportType.MainTable.toString();
-					if(reportTable.getType().toString().contains(mainTableType)){
+					if(reportTable.getType().toString().equals(mainTableType)){
 						//build mainTable name and join type
 						mainTable.setTableName(reportTable.getTableName());
 						mainTable.setJoinType("inner join");
@@ -121,10 +132,12 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 									List<ReportJoinTable> mainTableReportJoinTables = new ArrayList<ReportJoinTable>();
 									mainTableReportJoinTables.add(mainReportJoinTable);
 									mainTable.getReportJoinReportTableId().add(mainReportJoinTable);
+									
 								}
 							}
 						}
 						mainTable.setReportColumns(mainTableReportColumns);
+					
 					}
 				}
 				
@@ -142,6 +155,9 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
 				eventBus.post(appContentEvent);
+				
+				ReportModelPool.clearReportModelByUser(eventBus.getUser());
+				
 			}
 
 			@Override
@@ -149,7 +165,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
 				eventBus.post(appContentEvent);
-
+				ReportModelPool.clearReportModelByUser(eventBus.getUser());
 			}
 		});
 		

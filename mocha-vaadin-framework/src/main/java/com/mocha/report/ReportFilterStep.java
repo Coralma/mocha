@@ -77,6 +77,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 				
 			}
 		});
+		getContent();
 	}
 
 	@Override
@@ -158,7 +159,7 @@ public class ReportFilterStep extends AbstarctReportWizardStep {
 					ReportModel.class);
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
-			box.setItemCaptionPropertyId("tableName");
+			box.setItemCaptionPropertyId("tableLabel");
 			box.addListener(this);
 			this.addComponent(box);
 			columnLayout.setSpacing(true);

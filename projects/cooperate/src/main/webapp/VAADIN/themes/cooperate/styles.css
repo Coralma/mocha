@@ -1985,15 +1985,15 @@
 }
 
 
-.custom-report-column-card:HOVER{
+/* .custom-report-column-card:HOVER{
 	background-color: #2076F7;
 }
-
+ */
 .custom-report-column-card {
-	background-color: #4A8DF8;
+	background-color: white;
 	border: 1px solid #057ED0;
 	border-radius: 4px 4px 4px 4px;
-	color: #FFFFFF;
+	color: #4A8DF8;
 	font-size: 12px;
 	font-weight: normal;
 	height: 28px;
