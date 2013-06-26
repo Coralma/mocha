@@ -85,7 +85,11 @@ public class ReportModelPool {
 
 	public static void clearReportModelByUser(BasicUser user) {
 		if(getUserSelectReport(user)!=null){
-			getUserSelectReport(user).remove(user.getUserName());			
+			ReportModel oldRm=getUserSelectReport(user).get(user.getUserName());			
+			getUserSelectReport(user).remove(user.getUserName());
+			ReportModel newRm=new ReportModel("","");
+			newRm.setAppRawRata(oldRm.getAppRawRata());
+			putUserReportModel(user, newRm);
 		}
 	}
 

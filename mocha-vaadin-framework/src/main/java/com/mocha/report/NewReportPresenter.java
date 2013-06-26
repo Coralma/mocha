@@ -35,17 +35,22 @@ import com.coral.foundation.security.model.ReportJoinTable;
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
-	AbstrctAppRawData appCustomReprotRowData;
+	static AbstrctAppRawData appCustomReprotRowData;
 	
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		ReportModelPool.clearReportModelByUser(eventBus.getUser());
+//		ReportModelPool.clearReportModelByUser(eventBus.getUser());
 		ReportModel reportModel=new ReportModel("","","");
 		appCustomReprotRowData=(AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
-		reportModel.setAppRawRata(appCustomReprotRowData);
-		if(ReportModelPool.findReportModelByCurrentUser(eventBus.getUser())==null){
-			ReportModelPool.initInstance(eventBus.getUser(),reportModel);
+		if(appCustomReprotRowData!=null){
+			reportModel.setAppRawRata(appCustomReprotRowData);
+			if(ReportModelPool.findReportModelByCurrentUser(eventBus.getUser())==null){
+				ReportModelPool.initInstance(eventBus.getUser(),reportModel);
+			}
+		}else{
+			new Throwable("Error occurs when init Report View on NewReportPresenter");
 		}
+		
 		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
 	}
 
@@ -155,7 +160,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
 				eventBus.post(appContentEvent);
-				
+				//Keep the report row data for this user
 				ReportModelPool.clearReportModelByUser(eventBus.getUser());
 				
 			}
