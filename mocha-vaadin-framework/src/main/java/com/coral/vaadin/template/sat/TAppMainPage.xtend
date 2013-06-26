@@ -5,6 +5,7 @@ import com.coral.foundation.md.model.App
 import com.coral.foundation.md.model.helper.VAppGenHelper
 import java.util.List
 import com.coral.foundation.md.model.Mocha
+import com.coral.foundation.md.model.ReportDef
 
 class TAppMainPage {
 
@@ -13,9 +14,11 @@ class TAppMainPage {
 	String functionPanel
 	App app
 	List<Mocha> mochas
+	ReportDef reportDef
 
-	def init(App app, List<Mocha> mochas) {
+	def init(App app, ReportDef reportDef, List<Mocha> mochas) {
   		this.app = app
+  		this.reportDef = reportDef;
   		this.appClassName = VAppGenHelper::genAppMainPageClassName(app.getName)
   		this.controlMenuPanel = VAppGenHelper::genControllerMenuPanelClassName(app.getName);
   		this.functionPanel = VAppGenHelper::genFunctionPanelClassName(app.getName);
@@ -37,6 +40,7 @@ class TAppMainPage {
 		import com.coral.vaadin.controller.Presenter;
 		import com.coral.vaadin.view.template.sat.AppMainPage;
 		import com.coral.vaadin.view.template.sat.AppContentEvent;
+		import com.coral.foundation.report.AbstrctAppRawData;
 		import com.coral.foundation.core.impl.MochaEventBus;
 		import com.coral.vaadin.view.template.sat.ControllerMenuPanel.ControllerMenuListener;
 		import «SystemConstant::ENTITY_EDIT_PRESENTER_PKG».*;
@@ -49,6 +53,9 @@ class TAppMainPage {
 			
 			private «controlMenuPanel» controllerMenu = new «controlMenuPanel»();
 			private «functionPanel» functionPanel = new «functionPanel»();
+			«IF reportDef != null»
+				private static AbstrctAppRawData reportData = new «reportDef.name»();
+			«ENDIF»
 	'''
 	
 	def GENAttachMethod()'''
@@ -64,6 +71,9 @@ class TAppMainPage {
 			«ELSEIF home.getViewName != null»
 				event.setViewName("«home.getViewName»");
 				controllerMenu.setMenuStyle("«home.getViewName»", null);
+			«ENDIF»
+			«IF reportDef != null»
+				eventBus.put("appCustomReprotRowData", reportData);
 			«ENDIF»
 			eventBus.post(event);
 			
