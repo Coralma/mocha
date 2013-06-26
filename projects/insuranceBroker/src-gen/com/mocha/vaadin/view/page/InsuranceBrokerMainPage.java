@@ -3,6 +3,7 @@ package com.mocha.vaadin.view.page;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppMainPage;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.vaadin.view.template.sat.ControllerMenuPanel.ControllerMenuListener;
@@ -14,7 +15,7 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 	private InsuranceBrokerControllerMenuPanel controllerMenu = new InsuranceBrokerControllerMenuPanel();
 	private InsuranceBrokerFunctionPanel functionPanel = new InsuranceBrokerFunctionPanel();
 	/*add*/
-	private static AbstrctAppRawData ib=new InsuranceBrokerReport();
+	private static AbstrctAppRawData reportData=new InsuranceBrokerReport();
 
 	public void attach() {
 		addComponent(controllerMenu);
@@ -24,7 +25,7 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		event.setCustomizeClass("com.mocha.ib.presenter.IBDashboardPresenter");
 		controllerMenu.setMenuStyle(null, "com.mocha.ib.presenter.IBDashboardPresenter");
 		/*add*/
-		eventBus.put("appCustomReprotRowData", ib);
+		eventBus.put("appCustomReprotRowData", reportData);
 		eventBus.post(event);
 		
 	}

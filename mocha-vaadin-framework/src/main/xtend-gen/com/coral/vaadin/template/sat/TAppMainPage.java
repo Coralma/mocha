@@ -5,6 +5,7 @@ import com.coral.foundation.md.model.App;
 import com.coral.foundation.md.model.AppMenu;
 import com.coral.foundation.md.model.AppNavigation;
 import com.coral.foundation.md.model.Mocha;
+import com.coral.foundation.md.model.ReportDef;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
 import com.google.common.base.Objects;
@@ -23,10 +24,13 @@ public class TAppMainPage {
   
   private List<Mocha> mochas;
   
-  public List<Mocha> init(final App app, final List<Mocha> mochas) {
+  private ReportDef reportDef;
+  
+  public List<Mocha> init(final App app, final ReportDef reportDef, final List<Mocha> mochas) {
     List<Mocha> _xblockexpression = null;
     {
       this.app = app;
+      this.reportDef = reportDef;
       String _name = app.getName();
       String _genAppMainPageClassName = VAppGenHelper.genAppMainPageClassName(_name);
       this.appClassName = _genAppMainPageClassName;
@@ -81,6 +85,8 @@ public class TAppMainPage {
     _builder.newLine();
     _builder.append("import com.coral.vaadin.view.template.sat.AppContentEvent;");
     _builder.newLine();
+    _builder.append("import com.coral.foundation.report.AbstrctAppRawData;");
+    _builder.newLine();
     _builder.append("import com.coral.foundation.core.impl.MochaEventBus;");
     _builder.newLine();
     _builder.append("import com.coral.vaadin.view.template.sat.ControllerMenuPanel.ControllerMenuListener;");
@@ -126,6 +132,17 @@ public class TAppMainPage {
     _builder.append(this.functionPanel, "	");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
+    {
+      boolean _notEquals = (!Objects.equal(this.reportDef, null));
+      if (_notEquals) {
+        _builder.append("\t");
+        _builder.append("private static AbstrctAppRawData reportData = new ");
+        String _name = this.reportDef.getName();
+        _builder.append(_name, "	");
+        _builder.append("();");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     return _builder;
   }
   
@@ -183,6 +200,14 @@ public class TAppMainPage {
           _builder.append("\", null);");
           _builder.newLineIfNotEmpty();
         }
+      }
+    }
+    {
+      boolean _notEquals_2 = (!Objects.equal(this.reportDef, null));
+      if (_notEquals_2) {
+        _builder.append("\t");
+        _builder.append("eventBus.put(\"appCustomReprotRowData\", reportData);");
+        _builder.newLine();
       }
     }
     _builder.append("\t");

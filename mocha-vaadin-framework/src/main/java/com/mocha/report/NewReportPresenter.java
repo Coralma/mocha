@@ -35,7 +35,7 @@ import com.coral.foundation.security.model.ReportJoinTable;
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
-	static AbstrctAppRawData appCustomReprotRowData;
+	final AbstrctAppRawData appCustomReprotRowData;
 	
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
@@ -50,7 +50,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 		}else{
 			new Throwable("Error occurs when init Report View on NewReportPresenter");
 		}
-		
+		System.out.println("appCustomReprotRowData.getReportTables().size() is: "+appCustomReprotRowData.getReportTables().size());
 		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
 	}
 

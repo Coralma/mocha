@@ -102,7 +102,16 @@ public class SATFaceGenerator extends AbstractFaceGenerator {
 
 	public void generateAppMainPage(App app) {
 		TAppMainPage appMainPage = new TAppMainPage();
-		appMainPage.init(app, mochas);
+		
+		// we suggest only one report def exist in our definition.
+		ReportDef existedReportDef = null;
+		for(Mocha mocha : mochas) {
+			for(ReportDef reportDef : mocha.getReportDefList()) {
+				existedReportDef = reportDef;
+				break;
+			}
+		}
+		appMainPage.init(app, existedReportDef, mochas);
 		GenerateModel generateModel = new GenerateModel();
 		generateModel.setClassName(VAppGenHelper.genAppMainPageClassName(app.getName()));
 		generateModel.setClassContent(appMainPage.generate().toString());

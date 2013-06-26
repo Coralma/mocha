@@ -1,13 +1,18 @@
 package com.mocha.vaadin.entity.view;
+import java.util.List;
+
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.IViewPanel;
+import com.coral.vaadin.view.template.sat.panel.impl.DefaultSectionPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.EntityDisplayPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.ListSectionPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.SingleColumnSectionPanel;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
+import com.coral.vaadin.widget.fields.FieldFactory;
 import com.coral.vaadin.widget.fields.FieldStatus;
 import com.mocha.ib.model.InsuranceCustomer;
+import com.mocha.ib.model.Policy;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.terminal.ThemeResource;
@@ -17,7 +22,9 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.VerticalLayout;
 
 public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 	
@@ -168,7 +175,9 @@ public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 		TabSheet tabSheet = new TabSheet();
 		tabSheet.addStyleName(Reindeer.TABSHEET_MINIMAL);
 		tabSheet.setWidth("760px");
-		tabSheet.addTab(createListSectionPanel("Policy"), "General Insurance");
+		ISectionPanel policySectionPanel = createListSectionPanel("Policy", buildPolicy());
+		
+		tabSheet.addTab(policySectionPanel, "General Insurance");
 		tabSheet.addTab(createListSectionPanel("Life"), "Life Insurance");
 		tabSheet.addTab(createListSectionPanel("Investment"), "Investment");
 		tabSheet.addTab(createListSectionPanel("Morgage"), "Morgage");
@@ -176,6 +185,56 @@ public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 //		this.addComponent(createListSectionPanel("Policy"));
 		
 //		this.addComponent(createListSectionPanel("Serve"));
+	}
+	
+	public Layout buildPolicy() {
+		VerticalLayout layout = null;
+		InsuranceCustomer customer = (InsuranceCustomer)getEntity();
+		List<Policy> policies = customer.getPolicy();
+		if(policies.size() > 0) {
+			layout = new VerticalLayout();
+			for(int i=0; i< policies.size();i++) {
+				Policy policy = policies.get(i);
+				ISectionPanel sectionPanel = new DefaultSectionPanel();
+				if(i > 0) {
+					sectionPanel.addStyleName("portal-section-more");
+				} else {
+					sectionPanel.addStyleName("portal-section");
+				}
+				sectionPanel.setWidth("760px");
+				sectionPanel.setSpacing(false);
+				FieldFactory fieldFactory = new FieldFactory(policy, true);
+				
+				FieldStatus fieldStatus = null;
+				fieldStatus = FieldStatus.create().setLabel("Policy No").setPath("policyNo").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Company").setPath("insuranceCompany").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Category").setPath("category").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Product").setPath("insuranceProduct").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Effective Date").setPath("effectiveDate").setType("Date");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Expiry Date").setPath("expiryDate").setType("Date");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Premium").setPath("premium").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				fieldStatus = FieldStatus.create().setLabel("Commission").setPath("commission").setType("String");
+				sectionPanel.addField(fieldFactory.create(fieldStatus));
+				
+				sectionPanel.setReadOnly(true);
+				layout.addComponent(sectionPanel);
+			}
+		}
+		return layout;
 	}
 
 	public Class getEntityClass() {

@@ -53,8 +53,8 @@ public class ReportModelPool {
 		
 		if(getUserSelectReport(baiscUser).containsKey(baiscUser.getUserName())){
 //			System.out.println("current reportModel has value: "+ReportModelPool.getUserSelectReport().get(baiscUser.getUserName()).getAppRawRata().getReportTables().size());
-			
-			return ReportModelPool.getUserSelectReport(baiscUser).get(baiscUser.getUserName());
+			ReportModel rm=ReportModelPool.getUserSelectReport(baiscUser).get(baiscUser.getUserName()); 
+			return rm;
 		}
 		return null;
 		
