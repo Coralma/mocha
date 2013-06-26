@@ -23,7 +23,7 @@ public class ReportModel {
 	private HashSet<ReportColumn> mainTableSelectedColumns=new HashSet<ReportColumn>();
 	private HashSet<ReportColumn> subTableSelectedColumns=new HashSet<ReportColumn>();
 	private AppReport appReport=new AppReport();
-	private AbstrctAppRawData appRawRata;
+	private static AbstrctAppRawData appRawRata;
 	
 	private StringBuilder reportQueryJoinStrings=new StringBuilder();
 	

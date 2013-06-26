@@ -15,7 +15,6 @@ public class ReportModelPool {
 	private ReportModel reportModel;
 	
 	public ReportModelPool(BasicUser basicUser,ReportModel reportModel){
-		
 		setBasicUser(basicUser);
 		initUserSessionReportModel(basicUser,reportModel);
 	}
