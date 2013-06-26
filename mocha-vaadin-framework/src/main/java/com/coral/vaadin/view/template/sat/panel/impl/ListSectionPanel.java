@@ -9,18 +9,28 @@ import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.widget.Field;
 import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.WidgetFactory;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 
 public class ListSectionPanel extends VerticalLayout implements ISectionPanel {
 
 	public String label;
 	public Button newButton = WidgetFactory.createButton("New");
-	
+	public Layout content;
 	public ListSectionPanel(String label) {
 		this.label = label;
+		this.setWidth("750px");
+		this.setSpacing(true);
+		this.addStyleName("list-section-panel");
+	}
+	
+	public ListSectionPanel(String label, Layout content) {
+		this.label = label;
+		this.content =content;
 		this.setWidth("750px");
 		this.setSpacing(true);
 		this.addStyleName("list-section-panel");
@@ -36,14 +46,19 @@ public class ListSectionPanel extends VerticalLayout implements ISectionPanel {
 //		sectionTitle.addStyleName("section-label");
 //		this.addComponent(sectionTitle);
 		
-		HorizontalLayout layout = new HorizontalLayout();
-		layout.setSpacing(true);
-		layout.setMargin(true);
-		Label noRecordLabel = WidgetFactory.createLabel("No records found");
-		noRecordLabel.addStyleName("no-section-content");
-		layout.addComponent(noRecordLabel);
-		layout.addComponent(newButton);
-		this.addComponent(layout);
+		if(content == null) {
+			HorizontalLayout layout = new HorizontalLayout();
+			layout.setSpacing(true);
+			layout.setMargin(true);
+			Label noRecordLabel = WidgetFactory.createLabel("No records found");
+			noRecordLabel.addStyleName("no-section-content");
+			layout.addComponent(noRecordLabel);
+			layout.addComponent(newButton);
+			this.addComponent(layout);
+		} else {
+			this.addComponent(content);
+			this.addComponent(newButton);
+		}
 	}
 	
 	@Override

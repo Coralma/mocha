@@ -13,6 +13,7 @@ import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -46,6 +47,12 @@ public abstract class EntityDisplayPanel extends EntityViewPanel {
 	
 	public ISectionPanel createListSectionPanel(String sectionName) {
 		ListSectionPanel listSectionPanel = new ListSectionPanel(sectionName);
+		sectionMap.put(sectionName, listSectionPanel);
+		return listSectionPanel;
+	}
+	
+	public ISectionPanel createListSectionPanel(String sectionName, Layout content) {
+		ListSectionPanel listSectionPanel = new ListSectionPanel(sectionName, content);
 		sectionMap.put(sectionName, listSectionPanel);
 		return listSectionPanel;
 	}
