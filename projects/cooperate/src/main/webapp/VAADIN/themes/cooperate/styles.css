@@ -1968,11 +1968,11 @@
 }
 
 .custom-report-column-card:HOVER{
-	background-color: #2076F7;
+	background-color: #3399FF;
 }
 
 .custom-report-column-card {
-	background-color: #3399FF;
+	background-color: #66CCFF;
 	border: 1px solid #057ED0;
 	border-radius: 4px 4px 4px 4px;
 	font-size: 12px;
