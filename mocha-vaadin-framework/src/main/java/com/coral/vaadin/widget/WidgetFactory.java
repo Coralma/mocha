@@ -162,6 +162,14 @@ public class WidgetFactory {
 		textField.setNullRepresentation("");
 		return textField;
 	}
+	public static TextField createRequiredTextField(String caption, Property property) {
+		TextField textField = new TextField(caption);
+		textField.setRequired(true);
+		textField.setWidth(defaultTextFieldWidth);
+		textField.setPropertyDataSource(property);
+		textField.setNullRepresentation("");
+		return textField;
+	}
 	public static PasswordField createPasswordField(String caption) {
 		PasswordField passwordField = new PasswordField(caption);
 		passwordField.setWidth(defaultTextFieldWidth);

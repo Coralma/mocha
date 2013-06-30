@@ -9,6 +9,7 @@ import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
+import com.coral.vaadin.widget.helper.NotificationHelper;
 import com.coral.vaadin.widget.listener.EnterClickListener;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
@@ -216,7 +217,7 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 		public void attach() {
 			VerticalLayout layout = new VerticalLayout();
 			FormLayout editor = new FormLayout();
-			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.RealName"), WidgetFactory.createProperty(user, "realName")));
+			editor.addComponent(WidgetFactory.createRequiredTextField(message.getString("cooperate.up.RealName"), WidgetFactory.createProperty(user, "realName")));
 			
 			if(user.getID() != null) {
 				photoUploader = new UserPhotoUploadWidget(user);
@@ -225,10 +226,10 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 				editor.addComponent(photoUploader);
 			}
 			
-			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.LoginName"), WidgetFactory.createProperty(user, "userName")));
+			editor.addComponent(WidgetFactory.createRequiredTextField(message.getString("cooperate.up.LoginName"), WidgetFactory.createProperty(user, "userName")));
 			if(user.getID() == null) {
-				editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.InitPassword"), WidgetFactory.createProperty(user, "password")));
-				editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Email"), WidgetFactory.createProperty(user, "email")));
+				editor.addComponent(WidgetFactory.createRequiredTextField(message.getString("cooperate.up.InitPassword"), WidgetFactory.createProperty(user, "password")));
+				editor.addComponent(WidgetFactory.createRequiredTextField(message.getString("cooperate.up.Email"), WidgetFactory.createProperty(user, "email")));
 			}
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.JobTitle"), WidgetFactory.createProperty(user, "jobTitle")));
 			editor.addComponent(WidgetFactory.createTextField(message.getString("cooperate.up.Extension"), WidgetFactory.createProperty(user, "extension")));
@@ -261,19 +262,25 @@ public class UserPermissionViewer extends CommonViewer implements ClickListener,
 						user.setUserPhoto(photoUrl);
 					}
 				}
-				if(user.getID() == null) {
-					user = listener.saveUser(user);
-					userList.add(0, user);
-					listener.refreshPanel();
-				} else {
-					listener.saveUser(user);
+				if(listener.validateUser(user)) {
+					if(user.getID() == null) {
+						user = listener.saveUser(user);
+						userList.add(0, user);
+						listener.refreshPanel();
+					} else {
+						listener.saveUser(user);
+					}
+					this.close();
 				}
-				this.close();
 			}
 			if(cancelButton.equals(event.getButton())) {
 				this.close();
 			}
 		}
+	}
+	
+	public void showErrorNotify() {
+		getWindow().showNotification(NotificationHelper.getErrorNotification("Please input the required items."));
 	}
 	
 	/**

@@ -45,15 +45,25 @@ public class UserPermissionPresenter extends CommonPresenter {
 	public void bind() {
 		final UserPermissionViewer userPermissionViewer = (UserPermissionViewer)viewer;
 		userPermissionViewer.setListener(new UserPermissionListener() {
+
+			@Override
+			public boolean validateUser(BasicUser user) {
+				if(StrUtils.isEmptys(user.getRealName(), user.getUserName(), user.getEmail(), user.getPassword())) {
+					userPermissionViewer.showErrorNotify();
+					return false;
+				}
+				return true;
+			}
+
 			@Override
 			public BasicUser saveUser(BasicUser user) {
 				if(user.getAccount() == null) {
 					Account account = accountDao.findById(currentUser.getAccount().getID());
 					user.setAccount(account);
+//					user.setPassword(StrUtils.getRandomString(6));
+					EmailUtils.send(CooperateMailFactory.getUserRegister(user));
 				}
 				user = basicUserDao.merge(user);
-//				user.setPassword(StrUtils.getRandomString(6));
-				EmailUtils.send(CooperateMailFactory.getUserRegister(user));
 				return user; 
 			}
 

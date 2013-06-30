@@ -21,8 +21,10 @@ import com.mocha.cooperate.page.event.ChatListener;
 import com.mocha.cooperate.service.ChatService;
 import com.mocha.cooperate.widget.CheckBoxPrepose;
 import com.mocha.cooperate.widget.NotifyTokenField;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -41,6 +43,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 	private ExpandingTextArea inputArea = new ExpandingTextArea();
 	private Label chatPersonsTitle;
 //	private Button addFButton = WidgetFactory.createLink("Add Files");
+	private CheckBoxPrepose checkBoxPrepose = new CheckBoxPrepose("Press Enter to send");
 	private Button replyButton = WidgetFactory.createButton("Reply", "reply", this);
 	
 	private VerticalLayout outputMessageLayout = new VerticalLayout();
@@ -53,6 +56,14 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 	private Chat currentChat;
 	private ChatMessage lastMessage;
 	private MochaEventBus eventBus;
+	
+	// input listener to post reply when key the enter.
+	private ShortcutListener inputListener = new ShortcutListener(null, KeyCode.ENTER, null) {
+		@Override
+		public void handleAction(Object sender, Object target) {
+			postReply();
+		}
+	};
 	
 	public ChatViewer(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
@@ -100,7 +111,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		
 		HorizontalLayout postControl = new HorizontalLayout();
 		postControl.setSpacing(true);
-		CheckBoxPrepose checkBoxPrepose = new CheckBoxPrepose("Press Enter to send");
+		
 		postControl.addComponent(checkBoxPrepose);
 		postControl.setComponentAlignment(checkBoxPrepose, Alignment.MIDDLE_CENTER);
 		postControl.addComponent(replyButton);
@@ -137,8 +148,20 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 	}
 	
 	public void bind() {
-		
+		checkBoxPrepose.checklistener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if(replyButton.isVisible()) {
+					replyButton.setVisible(false);
+					inputArea.addShortcutListener(inputListener);
+				} else {
+					replyButton.setVisible(true);
+					inputArea.removeShortcutListener(inputListener);					
+				}
+			}
+		});
 	}
+	
 	
 	@Override
 	public void buttonClick(ClickEvent event) {
@@ -147,15 +170,24 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 			NewChatWindow newChatWindow = new NewChatWindow();
 			getWindow().addWindow(newChatWindow);
 		} else if("reply".equals(data)) {
-			String value = (String)inputArea.getValue();
-			if(!StrUtils.isEmpty(value)) {
-				inputArea.setValue("");
-				listener.postMessage(value);
-			}
+//			String value = (String)inputArea.getValue();
+//			if(!StrUtils.isEmpty(value)) {
+//				inputArea.setValue("");
+//				listener.postMessage(value);
+//			}
+			postReply();
 		} else if("todo".equals(data)) {
 			ToDoEditorWindowPresenter todoWindow = new ToDoEditorWindowPresenter(eventBus);
 			todoWindow.bind();
 			getWindow().addWindow(todoWindow.getWindow());
+		}
+	}
+	
+	private void postReply() {
+		String value = (String)inputArea.getValue();
+		if(!StrUtils.isEmpty(value)) {
+			inputArea.setValue("");
+			listener.postMessage(value);
 		}
 	}
 	

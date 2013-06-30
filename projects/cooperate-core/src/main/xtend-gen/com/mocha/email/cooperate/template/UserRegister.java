@@ -18,7 +18,7 @@ public class UserRegister {
     _builder.append(_realName, "");
     _builder.append("<br/><br/>");
     _builder.newLineIfNotEmpty();
-    _builder.append("Thanks for joining the Mocha Platform! You can login the URL: <a href=\"www.mocha-platform.com/cooperate/\">www.mocha-platform.com/cooperate</a><br/> ");
+    _builder.append("Thanks for joining the Mocha Platform! You can login the URL: <a href=\"http://www.mocha-platform.com/cooperate/\">http://www.mocha-platform.com/cooperate</a><br/> ");
     _builder.newLine();
     _builder.append("Your Mocha Platform login is : <span style=\"color: #0174DF;\">");
     String _userName = user.getUserName();

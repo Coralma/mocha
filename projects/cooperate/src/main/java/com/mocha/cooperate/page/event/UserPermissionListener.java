@@ -11,6 +11,7 @@ import com.coral.foundation.security.model.BasicUser;
  */
 public interface UserPermissionListener {
 
+	public boolean validateUser(BasicUser user);
 	public BasicUser saveUser(BasicUser user);
 	public void refreshPanel();
 	public void searchUser(String text);

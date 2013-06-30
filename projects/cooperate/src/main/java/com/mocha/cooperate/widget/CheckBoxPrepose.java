@@ -23,6 +23,7 @@ public class CheckBoxPrepose extends HorizontalLayout {
 		label = new Label("<span style=\""+ InnerStyle.checkBoxPrepose_style +"\">" +caption + "</span>", Label.CONTENT_XHTML);
 		checkBox = new CheckBox();
 		this.addComponent(label);
+		checkBox.setImmediate(true);
 		this.addComponent(checkBox);
 	}
 	

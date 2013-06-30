@@ -56,6 +56,14 @@ public class StrUtils {
 		if("".equals(obj.toString())) return true;
 		return false;
 	}
+	public static boolean isEmptys(Object... objs) {
+		for(Object obj : objs) {
+			if(isEmpty(obj)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public static boolean isEmpty(String str) {
 		if(str == null) return true;
 		if("".equals(str)) return true;

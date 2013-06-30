@@ -133,6 +133,11 @@
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>refresher</artifactId>
 		</dependency>
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>toolbox</artifactId>
+		</dependency>
+		
 <!-- 		<dependency> -->
 <!-- 		   <groupId>org.vaadin.alump.fancylayouts</groupId> -->
 <!-- 		   <artifactId>fancylayouts-addon</artifactId> -->
