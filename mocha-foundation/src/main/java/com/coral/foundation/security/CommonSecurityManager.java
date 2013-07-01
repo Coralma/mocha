@@ -134,7 +134,6 @@ public class CommonSecurityManager {
 			AuthenticationToken authToken = getAuthToken(inputUserName,
 					inputPassword);
 			if (authToken != null) {
-				
 //				for(BasicRole basicRole: roleDao.findAll()){
 //					for (BasicUser basicUser : basicRole.getUser()) {
 //						if (basicUser.getUserName().equals(inputUserName)) {
@@ -145,12 +144,12 @@ public class CommonSecurityManager {
 //						}
 //			}
 //				}
+				
 				for(BasicUser basicUser : userDao.findAll()) {
 					if (basicUser.getUserName().equals(inputUserName)) {
 						return basicUser;
 					}
 				}
-
 			}
 		} catch (Exception e) {
 			log.info("The user " + inputUserName + " login fail with the password " + inputPassword);
@@ -169,9 +168,9 @@ public class CommonSecurityManager {
 		System.out.println("currentUser.isAuthenticated(): "+currentUser.isAuthenticated());
 		UsernamePasswordToken userNamePwtoken = new UsernamePasswordToken(
 				userName, pw);
-		if (!currentUser.isAuthenticated()) {
-			currentUser.login(userNamePwtoken);
-		}
+		currentUser.login(userNamePwtoken);
+//		if (!currentUser.isAuthenticated()) {
+//		}
 		return userNamePwtoken;
 	}
 

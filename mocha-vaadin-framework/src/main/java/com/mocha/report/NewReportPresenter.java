@@ -35,20 +35,22 @@ import com.coral.foundation.security.model.ReportJoinTable;
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
-	final AbstrctAppRawData appCustomReprotRowData;
+	static AbstrctAppRawData appCustomReprotRowData;
 	
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 //		ReportModelPool.clearReportModelByUser(eventBus.getUser());
 		ReportModel reportModel=new ReportModel("","","");
-		appCustomReprotRowData=(AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
-		if(appCustomReprotRowData!=null){
+		
+		// if appCustomReprotRowData is null means user already initial one instance in report model pool
+		if(appCustomReprotRowData==null){
+			appCustomReprotRowData=(AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
 			reportModel.setAppRawRata(appCustomReprotRowData);
 			if(ReportModelPool.findReportModelByCurrentUser(eventBus.getUser())==null){
 				ReportModelPool.initInstance(eventBus.getUser(),reportModel);
 			}
 		}else{
-			new Throwable("Error occurs when init Report View on NewReportPresenter");
+//			appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser()).getAppRawRata();
 		}
 		System.out.println("appCustomReprotRowData.getReportTables().size() is: "+appCustomReprotRowData.getReportTables().size());
 		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
