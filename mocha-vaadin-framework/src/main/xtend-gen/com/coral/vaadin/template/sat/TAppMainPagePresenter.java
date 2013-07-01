@@ -4,6 +4,7 @@ import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.App;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
+import com.coral.foundation.md.model.helper.VGenHelper;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
@@ -55,8 +56,8 @@ public class TAppMainPagePresenter {
     CharSequence _GENFunctionMethod = this.GENFunctionMethod();
     _builder.append(_GENFunctionMethod, "	");
     _builder.newLineIfNotEmpty();
-    CharSequence _GENClassEnd = this.GENClassEnd();
-    _builder.append(_GENClassEnd, "");
+    String _classEnd = VGenHelper.getClassEnd();
+    _builder.append(_classEnd, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -177,16 +178,34 @@ public class TAppMainPagePresenter {
     _builder.append("FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);");
     _builder.newLine();
     _builder.append("\t");
+    _builder.append("if(\"exit\".equals(functionMenu.getName())) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("PageChangeEvent changeEvent = new PageChangeEvent(\"index\");");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("changeEvent.setContentPresenterName(\"home\");");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("eventBus.post(changeEvent);");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t");
     _builder.append("AppContentEvent appContentEvent = new AppContentEvent();");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("appContentEvent.setViewName(functionMenu.getViewName());");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("appContentEvent.setCustomizeClass(functionMenu.getCustomizeClass());");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("eventBus.post(appContentEvent);");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -209,13 +228,6 @@ public class TAppMainPagePresenter {
     _builder.append(this.appMainPageClass, "	");
     _builder.append(") viewer).setEventBus(eventBus);");
     _builder.newLineIfNotEmpty();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public CharSequence GENClassEnd() {
-    StringConcatenation _builder = new StringConcatenation();
     _builder.append("}");
     _builder.newLine();
     return _builder;

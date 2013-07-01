@@ -4,8 +4,10 @@ import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.App;
 import com.coral.foundation.md.model.AppCreation;
 import com.coral.foundation.md.model.AppMenu;
+import com.coral.foundation.md.model.AppSetting;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
+import com.coral.foundation.md.model.helper.VGenHelper;
 import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -47,8 +49,8 @@ public class TFunctionPanel {
     CharSequence _GENGetMethod = this.GENGetMethod();
     _builder.append(_GENGetMethod, "	");
     _builder.newLineIfNotEmpty();
-    CharSequence _GENClassEnd = this.GENClassEnd();
-    _builder.append(_GENClassEnd, "");
+    String _classEnd = VGenHelper.getClassEnd();
+    _builder.append(_classEnd, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -122,7 +124,31 @@ public class TFunctionPanel {
     _builder.append("public List<FunctionMenu> getSettingFunctionMenu() {");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("return null;");
+    _builder.append("List<FunctionMenu> settingMenus = Lists.newArrayList();");
+    _builder.newLine();
+    {
+      AppSetting _appSetting = this.app.getAppSetting();
+      boolean _notEquals_1 = (!Objects.equal(_appSetting, null));
+      if (_notEquals_1) {
+        {
+          AppSetting _appSetting_1 = this.app.getAppSetting();
+          List<AppMenu> _appMenus_1 = _appSetting_1.getAppMenus();
+          for(final AppMenu settingMenu : _appMenus_1) {
+            _builder.append("\t");
+            _builder.append("settingMenus.add(");
+            String _generateFunctionMenu_1 = VAppGenHelper.generateFunctionMenu(settingMenu);
+            _builder.append(_generateFunctionMenu_1, "	");
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("\t");
+    _builder.append("settingMenus.add(FunctionMenu.create().setName(\"exit\").setLabel(\"Back to homepage\"));");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("return settingMenus;");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -131,13 +157,6 @@ public class TFunctionPanel {
   
   public CharSequence GENGetMethod() {
     StringConcatenation _builder = new StringConcatenation();
-    return _builder;
-  }
-  
-  public CharSequence GENClassEnd() {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("}");
-    _builder.newLine();
     return _builder;
   }
 }

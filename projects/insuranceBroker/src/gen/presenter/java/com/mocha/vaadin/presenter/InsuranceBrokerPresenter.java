@@ -5,6 +5,7 @@ import org.vaadin.peter.contextmenu.ContextMenu.ClickListener;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.vaadin.controller.PageChangeEvent;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.view.template.sat.FunctionMenu;
@@ -36,10 +37,16 @@ public class InsuranceBrokerPresenter extends CommonPresenter implements Present
 		InsuranceBrokerMainPage oaPage = (InsuranceBrokerMainPage) viewer;
 		oaPage.getControllerMenu().cleanMenuStyle();
 		FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);
-		AppContentEvent appContentEvent = new AppContentEvent();
-		appContentEvent.setViewName(functionMenu.getViewName());
-		appContentEvent.setCustomizeClass(functionMenu.getCustomizeClass());
-		eventBus.post(appContentEvent);
+		if("exit".equals(functionMenu.getName())) {
+			PageChangeEvent changeEvent = new PageChangeEvent("index");
+			changeEvent.setContentPresenterName("home");
+			eventBus.post(changeEvent);
+		} else {
+			AppContentEvent appContentEvent = new AppContentEvent();
+			appContentEvent.setViewName(functionMenu.getViewName());
+			appContentEvent.setCustomizeClass(functionMenu.getCustomizeClass());
+			eventBus.post(appContentEvent);
+		}
 	}
 	
 	/**

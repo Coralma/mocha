@@ -21,7 +21,11 @@ public class InsuranceBrokerFunctionPanel extends FunctionPanel {
 	
 	@Override
 	public List<FunctionMenu> getSettingFunctionMenu() {
-		return null;
+		List<FunctionMenu> settingMenus = Lists.newArrayList();
+		settingMenus.add(FunctionMenu.create().setName("Batch Import").setLabel("Batch  Import"));
+		settingMenus.add(FunctionMenu.create().setName("Batch Export").setLabel("Batch  Export"));
+		settingMenus.add(FunctionMenu.create().setName("exit").setLabel("Back to Homepage"));
+		return settingMenus;
 	}
 }
 

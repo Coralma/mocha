@@ -7,6 +7,7 @@ public class App {
 	public String label;
 	public AppNavigation appNavigation;
 	public AppCreation appCreation;
+	public AppSetting appSetting;
 
 	/**
 	 * @return the name
@@ -56,4 +57,17 @@ public class App {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+	/**
+	 * @return the appSetting
+	 */
+	public AppSetting getAppSetting() {
+		return appSetting;
+	}
+	/**
+	 * @param appSetting the appSetting to set
+	 */
+	public void setAppSetting(AppSetting appSetting) {
+		this.appSetting = appSetting;
+	}
+
 }

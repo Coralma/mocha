@@ -8,6 +8,7 @@ import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.ReportDef;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
+import com.coral.foundation.md.model.helper.VGenHelper;
 import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -66,8 +67,8 @@ public class TAppMainPage {
     CharSequence _GENGetMethod = this.GENGetMethod();
     _builder.append(_GENGetMethod, "	");
     _builder.newLineIfNotEmpty();
-    CharSequence _GENClassEnd = this.GENClassEnd();
-    _builder.append(_GENClassEnd, "");
+    String _classEnd = VGenHelper.getClassEnd();
+    _builder.append(_classEnd, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -350,13 +351,6 @@ public class TAppMainPage {
     _builder.append("\t");
     _builder.append("return functionPanel;");
     _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public CharSequence GENClassEnd() {
-    StringConcatenation _builder = new StringConcatenation();
     _builder.append("}");
     _builder.newLine();
     return _builder;

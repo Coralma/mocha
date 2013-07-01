@@ -146,13 +146,14 @@ public abstract class FunctionPanel extends VerticalLayout {
 		}
 		for(FunctionMenu functionMenu : functionMenus) {
 			ContextMenuItem item = settingContextMenu.addItem(functionMenu.getLabel());
+			item.setSeparatorVisible(functionMenu.isSeparator());
 			contextMenuMap.put(functionMenu.getName(), item);
 			contextMenuCache.put(item, functionMenu);
 		}
 		funButton.addListener(new ClickListener() {
             public void buttonClick(final com.vaadin.ui.Button.ClickEvent event) {
                 // put menu at bottom left of button
-            	settingContextMenu.show(event.getClientX() - event.getRelativeX(),
+            	settingContextMenu.show(event.getClientX() - event.getRelativeX() - 82,
                         event.getClientY() - event.getRelativeY() + 36);
             }
         });

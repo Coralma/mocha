@@ -174,6 +174,8 @@ public class VGenHelper {
 		return null;
 	}
 	
-	
+	public static String getClassEnd() {
+		return "}";
+	}
 }
 

@@ -7,6 +7,7 @@ import com.coral.foundation.md.model.AppMenuGroup;
 import com.coral.foundation.md.model.AppNavigation;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.helper.VAppGenHelper;
+import com.coral.foundation.md.model.helper.VGenHelper;
 import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -60,8 +61,8 @@ public class TControllerMenuPanel {
     CharSequence _GENGetMethod = this.GENGetMethod();
     _builder.append(_GENGetMethod, "	");
     _builder.newLineIfNotEmpty();
-    CharSequence _GENClassEnd = this.GENClassEnd();
-    _builder.append(_GENClassEnd, "");
+    String _classEnd = VGenHelper.getClassEnd();
+    _builder.append(_classEnd, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -223,13 +224,6 @@ public class TControllerMenuPanel {
   
   public CharSequence GENGetMethod() {
     StringConcatenation _builder = new StringConcatenation();
-    return _builder;
-  }
-  
-  public CharSequence GENClassEnd() {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("}");
-    _builder.newLine();
     return _builder;
   }
 }

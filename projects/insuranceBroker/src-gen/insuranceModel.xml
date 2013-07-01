@@ -74,6 +74,16 @@
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
         </appCreation>
+        <appSetting>
+          <appMenus>
+            <com.coral.foundation.md.model.AppMenu>
+              <name>Batch Import</name>
+            </com.coral.foundation.md.model.AppMenu>
+            <com.coral.foundation.md.model.AppMenu>
+              <name>Batch Export</name>
+            </com.coral.foundation.md.model.AppMenu>
+          </appMenus>
+        </appSetting>
       </com.coral.foundation.md.model.App>
     </apps>
     <codeTableList/>

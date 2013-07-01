@@ -5,6 +5,7 @@ import com.coral.foundation.md.model.App
 import com.coral.foundation.md.model.helper.VAppGenHelper
 import java.util.List
 import com.coral.foundation.md.model.Mocha
+import com.coral.foundation.md.model.helper.VGenHelper
 
 class TAppMainPagePresenter {
 
@@ -28,7 +29,7 @@ class TAppMainPagePresenter {
   		«GENPackageImport»
   		«GENClassHead»
   			«GENFunctionMethod»
-  		«GENClassEnd»
+  		«VGenHelper::classEnd»
   	'''
   	
   	def GENPackageImport()'''
@@ -76,10 +77,16 @@ class TAppMainPagePresenter {
 			«appMainPageClass» oaPage = («appMainPageClass») viewer;
 			oaPage.getControllerMenu().cleanMenuStyle();
 			FunctionMenu functionMenu = oaPage.getFunctionPanel().getFunctionMenu(clickedItem);
-			AppContentEvent appContentEvent = new AppContentEvent();
-			appContentEvent.setViewName(functionMenu.getViewName());
-			appContentEvent.setCustomizeClass(functionMenu.getCustomizeClass());
-			eventBus.post(appContentEvent);
+			if("exit".equals(functionMenu.getName())) {
+				PageChangeEvent changeEvent = new PageChangeEvent("index");
+				changeEvent.setContentPresenterName("home");
+				eventBus.post(changeEvent);
+			} else {
+				AppContentEvent appContentEvent = new AppContentEvent();
+				appContentEvent.setViewName(functionMenu.getViewName());
+				appContentEvent.setCustomizeClass(functionMenu.getCustomizeClass());
+				eventBus.post(appContentEvent);
+			}
 		}
 		
 		/**
@@ -88,10 +95,6 @@ class TAppMainPagePresenter {
 		public void setEventBus(MochaEventBus eventBus) {
 			this.eventBus = eventBus;
 			((«appMainPageClass») viewer).setEventBus(eventBus);
-		}
-	'''
-	
-	def GENClassEnd()'''
 		}
 	'''
 }

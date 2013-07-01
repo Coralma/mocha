@@ -14,6 +14,8 @@ public class FunctionMenu {
 	String label;
 	String viewName;
 	String customizeClass;
+	String wholeAction;
+	boolean separator = false;
 	
 	public static FunctionMenu create() {
 		FunctionMenu fm = new FunctionMenu();
@@ -69,6 +71,32 @@ public class FunctionMenu {
 	 */
 	public FunctionMenu setCustomizeClass(String customizeClass) {
 		this.customizeClass = customizeClass;
+		return this;
+	}
+	/**
+	 * @return the wholeAction
+	 */
+	public String getWholeAction() {
+		return wholeAction;
+	}
+	/**
+	 * @param wholeAction the wholeAction to set
+	 */
+	public FunctionMenu setWholeAction(String wholeAction) {
+		this.wholeAction = wholeAction;
+		return this;
+	}
+	/**
+	 * @return the separator
+	 */
+	public boolean isSeparator() {
+		return separator;
+	}
+	/**
+	 * @param separator the separator to set
+	 */
+	public FunctionMenu setSeparator(boolean separator) {
+		this.separator = separator;
 		return this;
 	}
 }

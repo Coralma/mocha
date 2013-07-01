@@ -5,6 +5,7 @@ import com.coral.foundation.md.model.App
 import com.coral.foundation.md.model.helper.VAppGenHelper
 import java.util.List
 import com.coral.foundation.md.model.Mocha
+import com.coral.foundation.md.model.helper.VGenHelper
 
 class TFunctionPanel {
 	
@@ -23,7 +24,7 @@ class TFunctionPanel {
   		«GENClassHead»
   			«GENAttachMethod»
   			«GENGetMethod»
-  		«GENClassEnd»
+  		«VGenHelper::classEnd»
   	'''
   	
   	def GENPackageImport()'''
@@ -56,20 +57,17 @@ class TFunctionPanel {
 
 		@Override
 		public List<FunctionMenu> getSettingFunctionMenu() {
-«««			List<FunctionMenu> settingMenus = Lists.newArrayList();
-«««			«IF app.getAppSetting != null»
-«««				«FOR settingMenu : app.getAppSetting.getAppMenus»
-«««					settingMenus.add(«VAppGenHelper::generateFunctionMenu(settingMenu)»);
-«««				«ENDFOR»
-«««			«ENDIF»
-«««			return settingMenus;
-			return null;
+			List<FunctionMenu> settingMenus = Lists.newArrayList();
+			«IF app.getAppSetting != null»
+				«FOR settingMenu : app.getAppSetting.getAppMenus»
+					settingMenus.add(«VAppGenHelper::generateFunctionMenu(settingMenu)»);
+				«ENDFOR»
+			«ENDIF»
+			settingMenus.add(FunctionMenu.create().setName("exit").setLabel("Back to homepage"));
+			return settingMenus;
 		}
 	'''
 	
 	def GENGetMethod()'''
 	'''
-	
-	def GENClassEnd()'''
-		}
-	'''}
+}

@@ -35,6 +35,8 @@
 <!-- 			<menu name="Create Serve" viewName="InsCustomerServeView"></menu> -->
 		</creation>
 		<setting>
+			<menu name="Batch Import"></menu>
+			<menu name="Batch Export"></menu>
 		</setting>
 	</app>
 

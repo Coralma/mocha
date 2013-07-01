@@ -18,6 +18,7 @@ import com.coral.foundation.md.model.AppCreation;
 import com.coral.foundation.md.model.AppMenu;
 import com.coral.foundation.md.model.AppMenuGroup;
 import com.coral.foundation.md.model.AppNavigation;
+import com.coral.foundation.md.model.AppSetting;
 import com.coral.foundation.md.model.CodeTable;
 import com.coral.foundation.md.model.CodeTableValue;
 import com.coral.foundation.md.model.Entity;
@@ -237,19 +238,12 @@ public class EntityXmlParser {
 			App app = new App();
 			app.setName(appElement.attributeValue("name"));
 			app.setLabel(appElement.attributeValue("label"));
-//			app.setPkg(appElement.attributeValue("pkg"));
 			AppNavigation appNavigation = new AppNavigation();
 			app.setAppNavigation(appNavigation);
 			List<Element> navigationElementList = appElement.elements("navigation");
 			for(Element navigationElement : navigationElementList) {
 				List<Element> mainMenuElementList = navigationElement.elements("menu"); 
 				for(Element mainMenu : mainMenuElementList) {
-//					AppMenu appMenu = new AppMenu();
-//					appMenu.setName(mainMenu.attributeValue("name"));
-//					appMenu.setLabel(mainMenu.attributeValue("label"));
-//					appMenu.setViewName(mainMenu.attributeValue("viewName"));
-//					appMenu.setCustomizedClass(mainMenu.attributeValue("customizedClass"));
-//					appNavigation.addAppMenu(appMenu);
 					appNavigation.addAppMenu(parseAppMenu(mainMenu));
 				}
 				List<Element> mainMenuGroupElementList = navigationElement.elements("group");
@@ -258,12 +252,6 @@ public class EntityXmlParser {
 					menuGroup.setLabel(group.attributeValue("label"));
 					List<Element> submainMenuElementList = group.elements("menu"); 
 					for(Element mainMenu : submainMenuElementList) {
-//						AppMenu appMenu = new AppMenu();
-//						appMenu.setName(mainMenu.attributeValue("name"));
-//						appMenu.setLabel(mainMenu.attributeValue("label"));
-//						appMenu.setViewName(mainMenu.attributeValue("viewName"));
-//						appMenu.setCustomizedClass(mainMenu.attributeValue("customizedClass"));
-//						menuGroup.addAppMenu(appMenu);
 						menuGroup.addAppMenu(parseAppMenu(mainMenu));
 					}
 					appNavigation.addAppMenuGroup(menuGroup);
@@ -276,6 +264,15 @@ public class EntityXmlParser {
 				List<Element> mainMenuElementList = creationElement.elements("menu");
 				for(Element mainMenu : mainMenuElementList) {
 					appCreation.addAppMenu(parseAppMenu(mainMenu));
+				}
+			}
+			AppSetting appSetting = new AppSetting();
+			app.setAppSetting(appSetting);
+			List<Element> settingElementList = appElement.elements("setting");
+			for(Element settingElement : settingElementList) {
+				List<Element> mainMenuElementList = settingElement.elements("menu");
+				for(Element mainMenu : mainMenuElementList) {
+					appSetting.addAppMenu(parseAppMenu(mainMenu));
 				}
 			}
 			apps.add(app);

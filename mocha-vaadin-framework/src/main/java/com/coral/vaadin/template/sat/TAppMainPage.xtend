@@ -6,6 +6,7 @@ import com.coral.foundation.md.model.helper.VAppGenHelper
 import java.util.List
 import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.ReportDef
+import com.coral.foundation.md.model.helper.VGenHelper
 
 class TAppMainPage {
 
@@ -31,7 +32,7 @@ class TAppMainPage {
   			«GENAttachMethod»
   			«GENImplementMethod»
   			«GENGetMethod»
-  		«GENClassEnd»
+  		«VGenHelper::classEnd»
   	'''
   	
   	def GENPackageImport()'''
@@ -127,10 +128,6 @@ class TAppMainPage {
 		 */
 		public «functionPanel» getFunctionPanel() {
 			return functionPanel;
-		}
-	'''
-	
-	def GENClassEnd()'''
 		}
 	'''
 }

@@ -7,6 +7,7 @@ import java.util.List
 import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.AppMenu
 import com.coral.foundation.md.model.AppNavigation
+import com.coral.foundation.md.model.helper.VGenHelper
 
 class TControllerMenuPanel {
 	
@@ -31,7 +32,7 @@ class TControllerMenuPanel {
   		«GENClassHead»
   			«GENBuildMethod»
   			«GENGetMethod»
-  		«GENClassEnd»
+  		«VGenHelper::classEnd»
   	'''
   	
   	def GENPackageImport()'''
@@ -91,9 +92,4 @@ class TControllerMenuPanel {
 	
 	def GENGetMethod()'''
 	'''
-	
-	def GENClassEnd()'''
-		}
-	'''
-  	
 }
