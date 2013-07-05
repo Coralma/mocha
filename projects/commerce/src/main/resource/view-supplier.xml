@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Commerce" entityPackage="com.mocha.co.model"
+	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
+	servicePackage="com.mocha.co.service">
+	
+	<!-- 	customer search view -->
+	<view name="SupplierSearch" template="EntityCardSearch" label="Search Supplier" entity="Supplier">
+		<section name="SupplierCondition" template="SearchCondition">
+			<field name="supplierName"/>
+			<field name="contectPerson"/>
+			<field name="email"/>
+			<field name="mobile"/>
+		</section>
+		<section name="ProductSearchCard" template="SearchCard" icon="card-cust.png">
+			<field name="supplierName"/>
+			<field name="contectPerson"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+			<field name="email"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<view name="SupplierView" template="EntityEditView" entity="Supplier">
+		<section name="Supplier" label="Supplier Information">
+			<field name="supplierName"/>
+			<field name="contectPerson"/>
+			<field name="district"/>
+			<field name="postcode"/>
+			<field name="address"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+			<field name="url"/>
+			<field name="email"/>
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>	

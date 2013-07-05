@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+
+	<app name="Commerce" label="E-Commerce">
+		<navigation>
+			<menu name="Home" customizedClass="com.mocha.co.presenter.CoDashboardPresenter"/>
+			<group label="Order Management">
+				<menu name="Manage Orders"/>
+				<menu name="Manage Logistics"/>
+				<menu name="Return and Exchange"/>
+				<menu name="Manage Customers"/>
+			</group>
+			<group label="Promotion and Product">
+				<menu name="Promotion Setting"/>
+				<menu name="Product Definition"/>
+				<menu name="Supplier Definition"/>
+			</group>
+			<group label="Stock Management">
+				<menu name="Manage Stock"/>
+			</group>
+			<group label="Report Center">
+				<menu name="Reports" customizedClass="com.mocha.report.CrmReportPresenter"/>
+			</group>
+		</navigation>
+		<creation>
+			<menu name="Create Order"></menu>
+			<menu name="Create Customer"></menu>
+			<menu name="Create Supplier"></menu>
+			<menu name="Create Product"></menu>
+			<menu name="Create Product Incomings"></menu>
+			<menu name="Create Product Outgoings"></menu>
+<!-- 			<menu name="Create Serve" viewName="InsCustomerServeView"></menu> -->
+		</creation>
+		<setting>
+			<menu name="Data Batch Import"></menu>
+			<menu name="Data Batch Export"></menu>
+		</setting>
+	</app>
+
+</mocha>

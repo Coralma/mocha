@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Commerce" entityPackage="com.mocha.co.model"
+	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
+	servicePackage="com.mocha.co.service">
+	
+		<!-- 	customer search view -->
+	<view name="CommerceCustomerSearch" template="EntityCardSearch" label="Search Customer" entity="CommerceCustomer">
+		<section name="CompanyCustomerCondition" template="SearchCondition">
+			<field name="customerType" />
+			<field name="status" />
+			<field name="name" />
+			<field name="district"/>
+			<field name="contectPerson"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+			<field name="email"/>
+		</section>
+		<section name="CompanySearchCard" template="SearchCard" icon="card-cust.png">
+			<field name="name" required="true"/>
+			<field name="district"/>
+			<field name="address" wholeRow="true" style="textarea"/>
+			<field name="postcode" changeLine="true"/>
+			<field name="mobile"/>
+			<field name="email"/>
+			<action name="view" label="View" action="View"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<!-- 	customer edit view -->
+	<view name="CommerceCustomerView" template="EntityEditView" entity="CommerceCustomer">
+		<section name="customerStatus" label="Customer Status">
+			<field name="customerType" codeTable="ins-customer-type"/>
+			<field name="status" codeTable="ins-customer-status"/>
+		</section>
+		<section name="indiCustInfo" label="Individual Customer Information">
+			<field name="name" label="Customer Name" required="true"/>
+			<field name="email" required="true"/>
+			<field name="district"/>
+			<field name="postcode" changeLine="true"/>
+			<field name="address" wholeRow="true" style="textarea"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+		</section>
+		<section name="companyCustInfo" label="Company Customer Information">
+			<field name="name" label="Company Name" required="true"/>
+			<field name="district"/>
+			<field name="address" wholeRow="true" style="textarea"/>
+			<field name="postcode" changeLine="true"/>
+		</section>
+		<section name="companyContectPerson" label="Company Contect Person">
+			<field name="contectPerson"/>
+			<field name="email" required="true"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+		</section>
+		<section name="custMark" label="Company Customer Mark">
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+	
+</mocha>

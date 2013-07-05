@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Commerce" entityPackage="com.mocha.co.model"
+	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
+	servicePackage="com.mocha.co.service">
+	
+	<!-- 	customer search view -->
+	<view name="ProductSearch" template="EntityCardSearch" label="Search Product" entity="CommerceProduct">
+		<section name="ProductCondition" template="SearchCondition">
+			<field name="productName" />
+			<field name="brand" />
+			<field name="color" />
+			<field name="salePrice" />
+		</section>
+		<section name="ProductSearchCard" template="SearchCard" icon="card-cust.png">
+			<field name="productName"/>
+			<field name="productCode"/>
+			<field name="brand"/>
+			<field name="unit"/>
+			<field name="spec"/>
+			<field name="color"/>
+			<field name="salePrice"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<view name="ProductView" template="EntityEditView" entity="CommerceProduct">
+		<section name="product" label="Product Information">
+			<field name="productCode"/>
+			<field name="productName"/>
+			<field name="productImage"/>
+			<field name="brand"/>
+			<field name="unit"/>
+			<field name="spec"/>
+			<field name="color"/>
+			<field name="salePrice"/>
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>	

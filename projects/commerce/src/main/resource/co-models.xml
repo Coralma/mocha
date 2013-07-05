@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Commerce" entityPackage="com.mocha.co.model"
+	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
+	servicePackage="com.mocha.co.service">
+	
+	<entity entityName="CommerceCustomer">
+		<property name="customerType"/>
+		<property name="name"/>	
+		<property name="status"/>
+		<property name="source"/> <!-- 	from Amazon, eBay and Other --> 
+		<property name="district"/>
+		<property name="postcode"/>
+		<property name="address"/>
+		<property name="contectPerson"/>
+		<property name="mobile"/>
+		<property name="phone"/>
+		<property name="fax"/>
+		<property name="email"/>
+		<property name="mark"/>
+		<property name="orders" type="List" ref="Order" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="Order">
+		<property name="customer" type="CommerceCustomer" ref="CommerceCustomer" orm="many-to-one"/>
+		<property name="status"/>
+		<property name="purchaseDate" type="Date"/>
+		<property name="exceptedShipDate" type="Date"/>
+		<property name="estimatedDelivery" type="Date"/>
+		<property name="shippingService"/>
+		<property name="salesChannel"/>
+		<property name="orderTotals"/>
+		<property name="orderProducts" type="List" ref="OrderProduct" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="OrderProduct">
+		<property name="product"/>
+		<property name="status"/>
+		<property name="quantityOrdered" type="Long"/>
+		<property name="price"/>
+		<property name="subTotal"/>
+	</entity>
+	
+	<entity entityName="Promotion">
+		<property name="product" type="CommerceProduct" ref="CommerceProduct" orm="many-to-one"/>/>
+		<property name="status"/>
+		<property name="type"/>
+		<property name="discount"/>
+		<property name="price"/>
+		<property name="startDate" type="Date"/>
+		<property name="expiryDate" type="Date"/>
+	</entity>
+
+	<entity entityName="CommerceProduct">
+		<property name="productCode"/>
+		<property name="productName"/>
+		<property name="productImage"/>
+		<property name="brand"/>
+		<property name="unit"/>
+		<property name="spec"/>
+		<property name="color"/>
+		<property name="salePrice"/>
+		<property name="mark"/>
+		<property name="stockProduct" type="StockProduct" ref="StockProduct" orm="one-to-one"/>
+		<property name="promotions" type="List" ref="Promotion" orm="one-to-many"/>
+		<property name="supplier" type="Supplier" ref="Supplier" orm="many-to-one"/>
+	</entity>
+		
+	<entity entityName="Supplier">	
+		<property name="supplierName"/>
+		<property name="contectPerson"/>
+		<property name="district"/>
+		<property name="postcode"/>
+		<property name="address"/>
+		<property name="mobile"/>
+		<property name="phone"/>
+		<property name="fax"/>
+		<property name="url"/>
+		<property name="email"/>
+		<property name="mark"/>
+		<property name="products" type="List" ref="CommerceProduct" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="StockProduct">
+		<property name="product" type="CommerceProduct" ref="CommerceProduct" orm="one-to-one"/>
+		<property name="existenceQuantity" type="Long"/>
+		<property name="maximalQuantity" type="Long"/>
+		<property name="minimumQuantity" type="Long"/>
+		<property name="stockPrice"/>
+	</entity>
+</mocha>
