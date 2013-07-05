@@ -9,4 +9,7 @@ package com.mocha.mobile.controller;
  */
 public interface MobilePresenter {
 
+	public MobileView go();
+	
+	public void bind();
 }

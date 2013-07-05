@@ -55,17 +55,19 @@ public class FileUtils {
 	 */
 	public static void cleanFolder(String dir) {
 		File delfolder = new File(dir);
-		File oldFile[] = delfolder.listFiles();
-		try {
-			for (int i = 0; i < oldFile.length; i++) {
-				if (oldFile[i].isDirectory()) {
-					cleanFolder(dir + File.separator +  oldFile[i].getName());
+		if(delfolder.exists()) {
+			File oldFile[] = delfolder.listFiles();
+			try {
+				for (int i = 0; i < oldFile.length; i++) {
+					if (oldFile[i].isDirectory()) {
+						cleanFolder(dir + File.separator +  oldFile[i].getName());
+					}
+					oldFile[i].delete();
 				}
-				oldFile[i].delete();
+			} catch (Exception e) {
+				logger.info("Delete the " + dir +" folder error.");
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			logger.info("Delete the " + dir +" folder error.");
-			e.printStackTrace();
 		}
 	}
 	

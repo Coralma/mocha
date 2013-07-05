@@ -2,7 +2,7 @@ package com.mocha.mobile.controller;
 
 import com.coral.foundation.core.impl.MochaEventBus;
 
-public class AbstractMobilePresenter {
+public abstract class AbstractMobilePresenter implements MobilePresenter {
 
 	protected MochaEventBus eventBus;
 	protected MobileView view;

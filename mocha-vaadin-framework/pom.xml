@@ -137,11 +137,16 @@
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>toolbox</artifactId>
 		</dependency>
-		
 <!-- 		<dependency> -->
 <!-- 		   <groupId>org.vaadin.alump.fancylayouts</groupId> -->
 <!-- 		   <artifactId>fancylayouts-addon</artifactId> -->
 <!-- 		</dependency> -->
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>distributionbar</artifactId>
+		   <version>0.3.3</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.bsb.common.vaadin</groupId>
 			<artifactId>com.bsb.common.vaadin.embed</artifactId>

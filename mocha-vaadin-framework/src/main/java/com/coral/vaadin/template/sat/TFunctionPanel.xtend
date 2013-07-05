@@ -63,7 +63,7 @@ class TFunctionPanel {
 					settingMenus.add(«VAppGenHelper::generateFunctionMenu(settingMenu)»);
 				«ENDFOR»
 			«ENDIF»
-			settingMenus.add(FunctionMenu.create().setName("exit").setLabel("Back to homepage"));
+			settingMenus.add(FunctionMenu.create().setName("exit").setLabel("Back to Homepage"));
 			return settingMenus;
 		}
 	'''

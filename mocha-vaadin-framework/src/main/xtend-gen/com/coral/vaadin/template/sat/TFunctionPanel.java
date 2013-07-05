@@ -145,7 +145,7 @@ public class TFunctionPanel {
       }
     }
     _builder.append("\t");
-    _builder.append("settingMenus.add(FunctionMenu.create().setName(\"exit\").setLabel(\"Back to homepage\"));");
+    _builder.append("settingMenus.add(FunctionMenu.create().setName(\"exit\").setLabel(\"Back to Homepage\"));");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return settingMenus;");

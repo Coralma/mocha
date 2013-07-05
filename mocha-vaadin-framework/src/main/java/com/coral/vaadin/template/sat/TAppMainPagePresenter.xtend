@@ -38,7 +38,7 @@ class TAppMainPagePresenter {
 		import org.vaadin.peter.contextmenu.ContextMenu.ClickEvent;
 		import org.vaadin.peter.contextmenu.ContextMenu.ClickListener;
 		import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
-		
+		import com.coral.vaadin.controller.PageChangeEvent;
 		import com.coral.foundation.core.impl.MochaEventBus;
 		import com.coral.vaadin.controller.Presenter;
 		import com.coral.vaadin.view.template.sat.AppContentEvent;

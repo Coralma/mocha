@@ -87,11 +87,18 @@ public class ExampleData {
 		shotcutItemList.add(shotcutItem);
 		
 		shotcutItem = new ShotcutItem();
-		shotcutItem.setLabel("cooperate.shotcut.CustomerManage");
-		shotcutItem.setAction("crm");
-		shotcutItem.setIcon("icons/crm_icon.png");
+		shotcutItem.setLabel("E-Commerce");
+		shotcutItem.setAction("co");
+		shotcutItem.setIcon("icons/ec_icon.png");
 		shotcutItem.setType(SystemProperty.PAGE_TYPE);
 		shotcutItemList.add(shotcutItem);
+		
+//		shotcutItem = new ShotcutItem();
+//		shotcutItem.setLabel("cooperate.shotcut.CustomerManage");
+//		shotcutItem.setAction("crm");
+//		shotcutItem.setIcon("icons/crm_icon.png");
+//		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+//		shotcutItemList.add(shotcutItem);
 		
 		shotcut.setShotcutItems(shotcutItemList);
 		shotcutList.add(shotcut);

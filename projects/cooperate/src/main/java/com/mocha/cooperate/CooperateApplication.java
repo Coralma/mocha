@@ -59,7 +59,7 @@ public class CooperateApplication extends MochaApplication  {
 
 	@Override
 	public String applicationTitle() {
-		return "Cooperate";
+		return "Mocha Platform";
 	}
 	
 	@Override

@@ -75,6 +75,7 @@ public class TAppMainPagePresenter {
     _builder.newLine();
     _builder.append("import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;");
     _builder.newLine();
+    _builder.append("import com.coral.vaadin.controller.PageChangeEvent;");
     _builder.newLine();
     _builder.append("import com.coral.foundation.core.impl.MochaEventBus;");
     _builder.newLine();

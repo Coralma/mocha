@@ -1,5 +1,7 @@
 package com.mocha.mobile.controller;
 
-public interface MobileView {
+import com.vaadin.ui.ComponentContainer;
+
+public interface MobileView extends ComponentContainer {
 
 }
