@@ -336,19 +336,50 @@
 	font-weight: bold;
 	text-shadow: 0 1px 1px rgba(255,255,255,0.75);
 	text-align: center;
-	padding-bottom: 20px;
 }
 
 .phone-login .additional-title {
 	color:white;
 	background-color: #52555a;
-	font-size: 16px;
+	font-size: 12px;
 	border: 1px solid #ADB2BC;
 	padding: 0 3px;
 	margin-bottom: 18px;
 }
 
+.phone-home-layout {
+	background-color: white;
+}
 
+.phone-card-layout {
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px dashed #D8D8D8;
+}
+
+.phone-card-layout .card-photo {
+	padding-left: 5px;
+}
+
+.phone-card-layout .card-name {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.phone-card-layout .phone-createdate-label {
+	font-size: 11px;
+	color: #F7BE81;
+}
+
+.phone-card-layout .phone-reply-label {
+	font-size: 11px;
+	color: #5882FA;
+	text-align: right;
+	padding-right: 5px;
+}
+
+/* pad style. */
 .pad-login {
 	padding-top: 100px;
 }
@@ -372,4 +403,5 @@
 	padding: 0 3px;
 	margin-bottom: 18px;
 }
+
 

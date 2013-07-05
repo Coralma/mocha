@@ -9,9 +9,9 @@
 		<param-value>true</param-value>
 	</context-param>
 
-<!-- 	<listener> -->
-<!-- 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
-<!-- 	</listener> -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	 <servlet>
         <servlet-name>Vaadin Application Servlet</servlet-name>

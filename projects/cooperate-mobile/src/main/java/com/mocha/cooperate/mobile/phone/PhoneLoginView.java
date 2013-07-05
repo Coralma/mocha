@@ -21,7 +21,8 @@ import com.vaadin.ui.VerticalLayout;
 public class PhoneLoginView extends VerticalLayout implements MobileView {
 
 	private Button loginButton = new Button("Login");
-	
+	private TextField username = new TextField("Username: ");
+	private PasswordField password = new PasswordField("Password: ");
 	@Override
 	public void attach() {
 		super.attach();
@@ -29,25 +30,26 @@ public class PhoneLoginView extends VerticalLayout implements MobileView {
 		layout.addStyleName("phone-login");
 		layout.setWidth("100%");
 		
-		HorizontalLayout titleLayout = new HorizontalLayout();
+		VerticalLayout titleLayout = new VerticalLayout();
 		titleLayout.setSpacing(true);
 		Label title = new Label("Mocha Platform");
 		title.addStyleName("mocha-title");
 		titleLayout.addComponent(title);
-		titleLayout.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
+		titleLayout.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
 		Label additionalTitle = new Label("Smartphone Version");
+		additionalTitle.setWidth("122px");
 		additionalTitle.addStyleName("additional-title");
 		titleLayout.addComponent(additionalTitle);
-		titleLayout.setComponentAlignment(additionalTitle, Alignment.MIDDLE_LEFT);
+		titleLayout.setComponentAlignment(additionalTitle, Alignment.MIDDLE_CENTER);
 		layout.addComponent(titleLayout);
 		layout.setComponentAlignment(titleLayout, Alignment.MIDDLE_CENTER);
 
 		// username & password input area.
 		VerticalComponentGroup componentGroup = new VerticalComponentGroup();
-		TextField username = new TextField("Username: ");
+		
 		username.setWidth("100%");
 		componentGroup.addComponent(username);
-		PasswordField password = new PasswordField("Password: ");
+		
 		password.setWidth("100%");
 		componentGroup.addComponent(password);
 		layout.addComponent(componentGroup);
@@ -75,5 +77,33 @@ public class PhoneLoginView extends VerticalLayout implements MobileView {
 	 */
 	public void setLoginButton(Button loginButton) {
 		this.loginButton = loginButton;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public TextField getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(TextField username) {
+		this.username = username;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public PasswordField getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(PasswordField password) {
+		this.password = password;
 	}
 }

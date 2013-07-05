@@ -3,19 +3,20 @@
  */
 package com.mocha.cooperate.mobile.phone;
 
+import com.coral.foundation.core.impl.MochaEventBus;
 import com.mocha.mobile.controller.MobileView;
 import com.vaadin.addon.touchkit.ui.TabBarView;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.TabSheet.Tab;
 
 
-public class PhoneMainTabView extends TabBarView implements MobileView {
+public class PhoneMainView extends TabBarView implements MobileView {
 
-	public PhoneMainTabView() {
-		/*
-		 * Populate main views
-		 */
-		Tab addTab = addTab(new SettingView());
+	public PhoneMainView(MochaEventBus eventBus) {
+		PhoneHomePresenter homePresenter = new PhoneHomePresenter(eventBus);
+		homePresenter.bind();
+		PhoneHomeView homeView = (PhoneHomeView) homePresenter.go();
+		Tab addTab = addTab(homeView);
 		addTab.setIcon(new ThemeResource("linegraphics/home.png"));
 		addTab.setCaption("Home");
 
@@ -36,7 +37,7 @@ public class PhoneMainTabView extends TabBarView implements MobileView {
 		 * Make settings view as the default. This would not be best option for
 		 * a real application, but it also serves as our demos welcome page.
 		 */
-		setSelectedTab(settings);
+		setSelectedTab(homeView);
 
 	}
 }
