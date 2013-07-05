@@ -5,7 +5,9 @@ import java.sql.Connection;
 import javax.sql.DataSource;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -162,16 +164,18 @@ public class CommonSecurityManager {
 			String inputPassword) throws Exception {
 		String userName = inputUserName;
 		String pw = inputPassword;
-		Subject currentUser = SecurityUtils.getSubject();
-		//implement the session later
-		Session sessionId = currentUser.getSession();
-		System.out.println("currentUser.isAuthenticated(): "+currentUser.isAuthenticated());
+		// System.out.println("currentUser.isAuthenticated(): "+currentUser.isAuthenticated());
 		UsernamePasswordToken userNamePwtoken = new UsernamePasswordToken(
 				userName, pw);
-		currentUser.login(userNamePwtoken);
-//		if (!currentUser.isAuthenticated()) {
-//		}
-		return userNamePwtoken;
+	    try {  
+	    	SecurityUtils.getSubject().login(userNamePwtoken);  
+	    	log.debug("successfully login with "+userName);
+	    	return userNamePwtoken;
+	    }catch(UnknownAccountException e){
+	    	log.error("UnknownAccountException error occurs on user "+ userName);
+	    }catch ( AuthenticationException ae ) {  
+	    	log.error("AuthenticationException on user "+userName);
+	    } 
+	    return null;
 	}
-
 }
