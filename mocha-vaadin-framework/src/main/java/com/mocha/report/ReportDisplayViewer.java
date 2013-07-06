@@ -15,10 +15,12 @@ import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 
 /**
  * @author Coral
@@ -32,6 +34,7 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 	private Button newButton;
 	private Button deleteButton;
 	private Long reportId;
+	private ReportCategoryListener listener;
 	
 	private IndexedContainer contactContainer = new IndexedContainer();
 
@@ -49,16 +52,17 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		backLink.setIcon(new ThemeResource("icons/back.png"));
-		editButton = WidgetFactory.createButton("Edit");
-		newButton = WidgetFactory.createButton("Create");
-		deleteButton = WidgetFactory.createButton("Delete");
+		setEditButton(WidgetFactory.createButton("Edit"));
+		setNewButton(WidgetFactory.createButton("Create"));
+		setDeleteButton(WidgetFactory.createButton("Delete"));
 		toolbar.setNeedRightSeperate(false);
 		toolbar.setLeftAlignment(Alignment.MIDDLE_LEFT);
 		toolbar.addLeftComponent(backLink);
-		toolbar.addRightComponent(editButton);
-		toolbar.addRightComponent(newButton);
-		toolbar.addRightComponent(deleteButton);
-
+		toolbar.addRightComponent(getEditButton());
+		toolbar.addRightComponent(getNewButton());
+		toolbar.addRightComponent(getDeleteButton());
+		
+		
 		this.addComponent(toolbar);
 
 		VerticalLayout filterLayout = new VerticalLayout();
@@ -170,6 +174,30 @@ public class ReportDisplayViewer extends CommonViewer implements Viewer {
 
 	public void setContactContainer(IndexedContainer contactContainer) {
 		this.contactContainer = contactContainer;
+	}
+
+	public Button getEditButton() {
+		return editButton;
+	}
+
+	public void setEditButton(Button editButton) {
+		this.editButton = editButton;
+	}
+
+	public Button getNewButton() {
+		return newButton;
+	}
+
+	public void setNewButton(Button newButton) {
+		this.newButton = newButton;
+	}
+
+	public Button getDeleteButton() {
+		return deleteButton;
+	}
+
+	public void setDeleteButton(Button deleteButton) {
+		this.deleteButton = deleteButton;
 	}
 
 }

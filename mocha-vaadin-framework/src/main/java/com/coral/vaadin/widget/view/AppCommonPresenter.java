@@ -8,6 +8,7 @@ import java.util.List;
 import com.coral.foundation.jpa.search.RelationStatus;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.google.common.collect.Lists;
 
@@ -34,15 +35,15 @@ public abstract class AppCommonPresenter extends CommonPresenter {
 	public void postCustomizeClass(String customizeClass) {
 		AppContentEvent appContentEvent = new AppContentEvent();
 		appContentEvent.setCustomizeClass(customizeClass);
-		
 		eventBus.post(appContentEvent);
 	}
 	
-	public void postCustomizeClass(String customizeClass, Object entity) {
+	public void postCustomizeClass(String customizeClass, Object entity,AbstrctAppRawData appCustomReprotRowData) {
 		AppContentEvent appContentEvent = new AppContentEvent();
 		appContentEvent.setCustomizeClass(customizeClass);
-		eventBus.resetContext();
+//		eventBus.resetContext();
 		eventBus.put("Entity", entity);
+		eventBus.put("appCustomReprotRowData",appCustomReprotRowData);
 		eventBus.post(appContentEvent);
 	}
 

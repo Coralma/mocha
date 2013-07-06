@@ -51,14 +51,25 @@ public class MainTableStep extends AbstarctReportWizardStep {
 	private WizardStep nStep;
 	private BasicUser user;
 	private List<ReportTable> appCustomReprotRowData;
+	private ReportTable editableReportTable;
 	
 	
-	public MainTableStep(Wizard w, BasicUser user){
-		setW(w);
+	public MainTableStep(Wizard wizard, BasicUser user){
+		setW(wizard);
 		setListener(listener);
 		setUser(user);
 		this.appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(user).getAppRawRata().getReportTables();
 		getContent();
+	}
+
+
+	public MainTableStep(Wizard wizard, BasicUser user,ReportTable editableReportTable) {
+		setW(wizard);
+		setListener(listener);
+		setUser(user);
+		this.appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(user).getAppRawRata().getReportTables();
+		getContent();
+		this.editableReportTable=editableReportTable;
 	}
 
 
@@ -89,12 +100,10 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		FormLayout formLayout = new FormLayout();
 		formLayout.setSpacing(true);
 		layout.addComponent(formLayout);
-
 		ReportTableEditor editor = new ReportTableEditor(
 				getMainTableStepModel(),
 				ReportConfiguration.ReportType.MainTable.toString());
 		formLayout.addComponent(editor);
-
 		return layout;
 	}
 
@@ -184,6 +193,17 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		this.appCustomReprotRowData = appCustomReprotRowData;
 	}
 
+
+	public ReportTable getEditableReportTable() {
+		return editableReportTable;
+	}
+
+
+	public void setEditableReportTable(ReportTable editableReportTable) {
+		this.editableReportTable = editableReportTable;
+	}
+
+
 	public class ReportTableEditor extends VerticalLayout implements ValueChangeListener {
 
 		private static final long serialVersionUID = 1L;
@@ -223,10 +243,26 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			box.setWidth(fieldWidth);
 			box.setImmediate(true);
 			box.addStyleName("custom-report-step-box");
+			// build editable report value
 			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
 					ReportModel.class);
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
+			
+			
+			ReportTable mainReportTable=null;
+			if(getEditableReportTable()!=null){
+				for(Iterator<ReportModel> it=container.getItemIds().iterator();it.hasNext();){
+					ReportModel rm=(ReportModel) it.next();
+					if(rm.getTableName().equals(getEditableReportTable().getTableName())){
+						box.setValue(rm);
+						mainReportTable=rm.getReportTables().iterator().next();
+						break;
+					}
+				}
+				box.setValue(getEditableReportTable().getTableName());				
+			}
+			
 			box.setItemCaptionPropertyId("tableLabel");
 			box.addListener(this);
 			this.addComponent(box);
@@ -238,15 +274,51 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			reportTableDesc.setSpacing(true);
 			reportColmnDesc.addComponent(reportColumnLabel);
 			reportColmnDesc.addComponent(reportColumnStepDesc);
+			gridLayout.removeAllComponents();
 			gridLayout.setSizeFull();
 			gridLayout.setImmediate(true);
 			gridLayout.addStyleName("custom-report-step-column-gridlayout");
 			reportColmnDesc.setSpacing(true);
+			
+			if(getEditableReportTable()!=null && mainReportTable!=null){
+			columnLayout.setVisible(true);
+			columnLayout.setImmediate(true);
+			columnLayout.addComponent(gridLayout);
+			List<ReportColumn> columnFields =mainReportTable.getReportColumns();
+				for (final ReportColumn columnField : columnFields) {
+					if (columnField.getColumnLabel() != null) {
+						ReportColumnCard reportColumnCard = new ReportColumnCard(
+								columnField) {
+							
+							private static final long serialVersionUID = 1L;
+
+							@Override
+							public void layoutClick(LayoutClickEvent event) {
+								ReportColumn reportColumn = columnField;
+								reportColumn
+										.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn
+												.toString());
+								rm.getMainTableSelectedColumns().add(
+										reportColumn);
+							}
+						};
+						
+						for(ReportColumn rc:editableReportTable.getReportColumns()){
+							if(rc.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())){
+								if(rc.getColumnName().equals(columnField.getColumnName())){
+								reportColumnCard.getCheckBox().setValue(true);
+								}
+							}
+						}
+						
+						gridLayout.addComponent(reportColumnCard);
+					}
+				}
+			}
 		}
 
 		@Override
-		public void valueChange(ValueChangeEvent event) {
-			
+		public void valueChange(ValueChangeEvent event) {			
 			rm = (ReportModel) box.getValue();
 //			clearMainTableReslut();
 			if (rm != null) {

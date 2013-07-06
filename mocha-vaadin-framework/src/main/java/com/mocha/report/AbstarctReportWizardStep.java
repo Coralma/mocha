@@ -30,6 +30,7 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 	protected WizardProgressListener listener;
 	BasicUser basicUser;
 	Component content;
+	protected ReportTable defaultReportTable;
 	
 //	 Map<String, ReportTable> reportTables;
 //	 ReportTable mainReportTable;
@@ -120,6 +121,15 @@ public abstract class AbstarctReportWizardStep extends ReportWizardStep {
 
 	public void setListener(WizardProgressListener listener) {
 		this.listener = listener;
+	}
+
+
+	public ReportTable getDefaultReportTable() {
+		return defaultReportTable;
+	}
+
+	public void setDefaultReportTable(ReportTable defaultReportTable) {
+		this.defaultReportTable = defaultReportTable;
 	}
 
 

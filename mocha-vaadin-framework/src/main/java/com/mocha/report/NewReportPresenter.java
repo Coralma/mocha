@@ -25,6 +25,7 @@ import com.coral.foundation.report.ReportModel;
 import com.coral.foundation.report.ReportModelPool;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.security.model.MochaReport;
 import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportFilter;
 import com.coral.foundation.security.model.ReportJoinTable;
@@ -36,11 +37,12 @@ import com.coral.foundation.security.model.ReportJoinTable;
 public class NewReportPresenter extends CommonPresenter implements Presenter {
 	
 	static AbstrctAppRawData appCustomReprotRowData;
+	private MochaReport userEditMochaReport;
 	
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-//		ReportModelPool.clearReportModelByUser(eventBus.getUser());
 		ReportModel reportModel=new ReportModel("","","");
+		
 		
 		// if appCustomReprotRowData is null means user already initial one instance in report model pool
 		if(appCustomReprotRowData==null){
@@ -52,8 +54,20 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 		}else{
 //			appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser()).getAppRawRata();
 		}
-		System.out.println("appCustomReprotRowData.getReportTables().size() is: "+appCustomReprotRowData.getReportTables().size());
-		this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
+		
+		// Edit the specified mocha report
+		if(eventBus.getContext().get("Entity")!=null){
+			userEditMochaReport=(MochaReport) eventBus.getContext().get("Entity");
+			List<ReportTable> reportTables=userEditMochaReport.getAppReport().getReportTables();
+			for(ReportTable rt:reportTables){
+				if(rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())){
+					this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData,rt);
+				}
+			}
+		}
+		else{
+			this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
+		}
 	}
 
 	@Override
@@ -95,9 +109,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 //							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
 							subTableReportColumns.add(subReportColumn);
 						}
-						
 					}
-					
 				}
 				
 				subTable.setReportColumns(subTableReportColumns);
@@ -139,7 +151,6 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 									List<ReportJoinTable> mainTableReportJoinTables = new ArrayList<ReportJoinTable>();
 									mainTableReportJoinTables.add(mainReportJoinTable);
 									mainTable.getReportJoinReportTableId().add(mainReportJoinTable);
-									
 								}
 							}
 						}
@@ -182,6 +193,14 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 	@Override
 	public String getPresenterName() {
 		return null;
+	}
+
+	public MochaReport getUserEditMochaReport() {
+		return userEditMochaReport;
+	}
+
+	public void setUserEditMochaReport(MochaReport userEditMochaReport) {
+		this.userEditMochaReport = userEditMochaReport;
 	}
 
 }
