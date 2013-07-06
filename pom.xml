@@ -13,6 +13,7 @@
 		<module>mocha-mobile-framework</module>
 		<module>projects/cooperate-core</module>
 		<module>projects/crm</module>
+		<module>projects/commerce</module>
 		<module>projects/insuranceBroker</module>		
 		<module>projects/cooperate</module>
 		<module>projects/cooperate-mobile</module>		
