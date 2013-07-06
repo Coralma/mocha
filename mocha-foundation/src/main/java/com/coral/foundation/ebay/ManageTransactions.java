@@ -2,6 +2,7 @@ package com.coral.foundation.ebay;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -55,7 +56,10 @@ public class ManageTransactions {
 		this.apiServiceUrl=apiServiceUrl;
 	}
 	 
-     public void getSalesTransactions() throws ApiException, SdkException, Exception{
+     public List<OrderType> getSalesTransactions() throws ApiException, SdkException, Exception{
+    	 
+    	 OrderType[] orders=null;
+    	 
           ApiContext apiContext = new ApiContext();
           // set API Token to access eBay API Server
           ApiCredential cred = apiContext.getApiCredential();
@@ -281,7 +285,7 @@ public class ManageTransactions {
 
                getOrders.setOrderIDArray(orderIdArray);
 
-               OrderType[] orders = getOrders.getOrders();
+               orders = getOrders.getOrders();
                
                for (OrderType order : orders) {
                     ShippingServiceOptionsType shipping = order
@@ -358,24 +362,6 @@ public class ManageTransactions {
                 //9. shipAddress;
                }
           }
-                    
+          return Arrays.asList(orders);
      }
-     
-//     public static void main(String[] args) {
-//          try {
-//        	  
-//        	  
-//               getSalesTransactions();
-//          } catch (ApiException e) {
-//               // TODO Auto-generated catch block
-//               e.printStackTrace();
-//          } catch (SdkException e) {
-//               // TODO Auto-generated catch block
-//               e.printStackTrace();
-//          } catch (Exception e) {
-//               // TODO Auto-generated catch block
-//               e.printStackTrace();
-//          }
-//     }
-          
 }

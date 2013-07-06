@@ -145,7 +145,12 @@
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>ebaysdkcore</groupId>
+			<artifactId>ebaysdkcore</artifactId>		
+		</dependency>
+		
 	</dependencies>
 
 	<build>

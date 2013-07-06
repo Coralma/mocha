@@ -74,8 +74,8 @@ public class SystemProperty {
 	public static String SELECTED_TOPIC = "SelectedTopic";
 	
 	//ebay 
-	public static String prodServerURL ="https://api.ebay.com/ws/api.dll";
-    public static String sandboxServerURL="https://api.sandbox.ebay.com/ws/api.dll";
+	public static String ebayProdServerURL ="https://api.ebay.com/ws/api.dll";
+    public static String ebaySandboxServerURL="https://api.sandbox.ebay.com/ws/api.dll";
     public static String devID="423f79ca-a5e9-492d-a1fa-98b3b27b5317";
     public static String appID="mocha-pl-0bf9-4d3a-badb-d141a0ee6121";
     public static String certID="7a7a7aa6-bfe7-40da-8174-fb7b851b7b24";
