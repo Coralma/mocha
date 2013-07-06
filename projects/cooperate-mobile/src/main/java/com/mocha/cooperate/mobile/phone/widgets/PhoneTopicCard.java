@@ -32,9 +32,12 @@ public class PhoneTopicCard extends AbstractPhoneCard  {
 		contentLayout.addComponent(userName);
 		
 		Label title = new Label(discuss.getTitle(), Label.CONTENT_XHTML);
+		
+		title.setStyleName("topic-title");
 		contentLayout.addComponent(title);
 		
 		Label content = new Label(discuss.getContent(), Label.CONTENT_XHTML);
+		content.setStyleName("card-content");
 		contentLayout.addComponent(content);
 		// send data and reply number
 		HorizontalLayout cardMsgLayout = getCreateDateAndReplyInfo(discuss.getCreateTime(),discuss.getComments().size());
