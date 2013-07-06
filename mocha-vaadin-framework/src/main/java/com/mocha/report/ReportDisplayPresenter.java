@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.security.basic.dao.MochaReportDao;
 import com.coral.foundation.security.model.AppReport;
@@ -33,9 +34,12 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 	private MochaReportDao mochaReportDao = SpringContextUtils
 			.getBean(MochaReportDao.class);
 	private MochaReport mochaReport;
+	
+	private static AbstrctAppRawData appCustomReprotRowData;
 
 	public ReportDisplayPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
+		setAppCustomReprotRowData((AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData"));
 		ReportDisplayViewer newReportViewer = new ReportDisplayViewer();
 		Object reportId = this.eventBus.getContext().get("reportID");
 		mochaReport = mochaReportDao
@@ -45,8 +49,7 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 			AppCusteomReportService appCustomReportService = new AppCusteomReportService(
 					appReport);
 			appCustomReportService.setMochaReport(mochaReport);
-			ArrayList<String[]> reportResultSet = appCustomReportService
-					.executeMochaReportQuery();
+			ArrayList<String[]> reportResultSet = appCustomReportService.executeMochaReportQuery();
 			IndexedContainer contactContainer = new IndexedContainer();
 			String[] columnNames = (String[]) reportResultSet.get(0);
 
@@ -84,11 +87,21 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
-
 				postCustomizeClass(CrmReportPresenter.class.getName());
+			}
+		});
+		
+		reportDisplayViewer.getEditButton().addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				
+				postCustomizeClass(NewReportPresenter.class.getName(),mochaReport,getAppCustomReprotRowData());
 			}
 		});
 	}
@@ -105,6 +118,14 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 
 	public void setReportId(Long reportId) {
 		this.reportId = reportId;
+	}
+
+	public static AbstrctAppRawData getAppCustomReprotRowData() {
+		return appCustomReprotRowData;
+	}
+
+	public static void setAppCustomReprotRowData(AbstrctAppRawData appCustomReprotRowData) {
+		ReportDisplayPresenter.appCustomReprotRowData = appCustomReprotRowData;
 	}
 
 }

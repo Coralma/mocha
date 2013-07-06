@@ -46,6 +46,9 @@ public class CrmReportPresenter extends CommonPresenter implements Presenter {
 			
 			@Override
 			public void createReport() {
+				if(eventBus.getContext().containsKey("Entity")){
+					eventBus.getContext().put("Entity", null);
+				}
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.NewReportPresenter");
 				eventBus.post(appContentEvent);
@@ -58,6 +61,12 @@ public class CrmReportPresenter extends CommonPresenter implements Presenter {
 //				appContentEvent.setReportId(reportID);
 				eventBus.getContext().put("reportID",reportID);
 				eventBus.post(appContentEvent);
+			}
+
+			@Override
+			public void editReport(Long reportID) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}

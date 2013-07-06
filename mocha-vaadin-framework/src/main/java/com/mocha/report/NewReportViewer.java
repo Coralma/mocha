@@ -60,12 +60,22 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 	private ReportWizardProgressListener listener;
 	private BasicUser user;
 	private AbstrctAppRawData appCustomReprotRowData;
+	private ReportTable editAbleReportTable;
+	private MainTableStep firstStep;
 	
 	public NewReportViewer(BasicUser user,AbstrctAppRawData appCustomReprotRowData) {
 		this.setUser(user);
 		this.appCustomReprotRowData=appCustomReprotRowData;
+		this.firstStep=new MainTableStep(wizard,getUser());
 	}
-
+	
+	public NewReportViewer(BasicUser user,AbstrctAppRawData appCustomReprotRowData,ReportTable editAbleReportTable) {
+		this.setUser(user);
+		this.appCustomReprotRowData=appCustomReprotRowData;
+		this.editAbleReportTable=editAbleReportTable;
+		this.firstStep=new MainTableStep(wizard,getUser(),editAbleReportTable);
+	}
+	
 	@Override
 	public void attach() {
 		super.attach();
@@ -74,19 +84,8 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 		layout.addStyleName("app-new-report");
 		wizard.setWidth("760px");
 		setAppCustomReprotRowData(getAppCustomReprotRowData());
-//		ReportModel reportModel=new ReportModel("","","");
-//
-//		reportModel.setAppRawRata(getAppCustomReprotRowData());
-//		
-//		 if(ReportModelPool.findReportModelByCurrentUser(getUser()).getAppRawRata()==null){
-//			if(!reportModel.getAppRawRata()
-//					.getAppName().equals(ReportModelPool
-//							.findReportModelByCurrentUser(getUser()).getAppRawRata().getAppName())){				
-//				ReportModelPool.initInstance(getUser(),reportModel);			
-//			}
-//		}
-		wizard.getBackButton().setVisible(false);
-		MainTableStep firstStep=new MainTableStep(wizard,getUser());
+
+		wizard.getBackButton().setVisible(false);		
 		wizard.addStep(firstStep,"Main Table Step");
 		wizard.addStep(new PreviewStep(wizard,getUser()),"Preview Step");
 		wizard.setImmediate(true);
@@ -122,6 +121,14 @@ public class NewReportViewer extends CommonViewer implements Viewer {
 
 	public void setAppCustomReprotRowData(AbstrctAppRawData appCustomReprotRowData) {
 		this.appCustomReprotRowData = appCustomReprotRowData;
+	}
+
+	public ReportTable getEditAbleReportTable() {
+		return editAbleReportTable;
+	}
+
+	public void setEditAbleReportTable(ReportTable editAbleReportTable) {
+		this.editAbleReportTable = editAbleReportTable;
 	}
 
 

@@ -11,4 +11,5 @@ public interface ReportCategoryListener {
 
 	public void createReport();
 	public void showReport(Long reportID);
+	public void editReport(Long reportID);
 }
