@@ -1,5 +1,7 @@
 package com.coral.foundation.ebay;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,14 +10,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.UUID;
 
+import com.ebay.sdk.ApiAccount;
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiCredential;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.TimeFilter;
+import com.ebay.sdk.eBayAccount;
+import com.ebay.sdk.call.FetchTokenCall;
 import com.ebay.sdk.call.GetOrdersCall;
 import com.ebay.sdk.call.GetSellerTransactionsCall;
+import com.ebay.sdk.call.GetSessionIDCall;
 import com.ebay.soap.eBLBaseComponents.AddressType;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.CheckoutStatusCodeType;
@@ -48,26 +55,107 @@ import com.ebay.soap.eBLBaseComponents.TransactionType;
 
 public class ManageTransactions {
 	
-	public String customToken;
-	public String apiServiceUrl;
+	private String customToken;
+	private ApiContext apiContext=AppContextFactory.getInstance();
 	
-	public ManageTransactions(String customToken,String apiServiceUrl){
-		this.customToken=customToken;
-		this.apiServiceUrl=apiServiceUrl;
+	
+	public ManageTransactions(String customToken){
+		this.setCustomToken(customToken);
 	}
-	 
-     public List<OrderType> getSalesTransactions() throws ApiException, SdkException, Exception{
+	
+	public ManageTransactions(){
+		
+	}
+	
+	public static void main(String args[]){
+		ManageTransactions m=new ManageTransactions();
+		String ruName="mocha-platform-mocha-pl-0bf9-4-bhioe";
+//		m.createRedirectURLByRuName(ruName);
+		try {
+			m.getSalesTransactionsByEbayToken(m.getGetFetchTokenBySessionID("VkQCAA**b896c1b713f0a471da206d60fffff9f3"));
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SdkException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private String createRedirectURLByRuName(String ruName){
+		String sid =UUID.randomUUID().toString();
+		String signInBaseURL = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn";
+		try {
+			String signInURL = signInBaseURL + "&runame=" + URLEncoder.encode(ruName, "ISO-8859-1") + "&sid=" +sid
+					+"&SessID="+getSessionIDByRuName("mocha-platform-mocha-pl-0bf9-4-bhioe");
+			System.out.println(signInURL);
+			return signInURL;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getGetFetchTokenBySessionID(String sessionID){
+		ApiCredential apiCredential=apiContext.getApiCredential();		
+//		eBayAccount ebayAccount=new eBayAccount();
+//		ebayAccount.setUsername(userName);
+//		apiCredential.seteBayAccount(ebayAccount);
+		FetchTokenCall userTokenCall=new FetchTokenCall(apiContext);
+		userTokenCall.setSessionID(sessionID);
+		try {
+			userTokenCall.fetchToken();
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SdkException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(""+userTokenCall.getReturnedToken());
+		
+		return userTokenCall.getReturnedToken();
+	}
+	
+	private String getSessionIDByRuName(String ruName){
+        GetSessionIDCall call = new GetSessionIDCall();  
+        call.setApiContext(apiContext);  
+		call.setRuName(ruName);  
+        try {
+			String sessionID = call.getSessionID();
+			System.out.println("session id is:"+sessionID);
+			return sessionID;
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SdkException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        return null;
+	}
+	
+     public List<OrderType> getSalesTransactionsByEbayToken(String ebayToken) throws ApiException, SdkException, Exception{
     	 
     	 OrderType[] orders=null;
     	 
-          ApiContext apiContext = new ApiContext();
+//          ApiContext apiContext = new ApiContext();
           // set API Token to access eBay API Server
           ApiCredential cred = apiContext.getApiCredential();
           //Set Auth Token
-          cred.seteBayToken(customToken);
+          cred.seteBayToken(ebayToken);
 
-          apiContext.setApiServerUrl("https://api.sandbox.ebay.com/wsapi");// Pointing to sandbox for testing.          
-          
+          apiContext.setApiCredential(cred);
           apiContext.getApiLogging().setLogSOAPMessages(true);// This will log SOAP requests and responses
 
           apiContext.setSite(SiteCodeType.UK); // Set site to UK
@@ -364,4 +452,12 @@ public class ManageTransactions {
           }
           return Arrays.asList(orders);
      }
+
+	public String getCustomToken() {
+		return customToken;
+	}
+
+	public void setCustomToken(String customToken) {
+		this.customToken = customToken;
+	}
 }

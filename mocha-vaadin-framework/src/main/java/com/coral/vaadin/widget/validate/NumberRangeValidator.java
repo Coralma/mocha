@@ -40,5 +40,4 @@ public class NumberRangeValidator extends AbstractValidator implements Validator
 //		}
 		return true;
 	}
-
 }

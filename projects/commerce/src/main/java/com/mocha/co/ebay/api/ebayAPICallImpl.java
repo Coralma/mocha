@@ -20,9 +20,9 @@ public class EbayAPICallImpl {
 	}
 	
 	public ArrayList<OrderType> getSalesTranscation(){
-		ManageTransactions m=new ManageTransactions(customToken, apiServiceURL);
+		ManageTransactions m=new ManageTransactions(customToken);
 		try {
-			List<OrderType> orders=m.getSalesTransactions();
+			List<OrderType> orders=m.getSalesTransactionsByEbayToken(m.getCustomToken());
 			for(OrderType order:orders){
 				TransactionArrayType t=order.getTransactionArray();
 				for(TransactionType tr:t.getTransaction()){
