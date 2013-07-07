@@ -24,6 +24,7 @@ public class CommerceControllerMenuPanel extends ControllerMenuPanel {
 			groupTitle = createMenuTitle("Order Management");
 			addComponent(groupTitle);
 			action = new MenuAction();
+			action.setView("OrderSearchView");
 			menuItem = createMenu("Manage  Orders",action);
 			addComponent(menuItem);
 			action = new MenuAction();

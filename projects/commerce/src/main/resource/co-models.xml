@@ -29,6 +29,7 @@
 		<property name="shippingService"/>
 		<property name="salesChannel"/>
 		<property name="orderTotals"/>
+		<property name="orderProductSummary"/>
 		<property name="orderProducts" type="List" ref="OrderProduct" orm="one-to-many"/>
 	</entity>
 	

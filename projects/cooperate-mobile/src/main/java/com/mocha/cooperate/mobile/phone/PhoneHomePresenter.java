@@ -15,7 +15,7 @@ public class PhoneHomePresenter extends AbstractMobilePresenter {
 	public PhoneHomePresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		PhoneHomeView homeview = new PhoneHomeView();
-		List<TimeLine> timelines = timeLineService.loadStatus(eventBus.getUser(), 0);
+		List<TimeLine> timelines = timeLineService.loadTimeLine(eventBus.getUser(), 0);
 		homeview.setTimelines(timelines);
 		this.view = homeview;
 	}

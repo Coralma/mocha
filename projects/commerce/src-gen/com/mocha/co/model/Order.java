@@ -59,6 +59,11 @@ public class Order extends BaseEntity {
 	private String orderTotals;
 	
 	
+	@Basic(optional = true)
+	@Column(name = "ORDER_PRODUCT_SUMMARY" )
+	private String orderProductSummary;
+	
+	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = OrderProduct.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name="ORDER_ID")
@@ -118,6 +123,12 @@ public class Order extends BaseEntity {
 	} 
 	public String getOrderTotals () {
 		return orderTotals;
+	}
+	public void setOrderProductSummary (String orderProductSummary) {
+		this.orderProductSummary = orderProductSummary;
+	} 
+	public String getOrderProductSummary () {
+		return orderProductSummary;
 	}
 	public void setOrderProducts (List<OrderProduct> orderProducts) {
 		this.orderProducts = orderProducts;

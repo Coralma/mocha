@@ -32,6 +32,7 @@ public class PhoneStatusCard extends AbstractPhoneCard  {
 		contentLayout.addComponent(userName);
 		
 		Label content = new Label(status.getContent(), Label.CONTENT_XHTML);
+		content.setStyleName("card-content");
 		contentLayout.addComponent(content);
 		// send data and reply number
 		HorizontalLayout cardMsgLayout = getCreateDateAndReplyInfo(status.getCreateTime(),status.getComments().size());

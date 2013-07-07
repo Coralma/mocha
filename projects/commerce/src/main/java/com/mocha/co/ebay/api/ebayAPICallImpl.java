@@ -19,16 +19,17 @@ public class EbayAPICallImpl {
 		
 	}
 	
-	public ArrayList<OrderType> getSalesTranscation(){
+	public List<OrderType> getSalesTranscation(){
 		ManageTransactions m=new ManageTransactions(customToken);
 		try {
 			List<OrderType> orders=m.getSalesTransactionsByEbayToken(m.getCustomToken());
 			for(OrderType order:orders){
-				TransactionArrayType t=order.getTransactionArray();
+			TransactionArrayType t=order.getTransactionArray();
 				for(TransactionType tr:t.getTransaction()){
 					System.out.println("Order Item Ttitle is: "+tr.getItem().getTitle());
 				}
 			}
+			return orders;
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

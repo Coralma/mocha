@@ -3,10 +3,12 @@
  */
 package com.coral.vaadin.widget.fields.search;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import com.coral.foundation.security.model.CodeTable;
 import com.coral.foundation.utils.CodeTableUtils;
+import com.coral.foundation.utils.DateUtils;
 import com.coral.vaadin.widget.fields.FieldWidget;
 import com.vaadin.ui.Label;
 
@@ -32,7 +34,14 @@ public class DisplayFieldWidget extends FieldWidget {
 	public void attach() {
 		displayField.setWidth(fieldWidth);
 		if(codeTable == null) {
-			displayField.setPropertyDataSource(property);
+			if("Date".equals(fieldStatus.getType())) {
+				Date dataValue = (Date)property.getValue();
+				if(dataValue != null) {
+					displayField.setValue(DateUtils.date2String(dataValue));
+				}
+			} else {
+				displayField.setPropertyDataSource(property);
+			}
 		} else {
 			CodeTable codeTableInstance = CodeTableUtils.get(codeTable);
 			LinkedHashMap<String,String> ctMap = CodeTableUtils.parse(codeTableInstance,getApplication().getLocale().getLanguage());
