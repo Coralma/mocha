@@ -31,6 +31,12 @@ public class CommerceMainPage extends AppMainPage implements ControllerMenuListe
 		if("CommerceCustomerView".equals(viewName)) {
 			presenter = new CommerceCustomerViewPresenter(eventBus);
 		}
+		if("OrderSearchView".equals(viewName)) {
+			presenter = new OrderSearchViewPresenter(eventBus);
+		}
+		if("OrderView".equals(viewName)) {
+			presenter = new OrderViewPresenter(eventBus);
+		}
 		if("ProductSearch".equals(viewName)) {
 			presenter = new ProductSearchPresenter(eventBus);
 		}

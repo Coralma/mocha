@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Commerce" entityPackage="com.mocha.co.model"
+	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
+	servicePackage="com.mocha.co.service">
+	
+	<!-- 	customer search view -->
+	<view name="OrderSearchView" template="EntityCardSearch" label="Search Order" entity="Order">
+		<section name="OrderCondition" template="SearchCondition">
+<!-- 			<field name="customer.name" /> -->
+<!-- 			<field name="customer.source" /> -->
+<!-- 			<field name="purchaseDate"/> -->
+<!-- 			<field name="exceptedShipDate"/> -->
+			<field name="orderTotals"/>
+			<field name="orderProductSummary"/>
+		</section>
+		<section name="OrderSearchCard" template="SearchCard" icon="card-ebay.png">
+			<field name="customer" label="Customer Name" path="customer.name" />
+			<field name="customer" label="Source" path="customer.source" />
+			<field name="purchaseDate"/>
+			<field name="exceptedShipDate" label="Ship Date"/>
+			<field name="orderTotals" label="Total"/>
+			<field name="orderProductSummary" label="Product Summary" wholeRow="true" />
+			<action name="view" label="View" action="View"/>
+<!-- 			<action name="edit" label="Edit" action="Edit"/> -->
+<!-- 			<action name="delete" label="Delete" action="Delete"/> -->
+		</section>
+	</view>
+	
+	<!-- 	customer edit view -->
+	<view name="OrderView" template="EntityEditView" entity="Order">
+		<section name="customerStatus" label="Customer Status">
+			<field name="customer" style="ref" expression="name"/>
+			<field name="status" />
+			<field name="purchaseDate"/>
+			<field name="exceptedShipDate"/>
+			<field name="orderTotals" changeLine="true"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>

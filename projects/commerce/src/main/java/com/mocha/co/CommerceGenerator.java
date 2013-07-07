@@ -22,6 +22,7 @@ public class CommerceGenerator {
        mappingXMLs.add("src/main/resource/co-app.xml");
        mappingXMLs.add("src/main/resource/co-models.xml");
        mappingXMLs.add("src/main/resource/view-customer.xml");
+       mappingXMLs.add("src/main/resource/view-order.xml");
        mappingXMLs.add("src/main/resource/view-product.xml");
        mappingXMLs.add("src/main/resource/view-supplier.xml");
        Resource resource = new Resource();

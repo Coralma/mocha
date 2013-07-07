@@ -24,6 +24,7 @@
               <appMenus>
                 <com.coral.foundation.md.model.AppMenu>
                   <name>Manage Orders</name>
+                  <viewName>OrderSearchView</viewName>
                 </com.coral.foundation.md.model.AppMenu>
                 <com.coral.foundation.md.model.AppMenu>
                   <name>Manage Logistics</name>
@@ -301,6 +302,14 @@
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>orderTotals</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>orderProductSummary</propertyName>
             <ignore>false</ignore>
             <type>String</type>
             <notnull>false</notnull>
@@ -1107,6 +1116,191 @@
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
         <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity"/>
+      </com.coral.foundation.md.model.View>
+    </viewList>
+    <apps/>
+    <codeTableList/>
+    <menuList/>
+    <mobileMenuList/>
+    <reportDefList/>
+  </com.coral.foundation.md.model.Mocha>
+  <com.coral.foundation.md.model.Mocha>
+    <name>Commerce</name>
+    <entityPackage>com.mocha.co.model</entityPackage>
+    <daoIntfPackage>com.mocha.co.dao</daoIntfPackage>
+    <daoImplPackage>com.mocha.co.dao.impl</daoImplPackage>
+    <servicePackage>com.mocha.co.service</servicePackage>
+    <entityList/>
+    <viewList>
+      <com.coral.foundation.md.model.View>
+        <name>OrderSearchView</name>
+        <template>EntityCardSearch</template>
+        <label>Search Order</label>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>OrderCondition</name>
+            <template>SearchCondition</template>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>orderTotals</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>orderProductSummary</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>OrderSearchCard</name>
+            <template>SearchCard</template>
+            <icon>card-ebay.png</icon>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>customer</fieldName>
+                <label>Customer Name</label>
+                <path>customer.name</path>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>customer</fieldName>
+                <label>Source</label>
+                <path>customer.source</path>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>purchaseDate</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>exceptedShipDate</fieldName>
+                <label>Ship Date</label>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[4]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>orderTotals</fieldName>
+                <label>Total</label>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>orderProductSummary</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>true</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions>
+              <com.coral.foundation.md.model.ViewAction>
+                <name>view</name>
+                <label>View</label>
+                <action>View</action>
+              </com.coral.foundation.md.model.ViewAction>
+            </viewActions>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
+      </com.coral.foundation.md.model.View>
+      <com.coral.foundation.md.model.View>
+        <name>OrderView</name>
+        <template>EntityEditView</template>
+        <root>false</root>
+        <sections>
+          <com.coral.foundation.md.model.ViewSection>
+            <name>customerStatus</name>
+            <label>Customer Status</label>
+            <viewFields>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>customer</fieldName>
+                <style>ref</style>
+                <expression>name</expression>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>status</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>purchaseDate</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>exceptedShipDate</fieldName>
+                <required>false</required>
+                <changeLine>false</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[4]"/>
+              </com.coral.foundation.md.model.ViewField>
+              <com.coral.foundation.md.model.ViewField>
+                <fieldName>orderTotals</fieldName>
+                <required>false</required>
+                <changeLine>true</changeLine>
+                <wholeRow>false</wholeRow>
+                <wholeSection>false</wholeSection>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+              </com.coral.foundation.md.model.ViewField>
+            </viewFields>
+            <viewActions/>
+          </com.coral.foundation.md.model.ViewSection>
+        </sections>
+        <viewActions>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>save</name>
+            <label>Save</label>
+            <action>Save</action>
+          </com.coral.foundation.md.model.ViewAction>
+          <com.coral.foundation.md.model.ViewAction>
+            <name>back</name>
+            <label>Back</label>
+            <action>Back</action>
+          </com.coral.foundation.md.model.ViewAction>
+        </viewActions>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>
