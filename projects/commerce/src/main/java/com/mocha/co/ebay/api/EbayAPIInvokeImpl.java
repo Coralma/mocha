@@ -1,6 +1,5 @@
 package com.mocha.co.ebay.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.coral.foundation.ebay.ManageTransactions;
@@ -11,11 +10,11 @@ import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.mocha.cooperate.SystemProperty;
 
-public class EbayAPICallImpl {
+public class EbayAPIInvokeImpl {
 	public static String customToken=SystemProperty.ebayToken;
 	public static String apiServiceURL=SystemProperty.ebaySandboxServerURL;
 	
-	public EbayAPICallImpl(){
+	public EbayAPIInvokeImpl(){
 		
 	}
 	
@@ -44,7 +43,7 @@ public class EbayAPICallImpl {
 	}
 	
 	 public static void main(String[] args) {
-		 EbayAPICallImpl getOrder=new EbayAPICallImpl();
+		 EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl();
 		 getOrder.getSalesTranscation();	
   }
 

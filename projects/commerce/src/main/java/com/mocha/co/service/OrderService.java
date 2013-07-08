@@ -1,6 +1,5 @@
 package com.mocha.co.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.google.common.collect.Lists;
-import com.mocha.co.ebay.api.EbayAPICallImpl;
+import com.mocha.co.ebay.api.EbayAPIInvokeImpl;
 import com.mocha.co.model.CommerceCustomer;
 import com.mocha.co.model.Order;
 import com.mocha.co.model.OrderProduct;
@@ -19,7 +18,7 @@ public class OrderService {
 	
 	public List<Order> loadEbayOrders() {
 		List<Order> orders = Lists.newArrayList();
-		EbayAPICallImpl getOrder=new EbayAPICallImpl();
+		EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl();
 		List<OrderType> ebayOrders = getOrder.getSalesTranscation();	
 		for(OrderType ebayOrder : ebayOrders){
 			// create customer
