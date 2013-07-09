@@ -3,6 +3,8 @@
  */
 package com.mocha.cooperate.page.index;
 
+import java.util.Map;
+
 import org.vaadin.jouni.animator.AnimatorProxy;
 import org.vaadin.jouni.animator.client.ui.VAnimatorProxy.AnimType;
 
@@ -14,10 +16,15 @@ import com.coral.vaadin.controller.PageFactory;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
+import com.github.wolfie.refresher.Refresher;
+import com.github.wolfie.refresher.Refresher.RefreshListener;
+import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
+import com.mocha.cooperate.PresenterProperty;
 import com.mocha.cooperate.page.data.ExampleData;
 import com.mocha.cooperate.widget.ShotcutPanel;
 import com.mocha.cooperate.widget.UserPhotoWidget;
+import com.mocha.cooperate.widget.listener.IndexListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -39,10 +46,15 @@ public class IndexViewer extends CommonViewer implements Viewer {
 	private BasicUser user;
 	private MochaEventBus eventBus;
 	
-	public IndexViewer(MochaEventBus eventBus) {
+	private ShotcutPanel menu;
+	private Map<String, Integer> notifyMap;
+	private IndexListener indexListener;
+	
+	public IndexViewer(MochaEventBus eventBus, Map<String, Integer> notifyMap) {
 		super();
 		this.eventBus = eventBus; 
 		this.user = eventBus.getUser();
+		this.notifyMap = notifyMap;
 		eventBus.register(this);
 		build();
 	}
@@ -68,10 +80,28 @@ public class IndexViewer extends CommonViewer implements Viewer {
 		UserPhotoWidget userPhoto =new UserPhotoWidget(user);
 		infoColumn.addComponent(userPhoto);
 
-		ShotcutPanel menu = new ShotcutPanel(eventBus, ExampleData.getShotcut());
+		menu = new ShotcutPanel(eventBus, ExampleData.getShotcut());
 		menu.setWidth(infoWidth);
+		// add init notifyMap to shotcut
+		menu.setNotifyMap(notifyMap);
 		
 		infoColumn.addComponent(menu);
+		
+		Refresher refresher = new Refresher();
+	    refresher.setRefreshInterval(5000);
+		refresher.addListener(new RefreshListener() {
+			@Override
+			public void refresh(Refresher source) {
+				indexListener.refreshShotCutPanel();
+//				Map<String, Integer> notifyMap = Maps.newConcurrentMap();
+//				notifyMap.put(PresenterProperty.NOTIFICATION, getRandomNum());
+//				notifyMap.put(PresenterProperty.CHAT, getRandomNum());
+//				menu.setNotifyMap(notifyMap);
+//				menu.refreshNotification();
+			}
+		});
+		infoColumn.addComponent(refresher);
+		
 		return infoColumn; 
 	}
 
@@ -108,6 +138,34 @@ public class IndexViewer extends CommonViewer implements Viewer {
 	@Override
 	public String getViewerTitle() {
 		return null;
+	}
+
+	/**
+	 * @return the indexListener
+	 */
+	public IndexListener getIndexListener() {
+		return indexListener;
+	}
+
+	/**
+	 * @param indexListener the indexListener to set
+	 */
+	public void setIndexListener(IndexListener indexListener) {
+		this.indexListener = indexListener;
+	}
+
+	/**
+	 * @return the menu
+	 */
+	public ShotcutPanel getMenu() {
+		return menu;
+	}
+
+	/**
+	 * @param menu the menu to set
+	 */
+	public void setMenu(ShotcutPanel menu) {
+		this.menu = menu;
 	}
 
 }

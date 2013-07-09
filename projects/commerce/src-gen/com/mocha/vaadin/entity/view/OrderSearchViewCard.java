@@ -41,7 +41,7 @@ public class OrderSearchViewCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Total").setPath("orderTotals").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Order Product Summary").setPath("orderProductSummary").setType("String").setWholeRow(true);
+		fieldStatus = FieldStatus.create().setLabel("Product Summary").setPath("orderProductSummary").setType("String").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		hlayout.addComponent(sectionPanel);

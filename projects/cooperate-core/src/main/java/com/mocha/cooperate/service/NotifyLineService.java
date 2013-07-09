@@ -16,7 +16,7 @@ import com.mocha.cooperate.model.NotifyLine;
  * @author Coral.Ma
  *
  */
-public class NotifyLineDaoService {
+public class NotifyLineService {
 
 	public NotifyLineDao notifyLineDao = SpringContextUtils.getBean(NotifyLineDao.class);
 	
@@ -29,5 +29,13 @@ public class NotifyLineDaoService {
 			}
 		}
 		return userNotifyLines;
+	}
+	
+	public int loadNotifyNumber(BasicUser basicUser) {
+		return notifyLineDao.loadNotifyNumber(basicUser);
+	}
+	
+	public void readAllNotify(BasicUser basicUser) {
+		notifyLineDao.readAllNotify(basicUser);
 	}
 }

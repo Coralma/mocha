@@ -25,6 +25,11 @@ public class ShotcutItem extends BaseEntity {
 	
 	
 	@Basic(optional = true)
+	@Column(name = "NUMBER" )
+	private Long number = new Long(0);
+	
+	
+	@Basic(optional = true)
 	@Column(name = "ACTION" )
 	private String action;
 	
@@ -56,6 +61,12 @@ public class ShotcutItem extends BaseEntity {
 	} 
 	public String getLabel () {
 		return label;
+	}
+	public void setNumber (Long number) {
+		this.number = number;
+	} 
+	public Long getNumber () {
+		return number;
 	}
 	public void setAction (String action) {
 		this.action = action;

@@ -15,6 +15,7 @@
           <appMenus>
             <com.coral.foundation.md.model.AppMenu>
               <name>Home</name>
+              <label>DashBoard</label>
               <customizedClass>com.mocha.co.presenter.CoDashboardPresenter</customizedClass>
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
@@ -1214,6 +1215,7 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderProductSummary</fieldName>
+                <label>Product Summary</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>

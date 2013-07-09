@@ -16,4 +16,6 @@ public class InnerStyle {
 	public final static String todo_finish = "padding: 0 2px;line-height: 20px;border: 1px solid #58D3F7;color: #0489B1;background: #CEECF5; font-weight:normal;";
 
 	public final static String checkBoxPrepose_style = "font-size: 12px; font-weight:normal; color: #52555A";
+	
+	public final static String notify_Number = "padding: 0 2px;line-height: 20px; color: #ffffff;background: #f69970; font-weight:bold;text-shadow: none;"; 
 }

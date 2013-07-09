@@ -8,7 +8,7 @@ import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
 import com.mocha.cooperate.model.NotifyLine;
-import com.mocha.cooperate.service.NotifyLineDaoService;
+import com.mocha.cooperate.service.NotifyLineService;
 import com.mocha.cooperate.widget.cards.DiscussCard;
 import com.mocha.cooperate.widget.cards.StatusCard;
 import com.vaadin.ui.VerticalLayout;
@@ -29,7 +29,7 @@ public class NotificationViewer extends CommonViewer implements Viewer {
 //		VerticalLayout discussTitle = PageBuildHelper.buildPageTitle(message.getString("cooperate.notification.title"));
 //		addComponent(discussTitle);
 
-		NotifyLineDaoService notifyLineDaoService = new NotifyLineDaoService();
+		NotifyLineService notifyLineDaoService = new NotifyLineService();
 		List<NotifyLine> notifies = notifyLineDaoService.loadNotifyLine((BasicUser) getApplication().getUser());
 		
 		notifyLayout.setMargin(false,false,true,false);

@@ -5,7 +5,7 @@
 
 	<app name="Commerce" label="E-Commerce">
 		<navigation>
-			<menu name="Home" customizedClass="com.mocha.co.presenter.CoDashboardPresenter"/>
+			<menu name="Home" label="DashBoard" customizedClass="com.mocha.co.presenter.CoDashboardPresenter"/>
 			<group label="Order Management">
 				<menu name="Manage Orders" viewName="OrderSearchView"/>
 				<menu name="Manage Logistics"/>
