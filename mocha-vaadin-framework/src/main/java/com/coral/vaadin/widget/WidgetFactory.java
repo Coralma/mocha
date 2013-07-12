@@ -247,6 +247,24 @@ public class WidgetFactory {
 		userArea.setHeight(frame_size);
 		// add user photo
 		Embedded userPhoto = PageBuildHelper.buildUserPhoto(url, application);
+		userPhoto.setDescription(createUser.getRealName());
+		userPhoto.addStyleName("user-card-reply-photo");
+		userPhoto.setWidth(photo_size);
+		userPhoto.setHeight(photo_size);
+		userArea.addComponent(userPhoto);
+		return userArea;
+	}
+	
+	public static Component createMiniAvatar(BasicUser createUser, Application application) {
+		String url = createUser.getUserPhoto();
+		String frame_size = "27px";
+		String photo_size = "25px";
+		VerticalLayout userArea = new VerticalLayout();
+		userArea.setWidth(frame_size);
+		userArea.setHeight(frame_size);
+		// add user photo
+		Embedded userPhoto = PageBuildHelper.buildUserPhoto(url, application);
+		userPhoto.setDescription(createUser.getRealName());
 		userPhoto.addStyleName("user-card-reply-photo");
 		userPhoto.setWidth(photo_size);
 		userPhoto.setHeight(photo_size);

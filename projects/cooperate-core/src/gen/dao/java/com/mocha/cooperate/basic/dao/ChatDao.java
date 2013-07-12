@@ -11,5 +11,6 @@ import com.mocha.cooperate.model.*;
 public interface ChatDao extends Dao<Chat> {
 	
 	public List<Chat> loadChats(BasicUser currentUser);
+	public Chat getChatByUsers(BasicUser currentUser, BasicUser anotherUser);
 }
 

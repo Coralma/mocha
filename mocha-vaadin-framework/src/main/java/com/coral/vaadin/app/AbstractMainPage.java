@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.vaadin.johan.Toolbox;
+
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.Menu;
+import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.Message;
 import com.coral.vaadin.controller.PageChangeEvent;
@@ -32,6 +34,7 @@ public abstract class AbstractMainPage extends Panel {
 	protected MochaEventBus eventBus = new MochaEventBus();
 	protected PageController controller;
 	protected VerticalLayout mainContent;
+	protected Toolbox toolbox;
 	protected Message message;
 	protected HttpServletResponse response; 
 	
@@ -85,8 +88,48 @@ public abstract class AbstractMainPage extends Panel {
 		backgroundLayout.setComponentAlignment(foot,Alignment.TOP_CENTER);
 		
 		backgroundLayout.addComponent(buildSessionGuard());
+//		backgroundLayout.addComponent(buildToolbox());
 		return backgroundLayout;
 	}
+	
+//	public Toolbox buildToolbox() {
+//		ChatExtToolbar toolbar = new ChatExtToolbar(eventBus.getUser());
+//		return toolbar;
+//		toolbox = new Toolbox();
+//		toolbox.setOrientation(ORIENTATION.BOTTOM_RIGHT);
+//		toolbox.setAnimationTime(400);
+//		toolbox.setOverflowSize(24);
+//		toolbox.setFoldOnClickOnly(true);
+//		
+//		final VerticalLayout layout = new VerticalLayout();
+//		
+//		HorizontalLayout titleLayout = new HorizontalLayout();
+//		titleLayout.addStyleName("chat-ext-title-layout");
+//		titleLayout.setWidth("100%");
+//		Label chatIcon = new Label();
+//		chatIcon.setWidth("16px");
+//		chatIcon.setIcon(new ThemeResource("icons/chat-ext.png"));
+//		titleLayout.addComponent(chatIcon);
+//		titleLayout.setExpandRatio(chatIcon, 1f);
+//		
+//		Label chatLabel = new Label("Chat");
+//		chatLabel.addStyleName("chat-ext-title");
+//		titleLayout.addComponent(chatLabel);
+//		titleLayout.setExpandRatio(chatLabel, 100f);
+//		
+//		layout.addComponent(titleLayout);
+//		layout.setWidth("200px");
+//		
+//		layout.setHeight("300px");
+//		layout.setSpacing(true);
+//		layout.addComponent(new Button("New Chat"));
+//		layout.addComponent(new Button("Notification"));
+//		layout.addComponent(new Button("Todo"));
+//		
+//		toolbox.addComponent(layout);
+//		
+//		return toolbox;
+//	}
 
 	public abstract PageChangeEvent indexPage();
 

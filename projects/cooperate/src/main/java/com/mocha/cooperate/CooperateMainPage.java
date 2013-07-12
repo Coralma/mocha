@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 
+import org.vaadin.johan.Toolbox;
 import org.vaadin.peter.contextmenu.ContextMenu;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 
@@ -79,6 +80,12 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 	        response.addCookie(languageCookie);
 		}
 		super.initContent();
+		this.addComponent(buildToolbox());
+	}
+	
+	public Toolbox buildToolbox() {
+		ChatExtToolbar toolbar = new ChatExtToolbar(eventBus.getUser());
+		return toolbar;
 	}
 	
 	@Override

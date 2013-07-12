@@ -37,4 +37,8 @@
     <inherits name="org.vaadin.teemu.wizards.WizardsforvaadinWidgetset" />
 
     <inherits name="com.github.wolfie.refresher.RefresherApplicationWidgetset" />
+
+    <inherits name="org.vaadin.alump.distributionbar.widgetset.DistributionBarWidgetset" />
+
+    <inherits name="org.vaadin.johan.ToolboxWidgetset" />
 </module>

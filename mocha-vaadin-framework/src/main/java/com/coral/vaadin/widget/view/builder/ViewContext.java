@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hpsf.Section;
-
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Property;
 import com.coral.foundation.md.model.View;

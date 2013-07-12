@@ -2,8 +2,6 @@ package com.coral.vaadin.app;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authc.AuthenticationException;
-
 import com.coral.foundation.security.CommonSecurityManager;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
