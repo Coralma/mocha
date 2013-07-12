@@ -15,6 +15,7 @@
           <appMenus>
             <com.coral.foundation.md.model.AppMenu>
               <name>Home</name>
+              <label>DashBoard</label>
               <customizedClass>com.mocha.co.presenter.CoDashboardPresenter</customizedClass>
             </com.coral.foundation.md.model.AppMenu>
           </appMenus>
@@ -117,6 +118,65 @@
     <servicePackage>com.mocha.co.service</servicePackage>
     <entityList>
       <com.coral.foundation.md.model.Entity>
+        <entityName>SourceApplication</entityName>
+        <properties>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>customer</propertyName>
+            <ignore>false</ignore>
+            <type>CommerceCustomer</type>
+            <ref>CommerceCustomer</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>name</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>sessionID</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>secretID</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>authToken</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>authTokenExpireDate</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+        </properties>
+        <views/>
+        <needView>false</needView>
+        <entityClass>com.mocha.co.model.SourceApplication</entityClass>
+        <mocha reference="../../.."/>
+      </com.coral.foundation.md.model.Entity>
+      <com.coral.foundation.md.model.Entity>
         <entityName>CommerceCustomer</entityName>
         <properties>
           <com.coral.foundation.md.model.Property>
@@ -144,9 +204,11 @@
             <refer>false</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
-            <propertyName>source</propertyName>
+            <propertyName>sourceApplications</propertyName>
             <ignore>false</ignore>
-            <type>String</type>
+            <type>List</type>
+            <ref>SourceApplication</ref>
+            <orm>one-to-many</orm>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
@@ -222,6 +284,16 @@
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>referUser</propertyName>
+            <ignore>false</ignore>
+            <type>com.coral.foundation.security.model.BasicUser</type>
+            <ref>com.coral.foundation.security.model.BasicUser</ref>
+            <orm>one-to-one</orm>
+            <notnull>false</notnull>
+            <required>true</required>
+            <refer>true</refer>
           </com.coral.foundation.md.model.Property>
           <com.coral.foundation.md.model.Property>
             <propertyName>orders</propertyName>
@@ -749,7 +821,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>status</fieldName>
@@ -757,7 +829,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>name</fieldName>
@@ -765,7 +837,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
@@ -773,7 +845,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>contectPerson</fieldName>
@@ -781,7 +853,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -789,7 +861,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>phone</fieldName>
@@ -797,7 +869,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>fax</fieldName>
@@ -805,7 +877,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -813,7 +885,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[12]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[12]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -829,7 +901,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
@@ -837,7 +909,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>address</fieldName>
@@ -846,7 +918,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>postcode</fieldName>
@@ -854,7 +926,7 @@
                 <changeLine>true</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -862,7 +934,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -870,7 +942,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[12]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[12]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
@@ -893,7 +965,7 @@
           </com.coral.foundation.md.model.ViewSection>
         </sections>
         <viewActions/>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
       </com.coral.foundation.md.model.View>
       <com.coral.foundation.md.model.View>
         <name>CommerceCustomerView</name>
@@ -911,7 +983,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>status</fieldName>
@@ -920,7 +992,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -936,7 +1008,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -944,7 +1016,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[12]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[12]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
@@ -952,7 +1024,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>postcode</fieldName>
@@ -960,7 +1032,7 @@
                 <changeLine>true</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>address</fieldName>
@@ -969,7 +1041,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -977,7 +1049,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>phone</fieldName>
@@ -985,7 +1057,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>fax</fieldName>
@@ -993,7 +1065,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1009,7 +1081,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
@@ -1017,7 +1089,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>address</fieldName>
@@ -1026,7 +1098,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>postcode</fieldName>
@@ -1034,7 +1106,7 @@
                 <changeLine>true</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1049,7 +1121,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -1057,7 +1129,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[12]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[12]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -1065,7 +1137,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>phone</fieldName>
@@ -1073,7 +1145,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>fax</fieldName>
@@ -1081,7 +1153,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[11]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1097,7 +1169,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity/properties/com.coral.foundation.md.model.Property[13]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[13]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1115,7 +1187,7 @@
             <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>
@@ -1148,15 +1220,16 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderProductSummary</fieldName>
+                <label>Product Summary</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1174,7 +1247,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>customer</fieldName>
@@ -1184,7 +1257,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>purchaseDate</fieldName>
@@ -1192,7 +1265,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>exceptedShipDate</fieldName>
@@ -1201,7 +1274,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderTotals</fieldName>
@@ -1210,15 +1283,16 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderProductSummary</fieldName>
+                <label>Product Summary</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
@@ -1231,7 +1305,7 @@
           </com.coral.foundation.md.model.ViewSection>
         </sections>
         <viewActions/>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]"/>
       </com.coral.foundation.md.model.View>
       <com.coral.foundation.md.model.View>
         <name>OrderView</name>
@@ -1250,7 +1324,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>status</fieldName>
@@ -1258,7 +1332,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>purchaseDate</fieldName>
@@ -1266,7 +1340,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>exceptedShipDate</fieldName>
@@ -1274,7 +1348,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderTotals</fieldName>
@@ -1282,7 +1356,7 @@
                 <changeLine>true</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1300,7 +1374,7 @@
             <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[2]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[3]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>
@@ -1333,7 +1407,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>brand</fieldName>
@@ -1341,7 +1415,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>color</fieldName>
@@ -1349,7 +1423,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>salePrice</fieldName>
@@ -1357,7 +1431,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1373,7 +1447,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>productCode</fieldName>
@@ -1381,7 +1455,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>brand</fieldName>
@@ -1389,7 +1463,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>unit</fieldName>
@@ -1397,7 +1471,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>spec</fieldName>
@@ -1405,7 +1479,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>color</fieldName>
@@ -1413,7 +1487,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>salePrice</fieldName>
@@ -1421,7 +1495,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
@@ -1439,7 +1513,7 @@
           </com.coral.foundation.md.model.ViewSection>
         </sections>
         <viewActions/>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]"/>
       </com.coral.foundation.md.model.View>
       <com.coral.foundation.md.model.View>
         <name>ProductView</name>
@@ -1456,7 +1530,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>productName</fieldName>
@@ -1464,7 +1538,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>productImage</fieldName>
@@ -1472,7 +1546,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>brand</fieldName>
@@ -1480,7 +1554,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>unit</fieldName>
@@ -1488,7 +1562,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>spec</fieldName>
@@ -1496,7 +1570,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>color</fieldName>
@@ -1504,7 +1578,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>salePrice</fieldName>
@@ -1512,7 +1586,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mark</fieldName>
@@ -1521,7 +1595,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1539,7 +1613,7 @@
             <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[5]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>
@@ -1572,7 +1646,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>contectPerson</fieldName>
@@ -1580,7 +1654,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -1588,7 +1662,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -1596,7 +1670,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1612,7 +1686,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>contectPerson</fieldName>
@@ -1620,7 +1694,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -1628,7 +1702,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>phone</fieldName>
@@ -1636,7 +1710,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>fax</fieldName>
@@ -1644,7 +1718,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -1652,7 +1726,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions>
@@ -1670,7 +1744,7 @@
           </com.coral.foundation.md.model.ViewSection>
         </sections>
         <viewActions/>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]"/>
       </com.coral.foundation.md.model.View>
       <com.coral.foundation.md.model.View>
         <name>SupplierView</name>
@@ -1687,7 +1761,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>contectPerson</fieldName>
@@ -1695,7 +1769,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[2]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[2]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>district</fieldName>
@@ -1703,7 +1777,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[3]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[3]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>postcode</fieldName>
@@ -1711,7 +1785,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[4]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[4]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>address</fieldName>
@@ -1719,7 +1793,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[5]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[5]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mobile</fieldName>
@@ -1727,7 +1801,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[6]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[6]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>phone</fieldName>
@@ -1735,7 +1809,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[7]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[7]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>fax</fieldName>
@@ -1743,7 +1817,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[8]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[8]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>url</fieldName>
@@ -1751,7 +1825,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[9]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[9]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>email</fieldName>
@@ -1759,7 +1833,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[10]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[10]"/>
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>mark</fieldName>
@@ -1768,7 +1842,7 @@
                 <changeLine>false</changeLine>
                 <wholeRow>true</wholeRow>
                 <wholeSection>false</wholeSection>
-                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]/properties/com.coral.foundation.md.model.Property[11]"/>
+                <property reference="../../../../../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]/properties/com.coral.foundation.md.model.Property[11]"/>
               </com.coral.foundation.md.model.ViewField>
             </viewFields>
             <viewActions/>
@@ -1786,7 +1860,7 @@
             <action>Back</action>
           </com.coral.foundation.md.model.ViewAction>
         </viewActions>
-        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[6]"/>
+        <entity reference="../../../../com.coral.foundation.md.model.Mocha[2]/entityList/com.coral.foundation.md.model.Entity[7]"/>
       </com.coral.foundation.md.model.View>
     </viewList>
     <apps/>

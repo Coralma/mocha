@@ -4,29 +4,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.ebay.soap.eBLBaseComponents.AddressType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.google.common.collect.Lists;
-import com.mocha.co.ebay.api.EbayAPICallImpl;
+import com.mocha.co.ebay.api.EBayAPICallImpl;
 import com.mocha.co.model.CommerceCustomer;
 import com.mocha.co.model.Order;
 import com.mocha.co.model.OrderProduct;
+import com.mocha.co.model.SourceApplication;;
 
 public class OrderService {
 	
+	private BasicUser user;
+	
+	public OrderService(BasicUser user) {
+		this.user=user;
+	}
+
 	public List<Order> loadEbayOrders() {
 		List<Order> orders = Lists.newArrayList();
-		EbayAPICallImpl getOrder=new EbayAPICallImpl();
+		EBayAPICallImpl getOrder=new EBayAPICallImpl(user);
 		List<OrderType> ebayOrders = getOrder.getSalesTranscation();	
 		for(OrderType ebayOrder : ebayOrders){
 			// create customer
 			CommerceCustomer customer = new CommerceCustomer();
 			AddressType address = ebayOrder.getShippingAddress();
 			customer.setName(address.getName());
-			customer.setSource("eBay");
+			SourceApplication source=new SourceApplication();
+			source.setName("eBay");
+			customer.getSourceApplications().add(source);
 			customer.setAddress(address.getCountryName() + " " + address.getStateOrProvince() 
 					+ " " + address.getCityName() + " " + address.getStreet() + " " + address.getPostalCode());
 

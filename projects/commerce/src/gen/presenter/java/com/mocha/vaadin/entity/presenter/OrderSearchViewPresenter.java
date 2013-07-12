@@ -30,7 +30,7 @@ public class OrderSearchViewPresenter extends AppCommonPresenter implements Pres
 		this.viewer = new OrderSearchView();
 		// load all data.
 //		List entities = dao.findAll();
-		OrderService orderService = new OrderService();
+		OrderService orderService = new OrderService(eventBus.getUser());
 		List entities = orderService.loadEbayOrders();
 		viewer.setValue(entities);
 	}

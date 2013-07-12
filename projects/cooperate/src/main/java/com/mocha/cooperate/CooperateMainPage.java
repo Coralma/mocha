@@ -30,7 +30,7 @@ import com.vaadin.ui.VerticalLayout;
 public class CooperateMainPage extends AbstractMainPage implements Button.ClickListener {
 
 	private static final long serialVersionUID = 5003822334158074903L;
-
+	protected String pageWidth = "980px";
 	private static String TIMELINE= "timeline";
 	private static String APPLICATION = "application";
 //	private static String SIGNOUT = "sign out";

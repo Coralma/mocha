@@ -29,8 +29,8 @@ public class OrderSearchViewCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customer.name").setType("com.mocha.co.model.CommerceCustomer");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Source").setPath("customer.source").setType("com.mocha.co.model.CommerceCustomer");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
+//		fieldStatus = FieldStatus.create().setLabel("Source").setPath("customer.source").setType("com.mocha.co.model.CommerceCustomer");
+//		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Purchase Date").setPath("purchaseDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
@@ -41,7 +41,7 @@ public class OrderSearchViewCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Total").setPath("orderTotals").setType("String");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Order Product Summary").setPath("orderProductSummary").setType("String").setWholeRow(true);
+		fieldStatus = FieldStatus.create().setLabel("Product Summary").setPath("orderProductSummary").setType("String").setWholeRow(true);
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		hlayout.addComponent(sectionPanel);

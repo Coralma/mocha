@@ -15,7 +15,7 @@ public class CoDashboardPresenter extends CommonPresenter implements Presenter {
 
 	public CoDashboardPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new CoDashboardView();
+		this.viewer = new CoDashboardView(eventBus.getUser());
 	}
 
 	@Override

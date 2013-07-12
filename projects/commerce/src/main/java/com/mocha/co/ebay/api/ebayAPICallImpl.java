@@ -4,25 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coral.foundation.ebay.ManageTransactions;
+import com.coral.foundation.jpa.search.SearchFilter;
+import com.coral.foundation.jpa.search.SearchFilterBuilder;
+import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
+import com.mocha.co.dao.CommerceCustomerDao;
+import com.mocha.co.model.CommerceCustomer;
 import com.mocha.cooperate.SystemProperty;
 
-public class EbayAPICallImpl {
+public class EBayAPICallImpl {
 	public static String customToken=SystemProperty.ebayToken;
 	public static String apiServiceURL=SystemProperty.ebaySandboxServerURL;
+	private CommerceCustomerDao ccDao = SpringContextUtils.getBean(CommerceCustomerDao.class);
+	private BasicUser user;
 	
-	public EbayAPICallImpl(){
-		
+	
+	public EBayAPICallImpl(BasicUser user){
+		this.user=user;
 	}
 	
 	public List<OrderType> getSalesTranscation(){
-		ManageTransactions m=new ManageTransactions(customToken);
+		CommerceCustomer cc=ccDao.findCCByUser(user);
+		String sessionID=cc.getSourceApplications().get(0).getSessionID();
+		String secretID=cc.getSourceApplications().get(0).getSecretID();
+		ManageTransactions m=new ManageTransactions();
+		String authToken=m.getGetFetchTokenBySessionID(sessionID);
+		cc.getSourceApplications().get(0).setAuthToken(authToken);
+		ccDao.merge(cc);
+		System.out.println("Current user token is: "+authToken);
 		try {
-			List<OrderType> orders=m.getSalesTransactionsByEbayToken(m.getCustomToken());
+			List<OrderType> orders=m.getSalesTransactionsByEbayToken(authToken);
 			for(OrderType order:orders){
 			TransactionArrayType t=order.getTransactionArray();
 				for(TransactionType tr:t.getTransaction()){
@@ -43,9 +59,6 @@ public class EbayAPICallImpl {
 		return null;
 	}
 	
-	 public static void main(String[] args) {
-		 EbayAPICallImpl getOrder=new EbayAPICallImpl();
-		 getOrder.getSalesTranscation();	
-  }
+	
 
 }
