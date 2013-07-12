@@ -17,7 +17,7 @@ public class CommerceControllerMenuPanel extends ControllerMenuPanel {
 			// create the main menu item.
 			action = new MenuAction();
 			action.setPanel(Class.forName("com.mocha.co.presenter.CoDashboardPresenter"));
-			menuItem = createMenu("Home",action);
+			menuItem = createMenu("DashBoard",action);
 			addComponent(menuItem);
 			
 			// create the menu group and sub menu item.

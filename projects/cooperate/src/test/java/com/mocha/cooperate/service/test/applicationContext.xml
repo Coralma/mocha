@@ -19,15 +19,6 @@
 	<bean id="SpringContextUtils" class="com.coral.foundation.spring.bean.SpringContextUtils"
 		scope="singleton" />
 
-	<bean id="messageSource"
-	      class="org.springframework.context.support.ResourceBundleMessageSource">
-	  <property name="basenames">
-	    <list>
-	      <value>message</value>
-	    </list>
-	  </property>
-	</bean>
-
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="cooperate" />
@@ -55,23 +46,7 @@
 		<property name="password" value="root" />
 	</bean>
 
-	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
-	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage" scope="prototype"></bean>
 	<import resource="classpath*:generatedDaoContext.xml" />
 	
-		<bean id="AccountDao" class="com.coral.foundation.security.basic.dao.impl.AccountDaoImpl"></bean>
-		<bean id="BasicUserDao" class="com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl"></bean>
-		<bean id="BasicRoleDao" class="com.coral.foundation.security.basic.dao.impl.BasicRoleDaoImpl"></bean>
-		<bean id="MenuPermissionDao" class="com.coral.foundation.security.basic.dao.impl.MenuPermissionDaoImpl"></bean>
-		<bean id="AppDao" class="com.coral.foundation.security.basic.dao.impl.AppDaoImpl"></bean>
-		<bean id="CodeTableDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableDaoImpl"></bean>
-		<bean id="CodeTableValueDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableValueDaoImpl"></bean>
-		<bean id="AppReportDao" class="com.coral.foundation.security.basic.dao.impl.AppReportDaoImpl"></bean>
-		<bean id="ReportTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl"></bean>
-		<bean id="ReportColumnDao" class="com.coral.foundation.security.basic.dao.impl.ReportColumnDaoImpl"></bean>
-		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.impl.ReportFilterDaoImpl"></bean>
-		<bean id="ReportJoinTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportJoinTableDaoImpl"></bean>
-		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.impl.MochaReportDaoImpl"></bean>
-		
 	<tx:annotation-driven />
 </beans>

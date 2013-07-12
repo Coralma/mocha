@@ -46,6 +46,7 @@
 		<property name="comment" type="Comment" ref="Comment" orm="many-to-one" />
 	</entity>
 	<entity entityName="NotifyLine">
+		<property name="type" type="Long" default="1"/> <!-- 1 means unread, 0 means readed -->
 		<property name="notifiedUser" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
 		<property name="status" type="Status" ref="Status" orm="many-to-one" refer="true" />
 		<property name="discuss" type="Discuss" ref="Discuss" orm="many-to-one" refer="true" />
@@ -57,6 +58,7 @@
 	</entity>
 	<entity entityName="ShotcutItem">
 		<property name="label"/>
+		<property name="number" type="Long" default="0"/>
 		<property name="action"/>
 		<property name="type"/>
 		<property name="icon"/>

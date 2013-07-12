@@ -4,28 +4,30 @@
 package com.mocha.cooperate.widget;
 
 import java.util.List;
+import java.util.Map;
 
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.utils.Message;
 import com.coral.vaadin.controller.ContentChangeEvent;
 import com.coral.vaadin.controller.PageChangeEvent;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
+import com.mocha.cooperate.InnerStyle;
 import com.mocha.cooperate.PresenterProperty;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.Shotcut;
 import com.mocha.cooperate.model.ShotcutItem;
-import com.mocha.cooperate.page.data.ExampleData;
 import com.mocha.cooperate.page.event.HomePageEvent.ChangeHeadMenuStyleEvent;
 import com.mocha.cooperate.page.event.HomePageEvent.ChangeShotCutEvent;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author Administrator
@@ -37,6 +39,7 @@ public class ShotcutPanel extends VerticalLayout {
 	private List<ShotcutSection> shotcutPanelList = Lists.newArrayList();
 	private Message message;
 	private List<Shotcut> shotcuts;
+	private Map<String, Integer> notifyMap;
 	
 	public ShotcutPanel(MochaEventBus eventBus, List<Shotcut> shotcuts) {
 		this.eventBus = eventBus; 
@@ -51,6 +54,22 @@ public class ShotcutPanel extends VerticalLayout {
 			ShotcutSection shotcutPanel = new ShotcutSection(shotcut, eventBus);
 			shotcutPanelList.add(shotcutPanel);
 			this.addComponent(shotcutPanel);
+		}
+		// show the notification number.
+		refreshNotification();
+	}
+	
+	public void refreshNotification() {
+		if(notifyMap != null) {
+			for(String action : notifyMap.keySet()) {
+				setActionNotifyNumber(action, notifyMap.get(action));
+			}
+		}
+	}
+	
+	public void setActionNotifyNumber(String action, int number) {
+		for(ShotcutSection section : shotcutPanelList) {
+			section.setShotcutLabel(action, number);
 		}
 	}
 	
@@ -74,6 +93,7 @@ public class ShotcutPanel extends VerticalLayout {
 		private MochaEventBus eventBus;
 		private NativeButton notifyButton;
 		private List<NativeButton> shotcuts = Lists.newArrayList();
+		private Map<String, NativeButton> shotcutMaps = Maps.newHashMap();
 		
 		public ShotcutSection(Shotcut shotcut, MochaEventBus eventBus) {
 			this.eventBus = eventBus;
@@ -102,6 +122,7 @@ public class ShotcutPanel extends VerticalLayout {
 		
 		public NativeButton createNativeButton(ShotcutItem item) {
 			NativeButton itemButton = new NativeButton(message.getString(item.getLabel()));
+			itemButton.setHtmlContentAllowed(true);
 			itemButton.setWidth("100%");
 			String icon = item.getIcon();
 			if(icon != null) {
@@ -116,9 +137,26 @@ public class ShotcutPanel extends VerticalLayout {
 				notifyButton = itemButton;
 			}
 			shotcuts.add(itemButton);
+			shotcutMaps.put(item.getAction(), itemButton);
 			return itemButton;
 		}
 		
+		public void setShotcutLabel(String action, int number) {
+			NativeButton itemButton = shotcutMaps.get(action);
+			if(itemButton != null) {
+				ShotcutItem item = (ShotcutItem) itemButton.getData();
+				if(item.getNumber() != number) {
+					if(number == 0) {
+						itemButton.setCaption(message.getString(item.getLabel()));
+						item.setNumber(Long.valueOf(number));
+					} else {
+						itemButton.setCaption(message.getString(item.getLabel()) + "  <span style=\"" + InnerStyle.notify_Number + "\">" + number + "</span>");
+						item.setNumber(Long.valueOf(number));
+					}
+				}
+			}
+		}
+
 		@Override
 		public void buttonClick(ClickEvent event) {
 			Button btn = event.getButton();
@@ -152,6 +190,7 @@ public class ShotcutPanel extends VerticalLayout {
 			event.setAction(action);
 			eventBus.post(event);
 		}
+		
 
 		/**
 		 * @return the notifyButton
@@ -166,5 +205,19 @@ public class ShotcutPanel extends VerticalLayout {
 		public List<NativeButton> getShotcuts() {
 			return shotcuts;
 		}
+	}
+
+	/**
+	 * @return the notifyMap
+	 */
+	public Map<String, Integer> getNotifyMap() {
+		return notifyMap;
+	}
+
+	/**
+	 * @param notifyMap the notifyMap to set
+	 */
+	public void setNotifyMap(Map<String, Integer> notifyMap) {
+		this.notifyMap = notifyMap;
 	}
 }

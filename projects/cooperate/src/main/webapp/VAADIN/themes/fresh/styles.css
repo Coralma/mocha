@@ -342,6 +342,50 @@
 	margin-right: 18px;
 }
 
+/* extension chat bar*/
+.chat-ext-title-layout {
+	background-color:#4A8DF8;
+	line-height: 22px;
+}
+
+.chat-ext-title {
+	padding-left: 2px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.chat-ext-message-panel {
+	border-right: 1px dashed #4A8DF8;
+	padding-right: 2px;
+}
+
+.chat-ext-reply-layout {
+	padding-left: 1px;
+	padding-bottom: 2px;
+	border-bottom: 1px dashed #4A8DF8;
+}
+
+.mymessage-style .v-label {
+	padding-top: 2px;
+	font-size:12px;
+	color: #4A8DF8;
+}
+
+.othermessage-style .v-label {
+	padding-top: 2px;
+	font-size:12px;
+	color: #088A08;
+}
+
+.message-context {
+	padding-left: 5px;
+	font-size:11px;
+	color: #000000;
+    word-wrap: break-word;
+	word-break: normal;
+	white-space : normal;
+}
 
 /* application style. */
 .app-page {

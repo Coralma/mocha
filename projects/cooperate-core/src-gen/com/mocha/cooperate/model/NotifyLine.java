@@ -19,6 +19,11 @@ public class NotifyLine extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType. AUTO)
 	private Long notifyLineId;
 	
+	@Basic(optional = true)
+	@Column(name = "TYPE" )
+	private Long type = new Long(1);
+	
+	
 	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
 	private com.coral.foundation.security.model.BasicUser notifiedUser;
@@ -44,6 +49,12 @@ public class NotifyLine extends BaseEntity {
 	} 
 	public Long getNotifyLineId () {
 		return notifyLineId;
+	}
+	public void setType (Long type) {
+		this.type = type;
+	} 
+	public Long getType () {
+		return type;
 	}
 	public void setNotifiedUser (com.coral.foundation.security.model.BasicUser notifiedUser) {
 		this.notifiedUser = notifiedUser;

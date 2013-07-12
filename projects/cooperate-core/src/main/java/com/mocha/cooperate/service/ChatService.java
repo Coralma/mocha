@@ -9,6 +9,7 @@ import java.util.Set;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mocha.cooperate.basic.dao.ChatDao;
 import com.mocha.cooperate.basic.dao.ChatMessageDao;
 import com.mocha.cooperate.model.Chat;
@@ -35,6 +36,14 @@ public class ChatService {
 		return chatDao.loadChats(currentUser);
 	}
 	
+	public Chat getChatByUsers(BasicUser currentUser, BasicUser anotherUser) {
+		Chat chat = chatDao.getChatByUsers(currentUser, anotherUser);
+		if(chat == null) {
+			chat = saveChat(createChat(Sets.newHashSet(anotherUser),currentUser));
+		}
+		return chat;
+	}
+	
 	public List<ChatMessage> loadNewMessage(ChatMessage lastMessage, Chat currentChat) {
 		return chatMessageDao.loadNewMessage(lastMessage, currentChat);
 	}
@@ -52,6 +61,7 @@ public class ChatService {
 		}
 		if(!isChooseCurrentUser) {
 			ChatPerson currentPerson = new ChatPerson();
+			currentPerson.setLeader(new Long(1));
 			currentPerson.setPerson(currentUser);
 			chatPersons.add(0, currentPerson);
 		}

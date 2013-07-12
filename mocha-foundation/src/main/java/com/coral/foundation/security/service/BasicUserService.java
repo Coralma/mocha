@@ -25,6 +25,10 @@ public class BasicUserService {
 		return basicUserDao.findAll();
 	}
 	
+	public BasicUser findById(Long id) {
+		return basicUserDao.findById(id);
+	}
+	
 	public void merge(BasicUser entity) {
 		basicUserDao.merge(entity);
 	}

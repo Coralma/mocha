@@ -357,6 +357,15 @@
         <entityName>NotifyLine</entityName>
         <properties>
           <com.coral.foundation.md.model.Property>
+            <propertyName>type</propertyName>
+            <ignore>false</ignore>
+            <type>Long</type>
+            <defaultValue>1</defaultValue>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
             <propertyName>notifiedUser</propertyName>
             <ignore>false</ignore>
             <type>com.coral.foundation.security.model.BasicUser</type>
@@ -436,6 +445,15 @@
             <propertyName>label</propertyName>
             <ignore>false</ignore>
             <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>number</propertyName>
+            <ignore>false</ignore>
+            <type>Long</type>
+            <defaultValue>0</defaultValue>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>
