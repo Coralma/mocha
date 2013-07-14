@@ -23,6 +23,7 @@ import com.ebay.sdk.call.FetchTokenCall;
 import com.ebay.sdk.call.GetOrdersCall;
 import com.ebay.sdk.call.GetSellerTransactionsCall;
 import com.ebay.sdk.call.GetSessionIDCall;
+import com.ebay.sdk.call.GetTokenStatusCall;
 import com.ebay.soap.eBLBaseComponents.AddressType;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.CheckoutStatusCodeType;
@@ -57,7 +58,8 @@ public class ManageTransactions {
 	
 	private String customToken;
 	private ApiContext apiContext=AppContextFactory.getInstance();
-	
+	private String sessionID;
+	private String secretID;
 	
 	public ManageTransactions(String customToken){
 		this.setCustomToken(customToken);
@@ -72,7 +74,7 @@ public class ManageTransactions {
 		String ruName="mocha-platform-mocha-pl-0bf9-4-bhioe";
 //		m.createRedirectURLByRuName(ruName);
 		try {
-			m.getSalesTransactionsByEbayToken(m.getGetFetchTokenBySessionID("VkQCAA**b896c1b713f0a471da206d60fffff9f3"));
+			m.getSalesTransactionsByEbayToken(m.getGetFetchTokenBySessionID("VkQCAA**bf23d43913f0a471d22215b2fffff03c"));
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,26 +87,22 @@ public class ManageTransactions {
 		}
 	}
 	
-	private String createRedirectURLByRuName(String ruName){
+	public String createRedirectURLByRuName(String ruName){
 		String sid =UUID.randomUUID().toString();
 		String signInBaseURL = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn";
 		try {
 			String signInURL = signInBaseURL + "&runame=" + URLEncoder.encode(ruName, "ISO-8859-1") + "&sid=" +sid
-					+"&SessID="+getSessionIDByRuName("mocha-platform-mocha-pl-0bf9-4-bhioe");
+					+"&SessID="+getSessionIDByRuName(ruName);
+			setSecretID(sid);
 			System.out.println(signInURL);
 			return signInURL;
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
 	public String getGetFetchTokenBySessionID(String sessionID){
-		ApiCredential apiCredential=apiContext.getApiCredential();		
-//		eBayAccount ebayAccount=new eBayAccount();
-//		ebayAccount.setUsername(userName);
-//		apiCredential.seteBayAccount(ebayAccount);
 		FetchTokenCall userTokenCall=new FetchTokenCall(apiContext);
 		userTokenCall.setSessionID(sessionID);
 		try {
@@ -131,6 +129,7 @@ public class ManageTransactions {
         try {
 			String sessionID = call.getSessionID();
 			System.out.println("session id is:"+sessionID);
+			setSessionID(sessionID);
 			return sessionID;
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block
@@ -146,11 +145,9 @@ public class ManageTransactions {
 	}
 	
      public List<OrderType> getSalesTransactionsByEbayToken(String ebayToken) throws ApiException, SdkException, Exception{
-    	 
     	 OrderType[] orders=null;
-    	 
-//          ApiContext apiContext = new ApiContext();
-          // set API Token to access eBay API Server
+		// ApiContext apiContext = new ApiContext();
+		// set API Token to access eBay API Server
           ApiCredential cred = apiContext.getApiCredential();
           //Set Auth Token
           cred.seteBayToken(ebayToken);
@@ -452,12 +449,28 @@ public class ManageTransactions {
           }
           return Arrays.asList(orders);
      }
-
+    
 	public String getCustomToken() {
 		return customToken;
 	}
 
 	public void setCustomToken(String customToken) {
 		this.customToken = customToken;
+	}
+
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public String getSecretID() {
+		return secretID;
+	}
+
+	public void setSecretID(String secretID) {
+		this.secretID = secretID;
 	}
 }

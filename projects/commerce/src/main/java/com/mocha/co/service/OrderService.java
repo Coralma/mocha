@@ -3,6 +3,7 @@ package com.mocha.co.service;
 import java.util.Date;
 import java.util.List;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.ebay.soap.eBLBaseComponents.AddressType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
@@ -13,9 +14,16 @@ import com.mocha.co.ebay.api.EbayAPIInvokeImpl;
 import com.mocha.co.model.CommerceCustomer;
 import com.mocha.co.model.Order;
 import com.mocha.co.model.OrderProduct;
+import com.mocha.co.model.SourceApplication;;
 
 public class OrderService {
 	
+	private BasicUser user;
+	
+	public OrderService(BasicUser user) {
+		this.user=user;
+	}
+
 	public List<Order> loadEbayOrders() {
 		List<Order> orders = Lists.newArrayList();
 		EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl();
@@ -25,7 +33,9 @@ public class OrderService {
 			CommerceCustomer customer = new CommerceCustomer();
 			AddressType address = ebayOrder.getShippingAddress();
 			customer.setName(address.getName());
-			customer.setSource("eBay");
+			SourceApplication source=new SourceApplication();
+			source.setName("eBay");
+			customer.getSourceApplications().add(source);
 			customer.setAddress(address.getCountryName() + " " + address.getStateOrProvince() 
 					+ " " + address.getCityName() + " " + address.getStreet() + " " + address.getPostalCode());
 

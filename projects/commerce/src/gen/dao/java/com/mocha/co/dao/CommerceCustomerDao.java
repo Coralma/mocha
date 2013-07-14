@@ -1,6 +1,7 @@
 package com.mocha.co.dao;
 import java.util.List;
 import com.coral.foundation.jpa.Dao;
+import com.coral.foundation.security.model.BasicUser;
 import com.mocha.co.model.*;
 
 /**
@@ -8,6 +9,8 @@ import com.mocha.co.model.*;
   * @author Coral
   */
 public interface CommerceCustomerDao extends Dao<CommerceCustomer> {
+
+	CommerceCustomer findCCByUser(BasicUser basicUser);
 	
 }
 

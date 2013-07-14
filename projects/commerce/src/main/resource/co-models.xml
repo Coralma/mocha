@@ -3,11 +3,20 @@
 	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
 	servicePackage="com.mocha.co.service">
 	
+	<entity entityName="SourceApplication">
+		<property name="customer" type="CommerceCustomer" ref="CommerceCustomer" orm="many-to-one"/>
+		<property name="name"/>
+		<property name="sessionID"/>
+		<property name="secretID"/>
+		<property name="authToken"/>
+		<property name="authTokenExpireDate"/>
+	</entity>
+	
 	<entity entityName="CommerceCustomer">
 		<property name="customerType"/>
 		<property name="name"/>	
 		<property name="status"/>
-		<property name="source"/> <!-- 	from Amazon, eBay and Other --> 
+		<property name="sourceApplications" type="List" ref="SourceApplication" orm="one-to-many"/> <!-- 	from Amazon, eBay and Other --> 
 		<property name="district"/>
 		<property name="postcode"/>
 		<property name="address"/>
@@ -17,6 +26,8 @@
 		<property name="fax"/>
 		<property name="email"/>
 		<property name="mark"/>
+		<property name="referUser" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
 		<property name="orders" type="List" ref="Order" orm="one-to-many"/>
 	</entity>
 	

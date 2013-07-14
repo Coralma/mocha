@@ -3,6 +3,9 @@
  */
 package com.mocha.cooperate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.Cookie;
@@ -14,6 +17,15 @@ import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.app.MochaApplication;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.terminal.gwt.server.WebBrowser;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
 
 /**
  * @author Administrator
@@ -65,6 +77,12 @@ public class CooperateApplication extends MochaApplication  {
 	@Override
 	public void onRequestStart(HttpServletRequest request,
 			HttpServletResponse response) {
+		String referrer = request.getHeader("referer");
+//		getMainWindow().removeAllComponents();
+		if (referrer != null && referrer.contains("?ebaytkn=&tknexp=")) {
+			setMainWindow(new SouceApplictionCalbackWindow(referrer));
+		}
+		
 		if (cookieUsername == null || cookieLanguage == null) {
             Cookie[] cookies = request.getCookies();
             if(cookies != null) {

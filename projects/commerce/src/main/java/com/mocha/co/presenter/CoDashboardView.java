@@ -3,6 +3,7 @@ package com.mocha.co.presenter;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.invient.vaadin.charts.InvientCharts;
@@ -31,6 +32,7 @@ import com.invient.vaadin.charts.InvientChartsConfig.AxisBase.AxisTitle;
 import com.invient.vaadin.charts.InvientChartsConfig.AxisBase.NumberPlotLine;
 import com.invient.vaadin.charts.InvientChartsConfig.AxisBase.NumberPlotLine.NumberValue;
 import com.invient.vaadin.charts.InvientChartsConfig.GeneralChartConfig.Margin;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
@@ -39,12 +41,18 @@ import com.vaadin.ui.VerticalLayout;
 public class CoDashboardView extends CommonViewer implements Viewer {
 
 	String width = "765px";
+	BasicUser user;
 
 	public CoDashboardView() {
 
 	}
 
+	public CoDashboardView(BasicUser user) {
+		this.user=user;
+	}
+
 	public void attach() {
+		getWindow().addWindow(new AppAuthenciateWindow(user));
 		this.setWidth(width);
 		this.setSpacing(true);
 		Layout portalLayout = buildPortalLayout();
@@ -73,7 +81,10 @@ public class CoDashboardView extends CommonViewer implements Viewer {
 
 		piePanel.setContent(pieLayout);
 		portalLayout.addComponent(piePanel);
+		
 		this.addComponent(portalLayout);
+		
+		
 	}
 
 	public Layout buildPortalLayout() {

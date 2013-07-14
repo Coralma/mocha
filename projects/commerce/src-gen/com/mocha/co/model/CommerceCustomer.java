@@ -34,10 +34,10 @@ public class CommerceCustomer extends BaseEntity {
 	private String status;
 	
 	
-	@Basic(optional = true)
-	@Column(name = "SOURCE" )
-	private String source;
-	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = SourceApplication.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="COMMERCE_CUSTOMER_ID")
+	private List<SourceApplication> sourceApplications = new ArrayList<SourceApplication>();
 	
 	@Basic(optional = true)
 	@Column(name = "DISTRICT" )
@@ -84,6 +84,10 @@ public class CommerceCustomer extends BaseEntity {
 	private String mark;
 	
 	
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
+	private com.coral.foundation.security.model.BasicUser referUser;
+	
 	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Order.class, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name="COMMERCE_CUSTOMER_ID")
@@ -114,11 +118,11 @@ public class CommerceCustomer extends BaseEntity {
 	public String getStatus () {
 		return status;
 	}
-	public void setSource (String source) {
-		this.source = source;
+	public void setSourceApplications (List<SourceApplication> sourceApplications) {
+		this.sourceApplications = sourceApplications;
 	} 
-	public String getSource () {
-		return source;
+	public List<SourceApplication> getSourceApplications () {
+		return sourceApplications;
 	}
 	public void setDistrict (String district) {
 		this.district = district;
@@ -173,6 +177,12 @@ public class CommerceCustomer extends BaseEntity {
 	} 
 	public String getMark () {
 		return mark;
+	}
+	public void setReferUser (com.coral.foundation.security.model.BasicUser referUser) {
+		this.referUser = referUser;
+	} 
+	public com.coral.foundation.security.model.BasicUser getReferUser () {
+		return referUser;
 	}
 	public void setOrders (List<Order> orders) {
 		this.orders = orders;

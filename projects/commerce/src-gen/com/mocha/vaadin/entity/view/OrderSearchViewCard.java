@@ -29,8 +29,8 @@ public class OrderSearchViewCard extends SearchEntityCard {
 		fieldStatus = FieldStatus.create().setLabel("Customer Name").setPath("customer.name").setType("com.mocha.co.model.CommerceCustomer");
 		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
-		fieldStatus = FieldStatus.create().setLabel("Source").setPath("customer.source").setType("com.mocha.co.model.CommerceCustomer");
-		sectionPanel.addField(createFieldWidget(fieldStatus));
+//		fieldStatus = FieldStatus.create().setLabel("Source").setPath("customer.source").setType("com.mocha.co.model.CommerceCustomer");
+//		sectionPanel.addField(createFieldWidget(fieldStatus));
 		
 		fieldStatus = FieldStatus.create().setLabel("Purchase Date").setPath("purchaseDate").setType("Date");
 		sectionPanel.addField(createFieldWidget(fieldStatus));

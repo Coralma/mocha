@@ -48,6 +48,7 @@
 		<class>com.mocha.ib.model.InsuranceProduct</class>
 		<!-- 		e-commerce -->
 		<class>com.mocha.co.model.CommerceCustomer</class>
+		<class>com.mocha.co.model.SourceApplication</class>
 		<class>com.mocha.co.model.CommerceProduct</class>
 		<class>com.mocha.co.model.Order</class>
 		<class>com.mocha.co.model.OrderProduct</class>
