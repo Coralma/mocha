@@ -92,7 +92,8 @@ public class DiscussCard extends AbstractCard {
 	}
 	
 	public Label buildDiscussContent(String content) {
-		Label contentLabel = new Label(StrUtils.asciiToXhtml(content), Label.CONTENT_XHTML);
+//		Label contentLabel = new Label(StrUtils.asciiToXhtml(content), Label.CONTENT_XHTML);
+		Label contentLabel = new Label(content, Label.CONTENT_XHTML);
 		contentLabel.addStyleName("discuss-card-content");
 		return contentLabel;	
 	}

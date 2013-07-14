@@ -88,16 +88,11 @@ public class IndexViewer extends CommonViewer implements Viewer {
 		infoColumn.addComponent(menu);
 		
 		Refresher refresher = new Refresher();
-	    refresher.setRefreshInterval(5000);
+	    refresher.setRefreshInterval(30000);
 		refresher.addListener(new RefreshListener() {
 			@Override
 			public void refresh(Refresher source) {
 				indexListener.refreshShotCutPanel();
-//				Map<String, Integer> notifyMap = Maps.newConcurrentMap();
-//				notifyMap.put(PresenterProperty.NOTIFICATION, getRandomNum());
-//				notifyMap.put(PresenterProperty.CHAT, getRandomNum());
-//				menu.setNotifyMap(notifyMap);
-//				menu.refreshNotification();
 			}
 		});
 		infoColumn.addComponent(refresher);
