@@ -38,4 +38,19 @@ public class NotifyLineService {
 	public void readAllNotify(BasicUser basicUser) {
 		notifyLineDao.readAllNotify(basicUser);
 	}
+	
+	public NotifyLine loadNotifyByStatus() {
+		//TODO
+		return null;
+	}
+	
+	public NotifyLine loadNotifyByDiscuss() {
+		//TODO
+		return null;
+	}
+	
+	public NotifyLine loadNotifyByTodo() {
+		//TODO
+		return null;
+	}
 }

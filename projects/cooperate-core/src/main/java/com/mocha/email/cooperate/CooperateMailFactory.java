@@ -20,7 +20,7 @@ public class CooperateMailFactory {
 		UserRegister register = new UserRegister();
 		emailContent.setContent(register.getEmailContent(basicUser).toString());
 		emailContent.setSubject(register.getSubject());
-		emailContent.setSender(basicUser);
+		emailContent.setReciever(basicUser);
 		return emailContent;
 	}
 	
@@ -30,7 +30,7 @@ public class CooperateMailFactory {
 		notify.init(sendUser, timeLine, recievedUser);
 		emailContent.setContent(notify.getEmailContent().toString());
 		emailContent.setSubject(notify.getSubject().toString());
-		emailContent.setSender(sendUser);
+		emailContent.setReciever(recievedUser);
 		return emailContent;
 	}
 }

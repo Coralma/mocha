@@ -28,7 +28,7 @@ public class OrderService {
 		List<Order> orders = Lists.newArrayList();
 		EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl(user);
 		List<OrderType> ebayOrders = getOrder.getSalesTranscation();	
-		
+		if(ebayOrders!=null){
 		for(OrderType ebayOrder : ebayOrders){
 			// create customer
 			CommerceCustomer customer = new CommerceCustomer();
@@ -61,8 +61,10 @@ public class OrderService {
 				orderProducts.add(orderProduct);
 				
 				orderProductSummary = orderProductSummary + orderProduct.getProduct() + "[" + orderProduct.getQuantityOrdered() + "] ";
+			}	
+				commonOrder.setOrderProductSummary(orderProductSummary);
+
 			}
-			commonOrder.setOrderProductSummary(orderProductSummary);
 		}
 		return orders;
 	}

@@ -9,18 +9,22 @@ import java.util.Set;
 import org.vaadin.hene.expandingtextarea.ExpandingTextArea;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.email.EmailUtils;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.Message;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.helper.NotificationHelper;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mocha.cooperate.SystemProperty;
+import com.mocha.cooperate.model.Attachment;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.model.Status;
 import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.page.event.HomePageListener;
 import com.mocha.cooperate.service.TimeLineService;
+import com.mocha.email.cooperate.CooperateMailFactory;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
@@ -174,12 +178,21 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 			TimeLine newTimeLine = null;
 			Object value = currentWidget.getValue();
 			if (value != null) {
+				Set<BasicUser> notifyUsers = (Set<BasicUser>)tokenField.getValue();
+				BasicUser currentUser = (BasicUser)getApplication().getUser();
+				List<Attachment> attachments = attachmentLayout.getAttachments();
 				if (value instanceof Status) {
-					newTimeLine = timeLineService.saveStatus((Status)value, (BasicUser)getApplication().getUser(), (Set<BasicUser>)tokenField.getValue(), attachmentLayout.getAttachments());
+					newTimeLine = timeLineService.saveStatus((Status)value,currentUser, notifyUsers, attachments);
 				} else if (value instanceof Discuss) {
-					newTimeLine = timeLineService.saveDiscuss((Discuss)value, (BasicUser)getApplication().getUser(), (Set<BasicUser>)tokenField.getValue(), attachmentLayout.getAttachments());
+					newTimeLine = timeLineService.saveDiscuss((Discuss)value, currentUser, notifyUsers, attachments);
 				} else if (value instanceof ToDo) {
-					newTimeLine = timeLineService.saveToDo((ToDo)value, (BasicUser)getApplication().getUser(), (Set<BasicUser>)tokenField.getValue(),attachmentLayout.getAttachments());
+					notifyUsers = timeLineService.mergeTodoUser((ToDo)value, notifyUsers);
+					newTimeLine = timeLineService.saveToDo((ToDo)value, currentUser, notifyUsers, attachments);
+				}
+				// send notification email for user
+				for(BasicUser reciever : notifyUsers) {
+					EmailUtils emailUtils = new EmailUtils(CooperateMailFactory.getNotifyEmail(currentUser, newTimeLine, reciever));
+					emailUtils.start();
 				}
 				currentWidget.clean();
 				attachmentLayout.clean();

@@ -46,7 +46,7 @@ public class SystemProperty {
 
 	public static String user_defalut_photo_name = "defalut_user_photo.jpg";
 	public static String uesr_default_icon_name = "defalut_user_icon.jpg";
-	public static long file_limited_Size = 5000000;
+	public static long file_limited_Size = 50000000;
 	public static long file_name_limited_Length = 50;
 
 	public static String application_page_Width = "980px";
