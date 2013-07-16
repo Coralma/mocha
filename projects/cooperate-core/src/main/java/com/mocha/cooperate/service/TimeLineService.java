@@ -10,6 +10,7 @@ import java.util.Set;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mocha.cooperate.basic.dao.AttachmentDao;
 import com.mocha.cooperate.basic.dao.CommentDao;
 import com.mocha.cooperate.basic.dao.DiscussDao;
@@ -23,6 +24,7 @@ import com.mocha.cooperate.model.Comment;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
+import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.model.ToDo;
 
@@ -174,6 +176,30 @@ public class TimeLineService {
 		return timeLine;
 	}
 	
+	public Set<BasicUser> mergeTodoUser(ToDo todo, Set<BasicUser> notifiedUsers) {
+		if(notifiedUsers == null) {
+			notifiedUsers = Sets.newHashSet();
+		}
+		if(!isExistedUser(todo.getAssginedUser(), notifiedUsers)) {
+			notifiedUsers.add(todo.getAssginedUser());
+		}
+		for(SubToDoItem task : todo.getSubToDoItems()) {
+			BasicUser taskUser = task.getAssginedUser();
+			if(!isExistedUser(taskUser, notifiedUsers)) {
+				notifiedUsers.add(taskUser);
+			}
+		}
+		return notifiedUsers;
+	}
+	
+	private boolean isExistedUser(BasicUser user, Set<BasicUser> notifiedUsers) {
+		for(BasicUser notifyUser : notifiedUsers) {
+			if(notifyUser.getID().equals(user.getID())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public void removeTimeLine(TimeLine timeLine) {
 		Status status = timeLine.getStatus();

@@ -16,7 +16,7 @@ public class EmailContent {
 
 	public String subject;
 	public String content;
-	public List<BasicUser> senders = Lists.newArrayList();
+	public List<BasicUser> reciever = Lists.newArrayList();
 
 	/**
 	 * @return the content
@@ -33,14 +33,14 @@ public class EmailContent {
 	/**
 	 * @return the sender
 	 */
-	public BasicUser getSender() {
-		return senders.get(0);
+	public BasicUser getReciever() {
+		return reciever.get(0);
 	}
 	/**
-	 * @param sender the sender to set
+	 * @param reciever the sender to set
 	 */
-	public void setSender(BasicUser sender) {
-		this.senders.add(sender);
+	public void setReciever(BasicUser reciever) {
+		this.reciever.add(reciever);
 	}
 	/**
 	 * @return the subject
@@ -57,20 +57,20 @@ public class EmailContent {
 	/**
 	 * @return the senders
 	 */
-	public List<BasicUser> getSenders() {
-		return senders;
+	public List<BasicUser> getRecievers() {
+		return reciever;
 	}
 	/**
 	 * @param senders the senders to set
 	 */
-	public void setSenders(List<BasicUser> senders) {
-		this.senders = senders;
+	public void setRecievers(List<BasicUser> senders) {
+		this.reciever = senders;
 	}
 	
 	/**
-	 * @param sender the sender to set
+	 * @param reciever the sender to set
 	 */
-	public void addSender(BasicUser sender) {
-		this.senders.add(sender);
+	public void addReciever(BasicUser reciever) {
+		this.reciever.add(reciever);
 	}
 }

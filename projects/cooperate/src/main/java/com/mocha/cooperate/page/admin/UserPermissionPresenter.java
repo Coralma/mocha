@@ -61,7 +61,8 @@ public class UserPermissionPresenter extends CommonPresenter {
 					Account account = accountDao.findById(currentUser.getAccount().getID());
 					user.setAccount(account);
 //					user.setPassword(StrUtils.getRandomString(6));
-					EmailUtils.send(CooperateMailFactory.getUserRegister(user));
+					EmailUtils emailUtils = new EmailUtils(CooperateMailFactory.getUserRegister(user));
+					emailUtils.start();
 				}
 				user = basicUserDao.merge(user);
 				return user; 
