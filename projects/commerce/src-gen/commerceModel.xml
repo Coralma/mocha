@@ -1224,7 +1224,6 @@
               </com.coral.foundation.md.model.ViewField>
               <com.coral.foundation.md.model.ViewField>
                 <fieldName>orderProductSummary</fieldName>
-                <label>Product Summary</label>
                 <required>false</required>
                 <changeLine>false</changeLine>
                 <wholeRow>false</wholeRow>

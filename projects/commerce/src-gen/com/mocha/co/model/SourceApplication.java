@@ -40,7 +40,7 @@ public class SourceApplication extends BaseEntity {
 	
 	
 	@Basic(optional = true)
-	@Column(name = "AUTH_TOKEN",columnDefinition="TEXT" )
+	@Column(name = "AUTH_TOKEN" )
 	private String authToken;
 	
 	

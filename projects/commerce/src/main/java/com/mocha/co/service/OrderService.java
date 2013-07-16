@@ -26,8 +26,9 @@ public class OrderService {
 
 	public List<Order> loadEbayOrders() {
 		List<Order> orders = Lists.newArrayList();
-		EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl();
+		EbayAPIInvokeImpl getOrder=new EbayAPIInvokeImpl(user);
 		List<OrderType> ebayOrders = getOrder.getSalesTranscation();	
+		
 		for(OrderType ebayOrder : ebayOrders){
 			// create customer
 			CommerceCustomer customer = new CommerceCustomer();

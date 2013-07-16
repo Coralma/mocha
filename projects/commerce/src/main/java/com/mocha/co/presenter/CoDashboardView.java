@@ -42,6 +42,7 @@ public class CoDashboardView extends CommonViewer implements Viewer {
 
 	String width = "765px";
 	BasicUser user;
+	boolean needAuth=false;
 
 	public CoDashboardView() {
 
@@ -51,8 +52,15 @@ public class CoDashboardView extends CommonViewer implements Viewer {
 		this.user=user;
 	}
 
+	public CoDashboardView(BasicUser user, boolean needAuth) {
+		this.user=user;
+		this.needAuth=needAuth;
+	}
+
 	public void attach() {
-		getWindow().addWindow(new AppAuthenciateWindow(user));
+		if(needAuth){
+			getWindow().addWindow(new AppAuthenciateWindow(user));			
+		}
 		this.setWidth(width);
 		this.setSpacing(true);
 		Layout portalLayout = buildPortalLayout();
