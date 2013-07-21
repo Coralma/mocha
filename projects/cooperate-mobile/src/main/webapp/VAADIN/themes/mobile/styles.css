@@ -355,7 +355,7 @@
 	background-color: white;
 	padding-top: 5px;
 	padding-bottom: 2px;
-	border-bottom: 1px dashed #D8D8D8;
+/* 	border-bottom: 1px dashed #D8D8D8; */
 }
 
 .phone-card-layout .card-photo {
@@ -371,6 +371,19 @@
 .phone-card-layout .card-content {
 	font-size: 14px;
 	font-weight: normal;
+}
+
+.phone-card-layout .todo-card-title {
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+.phone-card-layout .todo-card-content {
+	font-size: 14px;
+	font-weight: normal;
+	padding-top: 5px;
+	border-bottom: 1px dashed #D8D8D8;
 }
 
 .phone-card-layout .topic-title {
@@ -389,6 +402,38 @@
 	color: #5882FA;
 	text-align: right;
 	padding-right: 5px;
+}
+
+.working-caption-title {
+	text-align: center;
+	line-height: 40px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #084B8A;
+}
+
+.detail-reply-username {
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+.detail-reply-content {
+	padding-bottom: 10px;
+}
+
+.card-head .v-touchkit-navbutton {
+	font-size: 14px;
+	padding-left: 20px;
+	-webkit-appearance: none;
+	display: block;
+	position: relative;
+	font-weight: bold;
+	line-height: 43px;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /* pad style. */

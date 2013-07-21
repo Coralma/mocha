@@ -4,6 +4,7 @@
 package com.mocha.cooperate.widget.cards;
 
 import java.util.List;
+import java.util.Set;
 
 import org.vaadin.hene.expandingtextarea.ExpandingTextArea;
 import org.vaadin.tokenfield.TokenField;
@@ -13,6 +14,7 @@ import com.coral.foundation.utils.DateUtils;
 import com.coral.foundation.utils.Message;
 import com.coral.vaadin.widget.helper.BasicHelper;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
+import com.google.common.collect.Sets;
 import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.basic.dao.CommentDao;
 import com.mocha.cooperate.model.Comment;
@@ -247,6 +249,17 @@ public class CardReply extends VerticalLayout {
 	 */
 	public void setDisplayReply(boolean displayReply) {
 		this.displayReply = displayReply;
+	}
+
+	/**
+	 * @return the tokenField
+	 */
+	public Set<BasicUser> getNotifyUsers() {
+		Set<BasicUser> notifyUsers = (Set<BasicUser>)tokenField.getValue();
+		if(notifyUsers == null) {
+			notifyUsers = Sets.newHashSet();
+		}
+		return notifyUsers;
 	}
 
 }

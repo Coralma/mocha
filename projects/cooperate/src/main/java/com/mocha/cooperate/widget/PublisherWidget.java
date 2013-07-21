@@ -178,7 +178,7 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 			TimeLine newTimeLine = null;
 			Object value = currentWidget.getValue();
 			if (value != null) {
-				Set<BasicUser> notifyUsers = (Set<BasicUser>)tokenField.getValue();
+				Set<BasicUser> notifyUsers = getNotifyUsers();
 				BasicUser currentUser = (BasicUser)getApplication().getUser();
 				List<Attachment> attachments = attachmentLayout.getAttachments();
 				if (value instanceof Status) {
@@ -387,5 +387,16 @@ public class PublisherWidget extends VerticalLayout implements ClickListener {
 	 */
 	public void setListener(HomePageListener listener) {
 		this.listener = listener;
+	}
+
+	/**
+	 * @return the tokenField
+	 */
+	public Set<BasicUser> getNotifyUsers() {
+		Set<BasicUser> notifyusers = (Set<BasicUser>)tokenField.getValue();
+		if(notifyusers == null) {
+			notifyusers = Sets.newHashSet();
+		}
+		return notifyusers;
 	}
 }

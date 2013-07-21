@@ -27,7 +27,8 @@ public class PhoneLoginPresenter extends AbstractMobilePresenter implements Mobi
 				if(user==null){
 					return;
 				}
-				loginView.getApplication().setUser(user);
+//				loginView.getApplication().setUser(user);
+				eventBus.setUser(user);
 				MobilePageChangeEvent pageEvent = new MobilePageChangeEvent();
 				pageEvent.setPresenter(PhoneMainPresenter.class.getName());
 				eventBus.post(pageEvent);

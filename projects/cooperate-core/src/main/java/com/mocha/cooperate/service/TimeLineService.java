@@ -3,6 +3,7 @@
  */
 package com.mocha.cooperate.service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -192,7 +193,7 @@ public class TimeLineService {
 		return notifiedUsers;
 	}
 	
-	private boolean isExistedUser(BasicUser user, Set<BasicUser> notifiedUsers) {
+	private boolean isExistedUser(BasicUser user, Collection<BasicUser> notifiedUsers) {
 		for(BasicUser notifyUser : notifiedUsers) {
 			if(notifyUser.getID().equals(user.getID())) {
 				return true;
@@ -235,6 +236,47 @@ public class TimeLineService {
  	public Status updateStatus(Status status) {
  		return statusDao.merge(status);
 	}
+ 	
+ 	public Status replyStatus(Status status, Set<BasicUser> notifiedUsers) {
+ 		// mix notifyedUser with comment user;
+ 		List<BasicUser> allNotifyUsers = Lists.newArrayList();
+ 		for(Comment comment : status.getComments()) {
+ 			allNotifyUsers.add(comment.getCreator());
+ 		}
+ 		for(BasicUser notifyUser : notifiedUsers) {
+ 			if(!isExistedUser(notifyUser, allNotifyUsers)) {
+ 				allNotifyUsers.add(notifyUser);
+ 			}
+ 		}
+ 		
+ 		// notify all first notified user.
+ 		List<NotifyLine> notifyLines = status.getNotifyLines();
+ 		for(NotifyLine notifyLine : status.getNotifyLines()) {
+ 			notifyLine.setType(new Long(1));
+ 			notifyLine.setLastModifiedTime(new Date());
+ 			BasicUser notifyUser = notifyLine.getNotifiedUser();
+ 			BasicUser removedNotifyUser = null;
+ 			for(BasicUser newNotifyUser : allNotifyUsers) {
+ 				if(notifyUser.getID().equals(newNotifyUser.getID())) {
+ 					removedNotifyUser = newNotifyUser; 
+ 				}
+ 			}
+ 			if(removedNotifyUser != null) {
+ 				allNotifyUsers.remove(removedNotifyUser);
+ 			}
+ 		}
+ 		
+ 		// notify new user;
+ 		for(BasicUser newNotifyUser : allNotifyUsers) {
+ 			NotifyLine notifyLine = new NotifyLine();
+			notifyLine.setNotifiedUser(newNotifyUser);
+			notifyLine.setStatus(status);
+			notifyLines.add(notifyLine);
+ 		}
+ 		status.setNotifyLines(notifyLines);
+ 		
+ 		return statusDao.merge(status);
+ 	}
 	
 	public Discuss updateDiscuss(Discuss discuss) {
 		return discussDao.merge(discuss);

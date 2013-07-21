@@ -8,6 +8,7 @@ public abstract class AbstractMobilePresenter implements MobilePresenter {
 	protected MobileView view;
 	
 	public MobileView go() {
+		bind();
 		return view;
 	}
 	

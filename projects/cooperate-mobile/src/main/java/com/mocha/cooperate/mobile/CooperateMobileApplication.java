@@ -21,10 +21,11 @@ public class CooperateMobileApplication extends MobileApplication {
 	
     @Override
     public void onBrowserDetailsReady() {
-    	String type = MobileConstants.PAD;
-    	if (isSmallScreenDevice()) {
-        	type = MobileConstants.PHONE;
-        }
+//    	String type = MobileConstants.PAD;
+//    	if (isSmallScreenDevice()) {
+//        	type = MobileConstants.PHONE;
+//        }
+    	String type = MobileConstants.PHONE;
     	getMainWindow().setContent(new MobileContentDelegate(type));
 //        if (isSmallScreenDevice()) {
 //        	getMainWindow().setContent(new PhoneLoginView());

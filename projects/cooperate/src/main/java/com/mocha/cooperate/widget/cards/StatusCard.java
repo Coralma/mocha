@@ -105,7 +105,8 @@ public class StatusCard extends AbstractCard {
 			Comment comment = cardReply.getValue();
 			status.getComments().add(comment);
 			comment.setStatus(status);
-			status = timeLineService.updateStatus(status);
+//			status = timeLineService.updateStatus(status);
+			status = timeLineService.replyStatus(status,cardReply.getNotifyUsers());
 			cardReply.setComments(status.getComments());
 			cardReply.build();
 		}
