@@ -15,7 +15,7 @@ public class IBDashboardPresenter extends CommonPresenter implements Presenter {
 
 	public IBDashboardPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new IBDashboardView();
+		this.viewer = new IBDashboardView(eventBus.getUser());
 	}
 
 	@Override
@@ -34,5 +34,6 @@ public class IBDashboardPresenter extends CommonPresenter implements Presenter {
 	public boolean isFullSize() {
 		return false;
 	}
+	
 
 }

@@ -2,7 +2,6 @@
  * 
  */
 package com.mocha.co.presenter;
-import org.vaadin.jouni.animator.AnimatorProxy;
 import com.coral.foundation.ebay.ManageTransactions;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
@@ -15,7 +14,6 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
@@ -72,7 +70,6 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 		demoBtn.addStyleName("mocha-button");
 		demoBtn.addListener(new ClickListener() {
 			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CommerceCustomer cc=ccDao.findCCByUser(user);

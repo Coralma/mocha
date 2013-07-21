@@ -438,6 +438,13 @@
 				<artifactId>ebaysdkcore</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>com.googlecode.linkedin-j</groupId>
+				<artifactId>linkedin-j-core</artifactId>
+				<version>1.0.416</version>
+				<scope>compile</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>jaxen</groupId>

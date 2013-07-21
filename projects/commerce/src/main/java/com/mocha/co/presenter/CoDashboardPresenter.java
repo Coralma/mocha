@@ -22,7 +22,8 @@ public class CoDashboardPresenter extends CommonPresenter implements Presenter {
 	public CoDashboardPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		CommerceCustomer cc=ccDao.findCCByUser(eventBus.getUser());
-		if(cc==null || cc.getSourceApplications()==null || cc.getSourceApplications().get(0).getAuthToken()==null){
+		if(cc==null || cc.getSourceApplications()==null || cc.getSourceApplications().get(0).getAuthToken()==null
+	||cc.getSourceApplications().get(0).getAuthToken()==""){
 			needAuth=true;
 		}
 		this.viewer = new CoDashboardView(eventBus.getUser(),needAuth);

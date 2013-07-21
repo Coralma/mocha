@@ -23,7 +23,9 @@ public class SouceApplictionCalbackWindow extends Window {
 	private static final long serialVersionUID = 1L;
 	protected String pageWidth = "980px";
 	private String referrer;
-
+	
+	
+	
 	public SouceApplictionCalbackWindow(String referrer){
 		this.referrer=referrer;
 		this.addStyleName("souceAppCallbackWindow");
@@ -40,7 +42,6 @@ public class SouceApplictionCalbackWindow extends Window {
 //			System.out.println("window name is: "+w.getName());
 //		}
 //		getApplication().getMainWindow().removeAllComponents();
-		
 		VerticalLayout userAuthLayout=new VerticalLayout();
 		userAuthLayout.addStyleName("sourceAppLayout");
 		Label comfireLable=new Label("Please Check the User Information");

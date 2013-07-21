@@ -7,6 +7,97 @@
     <servicePackage>com.coral.foundation.security.basic.service</servicePackage>
     <entityList>
       <com.coral.foundation.md.model.Entity>
+        <entityName>SoicalApp</entityName>
+        <properties>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>user</propertyName>
+            <ignore>false</ignore>
+            <type>BasicUser</type>
+            <ref>BasicUser</ref>
+            <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>name</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>sessionID</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>secretID</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>authToken</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>authTokenSecret</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>authTokenExpireDate</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>oauthVerifier</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>requesToken</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>requesTokenSecret</propertyName>
+            <ignore>false</ignore>
+            <type>String</type>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+        </properties>
+        <views/>
+        <needView>false</needView>
+        <entityClass>com.coral.foundation.security.model.SoicalApp</entityClass>
+        <mocha reference="../../.."/>
+      </com.coral.foundation.md.model.Entity>
+      <com.coral.foundation.md.model.Entity>
         <entityName>Account</entityName>
         <properties>
           <com.coral.foundation.md.model.Property>
@@ -213,6 +304,16 @@
             <type>Account</type>
             <ref>Account</ref>
             <orm>many-to-one</orm>
+            <notnull>false</notnull>
+            <required>false</required>
+            <refer>false</refer>
+          </com.coral.foundation.md.model.Property>
+          <com.coral.foundation.md.model.Property>
+            <propertyName>soicalApp</propertyName>
+            <ignore>false</ignore>
+            <type>List</type>
+            <ref>SoicalApp</ref>
+            <orm>one-to-many</orm>
             <notnull>false</notnull>
             <required>false</required>
             <refer>false</refer>

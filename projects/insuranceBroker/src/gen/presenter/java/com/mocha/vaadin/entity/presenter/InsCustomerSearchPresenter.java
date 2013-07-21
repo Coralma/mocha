@@ -24,7 +24,12 @@ public class InsCustomerSearchPresenter extends AppCommonPresenter implements Pr
 	
 	public InsCustomerSearchPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.viewer = new InsCustomerSearch() {
+		this.viewer = new InsCustomerSearch(eventBus.getUser()) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public String getCardSpecialIcon(Object value) {
 				InsuranceCustomer customer = (InsuranceCustomer)value;
