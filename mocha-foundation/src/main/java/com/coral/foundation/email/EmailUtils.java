@@ -17,22 +17,16 @@ import com.coral.foundation.security.model.BasicUser;
  */
 public class EmailUtils extends Thread {
 	
-	private static String HOST = "smtp.mail.yahoo.com";
-	private static String USER = "mocha.platform";
+	private static String HOST = "smtp.exmail.qq.com";
+	private static String USER = "webmaster@mocha-platform.com";
 	private static int PORT = 465;
 	private static String PASSWORD = "mochaplatform2013";
-	private static String FROM = "mocha.platform@yahoo.com";
+	private static String FROM = "webmaster@mocha-platform.com";
 	private static String NAME = "Mocha Platform";
 	private EmailContent emailContent;
-	private Collection<BasicUser> revievers;
 	
 	public EmailUtils(EmailContent emailContent) {
 		this.emailContent = emailContent;
-	}
-	
-	public EmailUtils(EmailContent emailContent, Collection<BasicUser> revievers) {
-		this.emailContent = emailContent;
-		this.revievers = revievers;
 	}
 	
 	public void send() {

@@ -6,6 +6,7 @@ import com.coral.foundation.md.model.ViewSection;
 import com.coral.vaadin.widget.layout.Section;
 import com.vaadin.Application;
 import com.vaadin.terminal.FileResource;
+import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
@@ -57,6 +58,16 @@ public class PageBuildHelper {
 			userPhoto = new Embedded(null, fResource);
 		}
 		return userPhoto;
+	}
+	
+	public static Resource getUserPhotoResource(String url, Application application) {
+		if (url == null) {
+			return new ThemeResource("images/user_photo.jpg");
+		} else {
+			File imageFile = new File(url);
+			FileResource fResource = new FileResource(imageFile, application);
+			return fResource;
+		}
 	}
 	
 	public static Embedded buildThemeUserPhoto(String url, Application application) {
