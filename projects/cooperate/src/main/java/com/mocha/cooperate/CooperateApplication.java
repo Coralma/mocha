@@ -5,6 +5,7 @@ package com.mocha.cooperate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.oauth.OauthHandler;
+import com.coral.foundation.oauth.SimpleOAuthHandler;
 import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.app.MochaApplication;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
@@ -82,19 +85,29 @@ public class CooperateApplication extends MochaApplication  {
 		if (referrer != null && referrer.contains("?ebaytkn=&tknexp=")) {
 			setMainWindow(new SouceApplictionCalbackWindow(referrer));
 		}
+		// linkedin case
 		
-		if (cookieUsername == null || cookieLanguage == null) {
-            Cookie[] cookies = request.getCookies();
-            if(cookies != null) {
-	            for (int i=0; i<cookies.length; i++) {
-	                if (SystemProperty.COOKIE_USERNAME.equals(cookies[i].getName()))
-	                    // Log the user in automatically
-	                	cookieUsername = cookies[i].getValue();
-	                if(SystemProperty.COOKIE_LANGUAGE.equals(cookies[i].getName()))
-	                	cookieLanguage = cookies[i].getValue();
-	            }
-            }
-        }
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (SystemProperty.COOKIE_USERNAME.equals(cookies[i].getName()))
+					// Log the user in automatically
+					cookieUsername = cookies[i].getValue();
+				if (SystemProperty.COOKIE_LANGUAGE.equals(cookies[i].getName()))
+					cookieLanguage = cookies[i].getValue();
+			}
+		}
+       System.out.println("cookieUsername is: "+cookieUsername);
+		if (referrer != null) {
+			SimpleOAuthHandler simpleOA = new SimpleOAuthHandler(request);
+			simpleOA.setReferrUrl(referrer);
+			simpleOA.setUserName(cookieUsername);
+			simpleOA.setSoicalAppName("linkedin");
+			boolean needCloseWin=simpleOA.saveUserAuthenToken(request);
+			if(needCloseWin){
+				getMainWindow().executeJavaScript("window.close()");
+			}
+		}
         // Store the reference to the response object for using it in event listeners
         this.response = response;		
 	}

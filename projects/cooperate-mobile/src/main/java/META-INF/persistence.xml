@@ -35,6 +35,6 @@
 		<class>com.coral.foundation.security.model.ReportFilter</class>
 		<class>com.coral.foundation.security.model.MochaReport</class>	
 		<class>com.coral.foundation.security.model.ReportJoinTable</class>	
-		
+		<class>com.coral.foundation.security.model.SoicalApp</class>	
 	</persistence-unit>
 </persistence>

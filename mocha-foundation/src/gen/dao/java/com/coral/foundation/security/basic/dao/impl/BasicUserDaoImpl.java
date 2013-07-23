@@ -54,5 +54,13 @@ public class BasicUserDaoImpl extends JpaDao<BasicUser> implements BasicUserDao 
 		List<BasicUser> basicUsers = query.getResultList();
 		return basicUsers;
 	}
+
+	@Override
+	public BasicUser findUserByUserName(String userName) {
+		Query query = entityManager.createQuery("from BasicUser where userName = :userName order by basicUserId desc", BasicUser.class);
+		query.setParameter("userName", userName);
+		BasicUser basicUser=(BasicUser) query.getSingleResult();
+		return basicUser;
+	}
 }
 

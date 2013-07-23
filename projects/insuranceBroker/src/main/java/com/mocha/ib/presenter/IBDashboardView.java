@@ -3,6 +3,7 @@ package com.mocha.ib.presenter;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.invient.vaadin.charts.InvientCharts;
@@ -39,9 +40,14 @@ import com.vaadin.ui.VerticalLayout;
 public class IBDashboardView extends CommonViewer implements Viewer {
 
 	String width = "765px";
-
+	private BasicUser user;
+	
 	public IBDashboardView() {
 
+	}
+	
+	public IBDashboardView(BasicUser user){
+		this.user=user;
 	}
 
 	public void attach() {

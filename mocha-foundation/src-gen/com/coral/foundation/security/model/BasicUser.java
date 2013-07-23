@@ -112,6 +112,11 @@ public class BasicUser extends BaseEntity {
 	@Fetch(FetchMode.JOIN)
 	private Account account;
 	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = SoicalApp.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="BASIC_USER_ID")
+	private List<SoicalApp> soicalApp = new ArrayList<SoicalApp>();
+	
 
 	public void setBasicUserId (Long basicUserId) {
 		this.basicUserId = basicUserId;
@@ -232,6 +237,12 @@ public class BasicUser extends BaseEntity {
 	} 
 	public Account getAccount () {
 		return account;
+	}
+	public void setSoicalApp (List<SoicalApp> soicalApp) {
+		this.soicalApp = soicalApp;
+	} 
+	public List<SoicalApp> getSoicalApp () {
+		return soicalApp;
 	}
 
 	public Long getID() {

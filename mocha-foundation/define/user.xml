@@ -3,6 +3,20 @@
 	daoIntfPackage="com.coral.foundation.security.basic.dao" daoImplPackage="com.coral.foundation.security.basic.dao.impl"
 	servicePackage="com.coral.foundation.security.basic.service">
 	
+	<entity entityName="SoicalApp">
+		<property name="user" type="BasicUser" ref="BasicUser" orm="many-to-one"/>
+		<property name="name"/>
+		<property name="sessionID"/>
+		<property name="secretID"/>
+		<property name="authToken"/>
+		<property name="authTokenSecret"/>
+		<property name="authTokenExpireDate"/>
+		<property name="oauthVerifier"/>
+		<property name="requesToken"/>
+		<property name="requesTokenSecret"/>
+	</entity>
+	
+	
 	<entity entityName="Account">
 		<property name="name"/>
 		<property name="email"/>
@@ -31,6 +45,7 @@
 <!-- 	<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->
 		<property name="basicRole" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
 		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
+		<property name="soicalApp" type="List" ref="SoicalApp" orm="one-to-many"/>
 	</entity>
 	
 	<entity entityName="BasicRole" tableName="T_ROLE">

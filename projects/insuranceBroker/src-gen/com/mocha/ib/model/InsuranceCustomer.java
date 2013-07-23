@@ -115,8 +115,6 @@ public class InsuranceCustomer extends BaseEntity {
 	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
-	
-	
 
 	public void setInsuranceCustomerId (Long insuranceCustomerId) {
 		this.insuranceCustomerId = insuranceCustomerId;
