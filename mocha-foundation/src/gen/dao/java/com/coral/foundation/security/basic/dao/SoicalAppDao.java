@@ -8,6 +8,6 @@ import com.coral.foundation.security.model.*;
   * @author Coral
   */
 public interface SoicalAppDao extends Dao<SoicalApp> {
-	
+	public SoicalApp findSoicaAppByRequestToken(String requestToken);
 }
 

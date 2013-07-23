@@ -1,7 +1,6 @@
 package com.mocha.soicalAPI;
 
 public class APIKeys {
-
 	// ebay
 	public static String ebayProdServerURL = "https://api.ebay.com/ws/api.dll";
 	public static String ebaySandboxServerURL = "https://api.sandbox.ebay.com/ws/api.dll";
@@ -14,6 +13,5 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/oauth#linkedin";
-
+	public static String LinkedinCallBackUrl = "https://vance.pagekite.me/cooperate/oauth#linkedin";
 }

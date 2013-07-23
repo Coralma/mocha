@@ -103,7 +103,10 @@ public class CooperateApplication extends MochaApplication  {
 			simpleOA.setReferrUrl(referrer);
 			simpleOA.setUserName(cookieUsername);
 			simpleOA.setSoicalAppName("linkedin");
-			simpleOA.saveUserAuthenToken(request);
+			boolean needCloseWin=simpleOA.saveUserAuthenToken(request);
+			if(needCloseWin){
+				getMainWindow().executeJavaScript("window.close()");
+			}
 		}
         // Store the reference to the response object for using it in event listeners
         this.response = response;		

@@ -23,7 +23,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 
 	public SimpleOAuthHandler(HttpServletRequest request) {
 		super(request);
-		this.request=request;
+		this.request = request;
 	}
 
 	public String getUserName() {
@@ -51,55 +51,42 @@ public class SimpleOAuthHandler extends OauthHandler {
 	}
 
 	@Override
-	public void saveUserAuthenToken(HttpServletRequest request) {
+	public boolean saveUserAuthenToken(HttpServletRequest request) {
 		// get oauth_verifier
 		Enumeration en = request.getParameterNames();
 		String token = null;
-		
+
 		while (en.hasMoreElements()) {
 			String paramName = (String) en.nextElement();
 			if (paramName.equals("oauth_verifier")) {
 				setOauthVerifier(request.getParameter(paramName));
 			}
-			if(paramName.equals("fr")){
-				token=request.getParameter(paramName);
-				if(token.contains("linkedin?oauth_token=")){
-					token=token.split("=")[1];
+			if (paramName.equals("fr")) {
+				token = request.getParameter(paramName);
+				if (token.contains("linkedin?oauth_token=")) {
+					token = token.split("=")[1];
 					System.out.println(token);
-					setOauthToken(token);					
+					setOauthToken(token);
 				}
 			}
 		}
-		
+
 		if (oauthToken != null && oauthVerifier != null) {
-			if (userName != null && soicalAppName != null) {
-				BasicUser basicUser = buDao.findUserByUserName(userName);
-//				SoicalApp soicalApp = new SoicalApp();
-//				soicalApp.setName(soicalAppName);
-//				soicalApp.setAuthToken(oauthToken);
-//				soicalApp.setOauthVerifier(oauthVerifier);
-//				basicUser.getSoicalApp().add(soicalApp);
-				//save the access token
-				LinkedinImpl linkedImple=new LinkedinImpl();
-				for(SoicalApp soicalApp:basicUser.getSoicalApp()){
-					int i=0;
-					if(soicalApp.getName().equals("linkedin") && soicalApp.getRequesToken().equals(token)){
-						LinkedInRequestToken castToken=new LinkedInRequestToken(token,soicalApp.getRequesTokenSecret());
-						LinkedInAccessToken linkedAccessToken=linkedImple.getAccessToken(castToken, oauthVerifier);
-						soicalApp.setAuthToken(linkedAccessToken.getToken());
-						soicalApp.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
-						System.out.println("LinkedInAccessToken is: "+linkedAccessToken.getToken());
-						System.out.println("LinkedInAccessToken Secret is: "+linkedAccessToken.getTokenSecret());
-						soicalApp.setUser(basicUser);
-						basicUser.getSoicalApp().set(i,soicalApp);
-						buDao.merge(basicUser);
-						break;
-					}
-					i++;
-				}
-				
+			SoicalApp sa = saDao.findSoicaAppByRequestToken(oauthToken);
+			LinkedinImpl linkedImple = new LinkedinImpl();
+			// for(SoicalApp soicalApp:basicUser.getSoicalApp()){
+			if (sa.getName().equals("linkedin") && sa.getRequesToken().equals(token)) {
+				LinkedInRequestToken castToken = new LinkedInRequestToken(token, sa.getRequesTokenSecret());
+				LinkedInAccessToken linkedAccessToken = linkedImple.getAccessToken(castToken, oauthVerifier);
+				sa.setAuthToken(linkedAccessToken.getToken());
+				sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
+				System.out.println("LinkedInAccessToken is: " + linkedAccessToken.getToken());
+				System.out.println("LinkedInAccessToken Secret is: " + linkedAccessToken.getTokenSecret());
+				saDao.merge(sa);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public String getOauthToken() {
