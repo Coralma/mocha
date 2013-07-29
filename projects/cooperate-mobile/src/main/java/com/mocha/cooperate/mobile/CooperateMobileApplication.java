@@ -16,7 +16,7 @@ public class CooperateMobileApplication extends MobileApplication {
 	@Override
     public void init() {
 		super.init();
-		setTheme("mobile");	
+		setTheme("mobile");
 	}
 	
     @Override
