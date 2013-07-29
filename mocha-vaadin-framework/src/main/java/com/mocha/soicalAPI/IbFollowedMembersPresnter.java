@@ -34,7 +34,7 @@ public class IbFollowedMembersPresnter extends AppCommonPresenter implements Pre
 				}
 			}
 		}
-		System.out.println("linked matche member is:"+linkedinConnections.size());
+//		System.out.println("linked matche member is:"+linkedinConnections.size());
 		this.viewer = new IbFollowedMembersViewer(linkedinConnections, eventBus.getUser());
 	}
 
