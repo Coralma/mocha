@@ -45,5 +45,5 @@ public class APIKeys {
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
 	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/oauth#linkedin";
-	protected static long linkedinSyncNetworkStatusInternval=1000*60*30;
+	protected static long linkedinSyncNetworkStatusInternval=1000*30;
 }

@@ -30,6 +30,16 @@ public class LinkedinConnectionDaoImpl extends JpaDao<LinkedinConnection> implem
 		return followed;
 	}
 
+	@Override
+	public List<LinkedinConnection> findEntireConnectionByConn(LinkedinConnection connUser) {
+		Query query = entityManager.createQuery("from LinkedinConnection where Linkedin_person_profile_id = :linkedinPersonProfile and firstName = :firstName and lastName = :lastName", LinkedinConnection.class);
+		query.setParameter("firstName", connUser.getFirstName());
+		query.setParameter("lastName", connUser.getLastName());
+		query.setParameter("linkedinPersonProfile", connUser.getLinkedinPersonProfile());
+		List<LinkedinConnection> followed = query.getResultList();
+		return followed;
+	}
+
 	
 }
 

@@ -72,13 +72,12 @@ public class IbLinkedinConnectsionViewPresenter extends AppCommonPresenter imple
 	}
 
 	public List<LinkedinConnection> findFollowedConnections() {
-
-		for (SoicalApp soicalApp : eventBus.getUser().getSoicalApp()) {
+		BasicUser bu = buDao.findUserByUserName(eventBus.getUser().getUserName());
+		for (SoicalApp soicalApp : bu.getSoicalApp()) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getLinkedinPersonProfiles().size() > 0) {
 				LinkedinPersonProfile profile = soicalApp.getLinkedinPersonProfiles().get(0);
 				return conDao.findFollowedConnectionByPerson(profile);
 			}
-
 		}
 		return null;
 	}

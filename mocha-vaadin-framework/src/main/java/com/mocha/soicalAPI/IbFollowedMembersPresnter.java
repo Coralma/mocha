@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coral.foundation.core.impl.MochaEventBus;
+import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.basic.dao.LinkedinConnectionDao;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.LinkedinPersonProfile;
@@ -18,11 +19,13 @@ import com.vaadin.ui.Button.ClickListener;
 public class IbFollowedMembersPresnter extends AppCommonPresenter implements Presenter {
 
 	LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
+	BasicUserDao buDao=SpringContextUtils.getBean(BasicUserDao.class);
 	List<LinkedinConnection> linkedinConnections;
 	private static String viewConProfilePage="com.mocha.soicalAPI.SoicalConnectionProfileViewPresenter";
 
 	public IbFollowedMembersPresnter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
+		eventBus.setUser(buDao.findUserByUserName(eventBus.getUser().getUserName()));
 		for (SoicalApp soicalApp : eventBus.getUser().getSoicalApp()) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getLinkedinPersonProfiles().size() > 0) {
 				for (LinkedinPersonProfile p : soicalApp.getLinkedinPersonProfiles()) {

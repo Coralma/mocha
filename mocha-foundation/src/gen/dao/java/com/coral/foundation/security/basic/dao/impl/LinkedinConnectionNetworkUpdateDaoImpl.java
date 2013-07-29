@@ -51,7 +51,7 @@ public class LinkedinConnectionNetworkUpdateDaoImpl extends JpaDao<LinkedinConne
 			System.out.println("updateKey " + update.getUpdatedKey().trim());
 
 			int totalCnt = query.getResultList().size();
-			if (totalCnt > 1) {
+			if (totalCnt >0) {
 				return true;
 			}
 		}

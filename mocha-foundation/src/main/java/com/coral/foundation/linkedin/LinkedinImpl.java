@@ -261,10 +261,10 @@ public class LinkedinImpl {
 					updateModel.setFirstName(person.getFirstName());
 					updateModel.setLastName(person.getLastName());
 					updateModel.setTimeStamp(update.getTimestamp().toString());
-					System.out.println("-------------------------------");
-					System.out.println(update.getUpdateKey() + ":" + update.getUpdateContent().getPerson().getFirstName() + " "
-							+ update.getUpdateContent().getPerson().getLastName() + "->" + update.getUpdateContent().getPerson().getCurrentStatus()
-							+ " return type is: " + update.getUpdateType().value());
+//					System.out.println("-------------------------------");
+//					System.out.println(update.getUpdateKey() + ":" + update.getUpdateContent().getPerson().getFirstName() + " "
+//							+ update.getUpdateContent().getPerson().getLastName() + "->" + update.getUpdateContent().getPerson().getCurrentStatus()
+//							+ " return type is: " + update.getUpdateType().value());
 
 					// CONN case
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_ADDED_CONNECTIONS)) {

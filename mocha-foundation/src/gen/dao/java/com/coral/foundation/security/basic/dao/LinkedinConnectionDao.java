@@ -10,5 +10,6 @@ import com.coral.foundation.security.model.*;
 public interface LinkedinConnectionDao extends Dao<LinkedinConnection> {
 	List<LinkedinConnection> findFollowedConnectionByPerson(LinkedinPersonProfile profile);
 
+	List<LinkedinConnection> findEntireConnectionByConn(LinkedinConnection connUser);
 }
 

@@ -81,12 +81,12 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 			LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
 			String token = linkedinRequestToken.getToken();
 			String tokenSecret = linkedinRequestToken.getTokenSecret();
-			
+
 			SoicalApp soicalApp = new SoicalApp();
 			soicalApp.setName("linkedin");
 			soicalApp.setRequesToken(token);
 			soicalApp.setRequesTokenSecret(tokenSecret);
-			
+
 			final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
 			if (linkedAuthUrl != null) {
 				user.getSoicalApp().add(soicalApp);
@@ -137,7 +137,7 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 				// wait for user authencation from linkedIn
 				private void buildWaitForAuthLayout() {
 					setImmediate(true);
-					final NativeButton doneAuthBtn = new NativeButton("I'm done with LinkedIn Authencation");
+					final NativeButton doneAuthBtn = new NativeButton("Done with LinkedIn Authencation");
 					doneAuthBtn.addStyleName("mocha-button");
 					mainLayout.replaceComponent(linkedinBtn, doneAuthBtn);
 					doneAuthBtn.addListener(new ClickListener() {
@@ -165,7 +165,7 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 				}
 			});
 		}
-		
+
 		// Needed to hack around problem with panel scroll-to-bottom
 		// final Refresher refresher = new Refresher();
 		// refresher.addListener(new RefreshListener() {
@@ -203,53 +203,36 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// getApplication().getMainWindow().requestRepaintAll();
-				mainLayout.requestRepaintAll();
-				Label userHasTokenLabel = new Label("Here are your personal LinkedIn profile:");
-				mainLayout.addComponent(userHasTokenLabel);
-				mainLayout.setComponentAlignment(userHasTokenLabel, Alignment.TOP_RIGHT);
-				
-				GridLayout userInfoLayout = new GridLayout(2, 1);
-				userInfoLayout.setSpacing(true);
-				userInfoLayout.addStyleName("linkedinUserInfoLayout");
-				mainLayout.addComponent(userInfoLayout);
-				mainLayout.setComponentAlignment(userInfoLayout, Alignment.MIDDLE_CENTER);
-				if (user != null) {
-					List<LinkedinPersonProfile> profiles = user.getSoicalApp().get(0).getLinkedinPersonProfiles();
-					for (LinkedinPersonProfile p : profiles) {
-						Label userName = new Label(p.getFirstName() + "." + p.getLastName());
-						userInfoLayout.addComponent(userName);
-						Label userHead = new Label(p.getHeadline());
-						userInfoLayout.addComponent(userHead);
-					}
-				}
+				buildPersonInfo();
 			}
 		});
 	}
 
 	protected void buildPersonInfo() {
-		// mainLayout.removeAllComponents();
-		// mainLayout.addComponent(new Label("You have already authencation from LinkedIn"));
-		
+		mainLayout.removeAllComponents();
 		Label userHasTokenLabel = new Label("Here are your personal LinkedIn profile:");
 		mainLayout.addComponent(userHasTokenLabel);
 		mainLayout.setComponentAlignment(userHasTokenLabel, Alignment.TOP_RIGHT);
-		
+
 		GridLayout userInfoLayout = new GridLayout(2, 1);
 		userInfoLayout.setSpacing(true);
 		userInfoLayout.addStyleName("linkedinUserInfoLayout");
 		mainLayout.addComponent(userInfoLayout);
 		mainLayout.setComponentAlignment(userInfoLayout, Alignment.MIDDLE_CENTER);
-		if (user != null) {
-			List<LinkedinPersonProfile> profiles = user.getSoicalApp().get(0).getLinkedinPersonProfiles();
-			for (LinkedinPersonProfile p : profiles) {
-				Label userName = new Label(p.getFirstName() + "." + p.getLastName());
-				userInfoLayout.addComponent(userName);
-				Label userHead = new Label(p.getHeadline());
-				userInfoLayout.addComponent(userHead);
+		BasicUser bu = buDao.findUserByUserName(user.getUserName());
+		if (bu != null) {
+			for (SoicalApp soicalApp : bu.getSoicalApp()) {
+				List<LinkedinPersonProfile> profiles = soicalApp.getLinkedinPersonProfiles();
+				for (LinkedinPersonProfile p : profiles) {
+					userInfoLayout.removeAllComponents();
+					Label userName = new Label(p.getFirstName() + "." + p.getLastName());
+					userInfoLayout.addComponent(userName);
+					Label userHead = new Label(p.getHeadline());
+					userInfoLayout.addComponent(userHead);
+				}
 			}
 		}
-		
+
 		NativeButton doneAuthBtn = new NativeButton("View Connections");
 		doneAuthBtn.addListener(new ClickListener() {
 			@Override

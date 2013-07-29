@@ -29,6 +29,7 @@ public class LinkedinScheduleTimterTask extends TimerTask {
 	public void run() {
 		System.out.println("Start run the backend job");
 		LinkedinImpl imple = new LinkedinImpl();
+		profile = reloadProfile(profile);
 		List<LinkedinConnection> conns = profile.getLinkedinConnections();
 		List<LinkedinConnectionNetworkUpdate> updates = imple.getFollowedConNetworkUpdate(token, conns);
 		for (LinkedinConnectionNetworkUpdate update : updates) {
@@ -36,7 +37,7 @@ public class LinkedinScheduleTimterTask extends TimerTask {
 			String lastNameUpdate = update.getLastName().trim();
 			for (LinkedinConnection con : conns) {
 				// only focus on the followed connections
-				if (con.getNeedFollow()!=null && con.getNeedFollow().equals(true)) {
+				if (con.getNeedFollow() != null && (con.getNeedFollow().equals("00000001") || (con.getNeedFollow().equals(true)))) {
 					String firstNameCon = con.getFirstName().trim();
 					String lastNameCon = con.getLastName().trim();
 					if (firstNameCon.equals(firstNameUpdate) && lastNameCon.equals(lastNameUpdate)) {
@@ -51,6 +52,12 @@ public class LinkedinScheduleTimterTask extends TimerTask {
 			}
 		}
 		System.out.println("");
+	}
+
+	private LinkedinPersonProfile reloadProfile(LinkedinPersonProfile profile) {
+		List<LinkedinConnection> connections = connDao.findFollowedConnectionByPerson(profile);
+		profile.setLinkedinConnections(connections);
+		return profile;
 	}
 
 	class UpdteNetworkStatus extends Thread {

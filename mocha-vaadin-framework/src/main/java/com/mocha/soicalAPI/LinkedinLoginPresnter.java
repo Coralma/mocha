@@ -31,9 +31,9 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 		for (SoicalApp soicalApp : user.getSoicalApp()) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null && soicalApp.getAuthTokenSecret() != null) {
 				needLinkedAuth = false;
-				if (soicalApp.getLinkedinPersonProfiles().size() > 0) {					
-					LinkedinImpl linkedImpl=new LinkedinImpl();
-					linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
+				if (soicalApp.getLinkedinPersonProfiles().size() > 0) {
+					LinkedinImpl linkedImpl = new LinkedinImpl();
+					linkedinAccessToken = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
 				}
 				else {
 					saveCurrentUserProfile(soicalApp);
@@ -41,7 +41,7 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 				break;
 			}
 		}
-		this.viewer = new LinkedinLoginViewer(linkedinAccessToken,eventBus.getUser());
+		this.viewer = new LinkedinLoginViewer(linkedinAccessToken, eventBus.getUser());
 	}
 
 	private Person saveCurrentUserProfile(SoicalApp soicalApp) {
@@ -71,16 +71,17 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 				appContentEvent.setCustomizeClass(linkedinViewPage);
 				eventBus.post(appContentEvent);
 
-				BasicUser user = eventBus.getUser();
+				BasicUser user = buDao.findUserByUserName(eventBus.getUser().getUserName());
 				List<SoicalApp> sApps = user.getSoicalApp();
 				for (SoicalApp sApp : sApps) {
 					if (sApp.getName().equals("linkedin")) {
 						LinkedInAccessToken token = new LinkedInAccessToken(sApp.getAuthToken(), sApp.getAuthTokenSecret());
-						LinkedinPersonProfile profile = sApp.getLinkedinPersonProfiles().get(0);
-						final TimerTask timerTask = new LinkedinScheduleTimterTask(profile, token);
-						Timer timer = new Timer() {
-						};
-						timer.schedule(timerTask,1000,APIKeys.linkedinSyncNetworkStatusInternval);
+						for (LinkedinPersonProfile profile : sApp.getLinkedinPersonProfiles()) {
+							final TimerTask timerTask = new LinkedinScheduleTimterTask(profile, token);
+							Timer timer = new Timer() {
+							};
+							timer.schedule(timerTask, 1000, APIKeys.linkedinSyncNetworkStatusInternval);
+						}
 					}
 				}
 			}
