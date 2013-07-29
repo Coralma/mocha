@@ -45,10 +45,6 @@ public class LinkedinConnectionNetworkUpdateDaoImpl extends JpaDao<LinkedinConne
 			query.setParameter("firstName", update.getFirstName().trim());
 			query.setParameter("lastName", update.getLastName().trim());
 			query.setParameter("updateKey", update.getUpdatedKey().trim());
-			System.out.println("linkedinConnection " + con.getID());
-			System.out.println("firstName " + update.getFirstName().trim());
-			System.out.println("lastName " + update.getLastName().trim());
-			System.out.println("updateKey " + update.getUpdatedKey().trim());
 
 			int totalCnt = query.getResultList().size();
 			if (totalCnt >0) {
