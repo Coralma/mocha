@@ -47,6 +47,10 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			action.setPanel(Class.forName("com.mocha.soicalAPI.LinkedinLoginPresnter"));
 			menuItem = createMenu("Login With LinkedIn",action);
 			addComponent(menuItem);
+			action = new MenuAction();
+			action.setPanel(Class.forName("com.mocha.soicalAPI.IbFollowedMembersPresnter"));
+			menuItem = createMenu("Followed Members",action);
+			addComponent(menuItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

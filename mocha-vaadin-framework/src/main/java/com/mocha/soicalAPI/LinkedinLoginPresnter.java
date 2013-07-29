@@ -1,14 +1,14 @@
 package com.mocha.soicalAPI;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
-import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
-import com.coral.foundation.security.model.MochaReport;
+import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
@@ -16,40 +16,73 @@ import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.view.CommonPresenter;
 import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
 import com.google.code.linkedinapi.schema.Person;
-import com.mocha.report.CrmReportViewer;
 
 public class LinkedinLoginPresnter extends CommonPresenter implements Presenter {
-	Person person;
-	BasicUserDao buDao=SpringContextUtils.getBean(BasicUserDao.class);
-	String homepage="com.mocha.ib.presenter.IBDashboardPresenter";
-	
-	
+	private BasicUser user;
+	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
+	// String linkedinViewPage = "com.mocha.soicalAPI.IbLinkedinConnectsionViewPresenter";
+	String linkedinViewPage = "com.mocha.soicalAPI.IbLinkedinConnectsionViewPresenter";
+	LinkedInAccessToken linkedinAccessToken;
+
 	public LinkedinLoginPresnter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		boolean userHasToken=false;
-		BasicUser bu=buDao.findUserByUserName(eventBus.getUser().getUserName());
-		for(SoicalApp soicalApp:bu.getSoicalApp()){
-			if(soicalApp.getName().equals("linkedin")&& soicalApp.getAuthToken()!=null && soicalApp.getAuthTokenSecret()!=null){
-				userHasToken=true;
-				LinkedinImpl linkedinImpl=new LinkedinImpl();
-				LinkedInAccessToken linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
-				person=linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
+		this.user = buDao.findUserByUserName(eventBus.getUser().getUserName());
+		boolean needLinkedAuth = true;
+		for (SoicalApp soicalApp : user.getSoicalApp()) {
+			if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null && soicalApp.getAuthTokenSecret() != null) {
+				needLinkedAuth = false;
+				if (soicalApp.getLinkedinPersonProfiles().size() > 0) {					
+					LinkedinImpl linkedImpl=new LinkedinImpl();
+					linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
+				}
+				else {
+					saveCurrentUserProfile(soicalApp);
+				}
 				break;
 			}
 		}
-		this.viewer = new LinkedinLoginViewer(userHasToken,eventBus.getUser(),person);
-	} 
-	
+		this.viewer = new LinkedinLoginViewer(linkedinAccessToken,eventBus.getUser());
+	}
+
+	private Person saveCurrentUserProfile(SoicalApp soicalApp) {
+		LinkedinImpl linkedinImpl = new LinkedinImpl();
+		linkedinAccessToken = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
+		Person person = linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
+		LinkedinPersonProfile personProfile = new LinkedinPersonProfile();
+		personProfile.setFirstName(person.getFirstName());
+		personProfile.setLastName(person.getLastName());
+		personProfile.setPictUrl(person.getPictureUrl());
+		personProfile.setHeadline(person.getHeadline());
+		getUser().getSoicalApp().remove(soicalApp);
+		soicalApp.getLinkedinPersonProfiles().add(personProfile);
+		getUser().getSoicalApp().add(soicalApp);
+		buDao.merge(getUser());
+		setUser(user);
+		return person;
+	}
+
 	@Override
 	public void bind() {
-		LinkedinLoginViewer linkedLoginView=(LinkedinLoginViewer) viewer;
+		LinkedinLoginViewer linkedLoginView = (LinkedinLoginViewer) viewer;
 		linkedLoginView.setListener(new AppAuthWindowLister() {
 			@Override
 			public void closeWindow() {
-				System.out.println("user call back on linkeind page window when clikcing close button");
 				AppContentEvent appContentEvent = new AppContentEvent();
-				appContentEvent.setCustomizeClass(homepage);
+				appContentEvent.setCustomizeClass(linkedinViewPage);
 				eventBus.post(appContentEvent);
+
+				BasicUser user = eventBus.getUser();
+				List<SoicalApp> sApps = user.getSoicalApp();
+				for (SoicalApp sApp : sApps) {
+					if (sApp.getName().equals("linkedin")) {
+						LinkedInAccessToken token = new LinkedInAccessToken(sApp.getAuthToken(), sApp.getAuthTokenSecret());
+						LinkedinPersonProfile profile = sApp.getLinkedinPersonProfiles().get(0);
+						final TimerTask timerTask = new LinkedinScheduleTimterTask(profile, token);
+						Timer timer = new Timer() {
+						};
+						timer.schedule(timerTask,1000,APIKeys.linkedinSyncNetworkStatusInternval);
+					}
+				}
 			}
 		});
 	}
@@ -58,5 +91,13 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 	public String getPresenterName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public BasicUser getUser() {
+		return user;
+	}
+
+	public void setUser(BasicUser user) {
+		this.user = user;
 	}
 }

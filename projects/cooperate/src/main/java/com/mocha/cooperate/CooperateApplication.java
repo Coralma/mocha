@@ -97,7 +97,6 @@ public class CooperateApplication extends MochaApplication  {
 					cookieLanguage = cookies[i].getValue();
 			}
 		}
-       System.out.println("cookieUsername is: "+cookieUsername);
 		if (referrer != null) {
 			SimpleOAuthHandler simpleOA = new SimpleOAuthHandler(request);
 			simpleOA.setReferrUrl(referrer);
@@ -105,7 +104,7 @@ public class CooperateApplication extends MochaApplication  {
 			simpleOA.setSoicalAppName("linkedin");
 			boolean needCloseWin=simpleOA.saveUserAuthenToken(request);
 			if(needCloseWin){
-				getMainWindow().executeJavaScript("window.close()");
+//				getMainWindow().executeJavaScript("window.close()");
 			}
 		}
         // Store the reference to the response object for using it in event listeners

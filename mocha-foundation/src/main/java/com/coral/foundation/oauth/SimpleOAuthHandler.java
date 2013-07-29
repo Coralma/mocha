@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
 import com.google.code.linkedinapi.client.oauth.LinkedInRequestToken;
+import com.google.code.linkedinapi.schema.Person;
 
 public class SimpleOAuthHandler extends OauthHandler {
 
@@ -75,15 +77,34 @@ public class SimpleOAuthHandler extends OauthHandler {
 			SoicalApp sa = saDao.findSoicaAppByRequestToken(oauthToken);
 			LinkedinImpl linkedImple = new LinkedinImpl();
 			// for(SoicalApp soicalApp:basicUser.getSoicalApp()){
+
 			if (sa.getName().equals("linkedin") && sa.getRequesToken().equals(token)) {
 				LinkedInRequestToken castToken = new LinkedInRequestToken(token, sa.getRequesTokenSecret());
 				LinkedInAccessToken linkedAccessToken = linkedImple.getAccessToken(castToken, oauthVerifier);
+				LinkedinPersonProfile personProfile = new LinkedinPersonProfile();
+
+				Person person = linkedImple.getProfileForCurrentUser(linkedAccessToken);
+				personProfile.setFirstName(person.getFirstName());
+				personProfile.setLastName(person.getLastName());
+				personProfile.setPictUrl(person.getPictureUrl());
+				personProfile.setHeadline(person.getHeadline());
+				sa.getLinkedinPersonProfiles().add(personProfile);
 				sa.setAuthToken(linkedAccessToken.getToken());
-				sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
-				System.out.println("LinkedInAccessToken is: " + linkedAccessToken.getToken());
-				System.out.println("LinkedInAccessToken Secret is: " + linkedAccessToken.getTokenSecret());
+				 sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
 				saDao.merge(sa);
-				return true;
+
+				// getUser().getSoicalApp().remove(soicalApp);
+				// soicalApp.getLinkedinPersonProfiles().add(personProfile);
+				// getUser().getSoicalApp().add(soicalApp);
+				// buDao.merge(getUser());
+				// setUser(user);
+				// sa.setAuthToken(linkedAccessToken.getToken());
+				// sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
+				// System.out.println("LinkedInAccessToken is: " + linkedAccessToken.getToken());
+				// System.out.println("LinkedInAccessToken Secret is: " + linkedAccessToken.getTokenSecret());
+				// saDao.merge(sa);
+				// return true;
+				
 			}
 		}
 		return false;

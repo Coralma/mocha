@@ -3,9 +3,14 @@
  */
 package com.mocha.soicalAPI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.security.model.LinkedinConnection;
+import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.github.wolfie.refresher.Refresher;
@@ -40,15 +45,13 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 	String callBackUrl = APIKeys.LinkedinCallBackUrl;
 	String linkedInAPIId = APIKeys.linkedInAPIId;
 	String linkedInSecertKey = APIKeys.linkedInSecertKey;
-	Boolean userHasToken;
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
 	final VerticalLayout mainLayout = new VerticalLayout();
-	Person person;
+	LinkedInAccessToken linkedinAccessToken;
 
-	public AppAuthenciateWindow(boolean userHasToken, BasicUser user, Person person) {
+	public AppAuthenciateWindow(LinkedInAccessToken linkedinAccessToken, BasicUser user) {
 		this.user = user;
-		this.userHasToken = userHasToken;
-		this.person = person;
+		this.linkedinAccessToken = linkedinAccessToken;
 		this.setCaption("Application Authenciation");
 		this.center();
 		this.addStyleName("mocha-app");
@@ -64,19 +67,38 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 
 	@Override
 	public void attach() {
-		System.out.println("refresh test now!");
 		addComponent(mainLayout);
 		mainLayout.setSizeFull();
-		Label userHasTokenLabel = null;
+		// Label userHasTokenLabel = null;
 		final Refresher refresher = new Refresher();
-		if (userHasToken) {
-			userHasTokenLabel = new Label("You have already authencation from LinkedIn");
-			mainLayout.addComponent(userHasTokenLabel);
+
+		if (linkedinAccessToken != null) {
+			buildPersonInfo();
+			// buildConnectsInfo();
 		}
 		else {
+			LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
+			LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
+			String token = linkedinRequestToken.getToken();
+			String tokenSecret = linkedinRequestToken.getTokenSecret();
+			
+			SoicalApp soicalApp = new SoicalApp();
+			soicalApp.setName("linkedin");
+			soicalApp.setRequesToken(token);
+			soicalApp.setRequesTokenSecret(tokenSecret);
+			
+			final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
+			if (linkedAuthUrl != null) {
+				user.getSoicalApp().add(soicalApp);
+				buDao.merge(user);
+			}
+			getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
+			buildWaitForAuthLayout();
+			setImmediate(true);
+
 			final NativeButton linkedinBtn = new NativeButton("Authencation On LinkedIn");
 			linkedinBtn.addStyleName("mocha-button");
-			mainLayout.addComponent(linkedinBtn);
+			// mainLayout.addComponent(linkedinBtn);
 			linkedinBtn.addListener(new ClickListener() {
 				/**
 				 * 
@@ -85,14 +107,13 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 
 				@Override
 				public void buttonClick(ClickEvent event) {
-					
+
 					refresher.addListener(new RefreshListener() {
 						private static final long serialVersionUID = 1L;
 
 						public void refresh(Refresher source) {
 							mainLayout.requestRepaintAll();
 						}
-
 					});
 					LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
 					LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
@@ -107,8 +128,8 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 						user.getSoicalApp().add(soicalApp);
 						buDao.merge(user);
 					}
-					mainLayout.addComponent(refresher);
-					getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "_blank", -1, -1, Window.BORDER_DEFAULT);
+					// mainLayout.addComponent(refresher);
+					getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
 					buildWaitForAuthLayout();
 					setImmediate(true);
 				}
@@ -120,7 +141,6 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 					doneAuthBtn.addStyleName("mocha-button");
 					mainLayout.replaceComponent(linkedinBtn, doneAuthBtn);
 					doneAuthBtn.addListener(new ClickListener() {
-
 						/**
 						 * 
 						 */
@@ -136,8 +156,8 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 								if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null) {
 									LinkedinImpl linkedinImpl = new LinkedinImpl();
 									LinkedInAccessToken linkedinAccessToken = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
-									person = linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
-									buildPersonInfo();
+									Person person = linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
+									// buildPersonInfo();
 								}
 							}
 						}
@@ -145,43 +165,100 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 				}
 			});
 		}
+		
 		// Needed to hack around problem with panel scroll-to-bottom
-//		final Refresher refresher = new Refresher();
-//		refresher.addListener(new RefreshListener() {
-//			private static final long serialVersionUID = 1L;
-//
-//			public void refresh(Refresher source) {
-//				// BasicUser bu=buDao.findUserByUserName(user.getUserName());
-//				// for(SoicalApp soicalApp:bu.getSoicalApp()){
-//				// if(soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken()!=null){
-//				// LinkedinImpl linkedinImpl=new LinkedinImpl();
-//				// LinkedInAccessToken linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
-//				// person=linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
-//				// buildPersonInfo();
-//				// }
-//				// }
-//				mainLayout.requestRepaintAll();
-//				getApplication().getMainWindow().requestRepaintAll();
-//			}
-//
-//		});
-//		refresher.setRefreshInterval(500);
-//		mainLayout.addComponent(refresher);
+		// final Refresher refresher = new Refresher();
+		// refresher.addListener(new RefreshListener() {
+		// private static final long serialVersionUID = 1L;
+		//
+		// public void refresh(Refresher source) {
+		// // BasicUser bu=buDao.findUserByUserName(user.getUserName());
+		// // for(SoicalApp soicalApp:bu.getSoicalApp()){
+		// // if(soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken()!=null){
+		// // LinkedinImpl linkedinImpl=new LinkedinImpl();
+		// // LinkedInAccessToken linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
+		// // person=linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
+		// // buildPersonInfo();
+		// // }
+		// // }
+		// mainLayout.requestRepaintAll();
+		// getApplication().getMainWindow().requestRepaintAll();
+		// }
+		//
+		// });
+		// refresher.setRefreshInterval(500);
+		// mainLayout.addComponent(refresher);
+	}
+
+	private void buildWaitForAuthLayout() {
+		setImmediate(true);
+		final NativeButton doneAuthBtn = new NativeButton("I'm done with LinkedIn Authencation");
+		doneAuthBtn.addStyleName("mocha-button");
+		mainLayout.addComponent(doneAuthBtn);
+		doneAuthBtn.addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// getApplication().getMainWindow().requestRepaintAll();
+				mainLayout.requestRepaintAll();
+				Label userHasTokenLabel = new Label("Here are your personal LinkedIn profile:");
+				mainLayout.addComponent(userHasTokenLabel);
+				mainLayout.setComponentAlignment(userHasTokenLabel, Alignment.TOP_RIGHT);
+				
+				GridLayout userInfoLayout = new GridLayout(2, 1);
+				userInfoLayout.setSpacing(true);
+				userInfoLayout.addStyleName("linkedinUserInfoLayout");
+				mainLayout.addComponent(userInfoLayout);
+				mainLayout.setComponentAlignment(userInfoLayout, Alignment.MIDDLE_CENTER);
+				if (user != null) {
+					List<LinkedinPersonProfile> profiles = user.getSoicalApp().get(0).getLinkedinPersonProfiles();
+					for (LinkedinPersonProfile p : profiles) {
+						Label userName = new Label(p.getFirstName() + "." + p.getLastName());
+						userInfoLayout.addComponent(userName);
+						Label userHead = new Label(p.getHeadline());
+						userInfoLayout.addComponent(userHead);
+					}
+				}
+			}
+		});
 	}
 
 	protected void buildPersonInfo() {
-		mainLayout.removeAllComponents();
-		mainLayout.addComponent(new Label("You have already authencation from LinkedIn"));
+		// mainLayout.removeAllComponents();
+		// mainLayout.addComponent(new Label("You have already authencation from LinkedIn"));
+		
+		Label userHasTokenLabel = new Label("Here are your personal LinkedIn profile:");
+		mainLayout.addComponent(userHasTokenLabel);
+		mainLayout.setComponentAlignment(userHasTokenLabel, Alignment.TOP_RIGHT);
+		
 		GridLayout userInfoLayout = new GridLayout(2, 1);
 		userInfoLayout.setSpacing(true);
 		userInfoLayout.addStyleName("linkedinUserInfoLayout");
 		mainLayout.addComponent(userInfoLayout);
-		if (person != null) {
-			Label userName = new Label(person.getFirstName() + "." + person.getLastName());
-			userInfoLayout.addComponent(userName);
-			Label userHead = new Label(person.getHeadline());
-			userInfoLayout.addComponent(userHead);
+		mainLayout.setComponentAlignment(userInfoLayout, Alignment.MIDDLE_CENTER);
+		if (user != null) {
+			List<LinkedinPersonProfile> profiles = user.getSoicalApp().get(0).getLinkedinPersonProfiles();
+			for (LinkedinPersonProfile p : profiles) {
+				Label userName = new Label(p.getFirstName() + "." + p.getLastName());
+				userInfoLayout.addComponent(userName);
+				Label userHead = new Label(p.getHeadline());
+				userInfoLayout.addComponent(userHead);
+			}
 		}
+		
+		NativeButton doneAuthBtn = new NativeButton("View Connections");
+		doneAuthBtn.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				close();
+			}
+		});
+		doneAuthBtn.addStyleName("mocha-button");
+		userInfoLayout.addComponent(doneAuthBtn);
 	}
 
 	@Override

@@ -24,6 +24,11 @@ public class SoicalApp extends BaseEntity {
 	@Fetch(FetchMode.JOIN)
 	private BasicUser user;
 	
+	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = LinkedinPersonProfile.class, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinColumn(name="SOICAL_APP_ID")
+	private List<LinkedinPersonProfile> linkedinPersonProfiles = new ArrayList<LinkedinPersonProfile>();
+	
 	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
@@ -81,6 +86,12 @@ public class SoicalApp extends BaseEntity {
 	} 
 	public BasicUser getUser () {
 		return user;
+	}
+	public void setLinkedinPersonProfiles (List<LinkedinPersonProfile> linkedinPersonProfiles) {
+		this.linkedinPersonProfiles = linkedinPersonProfiles;
+	} 
+	public List<LinkedinPersonProfile> getLinkedinPersonProfiles () {
+		return linkedinPersonProfiles;
 	}
 	public void setName (String name) {
 		this.name = name;

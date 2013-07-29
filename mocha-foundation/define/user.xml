@@ -5,6 +5,7 @@
 	
 	<entity entityName="SoicalApp">
 		<property name="user" type="BasicUser" ref="BasicUser" orm="many-to-one"/>
+		<property name="linkedinPersonProfiles" type="List" ref="LinkedinPersonProfile" orm="one-to-many"/>
 		<property name="name"/>
 		<property name="sessionID"/>
 		<property name="secretID"/>
@@ -16,6 +17,56 @@
 		<property name="requesTokenSecret"/>
 	</entity>
 	
+	<entity entityName="LinkedinConnection">
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="companyName" />
+		<property name="headline" />
+		<property name="currentCompnay"/>
+		<property name="pictUrl"/>
+		<property name="lastUpdateDate" type="Date"/>
+		<property name="needFollow" type="Boolean"/>
+		<property name="location"/>
+		<property name="locationCountry"/>
+		<property name="summary"/>
+		<property name="currentStatus"/>
+		<property name="imAccount"/>
+		<property name="twitterAccount"/>
+		<property name="emailAddress"/>
+		<property name="industry"/>
+		<property name="linkedinPersonProfile" type="LinkedinPersonProfile" ref="LinkedinPersonProfile" orm="many-to-one"/>
+		<property name="linkedinGroups" type="List" ref="LinkedinGroup" orm="one-to-many"/>
+		<property name="linkedinConnectionNetworkUpdate" type="List" ref="LinkedinConnectionNetworkUpdate" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="LinkedinGroup">
+		<property name="name" />
+		<property name="linkedinConnection" type="LinkedinConnection" ref="LinkedinConnection" orm="many-to-one"/>
+		<property name="LinkedinPersonProfile" type="LinkedinPersonProfile" ref="LinkedinPersonProfile" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="LinkedinPersonProfile">
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="companyName" />
+		<property name="headline" />
+		<property name="currentCompnay"/>
+		<property name="pictUrl"/>
+		<property name="soicalApp" type="SoicalApp" ref="SoicalApp" orm="many-to-one"/>
+		<property name="linkedinGroups" type="List" ref="LinkedinGroup" orm="one-to-many"/>
+		<property name="linkedinConnections" type="List" ref="LinkedinConnection" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="LinkedinConnectionNetworkUpdate">
+		<property name="linkedinUpdateKey" />
+		<property name="updatedKey" />
+		<property name="updateType" />
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="updateMessage"/>
+		<property name="timeStamp"/>
+		<property name="linkedinConnection" type="LinkedinConnection" ref="LinkedinConnection" orm="many-to-one" />
+	</entity>
 	
 	<entity entityName="Account">
 		<property name="name"/>
@@ -132,4 +183,5 @@
 		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
 		<property name="reportPureQuery" type="String" length="65536"/>
 	</entity>
+
 </mocha>

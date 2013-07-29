@@ -1616,14 +1616,14 @@
 }
 .user-info-card .user-info-detail .user-name-caption {
 	text-align: left;
-	font-size: 14px;
+	font-size: 10px;
 	font-weight: bold;
 	color: #4a8df8;
 	cursor: pointer;	
 }
 .user-info-card .user-info-detail .v-formlayout .v-caption {
 	text-align: left;
-	font-size: 12px;
+	font-size: 10px;
 	color: #4a8df8;	
 	cursor: pointer;
 }
@@ -2088,8 +2088,15 @@
 	font-size: 20px;
 }
 .linkedinUserInfoLayout{
-	font-size:20px;
+	font-size:15px;
 	border: 1px;
-	border-style: dashed;
+	/* border-style: dashed; */
 	border-color: #1650ad;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.connection-followed{
+	font-size:10px;
+	font-weight: bold;
+	margin-right: 10px;
 }
