@@ -2,6 +2,9 @@ package com.coral.vaadin.app;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.coral.foundation.security.CommonSecurityManager;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
@@ -26,14 +29,14 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
 public class LoginScreen extends VerticalLayout {
-
 	protected HttpServletResponse response;
 	protected BasicUserDao userDao = SpringContextUtils.getBean(BasicUserDao.class);
 	protected String fieldWidth = "240px";
 	protected Message message;
 	protected VerticalLayout loginPanel = new VerticalLayout();
 	private String cookieUsername;
-	
+	private static Logger log = LoggerFactory.getLogger(LoginScreen.class);
+
 	public LoginScreen(String cookieUsername) {
 		this.cookieUsername = cookieUsername;
 		setSizeFull();
@@ -42,7 +45,7 @@ public class LoginScreen extends VerticalLayout {
 		loginPanel.addStyleName(getRandomBackground());
 		addComponent(loginPanel);
 	}
-	
+
 	public String getRandomBackground() {
 		Double d = Math.ceil(Math.random() * 11);
 		Integer random = d.intValue();
@@ -62,8 +65,8 @@ public class LoginScreen extends VerticalLayout {
 		loginLogo.addStyleName("login-logo");
 		loginLogo.setWidth("500px");
 		layout.addComponent(loginLogo);
-//		this.setComponentAlignment(loginLogo, Alignment.MIDDLE_CENTER);
-		
+		// this.setComponentAlignment(loginLogo, Alignment.MIDDLE_CENTER);
+
 		FormLayout formLayout = new FormLayout();
 		formLayout.setSpacing(true);
 		formLayout.setMargin(true);
@@ -72,24 +75,24 @@ public class LoginScreen extends VerticalLayout {
 		loginPanel.setCaption(message.getString("login.Welcome"));
 		loginPanel.setWidth("500px");
 		loginPanel.setHeight("260px");
-		
+
 		layout.addComponent(loginPanel);
-//		this.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
-		
+		// this.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
+
 		final TextField userName = new TextField();
 		userName.setCaption(message.getString("login.Username"));
-		if(cookieUsername != null) {
+		if (cookieUsername != null) {
 			userName.setValue(cookieUsername);
 		}
 		userName.setWidth(fieldWidth);
-//		userName.setRequiredError("Please input username");
+		// userName.setRequiredError("Please input username");
 		loginPanel.addComponent(userName);
-		
+
 		final PasswordField password = new PasswordField();
 		password.setCaption(message.getString("login.Password"));
 		password.setWidth(fieldWidth);
-//		password.setValue("root");
-//		password.setRequiredError("Please input password");
+		// password.setValue("root");
+		// password.setRequiredError("Please input password");
 		loginPanel.addComponent(password);
 
 		final CheckBox rememberMe = new CheckBox("Save to this computer?");
@@ -105,26 +108,25 @@ public class LoginScreen extends VerticalLayout {
 			public void buttonClick(ClickEvent event) {
 				String inputUserName = userName.getValue().toString();
 				String inputPassword = password.getValue().toString();
-				BasicUser user = CommonSecurityManager.build().login(inputUserName, inputPassword);
-				
-				if(user==null){
-					errorHandling();
+				CommonSecurityManager cm = new CommonSecurityManager();
+				BasicUser user = cm.build().login(inputUserName, inputPassword);
+				if (user == null) {
+					errorHandling(inputUserName, inputPassword);
 					return;
 				}
-				
-				// check box default value
-				if (rememberMe.getValue().equals(true)) {
-					user.setRememberMe(true);
+				else {
+					if (rememberMe.getValue().equals(true)) {
+						user.setRememberMe(true);
+					}
+					AbstractMainPage homepage = SpringContextUtils.getBean("homepage", AbstractMainPage.class);
+					homepage.setResponse(response);
+					getApplication().setUser(user);
+					getWindow().setContent(homepage);
 				}
-
-				AbstractMainPage homepage = SpringContextUtils.getBean(
-						"homepage", AbstractMainPage.class);
-				homepage.setResponse(response);
-				getApplication().setUser(user);
-				getWindow().setContent(homepage);
 			}
 
-			public void errorHandling() {
+			public void errorHandling(String inputUserName, String inputPassword) {
+				log.error("Login Failed when using " + inputPassword + " and " + inputPassword);
 				getWindow().showNotification(NotificationHelper.getErrorNotification(message.getString("login.errorMessage")));
 			}
 		});
@@ -139,7 +141,8 @@ public class LoginScreen extends VerticalLayout {
 	}
 
 	/**
-	 * @param response the response to set
+	 * @param response
+	 *            the response to set
 	 */
 	public void setResponse(HttpServletResponse response) {
 		this.response = response;

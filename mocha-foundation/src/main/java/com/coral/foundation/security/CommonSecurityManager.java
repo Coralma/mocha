@@ -6,14 +6,16 @@ import javax.sql.DataSource;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
@@ -23,7 +25,6 @@ import org.springframework.context.ApplicationContext;
 import com.coral.foundation.security.basic.dao.BasicRoleDao;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl;
-import com.coral.foundation.security.model.BasicRole;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 
@@ -32,22 +33,16 @@ import com.coral.foundation.spring.bean.SpringContextUtils;
  *  @author:vance
  * 
  */
-public class CommonSecurityManager {
+public class CommonSecurityManager extends AuthorizingRealm {
 
-	private static BasicUserDao userDao = SpringContextUtils
-			.getBean(BasicUserDao.class);
-	
-	private static BasicRoleDao roleDao = SpringContextUtils
-			.getBean(BasicRoleDao.class);
-	
+	private static BasicUserDao userDao = SpringContextUtils.getBean(BasicUserDao.class);
+	private static BasicRoleDao roleDao = SpringContextUtils.getBean(BasicRoleDao.class);
 	private static DefaultSecurityManager securityManager = new DefaultSecurityManager();
-
 	private static DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-
 	private static String authenticationQuery = "select password from vw_searchPassword where user_name=?";
 	private static String userRolesQuery = "select role_name from vw_searchrole where user_name=?";
 	private static String permissionsQuery = "select permission from vw_searchpermission where role_name=?";
-	
+
 	private Logger log = LoggerFactory.getLogger(BasicUserDaoImpl.class);
 
 	public static DefaultSecurityManager initDefaultSecurityManager() {
@@ -65,7 +60,7 @@ public class CommonSecurityManager {
 
 	}
 
-	public static CommonSecurityManager build() {
+	public CommonSecurityManager build() {
 		CommonSecurityManager commonSecurityManager = new CommonSecurityManager();
 		SessionManager commonSessionManager = new CommonWebSessionManager();
 		commonSecurityManager.initSessionManager();
@@ -124,7 +119,8 @@ public class CommonSecurityManager {
 				Connection connection = dataSource.getConnection();
 				if (connection != null)
 					return dataSource;
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
@@ -133,48 +129,51 @@ public class CommonSecurityManager {
 
 	public BasicUser login(String inputUserName, String inputPassword) {
 		try {
-			AuthenticationToken authToken = getAuthToken(inputUserName,
-					inputPassword);
-			if (authToken != null) {
-//				for(BasicRole basicRole: roleDao.findAll()){
-//					for (BasicUser basicUser : basicRole.getUser()) {
-//						if (basicUser.getUserName().equals(inputUserName)) {
-//							SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();							
-//							info.addRole(basicRole.getRoleName());
-//							System.out.println(basicRole.getRoleName());
-//							return basicUser;
-//						}
-//			}
-//				}
-				
-				for(BasicUser basicUser : userDao.findAll()) {
-					if (basicUser.getUserName().equals(inputUserName)) {
-						return basicUser;
-					}
-				}
+			BasicUser user = userDao.findUserByUserName(inputUserName.trim());
+			boolean loginFlg = verifyPassword(user.getPassword(), inputPassword);
+			if (loginFlg) {
+				AuthenticationToken authToken = getAuthToken(inputUserName, inputPassword);
+				return user;
 			}
-		} catch (Exception e) {
+			return null;
+
+		}
+		catch (Exception e) {
 			log.info("The user " + inputUserName + " login fail with the password " + inputPassword);
 		}
-
 		return null;
 	}
 
-	private AuthenticationToken getAuthToken(String inputUserName,
-			String inputPassword) throws Exception {
+	private boolean verifyPassword(String password, String inputPassword) {
+		if (password.equals(inputPassword)) {
+			return true;
+		}
+		return false;
+	}
+
+	private AuthenticationToken getAuthToken(String inputUserName, String inputPassword) throws Exception {
 		String userName = inputUserName;
 		String pw = inputPassword;
 		Subject currentUser = SecurityUtils.getSubject();
-		//implement the session later
+		// implement the session later
 		Session sessionId = currentUser.getSession();
-		System.out.println("currentUser.isAuthenticated(): "+currentUser.isAuthenticated());
-		UsernamePasswordToken userNamePwtoken = new UsernamePasswordToken(
-				userName, pw);
+		System.out.println("currentUser.isAuthenticated(): " + currentUser.isAuthenticated());
+		UsernamePasswordToken userNamePwtoken = new UsernamePasswordToken(userName, pw);
 		if (!currentUser.isAuthenticated()) {
 			currentUser.login(userNamePwtoken);
 		}
 		return userNamePwtoken;
 	}
 
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
