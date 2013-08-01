@@ -97,7 +97,7 @@ public class CooperateApplication extends MochaApplication  {
 					cookieLanguage = cookies[i].getValue();
 			}
 		}
-       System.out.println("cookieUsername is: "+cookieUsername);
+//       System.out.println("cookieUsername is: "+cookieUsername);
 		if (referrer != null) {
 			SimpleOAuthHandler simpleOA = new SimpleOAuthHandler(request);
 			simpleOA.setReferrUrl(referrer);

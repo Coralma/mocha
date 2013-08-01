@@ -631,3 +631,9 @@
 	border-top: 1px dashed #6E6E6E;
 	padding-bottom: 15px;
 }
+
+/* search view page. */
+.search-condition-panel {
+	padding: 10px;
+	background-color: #f7f7f7;
+}

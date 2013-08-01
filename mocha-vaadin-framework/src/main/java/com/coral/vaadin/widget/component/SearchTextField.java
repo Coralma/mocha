@@ -3,20 +3,17 @@
  */
 package com.coral.vaadin.widget.component;
 
-import com.vaadin.event.FieldEvents.BlurEvent;
-import com.vaadin.event.FieldEvents.BlurListener;
-import com.vaadin.event.FieldEvents.FocusEvent;
-import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 
-public class SearchTextField extends HorizontalLayout implements BlurListener, FocusListener {
+public class SearchTextField extends HorizontalLayout {
 
 	private static final long serialVersionUID = -387128853454630525L;
-	public String textFieldWidth = "250px";
+	public String textFieldWidth = "100%";
 	public Label searchIcon = new Label();
 	public TextField textField = new TextField();
 	
@@ -29,11 +26,11 @@ public class SearchTextField extends HorizontalLayout implements BlurListener, F
 		searchIcon.setIcon(new ThemeResource("icons/search.png"));
 		searchIcon.setWidth("20px");
 		searchIcon.setStyleName("search-icon");
-		addComponent(searchIcon);
+		this.addComponent(searchIcon);
+		this.setExpandRatio(searchIcon, 1.0f);
 		textField.setWidth(textFieldWidth);
-		textField.addListener((BlurListener)this);
-		textField.addListener((FocusListener)this);
-		addComponent(textField);
+		this.addComponent(textField);
+		this.setExpandRatio(textField, 100.0f);
 	}
 
 	public void setTextFieldWidth(String width) {
@@ -42,16 +39,5 @@ public class SearchTextField extends HorizontalLayout implements BlurListener, F
 	
 	public void addShortcutListener(ShortcutListener shortcutListener){
 		textField.addShortcutListener(shortcutListener);
-	}
-
-	@Override
-	public void focus(FocusEvent event) {
-		searchIcon.setStyleName("search-icon-focus");
-		
-	}
-
-	@Override
-	public void blur(BlurEvent event) {
-		searchIcon.setStyleName("search-icon");		
 	}
 }

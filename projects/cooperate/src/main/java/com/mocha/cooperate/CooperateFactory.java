@@ -14,6 +14,7 @@ import com.mocha.cooperate.page.ForumPresenter;
 import com.mocha.cooperate.page.ForumTopicsPresenter;
 import com.mocha.cooperate.page.HomePresenter;
 import com.mocha.cooperate.page.NotificationPresenter;
+import com.mocha.cooperate.page.SearchPresenter;
 import com.mocha.cooperate.page.SettingPresenter;
 import com.mocha.cooperate.page.ToDoEditorPresenter;
 import com.mocha.cooperate.page.TodoPresenter;
@@ -75,6 +76,9 @@ public class CooperateFactory implements PageFactory {
 		}
 		if(PresenterProperty.CHAT.equals(entityName)) {
 			return new ChatPresenter(eventBus);
+		}
+		if(PresenterProperty.SEARCH.equals(entityName)) {
+			return new SearchPresenter(eventBus);
 		}
 		
 		/* customer page*/

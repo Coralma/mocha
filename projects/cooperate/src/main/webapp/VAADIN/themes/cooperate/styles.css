@@ -1174,16 +1174,10 @@
 .v-horizontallayout-search-text-field {
 	border: #cccccc 1px solid;
 	border-radius: 15px 15px 15px 15px;
-	background-color: #cccccc;
+	background-color: #fff;
 }
 
 .v-horizontallayout-search-text-field .v-caption-search-icon {
-	padding-top: 6px;
-	padding-left: 5px;
-	background-color: #f1f1f1;
-}
-
-.v-horizontallayout-search-text-field .v-caption-search-icon-focus {
 	padding-top: 6px;
 	padding-left: 5px;
 	background-color: #fff;
@@ -1191,12 +1185,10 @@
 
 .v-horizontallayout-search-text-field .v-textfield {
 	border: none;
+	border-radius: 0 0;
 	padding-left: 3px;
-	background-color: #f1f1f1;
-}
-
-.v-horizontallayout-search-text-field .v-textfield:FOCUS {
-	background-color: #ffffff;
+	background-image: none;
+	background-color: #fff;
 }
 
 /* globle search widget */
@@ -1220,6 +1212,7 @@
 	{
 	border: medium none;
 	margin-right: 0px;
+	margin-bottom: 3px;
 	vertical-align: middle;
 }
 

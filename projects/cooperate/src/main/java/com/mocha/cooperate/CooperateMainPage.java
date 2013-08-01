@@ -11,13 +11,17 @@ import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 
 import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.app.AbstractMainPage;
+import com.coral.vaadin.controller.ContentChangeEvent;
 import com.coral.vaadin.controller.PageChangeEvent;
 import com.coral.vaadin.controller.RefreshMainPageEvent;
 import com.coral.vaadin.widget.component.SearchTextField;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.mocha.cooperate.help.GettingStartedWindow;
+import com.vaadin.event.ShortcutListener;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -26,6 +30,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class CooperateMainPage extends AbstractMainPage implements Button.ClickListener {
@@ -139,6 +144,21 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 		
 		SearchTextField searchTextField = new SearchTextField();
 		searchTextField.setWidth("200px");
+		searchTextField.addShortcutListener(new ShortcutListener("search",KeyCode.ENTER, null) {
+			@Override
+			public void handleAction(Object sender, Object target) {
+				TextField searchField = (TextField) target;
+				String searchText = (String)searchField.getValue();
+				if(!StrUtils.isEmpty(searchText)) {
+					eventBus.resetContext();
+					eventBus.put("searchText", searchText);
+					ContentChangeEvent contentChangeEvent = new ContentChangeEvent();
+					contentChangeEvent.setPresenterName(PresenterProperty.SEARCH);
+					eventBus.post(contentChangeEvent);
+				}
+				
+			}
+		});
 		searchTextLayout.addComponent(searchTextField);
 		logInfo.addComponent(searchTextLayout);
 
