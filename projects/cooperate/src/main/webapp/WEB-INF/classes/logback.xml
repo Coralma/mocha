@@ -52,5 +52,6 @@
 		<appender-ref ref="FILE" />
 		<appender-ref ref="EXCEPTION_FILE" />
 		<appender-ref ref="Mongodb" />
+		<appender-ref ref="CONSOLE" />
 	</root>
 </configuration>

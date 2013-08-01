@@ -36,6 +36,10 @@
 		<class>com.coral.foundation.security.model.MochaReport</class>	
 		<class>com.coral.foundation.security.model.ReportJoinTable</class>
 		<class>com.coral.foundation.security.model.SoicalApp</class>
+		<class>com.coral.foundation.security.model.LinkedinConnection</class>
+		<class>com.coral.foundation.security.model.LinkedinGroup</class>
+		<class>com.coral.foundation.security.model.LinkedinPersonProfile</class>
+		<class>com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate</class>
 		<!-- 		CRM -->
 		<class>com.mocha.crm.model.Customer</class>
 		<class>com.mocha.crm.model.Campaign</class>

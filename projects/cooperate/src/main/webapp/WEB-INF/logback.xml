@@ -51,6 +51,7 @@
 	<root level="ERROR">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="EXCEPTION_FILE" />
-		<appender-ref ref="Mongodb" />
+		<!-- <appender-ref ref="Mongodb" /> -->
+		<appender-ref ref="CONSOLE"></appender-ref>
 	</root>
 </configuration>

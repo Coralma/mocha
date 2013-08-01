@@ -11,6 +11,7 @@ import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.view.CommonViewer;
+import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
 import com.google.code.linkedinapi.schema.Person;
 import com.vaadin.Application;
 import com.vaadin.terminal.PaintException;
@@ -27,20 +28,19 @@ import com.vaadin.ui.Window.CloseListener;
 
 public class LinkedinLoginViewer extends CommonViewer implements Viewer {
 	
-	boolean userHasToken;
+	LinkedInAccessToken linkedinAccessToken;
 	BasicUser user;
 	Person person;
 	private AppAuthWindowLister listener;
 	
-	public LinkedinLoginViewer(boolean userHasToken,BasicUser user,Person person){
+	public LinkedinLoginViewer(LinkedInAccessToken linkedinAccessToken, BasicUser user){
 		this.user=user;
-		this.userHasToken=userHasToken;
-		this.person=person;
+		this.linkedinAccessToken=linkedinAccessToken;
 	}
 	
 	@Override
 	public void attach(){
-		AppAuthenciateWindow appAuthWin=new AppAuthenciateWindow(userHasToken,user,person);
+		AppAuthenciateWindow appAuthWin=new AppAuthenciateWindow(linkedinAccessToken,user);
 		appAuthWin.addListener(new CloseListener() {
 			/**
 			 * 
@@ -49,7 +49,6 @@ public class LinkedinLoginViewer extends CommonViewer implements Viewer {
 
 			@Override
 			public void windowClose(CloseEvent e) {
-				System.out.println("User click close button here");
 				listener.closeWindow();
 			}
 		});

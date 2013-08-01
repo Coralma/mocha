@@ -15,19 +15,22 @@ public class PhoneLoginPresenter extends AbstractMobilePresenter implements Mobi
 		this.eventBus = eventBus;
 		this.view = new PhoneLoginView();
 	}
-	
+
 	public void bind() {
-		final PhoneLoginView loginView = (PhoneLoginView)getView();
+		final PhoneLoginView loginView = (PhoneLoginView) getView();
 		loginView.getLoginButton().addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				String inputUserName = loginView.getUsername().getValue().toString();
 				String inputPassword = loginView.getPassword().getValue().toString();
-				BasicUser user = CommonSecurityManager.build().login(inputUserName, inputPassword);
-				if(user==null){
+				// BasicUser user = CommonSecurityManager.build().login(inputUserName, inputPassword);
+				CommonSecurityManager cm = new CommonSecurityManager();
+				BasicUser user = cm.login(inputUserName, inputPassword);
+				if (user == null) {
+					System.out.println("Login Failed!");
 					return;
 				}
-//				loginView.getApplication().setUser(user);
+				// loginView.getApplication().setUser(user);
 				eventBus.setUser(user);
 				MobilePageChangeEvent pageEvent = new MobilePageChangeEvent();
 				pageEvent.setPresenter(PhoneMainPresenter.class.getName());

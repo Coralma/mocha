@@ -38,8 +38,7 @@ public abstract class CommonApplication extends Application {
 	protected List<Mocha> CORALS;
 	protected MochaEventBus eventBus;
 
-	protected static Logger logger = LoggerFactory
-			.getLogger(CommonApplication.class);
+	protected static Logger logger = LoggerFactory.getLogger(CommonApplication.class);
 
 	private String configFileName = "system.properties";
 
@@ -51,21 +50,8 @@ public abstract class CommonApplication extends Application {
 		mainWindow.setWidth("100%");
 		setMainWindow(mainWindow);
 		eventBus = new MochaEventBus();
-
 		// init security manager
-		CommonSecurityManager commonSecuirtyManager = CommonSecurityManager
-				.build();
-		
-		
-//		
-//		BasicUser curentUser = commonSecuirtyManager.login("root", "root");
-//
-//		System.out.println("SessionID is:" + curentUser.getSessionId());
-//
-//		curentUser.isPermission();
-		
-		
-//		
+		CommonSecurityManager commonSecuirtyManager = new CommonSecurityManager();
 		initPage();
 	}
 
@@ -81,7 +67,8 @@ public abstract class CommonApplication extends Application {
 	public void initModel(String MODEL_XML) {
 		try {
 			CORALS = ModelCenter.getModel(MODEL_XML);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -101,8 +88,8 @@ public abstract class CommonApplication extends Application {
 		VerticalLayout page = new VerticalLayout();
 		page.setStyleName("c-app");
 		page.setWidth("980px");
-//		page.addComponent(getWebHead());
-//		page.addComponent(getMenuBar());
+		// page.addComponent(getWebHead());
+		// page.addComponent(getMenuBar());
 		VerticalLayout mainPage = getMainPage();
 		PageController controller = new PageController(mainPage, eventBus);
 		controller.pageChange(new PageChangeEvent(getHomePage()));
@@ -161,13 +148,13 @@ public abstract class CommonApplication extends Application {
 		return menubar;
 	}
 
-	public MenuBar.MenuItem addMenuItem(Menu menu, MenuBar menuBar,
-			MenuBar.MenuItem parentItem) {
+	public MenuBar.MenuItem addMenuItem(Menu menu, MenuBar menuBar, MenuBar.MenuItem parentItem) {
 		MenuBar.MenuItem menuItem = null;
 
 		if (menuBar != null) {
 			menuItem = menuBar.addItem(menu.getLabel(), null, null);
-		} else if (parentItem != null) {
+		}
+		else if (parentItem != null) {
 			menuItem = parentItem.addItem(menu.getLabel(), null, null);
 		}
 

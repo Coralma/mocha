@@ -1,6 +1,37 @@
 package com.mocha.soicalAPI;
 
+import java.io.File;
+
 public class APIKeys {
+	
+	public static String FILE_PATH;
+	
+	static {
+		if (FILE_PATH == null) {
+			// check if the OS is windows, if it is using the
+			if (System.getProperty("os.name").startsWith("Win")) {
+				FILE_PATH = "D:/cooperateCache/";
+			} else {
+				FILE_PATH = System.getProperty("user.home")
+						+ "/cooperateCache/";
+				File file = new File(FILE_PATH);
+				if (!file.exists()) {
+					file.mkdir();
+				}
+			}
+		}
+	}
+
+	public static String FILE_Folder = "files";
+	public static String ATTACHMENT_Folder = "attachments";
+	public static String USER_PHOTO_PATH = FILE_PATH + "users" + File.separator;
+	public static String user_icon_path = FILE_PATH + "users" + File.separator;
+
+	public static String user_defalut_photo_name = "defalut_user_photo.jpg";
+	public static String uesr_default_icon_name = "defalut_user_icon.jpg";
+	public static long file_limited_Size = 50000000;
+	public static long file_name_limited_Length = 50;
+	
 	// ebay
 	public static String ebayProdServerURL = "https://api.ebay.com/ws/api.dll";
 	public static String ebaySandboxServerURL = "https://api.sandbox.ebay.com/ws/api.dll";
@@ -13,5 +44,6 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-	public static String LinkedinCallBackUrl = "https://vance.pagekite.me/cooperate/oauth#linkedin";
+	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/oauth#linkedin";
+	protected static long linkedinSyncNetworkStatusInternval=1000*60*10;
 }

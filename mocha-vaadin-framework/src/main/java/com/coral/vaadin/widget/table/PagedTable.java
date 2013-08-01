@@ -18,6 +18,8 @@ import com.vaadin.ui.themes.Reindeer;
 
 public class PagedTable extends Table {
     private static final long serialVersionUID = 6881455780158545828L;
+    private final ComboBox itemsPerPageSelect = new ComboBox();
+
 
     public interface PageChangeListener {
         public void pageChanged(PagedTableChangeEvent event);
@@ -70,17 +72,15 @@ public class PagedTable extends Table {
     }
 
     public HorizontalLayout createControls() {
-        Label itemsPerPageLabel = new Label("每页显示数据:");
-        final ComboBox itemsPerPageSelect = new ComboBox();
-
-        itemsPerPageSelect.addItem("5");
-        itemsPerPageSelect.addItem("10");
-        itemsPerPageSelect.addItem("25");
-        itemsPerPageSelect.addItem("50");
-        itemsPerPageSelect.setImmediate(true);
-        itemsPerPageSelect.setNullSelectionAllowed(false);
-        itemsPerPageSelect.setWidth("50px");
-        itemsPerPageSelect.addListener(new ValueChangeListener() {
+        Label itemsPerPageLabel = new Label("Items/Page");
+        getItemsPerPageSelect().addItem("5");
+        getItemsPerPageSelect().addItem("10");
+        getItemsPerPageSelect().addItem("25");
+        getItemsPerPageSelect().addItem("50");
+        getItemsPerPageSelect().setImmediate(true);
+        getItemsPerPageSelect().setNullSelectionAllowed(false);
+        getItemsPerPageSelect().setWidth("50px");
+        getItemsPerPageSelect().addListener(new ValueChangeListener() {
             private static final long serialVersionUID = -2255853716069800092L;
 
             public void valueChange(
@@ -89,8 +89,8 @@ public class PagedTable extends Table {
                         .getProperty().getValue())));
             }
         });
-        itemsPerPageSelect.select("25");
-        Label pageLabel = new Label("分页数:&nbsp;", Label.CONTENT_XHTML);
+        getItemsPerPageSelect().select("5");
+        Label pageLabel = new Label("Total Pages:&nbsp;", Label.CONTENT_XHTML);
         final TextField currentPageTextField = new TextField();
         currentPageTextField.setValue(String.valueOf(getCurrentPage()));
         currentPageTextField.addValidator(new IntegerValidator(null));
@@ -154,7 +154,7 @@ public class PagedTable extends Table {
         last.setStyleName(Reindeer.BUTTON_LINK);
 
         itemsPerPageLabel.addStyleName("pagedtable-itemsperpagecaption");
-        itemsPerPageSelect.addStyleName("pagedtable-itemsperpagecombobox");
+        getItemsPerPageSelect().addStyleName("pagedtable-itemsperpagecombobox");
         pageLabel.addStyleName("pagedtable-pagecaption");
         currentPageTextField.addStyleName("pagedtable-pagefield");
         separatorLabel.addStyleName("pagedtable-separator");
@@ -165,7 +165,7 @@ public class PagedTable extends Table {
         last.addStyleName("pagedtable-last");
 
         itemsPerPageLabel.addStyleName("pagedtable-label");
-        itemsPerPageSelect.addStyleName("pagedtable-combobox");
+        getItemsPerPageSelect().addStyleName("pagedtable-combobox");
         pageLabel.addStyleName("pagedtable-label");
         currentPageTextField.addStyleName("pagedtable-label");
         separatorLabel.addStyleName("pagedtable-label");
@@ -176,9 +176,9 @@ public class PagedTable extends Table {
         last.addStyleName("pagedtable-button");
 
         pageSize.addComponent(itemsPerPageLabel);
-        pageSize.addComponent(itemsPerPageSelect);
+        pageSize.addComponent(getItemsPerPageSelect());
         pageSize.setComponentAlignment(itemsPerPageLabel, Alignment.MIDDLE_LEFT);
-        pageSize.setComponentAlignment(itemsPerPageSelect,
+        pageSize.setComponentAlignment(getItemsPerPageSelect(),
                 Alignment.MIDDLE_LEFT);
         pageSize.setSpacing(true);
         pageManagement.addComponent(first);
@@ -221,7 +221,7 @@ public class PagedTable extends Table {
                         .getRealSize() - getPageLength());
                 currentPageTextField.setValue(String.valueOf(getCurrentPage()));
                 totalPagesLabel.setValue(getTotalAmountOfPages());
-                itemsPerPageSelect.setValue(String.valueOf(getPageLength()));
+                getItemsPerPageSelect().setValue(String.valueOf(getPageLength()));
             }
         });
         return controlBar;
@@ -350,5 +350,9 @@ public class PagedTable extends Table {
             boolean alwaysRecalculateColumnWidths) {
         this.alwaysRecalculateColumnWidths = alwaysRecalculateColumnWidths;
     }
+
+	public ComboBox getItemsPerPageSelect() {
+		return itemsPerPageSelect;
+	}
 
 }

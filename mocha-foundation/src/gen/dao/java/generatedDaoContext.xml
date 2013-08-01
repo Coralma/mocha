@@ -14,6 +14,10 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 		<bean id="SoicalAppDao" class="com.coral.foundation.security.basic.dao.impl.SoicalAppDaoImpl"></bean>
+		<bean id="LinkedinConnectionDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinConnectionDaoImpl"></bean>
+		<bean id="LinkedinGroupDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinGroupDaoImpl"></bean>
+		<bean id="LinkedinPersonProfileDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinPersonProfileDaoImpl"></bean>
+		<bean id="LinkedinConnectionNetworkUpdateDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinConnectionNetworkUpdateDaoImpl"></bean>
 		<bean id="AccountDao" class="com.coral.foundation.security.basic.dao.impl.AccountDaoImpl"></bean>
 		<bean id="BasicUserDao" class="com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl"></bean>
 		<bean id="BasicRoleDao" class="com.coral.foundation.security.basic.dao.impl.BasicRoleDaoImpl"></bean>
