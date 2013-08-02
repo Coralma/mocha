@@ -198,9 +198,11 @@ public class LinkedinImpl {
 			connection.setFirstName(p.getFirstName());
 			connection.setLastName(p.getLastName());
 			connection.setPictUrl(p.getPictureUrl());
+			
 			// if(p.getPositions()!=null && p.getPositions().getPositionList()!=null){
 			// connection.setCompanyName(p.getPositions().getPositionList().get(0).getCompany().getName());
 			// }
+			
 			if (p.getPositions() != null) {
 				for (Position po : p.getPositions().getPositionList()) {
 					Company company = po.getCompany();
@@ -242,6 +244,7 @@ public class LinkedinImpl {
 			Updates updates = network.getUpdates();
 			NetworkStats networkStats = network.getNetworkStats();
 			// System.out.println("Total updates fetched:" + network.getUpdates().getTotal());
+
 			for (Update update : network.getUpdates().getUpdateList()) {
 				if (conns == null) {
 					connFindFlg = true;
@@ -297,15 +300,15 @@ public class LinkedinImpl {
 						}
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-					
+
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.NEW_CONNECTIONS)) {
 						updateMessage.append(person.getConnections().getPersonList().get(0).getFirstName());
 						updateMessage.append(".");
 						updateMessage.append(person.getConnections().getPersonList().get(0).getLastName());
-						updateMessage.append("has add a connection with "+person.getFirstName()+"."+person.getLastName());
+						updateMessage.append("has add a connection with " + person.getFirstName() + "." + person.getLastName());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-					
+
 					if (!checkDuplidateUpdates(updateModels, updateModel)) {
 						updateModels.add(updateModel);
 					}
@@ -329,7 +332,6 @@ public class LinkedinImpl {
 
 	// false means no duplicate found
 	private boolean checkDuplidateUpdates(Set<LinkedinConnectionNetworkUpdate> updateModels, LinkedinConnectionNetworkUpdate updateModel) {
-
 		// init the updateModels first
 		if (updateModels.size() < 1) {
 			return false;
@@ -346,5 +348,4 @@ public class LinkedinImpl {
 		}
 		return false;
 	}
-
 }

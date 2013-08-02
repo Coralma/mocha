@@ -29,7 +29,6 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 		this.personProfile = personProfile;
 		this.setConnUser(connUser);
 		this.setWidth("746px");
-		// this.setHeight("80px");
 		this.addStyleName("user-info-card");
 		this.addListener(this);
 		this.connUser = connUser;
@@ -37,7 +36,9 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 
 	@Override
 	public void attach() {
-
+		requestRepaintAll();
+		removeAllComponents();
+		userInfoPanel.removeAllComponents();
 		// VerticalLayout userPhotoPanel = new VerticalLayout();
 		// userPhotoPanel.addStyleName("user-info-photo");
 		// VerticalLayout photoAreaPanel = new VerticalLayout();
@@ -101,7 +102,6 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 		if (getConnUser().getNeedFollow() != null && getConnUser().getNeedFollow().equals("00000001")) {
 			buildFollowedlabel();
 		}
-
 	}
 
 	@Override
@@ -114,7 +114,6 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 			buildFollowedlabel();
 			requestRepaintAll();
 		}
-
 	}
 
 	private void buildFollowedlabel() {
