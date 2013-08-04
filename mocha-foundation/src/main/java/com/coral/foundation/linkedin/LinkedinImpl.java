@@ -1,6 +1,5 @@
 package com.coral.foundation.linkedin;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;

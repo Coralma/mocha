@@ -1,8 +1,6 @@
 package com.mocha.soicalAPI;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.TimerTask;
 
 import com.coral.foundation.linkedin.LinkedinImpl;
@@ -51,7 +49,6 @@ public class LinkedinScheduleTimterTask extends TimerTask {
 				}
 			}
 		}
-		System.out.println("");
 	}
 
 	private LinkedinPersonProfile reloadProfile(LinkedinPersonProfile profile) {

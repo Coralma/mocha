@@ -2081,9 +2081,8 @@
 	font-size: 20px;
 }
 .linkedinUserInfoLayout{
-	font-size:15px;
+	font-size:10px;
 	border: 1px;
-	/* border-style: dashed; */
 	border-color: #1650ad;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -2091,5 +2090,53 @@
 .connection-followed{
 	font-size:10px;
 	font-weight: bold;
-	margin-right: 10px;
+	margin-right: 20px;
+}
+.linkedinConnectionsUpdateMessageLayout{
+	border: 2px;
+	background-color: #F7F7F7;
+	font-family: Arial,Helvetica,Tahoma,Verdana,sans-serif;
+	font-size: 7px;
+	font-style: normal;
+	font-weight: lighter;
+	line-height: 16.99652862548828px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	text-shadow: 0 2px 0 #02afee;
+	text-shadow: 0 1px 20px #02afee;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.v-caption-connectionMessage .v-captiontext{
+	border-bottom-color: rgb(102, 102, 102);
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-style: none;
+	border-bottom-width: 0px;
+	border-collapse: separate;
+	border-image-outset: 0px;
+	border-image-repeat: stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	border-left-color: rgb(102, 102, 102);
+	border-left-style: none;
+	border-left-width: 0px;
+	border-right-color: rgb(102, 102, 102);
+	border-right-style: none;
+	border-right-width: 0px;
+	border-top-color: rgb(102, 102, 102);
+	/* color: rgb(102, 102, 102); */
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 13.333333969116211px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	glyph-orientation-horizontal: 0deg;
+	glyph-orientation-vertical: auto;
+	height: 16.666667938232422px;
+	margin-bottom: 10px;
 }
