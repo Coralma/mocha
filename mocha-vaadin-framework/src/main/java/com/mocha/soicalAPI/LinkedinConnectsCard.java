@@ -1,5 +1,8 @@
 package com.mocha.soicalAPI;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.coral.foundation.security.basic.dao.LinkedinConnectionDao;
 import com.coral.foundation.security.basic.dao.LinkedinPersonProfileDao;
 import com.coral.foundation.security.model.LinkedinConnection;
@@ -78,7 +81,18 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 		photoAreaPanel.setWidth(frame_size);
 		photoAreaPanel.setHeight(frame_size);
 		String icon = null;
-		Embedded userPhoto = PageBuildHelper.buildUserPhoto(icon, getApplication());
+		Embedded userPhoto = null;
+		if (connUser.getPictUrl() != null) {
+			try {
+				userPhoto = PageBuildHelper.buildUserPhotoFromURL(new URL(connUser.getPictUrl()), getApplication());
+			}
+			catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			userPhoto = PageBuildHelper.buildUserPhoto(icon, getApplication());
+		}
 		userPhoto.setWidth(photo_size);
 		userPhoto.setHeight(photo_size);
 		photoAreaPanel.addComponent(userPhoto);
