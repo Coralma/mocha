@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.MenuPermission + "</p>
@@ -12,21 +10,20 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "MenuPermission")
 @Table(name = "T_MENU_PERMISSION")
-public class MenuPermission extends BaseEntity {
+public class MenuPermission extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "MENU_PERMISSION_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="MENUPERMISSIONID_SEQ")
+	@TableGenerator(name="MENUPERMISSIONID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long menuPermissionId;
 	
-	@Basic(optional = true)
 	@Column(name = "MENU_NAME" )
 	private String menuName;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = BasicRole.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "role") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="role")
 	private BasicRole role;
 	
 
@@ -51,10 +48,6 @@ public class MenuPermission extends BaseEntity {
 
 	public Long getID() {
 		return getMenuPermissionId();
-	}
-	
-	public void setID(Long id) {
-		setMenuPermissionId(id);
 	}
 }
 

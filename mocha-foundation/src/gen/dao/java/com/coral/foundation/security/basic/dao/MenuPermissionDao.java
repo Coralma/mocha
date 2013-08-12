@@ -1,13 +1,16 @@
 package com.coral.foundation.security.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.coral.foundation.security.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * MenuPermissionDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface MenuPermissionDao extends Dao<MenuPermission> {
+public class MenuPermissionDao extends BaseDao<MenuPermission> {
 	
+	@Override
+	public Class<MenuPermission> getEntityClass() {
+		return MenuPermission.class;
+	}
 }
 

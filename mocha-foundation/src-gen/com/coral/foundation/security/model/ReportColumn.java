@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.ReportColumn + "</p>
@@ -12,39 +10,34 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ReportColumn")
 @Table(name = "T_REPORT_COLUMN")
-public class ReportColumn extends BaseEntity {
+public class ReportColumn extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "REPORT_COLUMN_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="REPORTCOLUMNID_SEQ")
+	@TableGenerator(name="REPORTCOLUMNID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long reportColumnId;
 	
-	@Basic(optional = true)
 	@Column(name = "COLUMN_NAME" )
 	private String columnName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COLUMN_LABEL" )
 	private String columnLabel;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COLUMN_INDEX" )
 	private String columnIndex;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COLUMN_USE_MODE" )
 	private String columnUseMode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "REFERENCE_TABLE_NAME" )
 	private String referenceTableName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "REFERENCE_COLUMN_NAME" )
 	private String referenceColumnName;
 	
@@ -95,10 +88,6 @@ public class ReportColumn extends BaseEntity {
 
 	public Long getID() {
 		return getReportColumnId();
-	}
-	
-	public void setID(Long id) {
-		setReportColumnId(id);
 	}
 }
 

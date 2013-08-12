@@ -24,7 +24,6 @@ import org.springframework.context.ApplicationContext;
 
 import com.coral.foundation.security.basic.dao.BasicRoleDao;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
-import com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 
@@ -43,7 +42,7 @@ public class CommonSecurityManager extends AuthorizingRealm {
 	private static String userRolesQuery = "select role_name from vw_searchrole where user_name=?";
 	private static String permissionsQuery = "select permission from vw_searchpermission where role_name=?";
 
-	private Logger log = LoggerFactory.getLogger(BasicUserDaoImpl.class);
+	private Logger log = LoggerFactory.getLogger(CommonSecurityManager.class);
 
 	public static DefaultSecurityManager initDefaultSecurityManager() {
 		if (securityManager == null) {

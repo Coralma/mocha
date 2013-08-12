@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.SoicalApp + "</p>
@@ -12,64 +10,54 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "SoicalApp")
 @Table(name = "T_SOICAL_APP")
-public class SoicalApp extends BaseEntity {
+public class SoicalApp extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SOICAL_APP_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SOICALAPPID_SEQ")
+	@TableGenerator(name="SOICALAPPID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long soicalAppId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = BasicUser.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "user") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="user")
 	private BasicUser user;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = LinkedinPersonProfile.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=LinkedinPersonProfile.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="SOICAL_APP_ID")
 	private List<LinkedinPersonProfile> linkedinPersonProfiles = new ArrayList<LinkedinPersonProfile>();
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SESSION_I_D" )
 	private String sessionID;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SECRET_I_D" )
 	private String secretID;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "AUTH_TOKEN" )
 	private String authToken;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "AUTH_TOKEN_SECRET" )
 	private String authTokenSecret;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "AUTH_TOKEN_EXPIRE_DATE" )
 	private String authTokenExpireDate;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "OAUTH_VERIFIER" )
 	private String oauthVerifier;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "REQUES_TOKEN" )
 	private String requesToken;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "REQUES_TOKEN_SECRET" )
 	private String requesTokenSecret;
 	
@@ -150,10 +138,6 @@ public class SoicalApp extends BaseEntity {
 
 	public Long getID() {
 		return getSoicalAppId();
-	}
-	
-	public void setID(Long id) {
-		setSoicalAppId(id);
 	}
 }
 

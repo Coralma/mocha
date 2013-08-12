@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.ReportTable + "</p>
@@ -12,45 +10,39 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ReportTable")
 @Table(name = "T_REPORT_TABLE")
-public class ReportTable extends BaseEntity {
+public class ReportTable extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "REPORT_TABLE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="REPORTTABLEID_SEQ")
+	@TableGenerator(name="REPORTTABLEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long reportTableId;
 	
-	@Basic(optional = true)
 	@Column(name = "TABLE_NAME" )
 	private String tableName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TABLE_LABEL" )
 	private String tableLabel;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportColumn.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ReportColumn.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="REPORT_TABLE_ID")
 	private List<ReportColumn> reportColumns = new ArrayList<ReportColumn>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportJoinTable.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ReportJoinTable.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="REPORT_TABLE_ID")
 	private List<ReportJoinTable> reportJoinReportTableId = new ArrayList<ReportJoinTable>();
 	
-	@Basic(optional = true)
 	@Column(name = "JOIN_TYPE" )
 	private String joinType;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=AppReport.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="REPORT_TABLE_ID")
 	private List<AppReport> appReport = new ArrayList<AppReport>();
 	
@@ -106,10 +98,6 @@ public class ReportTable extends BaseEntity {
 
 	public Long getID() {
 		return getReportTableId();
-	}
-	
-	public void setID(Long id) {
-		setReportTableId(id);
 	}
 }
 

@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.CodeTable + "</p>
@@ -12,36 +10,32 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "CodeTable")
 @Table(name = "T_CODE_TABLE")
-public class CodeTable extends BaseEntity {
+public class CodeTable extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CODE_TABLE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CODETABLEID_SEQ")
+	@TableGenerator(name="CODETABLEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long codeTableId;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "IDS" )
 	private String ids;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PARENT" )
 	private String parent;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CodeTableValue.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=CodeTableValue.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="CODE_TABLE_ID")
 	private List<CodeTableValue> codeTableValues = new ArrayList<CodeTableValue>();
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = App.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "app") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="app")
 	private App app;
 	
 
@@ -84,10 +78,6 @@ public class CodeTable extends BaseEntity {
 
 	public Long getID() {
 		return getCodeTableId();
-	}
-	
-	public void setID(Long id) {
-		setCodeTableId(id);
 	}
 }
 

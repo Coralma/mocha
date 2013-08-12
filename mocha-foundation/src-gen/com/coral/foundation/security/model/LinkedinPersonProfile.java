@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.LinkedinPersonProfile + "</p>
@@ -12,55 +10,47 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "LinkedinPersonProfile")
 @Table(name = "T_LINKEDIN_PERSON_PROFILE")
-public class LinkedinPersonProfile extends BaseEntity {
+public class LinkedinPersonProfile extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "LINKEDIN_PERSON_PROFILE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="LINKEDINPERSONPROFILEID_SEQ")
+	@TableGenerator(name="LINKEDINPERSONPROFILEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long linkedinPersonProfileId;
 	
-	@Basic(optional = true)
 	@Column(name = "FIRST_NAME" )
 	private String firstName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "LAST_NAME" )
 	private String lastName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COMPANY_NAME" )
 	private String companyName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "HEADLINE" )
 	private String headline;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CURRENT_COMPNAY" )
 	private String currentCompnay;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PICT_URL" )
 	private String pictUrl;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = SoicalApp.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "soicalApp") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="soicalApp")
 	private SoicalApp soicalApp;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = LinkedinGroup.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=LinkedinGroup.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="LINKEDIN_PERSON_PROFILE_ID")
 	private List<LinkedinGroup> linkedinGroups = new ArrayList<LinkedinGroup>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = LinkedinConnection.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=LinkedinConnection.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="LINKEDIN_PERSON_PROFILE_ID")
 	private List<LinkedinConnection> linkedinConnections = new ArrayList<LinkedinConnection>();
 	
@@ -128,10 +118,6 @@ public class LinkedinPersonProfile extends BaseEntity {
 
 	public Long getID() {
 		return getLinkedinPersonProfileId();
-	}
-	
-	public void setID(Long id) {
-		setLinkedinPersonProfileId(id);
 	}
 }
 

@@ -8,7 +8,6 @@ import java.util.List;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.basic.dao.MochaReportDao;
 import com.coral.foundation.security.basic.dao.ReportTableDao;
-import com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.MochaReport;
 import com.coral.foundation.security.model.ReportJoinTable;

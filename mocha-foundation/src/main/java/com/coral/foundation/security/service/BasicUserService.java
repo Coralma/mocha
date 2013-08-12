@@ -18,15 +18,15 @@ public class BasicUserService {
 	BasicUserDao basicUserDao = SpringContextUtils.getBean(BasicUserDao.class);
 	
 	public BasicUser loadUserById(Long id) {
-		return basicUserDao.findById(id);
+		return basicUserDao.load(id);
 	}
 	
 	public List<BasicUser> findAll() {
-		return basicUserDao.findAll();
+		return basicUserDao.loadAll();
 	}
 	
 	public BasicUser findById(Long id) {
-		return basicUserDao.findById(id);
+		return basicUserDao.load(id);
 	}
 	
 	public void merge(BasicUser entity) {

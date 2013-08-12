@@ -1,13 +1,16 @@
 package com.coral.foundation.security.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.coral.foundation.security.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * LinkedinPersonProfileDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface LinkedinPersonProfileDao extends Dao<LinkedinPersonProfile> {
+public class LinkedinPersonProfileDao extends BaseDao<LinkedinPersonProfile> {
 	
+	@Override
+	public Class<LinkedinPersonProfile> getEntityClass() {
+		return LinkedinPersonProfile.class;
+	}
 }
 

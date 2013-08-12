@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.CodeTableValue + "</p>
@@ -12,31 +10,28 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "CodeTableValue")
 @Table(name = "T_CODE_TABLE_VALUE")
-public class CodeTableValue extends BaseEntity {
+public class CodeTableValue extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CODE_TABLE_VALUE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CODETABLEVALUEID_SEQ")
+	@TableGenerator(name="CODETABLEVALUEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long codeTableValueId;
 	
-	@Basic(optional = true)
 	@Column(name = "CODE_TABLE_NAME" )
 	private String codeTableName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "LANGUAGE" )
 	private String language;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DATAS" )
 	private String datas;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = CodeTable.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "codeTable") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="codeTable")
 	private CodeTable codeTable;
 	
 
@@ -73,10 +68,6 @@ public class CodeTableValue extends BaseEntity {
 
 	public Long getID() {
 		return getCodeTableValueId();
-	}
-	
-	public void setID(Long id) {
-		setCodeTableValueId(id);
 	}
 }
 
