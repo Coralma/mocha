@@ -45,7 +45,7 @@ fi
 # Detect the width of the console
 CONSOLE_WIDTH=`tput cols`
 
-$JAVA_CMD -cp bin/flyway-commandline-2.2.jar:bin/flyway-core-2.2.jar:bin/spring-jdbc-2.5.6.jar:bin/commons-logging-1.1.1.jar:bin/spring-beans-2.5.6.jar:bin/spring-core-2.5.6.jar:bin/spring-context-2.5.6.jar:bin/aopalliance-1.0.jar:bin/spring-tx-2.5.6.jar com.googlecode.flyway.commandline.Main $@ -consoleWidth=$CONSOLE_WIDTH
+$JAVA_CMD -cp jars/flyway-commandline-2.2.jar:jars/flyway-core-2.2.jar:jars/spring-jdbc-2.5.6.jar:jars/commons-logging-1.1.1.jar:jars/spring-beans-2.5.6.jar:jars/spring-core-2.5.6.jar:jars/spring-context-2.5.6.jar:jars/aopalliance-1.0.jar:jars/spring-tx-2.5.6.jar com.googlecode.flyway.commandline.Main $@ -consoleWidth=$CONSOLE_WIDTH
 
 # Save the exit code
 JAVA_EXIT_CODE=$?
