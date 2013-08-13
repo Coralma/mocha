@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="policy" entityPackage="com.coral.foundation.security.model"
+	daoImplPackage="com.coral.foundation.security.basic.dao"
+	servicePackage="com.coral.foundation.security.basic.service">
+	
+	<entity entityName="SoicalApp">
+		<property name="user" type="BasicUser" ref="BasicUser" orm="many-to-one"/>
+		<property name="linkedinPersonProfiles" type="List" ref="LinkedinPersonProfile" orm="one-to-many"/>
+		<property name="name"/>
+		<property name="sessionID"/>
+		<property name="secretID"/>
+		<property name="authToken"/>
+		<property name="authTokenSecret"/>
+		<property name="authTokenExpireDate"/>
+		<property name="oauthVerifier"/>
+		<property name="requesToken"/>
+		<property name="requesTokenSecret"/>
+	</entity>
+	
+	<entity entityName="LinkedinConnection">
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="companyName" />
+		<property name="headline" />
+		<property name="currentCompnay"/>
+		<property name="pictUrl"/>
+		<property name="lastUpdateDate" type="Date"/>
+		<property name="needFollow" type="Boolean"/>
+		<property name="location"/>
+		<property name="locationCountry"/>
+		<property name="summary"/>
+		<property name="currentStatus"/>
+		<property name="imAccount"/>
+		<property name="twitterAccount"/>
+		<property name="emailAddress"/>
+		<property name="industry"/>
+		<property name="linkedinPersonProfile" type="LinkedinPersonProfile" ref="LinkedinPersonProfile" orm="many-to-one"/>
+		<property name="linkedinGroups" type="List" ref="LinkedinGroup" orm="one-to-many"/>
+		<property name="linkedinConnectionNetworkUpdate" type="List" ref="LinkedinConnectionNetworkUpdate" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="LinkedinGroup">
+		<property name="name" />
+		<property name="linkedinConnection" type="LinkedinConnection" ref="LinkedinConnection" orm="many-to-one"/>
+		<property name="LinkedinPersonProfile" type="LinkedinPersonProfile" ref="LinkedinPersonProfile" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="LinkedinPersonProfile">
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="companyName" />
+		<property name="headline" />
+		<property name="currentCompnay"/>
+		<property name="pictUrl"/>
+		<property name="soicalApp" type="SoicalApp" ref="SoicalApp" orm="many-to-one"/>
+		<property name="linkedinGroups" type="List" ref="LinkedinGroup" orm="one-to-many"/>
+		<property name="linkedinConnections" type="List" ref="LinkedinConnection" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="LinkedinConnectionNetworkUpdate">
+		<property name="linkedinUpdateKey" />
+		<property name="updatedKey" />
+		<property name="updateType" />
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="updateMessage"/>
+		<property name="timeStamp"/>
+		<property name="linkedinConnection" type="LinkedinConnection" ref="LinkedinConnection" orm="many-to-one" />
+	</entity>
+	
+	<entity entityName="Account">
+		<property name="name"/>
+		<property name="email"/>
+		<property name="users" type="List" ref="BasicUser" orm="one-to-many"/>
+		<property name="apps" type="List" ref="App" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="BasicUser" tableName="T_USER">
+		<property name="userName" label="User Name"/>
+		<property name="userPhoto" label="User Photo"/>
+		<property name="userIcon" label="User Icon"/>
+		<property name="password" label="Password" required="true"/>
+		<property name="rePassword" label="rePassword" required="true"/>
+		<property name="realName" />
+		<property name="englishName" />
+		<property name="email" />
+		<property name="language" />
+		<property name="jobTitle" />
+		<property name="extension" />
+		<property name="mobile" />
+		<property name="status" />
+		<property name="type" />
+		<property name="init" type="Long" default="0"/>
+		<property name="rememberMe" type="Boolean" ignore="true"/>
+		<property name="simpleAuthorizationInfo" type="org.apache.shiro.authz.SimpleAuthorizationInfo" ignore="true"/>
+<!-- 	<property name="basicRoles" type="List" ref="BasicRole" orm="one-to-many"/> -->
+		<property name="basicRole" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
+		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
+		<property name="soicalApp" type="List" ref="SoicalApp" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="BasicRole" tableName="T_ROLE">
+		<property name="roleName" label="Role Name" required="true"/>
+		<property name="roleDescription" label="Description" required="true"/>
+		<property name="user" type="List" ref="BasicUser" orm="one-to-many"/>
+		<property name="menuPermissions" type="List" ref="MenuPermission" orm="one-to-many"/>
+	</entity>
+
+	<entity entityName="MenuPermission">
+		<property name="menuName" label="menu Name" required="true"/>
+		<property name="role" type="BasicRole" ref="BasicRole" orm="many-to-one"/>
+	</entity>
+
+	<entity entityName="App">
+		<property name="name"/>
+		<property name="description"/>
+		<property name="account" type="Account" ref="Account" orm="many-to-one"/>
+		<property name="codeTables" type="List" ref="CodeTable" orm="one-to-many"/>
+	</entity>
+
+	<entity entityName="CodeTable">
+		<property name="name"/><!-- 		invoke name -->
+		<property name="ids"/>
+		<property name="parent"/>
+		<property name="codeTableValues" type="List" ref="CodeTableValue" orm="one-to-many"/>
+		<property name="app" type="App" ref="App" orm="many-to-one"/>
+<!-- 		<property name="unitCodeTables" type="List" ref="CodeTable" orm="one-to-many"/> -->
+	</entity>
+	
+	<entity entityName="CodeTableValue">
+		<property name="codeTableName"/>
+		<property name="language"/>
+		<property name="datas"/>
+		<property name="codeTable" type="CodeTable" ref="CodeTable" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="AppReport">
+		<property name="name"/>
+		<property name="description"/>
+		<property name="type"/><!-- 0 means predefine table, 1 means user customized -->
+		<property name="reportFilters" type="List" ref="ReportFilter" orm="one-to-many"/>
+		<property name="reportTables" type="List" ref="ReportTable" orm="one-to-many"/>
+	</entity>
+	
+	<entity entityName="ReportTable">
+		<property name="tableName"/>
+		<property name="tableLabel"/>
+		<property name="type"/><!-- 1 means main table , 0 means related table -->
+		<property name="reportColumns" type="List" ref="ReportColumn" orm="one-to-many"/>
+		<property name="reportJoinReportTableId" type="List" ref="ReportJoinTable" orm="one-to-many"/> 
+		<property name="joinType" label="joinType"/>
+		<!-- <property name="reportJoinColumn" type="ReportColumn" ref="ReportColumn" orm="one-to-one"/> -->
+		<property name="appReport" type="List" ref="AppReport" orm="one-to-many"/>
+	</entity>	
+	
+	<entity entityName="ReportColumn">
+		<property name="columnName"/>
+		<property name="columnLabel"/>
+		<property name="columnIndex"/><!-- order of column, sort by the index  -->
+		<property name="columnUseMode"/><!-- Check the usage for the column: 1 for output, 2 for join column 3 for foreign key column-->
+		<!-- <property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/> -->
+		<property name="referenceTableName" label="referenceTableName"></property>
+		<property name="referenceColumnName" label="referenceColumnName"></property>
+	</entity>
+	
+	<entity entityName="ReportFilter">
+		<property name="filterName"/>
+		<property name="filterType"/>
+		<property name="filterBuildString"/>
+		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="ReportJoinTable">
+		<property name="reportTable" type="ReportTable" ref="ReportTable" orm="many-to-one"/>
+	</entity>
+	
+	<entity entityName="MochaReport" tableName="T_MochaReport">
+		<property name="reportName" label="reportName" />
+		<property name="creator" label="Creator"
+			type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser"
+			required="true" orm="many-to-one" refer="true" />
+		<property name="createdDate" type="Date"/>
+		<property name="appReport" type="AppReport" ref="AppReport" orm="many-to-one"/>
+		<property name="reportPureQuery" type="String" length="1000"/>
+	</entity>
+
+</mocha>
