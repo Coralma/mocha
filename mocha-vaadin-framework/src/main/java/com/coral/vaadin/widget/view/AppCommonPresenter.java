@@ -3,14 +3,8 @@
  */
 package com.coral.vaadin.widget.view;
 
-import java.util.List;
-
-import com.coral.foundation.jpa.search.RelationStatus;
-import com.coral.foundation.jpa.search.SearchFilter;
-import com.coral.foundation.jpa.search.SearchFilterBuilder;
 import com.coral.foundation.report.AbstrctAppRawData;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
-import com.google.common.collect.Lists;
 
 /**
  * @author Coral

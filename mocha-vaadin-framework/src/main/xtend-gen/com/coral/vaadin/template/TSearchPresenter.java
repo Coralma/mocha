@@ -3,7 +3,6 @@ package com.coral.vaadin.template;
 import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Mocha;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.foundation.utils.StrUtils;
 import java.util.List;
@@ -130,8 +129,6 @@ public class TSearchPresenter {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.searchPresenterClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -410,8 +407,6 @@ public class TSearchPresenter {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.searchPresenterClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

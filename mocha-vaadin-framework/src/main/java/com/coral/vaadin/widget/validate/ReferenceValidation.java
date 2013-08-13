@@ -3,11 +3,6 @@
  */
 package com.coral.vaadin.widget.validate;
 
-import java.util.List;
-
-import com.coral.foundation.hibernate.impl.GenericDAO;
-import com.coral.foundation.hibernate.impl.GenericHibernateDAO;
-import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.Field;
 
 /**

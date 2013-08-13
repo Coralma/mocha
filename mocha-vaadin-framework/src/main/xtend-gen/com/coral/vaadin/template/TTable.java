@@ -7,7 +7,6 @@ import com.coral.foundation.md.model.Property;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.md.model.ViewSection;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.vaadin.widget.Viewer;
 import java.util.List;
@@ -96,8 +95,6 @@ public class TTable {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.tableClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -272,8 +269,6 @@ public class TTable {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.tableClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

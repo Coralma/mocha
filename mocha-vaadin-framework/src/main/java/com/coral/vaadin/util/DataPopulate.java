@@ -16,7 +16,7 @@ public class DataPopulate {
 
 	public static void initDate() {
 
-		if (userDao.findAll().size() == 0) {
+		if (userDao.loadAll().size() == 0) {
 			BasicUser basicUser=new BasicUser();
 			basicUser.setUserName("root");
 			basicUser.setPassword("root");

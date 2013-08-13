@@ -2,14 +2,13 @@ package com.coral.vaadin.template
 
 import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.ViewSection
-import com.coral.foundation.md.model.helper.GLog
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.foundation.utils.StrUtils
 import com.coral.vaadin.widget.Viewer
 import com.coral.vaadin.widget.table.EntityTable
 import java.util.List
-import com.coral.foundation.md.model.Mocha
 
 class TCreate {
 
@@ -59,7 +58,6 @@ class TCreate {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(viewClassName)»
 		/**
 		  * «viewClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -156,7 +154,6 @@ class TCreate {
 		
 	'''
 	def GENClassEnd()'''
-		«GLog::endClass(viewClassName)»
 		}
 	'''
 	

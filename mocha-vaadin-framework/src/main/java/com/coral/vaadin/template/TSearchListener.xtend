@@ -2,11 +2,10 @@ package com.coral.vaadin.template
 
 import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
-import com.coral.foundation.md.model.helper.GLog
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.foundation.utils.StrUtils
 import java.util.List
-import com.coral.foundation.md.model.Mocha
 
 class TSearchListener {
 	
@@ -42,7 +41,6 @@ class TSearchListener {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(searchListenerName)»
 		/**
 		  * «searchListenerName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -52,7 +50,6 @@ class TSearchListener {
 	'''
 	
 	def GENClassEnd()'''
-		«GLog::endClass(searchListenerName)»
 		}
 	'''	
 }

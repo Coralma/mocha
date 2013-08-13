@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.MobileMenu;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.coral.vaadin.resource.ModelCenter;
 import com.coral.vaadin.widget.view.builder.ViewContext;
 import com.coral.vaadin.widget.view.builder.ViewContext.Action;

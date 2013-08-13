@@ -2,11 +2,10 @@ package com.coral.vaadin.template
 
 import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
-import com.coral.foundation.md.model.helper.GLog
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.foundation.utils.StrUtils
 import java.util.List
-import com.coral.foundation.md.model.Mocha
 
 class TSearchPresenter {
 
@@ -70,7 +69,6 @@ class TSearchPresenter {
 		import org.vaadin.dialogs.ConfirmDialog;
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(searchPresenterClassName)»
 		/**
 		  * «searchPresenterClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -169,7 +167,6 @@ class TSearchPresenter {
 	'''
 	
 	def GENClassEnd()'''
-		«GLog::endClass(searchPresenterClassName)»
 		}
 	'''	
 }
