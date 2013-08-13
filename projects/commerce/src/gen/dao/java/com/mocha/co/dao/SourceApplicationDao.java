@@ -1,13 +1,16 @@
 package com.mocha.co.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.co.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * SourceApplicationDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface SourceApplicationDao extends Dao<SourceApplication> {
+public class SourceApplicationDao extends BaseDao<SourceApplication> {
 	
+	@Override
+	public Class<SourceApplication> getEntityClass() {
+		return SourceApplication.class;
+	}
 }
 

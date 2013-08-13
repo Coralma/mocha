@@ -2,9 +2,7 @@ package com.mocha.ib.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.ib.model.InsuranceCompany + "</p>
@@ -12,30 +10,27 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "InsuranceCompany")
 @Table(name = "T_INSURANCE_COMPANY")
-public class InsuranceCompany extends BaseEntity {
+public class InsuranceCompany extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "INSURANCE_COMPANY_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="INSURANCECOMPANYID_SEQ")
+	@TableGenerator(name="INSURANCECOMPANYID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long insuranceCompanyId;
 	
-	@Basic(optional = true)
 	@Column(name = "COMPANY_NAME" )
 	private String companyName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DESCRIPTION" )
 	private String description;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "LEVEL" )
 	private String level;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = InsuranceProduct.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=InsuranceProduct.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="INSURANCE_COMPANY_ID")
 	private List<InsuranceProduct> products = new ArrayList<InsuranceProduct>();
 	
@@ -73,10 +68,6 @@ public class InsuranceCompany extends BaseEntity {
 
 	public Long getID() {
 		return getInsuranceCompanyId();
-	}
-	
-	public void setID(Long id) {
-		setInsuranceCompanyId(id);
 	}
 }
 

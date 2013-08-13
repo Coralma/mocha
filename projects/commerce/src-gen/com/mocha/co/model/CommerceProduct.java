@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.CommerceProduct + "</p>
@@ -12,70 +10,59 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "CommerceProduct")
 @Table(name = "T_COMMERCE_PRODUCT")
-public class CommerceProduct extends BaseEntity {
+public class CommerceProduct extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "COMMERCE_PRODUCT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="COMMERCEPRODUCTID_SEQ")
+	@TableGenerator(name="COMMERCEPRODUCTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long commerceProductId;
 	
-	@Basic(optional = true)
 	@Column(name = "PRODUCT_CODE" )
 	private String productCode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRODUCT_NAME" )
 	private String productName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRODUCT_IMAGE" )
 	private String productImage;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "BRAND" )
 	private String brand;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "UNIT" )
 	private String unit;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SPEC" )
 	private String spec;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COLOR" )
 	private String color;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SALE_PRICE" )
 	private String salePrice;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = StockProduct.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = StockProduct.class)
 	private StockProduct stockProduct;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Promotion.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Promotion.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="COMMERCE_PRODUCT_ID")
 	private List<Promotion> promotions = new ArrayList<Promotion>();
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Supplier.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "supplier") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="supplier")
 	private Supplier supplier;
 	
 
@@ -160,10 +147,6 @@ public class CommerceProduct extends BaseEntity {
 
 	public Long getID() {
 		return getCommerceProductId();
-	}
-	
-	public void setID(Long id) {
-		setCommerceProductId(id);
 	}
 }
 

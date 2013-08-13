@@ -6,7 +6,7 @@ import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
 import com.coral.foundation.jpa.search.SearchFilterFactory;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
@@ -41,7 +41,7 @@ public class InsCustomerSearchPresenter extends AppCommonPresenter implements Pr
 			}
 		};
 		// load all data.
-		List entities = dao.findAll();
+		List entities = dao.loadAll();
 		viewer.setValue(entities);
 	}
 

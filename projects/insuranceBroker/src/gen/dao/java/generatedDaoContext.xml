@@ -13,12 +13,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-		<bean id="InsuranceCustomerDao" class="com.mocha.ib.dao.impl.InsuranceCustomerDaoImpl"></bean>
-		<bean id="InsuranceCompanyDao" class="com.mocha.ib.dao.impl.InsuranceCompanyDaoImpl"></bean>
-		<bean id="InsuranceProductDao" class="com.mocha.ib.dao.impl.InsuranceProductDaoImpl"></bean>
-		<bean id="PolicyDao" class="com.mocha.ib.dao.impl.PolicyDaoImpl"></bean>
-		<bean id="ClaimDao" class="com.mocha.ib.dao.impl.ClaimDaoImpl"></bean>
-		<bean id="InsuranceCustomerServeDao" class="com.mocha.ib.dao.impl.InsuranceCustomerServeDaoImpl"></bean>
+		<bean id="InsuranceCustomerDao" class="com.mocha.ib.dao.InsuranceCustomerDao"></bean>
+		<bean id="InsuranceCompanyDao" class="com.mocha.ib.dao.InsuranceCompanyDao"></bean>
+		<bean id="InsuranceProductDao" class="com.mocha.ib.dao.InsuranceProductDao"></bean>
+		<bean id="PolicyDao" class="com.mocha.ib.dao.PolicyDao"></bean>
+		<bean id="ClaimDao" class="com.mocha.ib.dao.ClaimDao"></bean>
+		<bean id="InsuranceCustomerServeDao" class="com.mocha.ib.dao.InsuranceCustomerServeDao"></bean>
 </beans>
 
 

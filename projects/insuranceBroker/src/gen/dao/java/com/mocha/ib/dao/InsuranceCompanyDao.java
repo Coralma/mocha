@@ -1,13 +1,16 @@
 package com.mocha.ib.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.ib.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * InsuranceCompanyDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface InsuranceCompanyDao extends Dao<InsuranceCompany> {
+public class InsuranceCompanyDao extends BaseDao<InsuranceCompany> {
 	
+	@Override
+	public Class<InsuranceCompany> getEntityClass() {
+		return InsuranceCompany.class;
+	}
 }
 

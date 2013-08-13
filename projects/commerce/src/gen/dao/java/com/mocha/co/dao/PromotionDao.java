@@ -1,13 +1,16 @@
 package com.mocha.co.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.co.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * PromotionDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface PromotionDao extends Dao<Promotion> {
+public class PromotionDao extends BaseDao<Promotion> {
 	
+	@Override
+	public Class<Promotion> getEntityClass() {
+		return Promotion.class;
+	}
 }
 

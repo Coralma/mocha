@@ -1,13 +1,16 @@
 package com.mocha.ib.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.ib.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * ClaimDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface ClaimDao extends Dao<Claim> {
+public class ClaimDao extends BaseDao<Claim> {
 	
+	@Override
+	public Class<Claim> getEntityClass() {
+		return Claim.class;
+	}
 }
 

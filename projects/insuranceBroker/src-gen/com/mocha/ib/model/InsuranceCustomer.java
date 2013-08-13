@@ -2,9 +2,7 @@ package com.mocha.ib.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.ib.model.InsuranceCustomer + "</p>
@@ -12,109 +10,92 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "InsuranceCustomer")
 @Table(name = "T_INSURANCE_CUSTOMER")
-public class InsuranceCustomer extends BaseEntity {
+public class InsuranceCustomer extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "INSURANCE_CUSTOMER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="INSURANCECUSTOMERID_SEQ")
+	@TableGenerator(name="INSURANCECUSTOMERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long insuranceCustomerId;
 	
-	@Basic(optional = true)
 	@Column(name = "CUSTOMER_TYPE" )
 	private String customerType;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DISTRICT" )
 	private String district;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "POSTCODE" )
 	private String postcode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ADDRESS" )
 	private String address;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CONTECT_PERSON" )
 	private String contectPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MOBILE" )
 	private String mobile;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PHONE" )
 	private String phone;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FAX" )
 	private String fax;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_BANK" )
 	private String accountBank;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_NUMBER" )
 	private String accountNumber;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_PERSON" )
 	private String accountPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_MARK" )
 	private String accountMark;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Policy.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Policy.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<Policy> policy = new ArrayList<Policy>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = InsuranceCustomerServe.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=InsuranceCustomerServe.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser referUser;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser agent;
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
+	
+	
 
 	public void setInsuranceCustomerId (Long insuranceCustomerId) {
 		this.insuranceCustomerId = insuranceCustomerId;
@@ -245,10 +226,6 @@ public class InsuranceCustomer extends BaseEntity {
 
 	public Long getID() {
 		return getInsuranceCustomerId();
-	}
-	
-	public void setID(Long id) {
-		setInsuranceCustomerId(id);
 	}
 }
 

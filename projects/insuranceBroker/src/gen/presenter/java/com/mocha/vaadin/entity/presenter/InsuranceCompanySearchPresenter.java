@@ -1,22 +1,21 @@
 package com.mocha.vaadin.entity.presenter;
 
-import com.mocha.ib.dao.*;
 import java.util.List;
+
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.model.BaseEntity;
 import com.coral.foundation.jpa.search.SearchFilter;
 import com.coral.foundation.jpa.search.SearchFilterBuilder;
 import com.coral.foundation.jpa.search.SearchFilterFactory;
+import com.coral.foundation.persistence.BaseEntity;
 import com.coral.foundation.spring.bean.SpringContextUtils;
-import com.coral.vaadin.controller.Presenter;
 import com.coral.foundation.utils.StrUtils;
+import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.impl.SearchPanel.SearchListener;
 import com.coral.vaadin.widget.component.GlobleSearchWidget.GlobleSearchListener;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
-import com.mocha.vaadin.entity.view.InsuranceCompanySearch;
+import com.mocha.ib.dao.InsuranceCompanyDao;
 import com.mocha.ib.model.InsuranceCompany;
-
-import com.vaadin.ui.Button;
+import com.mocha.vaadin.entity.view.InsuranceCompanySearch;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -28,7 +27,7 @@ public class InsuranceCompanySearchPresenter extends AppCommonPresenter implemen
 		this.eventBus = eventBus;
 		this.viewer = new InsuranceCompanySearch();
 		// load all data.
-		List entities = dao.findAll();
+		List entities = dao.loadAll();
 		viewer.setValue(entities);
 	}
 

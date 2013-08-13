@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.CommerceCustomer + "</p>
@@ -12,84 +10,70 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "CommerceCustomer")
 @Table(name = "T_COMMERCE_CUSTOMER")
-public class CommerceCustomer extends BaseEntity {
+public class CommerceCustomer extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "COMMERCE_CUSTOMER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="COMMERCECUSTOMERID_SEQ")
+	@TableGenerator(name="COMMERCECUSTOMERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long commerceCustomerId;
 	
-	@Basic(optional = true)
 	@Column(name = "CUSTOMER_TYPE" )
 	private String customerType;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = SourceApplication.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=SourceApplication.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="COMMERCE_CUSTOMER_ID")
 	private List<SourceApplication> sourceApplications = new ArrayList<SourceApplication>();
 	
-	@Basic(optional = true)
 	@Column(name = "DISTRICT" )
 	private String district;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "POSTCODE" )
 	private String postcode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ADDRESS" )
 	private String address;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CONTECT_PERSON" )
 	private String contectPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MOBILE" )
 	private String mobile;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PHONE" )
 	private String phone;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FAX" )
 	private String fax;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser referUser;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Order.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Order.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="COMMERCE_CUSTOMER_ID")
 	private List<Order> orders = new ArrayList<Order>();
 	
@@ -193,10 +177,6 @@ public class CommerceCustomer extends BaseEntity {
 
 	public Long getID() {
 		return getCommerceCustomerId();
-	}
-	
-	public void setID(Long id) {
-		setCommerceCustomerId(id);
 	}
 }
 

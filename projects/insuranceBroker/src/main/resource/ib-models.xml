@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
-	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	daoImplPackage="com.mocha.ib.dao"
 	servicePackage="com.mocha.ib.service">
 	
 	<entity entityName="InsuranceCustomer">

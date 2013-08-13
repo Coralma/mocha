@@ -2,9 +2,7 @@ package com.mocha.ib.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.ib.model.Claim + "</p>
@@ -12,34 +10,30 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Claim")
 @Table(name = "T_CLAIM")
-public class Claim extends BaseEntity {
+public class Claim extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CLAIM_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CLAIMID_SEQ")
+	@TableGenerator(name="CLAIMID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long claimId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Policy.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "policy") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="policy")
 	private Policy policy;
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CLAIM_REASON" )
 	private String claimReason;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CLAIM_AMOUNT" )
 	private String claimAmount;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
@@ -84,10 +78,6 @@ public class Claim extends BaseEntity {
 
 	public Long getID() {
 		return getClaimId();
-	}
-	
-	public void setID(Long id) {
-		setClaimId(id);
 	}
 }
 

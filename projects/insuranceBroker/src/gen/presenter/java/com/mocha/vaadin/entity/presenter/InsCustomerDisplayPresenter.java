@@ -1,17 +1,15 @@
 package com.mocha.vaadin.entity.presenter;
 
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.EntityDisplayPanel.EntityDisplayListener;
 import com.coral.vaadin.view.template.sat.panel.impl.ListSectionPanel;
-import com.coral.vaadin.widget.fields.CodeTableWidget;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.ib.dao.InsuranceCustomerDao;
 import com.mocha.ib.model.InsuranceCustomer;
-import com.mocha.ib.model.InsuranceCustomerServe;
 import com.mocha.ib.model.Policy;
 import com.mocha.vaadin.entity.view.InsCustomerDisplay;
 import com.vaadin.ui.Button.ClickEvent;

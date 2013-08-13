@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.Order + "</p>
@@ -12,60 +10,51 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Order")
 @Table(name = "T_ORDER")
-public class Order extends BaseEntity {
+public class Order extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "ORDER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="ORDERID_SEQ")
+	@TableGenerator(name="ORDERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long orderId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = CommerceCustomer.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "customer") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="customer")
 	private CommerceCustomer customer;
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PURCHASE_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date purchaseDate;
 	
-	@Basic(optional = true)
 	@Column(name = "EXCEPTED_SHIP_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date exceptedShipDate;
 	
-	@Basic(optional = true)
 	@Column(name = "ESTIMATED_DELIVERY" )
 	@Temporal(TemporalType.DATE)
 	private Date estimatedDelivery;
 	
-	@Basic(optional = true)
 	@Column(name = "SHIPPING_SERVICE" )
 	private String shippingService;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SALES_CHANNEL" )
 	private String salesChannel;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ORDER_TOTALS" )
 	private String orderTotals;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ORDER_PRODUCT_SUMMARY" )
 	private String orderProductSummary;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = OrderProduct.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=OrderProduct.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="ORDER_ID")
 	private List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
 	
@@ -139,10 +128,6 @@ public class Order extends BaseEntity {
 
 	public Long getID() {
 		return getOrderId();
-	}
-	
-	public void setID(Long id) {
-		setOrderId(id);
 	}
 }
 

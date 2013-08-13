@@ -1,14 +1,28 @@
 package com.mocha.ib.dao;
+
 import java.util.List;
-import com.coral.foundation.jpa.Dao;
-import com.mocha.ib.model.*;
+
+import javax.persistence.Query;
+
+import com.coral.foundation.persistence.BaseDao;
+import com.mocha.ib.model.InsuranceCompany;
+import com.mocha.ib.model.InsuranceProduct;
 
 /**
   * InsuranceProductDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface InsuranceProductDao extends Dao<InsuranceProduct> {
+public class InsuranceProductDao extends BaseDao<InsuranceProduct> {
 	
-	public List<InsuranceProduct> findProductByCompany(InsuranceCompany company);
+	@Override
+	public Class<InsuranceProduct> getEntityClass() {
+		return InsuranceProduct.class;
+	}
+	
+	public List<InsuranceProduct> findProductByCompany(InsuranceCompany company) {
+		Query query = getEntityManager().createQuery("from InsuranceProduct t where t.insuranceCompany=:insuranceCompany",InsuranceProduct.class);
+		query.setParameter("insuranceCompany", company);
+		List<InsuranceProduct> products = query.getResultList();
+		return products;
+	}
 }
 

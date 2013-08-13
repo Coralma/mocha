@@ -2,9 +2,7 @@ package com.mocha.ib.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.ib.model.InsuranceCustomerServe + "</p>
@@ -12,49 +10,42 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "InsuranceCustomerServe")
 @Table(name = "T_INSURANCE_CUSTOMER_SERVE")
-public class InsuranceCustomerServe extends BaseEntity {
+public class InsuranceCustomerServe extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "INSURANCE_CUSTOMER_SERVE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="INSURANCECUSTOMERSERVEID_SEQ")
+	@TableGenerator(name="INSURANCECUSTOMERSERVEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long insuranceCustomerServeId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = InsuranceCustomer.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "customer") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="customer")
 	private InsuranceCustomer customer;
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRIORITY" )
 	private String priority;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "RESULT" )
 	private String result;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FEEDBACK" )
 	private String feedback;
 	
@@ -117,10 +108,6 @@ public class InsuranceCustomerServe extends BaseEntity {
 
 	public Long getID() {
 		return getInsuranceCustomerServeId();
-	}
-	
-	public void setID(Long id) {
-		setInsuranceCustomerServeId(id);
 	}
 }
 
