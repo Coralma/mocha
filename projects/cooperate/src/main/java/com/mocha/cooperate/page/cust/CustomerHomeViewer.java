@@ -4,14 +4,12 @@ import java.util.List;
 
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.DefaultSectionPanel;
-import com.coral.vaadin.view.template.sat.panel.impl.EditableSection;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.fields.FieldFactory;
 import com.coral.vaadin.widget.fields.FieldStatus;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.google.common.collect.Lists;
-import com.mocha.cooperate.SystemProperty;
 import com.mocha.ib.model.Claim;
 import com.mocha.ib.model.InsuranceCustomer;
 import com.mocha.ib.model.Policy;

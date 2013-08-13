@@ -3,8 +3,6 @@
  */
 package com.mocha.cooperate.service.test;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,8 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.service.BasicUserService;
-import com.mocha.cooperate.basic.dao.NotifyLineDao;
-import com.mocha.cooperate.basic.dao.impl.NotifyLineDaoImpl;
 import com.mocha.cooperate.service.NotifyLineService;
 
 /**

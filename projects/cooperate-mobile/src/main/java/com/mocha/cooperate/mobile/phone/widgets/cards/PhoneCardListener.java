@@ -1,6 +1,6 @@
 package com.mocha.cooperate.mobile.phone.widgets.cards;
 
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 
 public interface PhoneCardListener {
 

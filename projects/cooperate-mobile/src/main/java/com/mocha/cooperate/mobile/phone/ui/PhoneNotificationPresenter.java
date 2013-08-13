@@ -3,12 +3,11 @@ package com.mocha.cooperate.mobile.phone.ui;
 import java.util.List;
 
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.mocha.cooperate.mobile.phone.widgets.cards.PhoneCardListener;
 import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
-import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.service.NotifyLineService;
 import com.mocha.mobile.controller.AbstractMobilePresenter;

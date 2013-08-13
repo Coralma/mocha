@@ -2,39 +2,22 @@ package com.mocha.cooperate.service.test;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
-
-import org.hibernate.annotations.Table;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.persister.entity.AbstractEntityPersister;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import ch.qos.logback.core.db.dialect.DBUtil;
-
-import com.coral.foundation.filter.HibernateUtil;
-import com.coral.foundation.jdbc.impl.DBToolUtil;
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.report.AppCusteomReportService;
 import com.coral.foundation.report.ReportConfiguration;
-import com.coral.foundation.security.basic.dao.ReportTableDao;
 import com.coral.foundation.security.model.Account;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
@@ -43,10 +26,6 @@ import com.coral.foundation.security.model.ReportJoinTable;
 import com.coral.foundation.security.model.ReportTable;
 import com.coral.foundation.security.service.BasicUserService;
 import com.coral.foundation.spring.bean.SpringContextUtils;
-import com.coral.foundation.utils.UUIDGenerater;
-import com.mocha.cooperate.SystemProperty;
-import com.mocha.cooperate.model.File;
-import com.mocha.cooperate.service.UserFileService;
 import com.thoughtworks.xstream.XStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -69,7 +48,7 @@ public class AppReportServiceTest {
 
 		// subJoinTable basic info
 		ReportTable subTable = new ReportTable();
-		subTable.setID(1L);
+		subTable.setReportTableId(1L);
 		subTable.setTableName("t_user");
 		subTable.setType("2");
 
@@ -211,8 +190,8 @@ public class AppReportServiceTest {
 
 	@Test
 	public void loadDBSchemaTest() {
-		DBToolUtil dbToolUtil = new DBToolUtil();
-		Map<String,ReportTable> reportTables=dbToolUtil.loadBasicTableInfo();
+//		DBToolUtil dbToolUtil = new DBToolUtil();
+//		Map<String,ReportTable> reportTables=dbToolUtil.loadBasicTableInfo();
 		
 //		dbToolUtil.loadAdvancedTableInfo(reportTables);
 	}

@@ -196,8 +196,8 @@ public class FileListWidget extends VerticalLayout implements LayoutClickListene
 		fileListLayout.setExpandRatio(typeLabel, 2);
 		
 		Label modifiedLabel = new Label();
-		if(file.getLastModifiedTime() != null) {
-			modifiedLabel.setValue(DateUtils.date2String(file.getLastModifiedTime()));
+		if(file.getUpdateTime() != null) {
+			modifiedLabel.setValue(DateUtils.date2String(file.getUpdateTime()));
 		}
 //		Label modifiedLabel = new Label(DateUtils.date2String(file.getLastModifiedTime()));
 		fileListLayout.addComponent(modifiedLabel);
