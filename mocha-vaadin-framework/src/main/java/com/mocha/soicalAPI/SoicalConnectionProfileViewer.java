@@ -1,6 +1,7 @@
 package com.mocha.soicalAPI;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -15,8 +16,14 @@ import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
+import com.coral.vaadin.widget.table.PagedTable;
+import com.coral.vaadin.widget.table.PagedTableContainer;
 import com.vaadin.Application;
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.Container.Indexed;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.terminal.Resource;
@@ -28,6 +35,7 @@ import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
@@ -117,26 +125,69 @@ public class SoicalConnectionProfileViewer extends EntityViewPanel implements Vi
 
 		Label email = WidgetFactory.createCaptionLabel("Email Address", "");
 		userFormLayout.addComponent(email);
-		mainLayout.addComponent(userFormLayout);
+
 		settingContentPanel.addComponent(settingSection);
 
+		syncStatusBtn.addStyleName("mocha-button");
+		settingContentPanel.addComponent(getSyncStatusBtn());
+		settingContentPanel.setComponentAlignment(getSyncStatusBtn(), Alignment.TOP_RIGHT);
+
+		mainLayout.addComponent(userFormLayout);
+
+		buildUpdateMessageLayout();
+	}
+
+	private void buildUpdateMessageLayout() {
+
+		// VerticalLayout recentlyLayout = new VerticalLayout();
+		// recentlyLayout.setCaption("Recent Updates Messages");
+		// List<LinkedinConnectionNetworkUpdate> updates = getLinkedConn().getLinkedinConnectionNetworkUpdate();
+		// HashSet<String> updateMessages = new HashSet<String>();
+		// Indexed messageConatiner = new IndexedContainer(updateMessages);
+		// if (updates != null && updates.size() > 0) {
+		// VerticalLayout recentlyLayoutMessage = new VerticalLayout();
+		// recentlyLayoutMessage.setCaption("User Update Message");
+		// recentlyLayoutMessage.addStyleName("linkedinConnectionsUpdateMessageLayout");
+		//
+		// PagedTableContainer ic = new PagedTableContainer(messageConatiner);
+		// ic.setPageLength(messageConatiner.size());
+		// ic.addContainerProperty("Update Message", String.class, null);
+		// int i = 0;
+		// for (LinkedinConnectionNetworkUpdate update : updates) {
+		// if (update.getUpdateMessage() != null) {
+		// updateMessages.add(update.getUpdateMessage());
+		// Item item = messageConatiner.addItem(i++);
+		// item.getItemProperty("Update Message").setValue(update.getUpdateMessage());
+		// }
+		// }
+		// }
+		// PagedTable pt = new PagedTable("");
+		// pt.setWidth("800px");
+		// pt.setContainerDataSource(messageConatiner);
+		// settingContentPanel.addComponent(pt);
+		// pt.getItemsPerPageSelect().setVisible(false);
+		// recentlyLayout.addComponent(pt);
+		// recentlyLayout.addComponent(pt.createControls());
+		// this.addComponent(recentlyLayout);
+
 		VerticalLayout recentlyLayout = new VerticalLayout();
-		userFormLayout.addComponent(recentlyLayout);
-		// Label recentlyLayoutCaption = WidgetFactory.createCaptionLabel("Recent Updates", "");
 		recentlyLayout.setCaption("Recent Updates Messages");
+		recentlyLayout.setStyleName("linkedinConnectionsUpdateMessageLayout");
+
 		List<LinkedinConnectionNetworkUpdate> updates = getLinkedConn().getLinkedinConnectionNetworkUpdate();
 		if (updates != null && updates.size() > 0) {
 			for (LinkedinConnectionNetworkUpdate update : updates) {
 				if (update.getUpdateMessage() != null) {
-					Label updateLabel = WidgetFactory.createCaptionLabel("Update Messages", update.getUpdateMessage());
-					recentlyLayout.addComponent(updateLabel);
+					Label updateMessage = new Label();
+					updateMessage.addStyleName("connectionMessage");
+					updateMessage.setCaption(update.getUpdateMessage());
+					recentlyLayout.addComponent(updateMessage);
+					recentlyLayout.setComponentAlignment(updateMessage, Alignment.MIDDLE_LEFT);
 				}
 			}
-
 		}
-		syncStatusBtn.addStyleName("mocha-button");
-		settingContentPanel.addComponent(getSyncStatusBtn());
-		settingContentPanel.setComponentAlignment(getSyncStatusBtn(),Alignment.TOP_RIGHT);
+		this.addComponent(recentlyLayout);
+
 	}
 
 	public NativeButton getSyncStatusBtn() {

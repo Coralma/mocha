@@ -1,10 +1,12 @@
 package com.coral.vaadin.widget.view.builder;
 
 import java.io.File;
+import java.net.URL;
 
 import com.coral.foundation.md.model.ViewSection;
 import com.coral.vaadin.widget.layout.Section;
 import com.vaadin.Application;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.FileResource;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
@@ -46,37 +48,50 @@ public class PageBuildHelper {
 		Section section = builder.build(viewSection, null);
 		return section;
 	}
-	
+
 	public static Embedded buildUserPhoto(String url, Application application) {
 		Embedded userPhoto;
 		if (url == null) {
-			userPhoto = new Embedded(null, new ThemeResource(
-					"images/user_photo.jpg"));
-		} else {
+			userPhoto = new Embedded(null, new ThemeResource("images/user_photo.jpg"));
+		}
+		else {
 			File imageFile = new File(url);
 			FileResource fResource = new FileResource(imageFile, application);
 			userPhoto = new Embedded(null, fResource);
 		}
 		return userPhoto;
 	}
-	
+
+	public static Embedded buildUserPhotoFromURL(URL url, Application application) {
+		Embedded userPhoto;
+		if (url == null) {
+			userPhoto = new Embedded(null, new ThemeResource("images/user_photo.jpg"));
+		}
+		else {
+			Resource fResource = new ExternalResource(url);
+			userPhoto = new Embedded(null, fResource);
+			userPhoto.setType(Embedded.TYPE_IMAGE);
+		}
+		return userPhoto;
+	}
+
 	public static Resource getUserPhotoResource(String url, Application application) {
 		if (url == null) {
 			return new ThemeResource("images/user_photo.jpg");
-		} else {
+		}
+		else {
 			File imageFile = new File(url);
 			FileResource fResource = new FileResource(imageFile, application);
 			return fResource;
 		}
 	}
-	
+
 	public static Embedded buildThemeUserPhoto(String url, Application application) {
 		Embedded userPhoto = new Embedded(null, new ThemeResource(url));
 		return userPhoto;
 	}
 
-	public static Embedded buildUserPhoto(File imageFile,
-			Application application) {
+	public static Embedded buildUserPhoto(File imageFile, Application application) {
 		FileResource fResource = new FileResource(imageFile, application);
 		Embedded userPhoto = new Embedded(null, fResource);
 		return userPhoto;

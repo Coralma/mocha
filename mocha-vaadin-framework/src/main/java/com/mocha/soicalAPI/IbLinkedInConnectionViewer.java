@@ -43,7 +43,6 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 	private static final long serialVersionUID = 1L;
 	String width = "500px";
 	private BasicUser user;
-//	private VerticalLayout mainLayout = new VerticalLayout();
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
 	private Button allLink = WidgetFactory.createLink("All LinkedIn Connections");
 	private Button followedLink = WidgetFactory.createLink("Followed Connections");
@@ -61,14 +60,6 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		removeAllComponents();
 		buildToolBar();
 		buildSearchConnectionLayout();
-//		buildFollowedConnectionsLayout();
-		// Layout portalLayout = buildPortalLayout();
-		// Panel columnPanel = buildPanel("Connections Panel");
-		// VerticalLayout columnLayout = new VerticalLayout();
-		// columnLayout.setSizeFull();
-		// columnLayout.setMargin(false);
-		// portalLayout.addComponent(columnPanel);
-//		this.addComponent(getMainLayout());
 	}
 
 	public void buildFollowedConnectionsLayout() {
@@ -83,7 +74,7 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		buildToolBar();
 		buildConnectsInfo();
 	}
-	
+
 	private void buildToolBar() {
 		ToolbarAdvance toolbar = new ToolbarAdvance();
 		toolbar.setToolbarWidth(RuntimeConstant.APP_CONTENT_WIDTH);
@@ -105,11 +96,10 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 
 	protected void buildConnectsInfo() {
 		VerticalLayout portalLayout = new VerticalLayout();
-		portalLayout.setSizeFull();
 		portalLayout.addStyleName("app-dashboard");
 		portalLayout.setSpacing(true);
-//		portalLayout.setWidth(width);
-		
+		// portalLayout.setWidth(width);
+
 		LinkedinImpl apiImpl = new LinkedinImpl();
 		// List<LinkedinConnection> connections = user.getSoicalApp().get(0).getLinkedinPersonProfiles().get(0).getLinkedinConnections();
 
@@ -119,7 +109,7 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 				if (soicalApp.getLinkedinPersonProfiles() != null) {
 					List<LinkedinPersonProfile> profiles = soicalApp.getLinkedinPersonProfiles();
 					for (LinkedinPersonProfile lp : soicalApp.getLinkedinPersonProfiles()) {
-						this.personProfile=lp;
+						this.personProfile = lp;
 						if (lp.getLinkedinConnections().size() > 0) {
 							connections = lp.getLinkedinConnections();
 						}
@@ -146,26 +136,23 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 				}
 			}
 		}
-		
+
 		VerticalLayout userInfoLayout = new VerticalLayout();
 		userInfoLayout.setSpacing(true);
 		userInfoLayout.addStyleName("linkedinUserInfoLayout");
 		portalLayout.addComponent(userInfoLayout);
 
 		HashSet<LinkedinConnectsCard> linkedinConnectsCards = new HashSet<LinkedinConnectsCard>();
-		
+
 		Indexed conatiner = new IndexedContainer(linkedinConnectsCards);
 		PagedTableContainer ic = new PagedTableContainer(conatiner);
-		
 		ic.setPageLength(connections.size());
 		ic.addContainerProperty("LinkedinConnectsCard", LinkedinConnectsCard.class, null);
 		int i = 0;
 		for (LinkedinConnection connect : connections) {
 			connect.setLinkedinPersonProfile(personProfile);
-			
-			LinkedinConnectsCard lCard = new LinkedinConnectsCard(connect,this.personProfile);
+			LinkedinConnectsCard lCard = new LinkedinConnectsCard(connect, this.personProfile);
 			linkedinConnectsCards.add(lCard);
-			
 			Item item = conatiner.addItem(i++);
 			item.getItemProperty("LinkedinConnectsCard").setValue(lCard);
 		}
@@ -175,8 +162,8 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		userInfoLayout.addComponent(pt);
 		pt.getItemsPerPageSelect().setVisible(false);
 		userInfoLayout.addComponent(pt.createControls());
-		this.addComponent(portalLayout);
 		this.requestRepaintAll();
+		this.addComponent(portalLayout);
 	}
 
 	protected void buildPersonInfo() {

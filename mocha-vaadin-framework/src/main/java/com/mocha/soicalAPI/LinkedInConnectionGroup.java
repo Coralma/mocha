@@ -21,8 +21,9 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 	public String category;
 	public List<LinkedinConnection> linkedInConnections;
 	public LinkedinThumbnailListener tnListener;
-	private NativeButton viewDetailBtn=new NativeButton("View Details");
+	private NativeButton viewDetailBtn = new NativeButton("View Details");
 	private LinkedinConnection selectedConn;
+	private int connNum = 10;
 
 	public LinkedInConnectionGroup(String category, List<LinkedinConnection> linkedInConnections) {
 		this.category = category;
@@ -33,12 +34,13 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 
 	public void attach() {
 		Label categoryLabel = new Label();
+		categoryLabel.setHeight("5px");
 		categoryLabel.setIcon(new ThemeResource("icons/linkedin.ico"));
 		categoryLabel.setCaption(category);
 		categoryLabel.addStyleName("report-category");
 		this.addComponent(categoryLabel);
 
-		GridLayout groupLayout = new GridLayout(4, 10);
+		GridLayout groupLayout = new GridLayout(4, getConnNum());
 		groupLayout.setSpacing(true);
 		groupLayout.setSizeFull();
 		if (linkedInConnections == null || linkedInConnections.size() == 0) {
@@ -46,12 +48,12 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 		}
 		else {
 			for (final LinkedinConnection linkedinCon : linkedInConnections) {
-				LinkedinConnectionthumbnailCard linkedConCard = new LinkedinConnectionthumbnailCard(linkedinCon,linkedinCon.getLinkedinPersonProfile());
+				LinkedinConnectionthumbnailCard linkedConCard = new LinkedinConnectionthumbnailCard(linkedinCon, linkedinCon.getLinkedinPersonProfile());
 				linkedConCard.setWidth("100px");
 				groupLayout.addComponent(linkedConCard);
 				groupLayout.setComponentAlignment(linkedConCard, Alignment.MIDDLE_LEFT);
 				linkedConCard.addListener(new LayoutClickListener() {
-					
+
 					@Override
 					public void layoutClick(LayoutClickEvent event) {
 						setSelectedConn(linkedinCon);
@@ -59,19 +61,19 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 					}
 				});
 			}
-			
-//			// add the empty
-//			int appSize = linkedInConnections.size();
-//			int c = appSize % 3;
-//			if (c != 0) {
-//				c = 3 - c;
-//			}
-//			for (int i = 0; i < c; i++) {
-//				VerticalLayout layout = new VerticalLayout();
-//				layout.setWidth("248px");
-//				layout.addComponent(WidgetFactory.createLabel(" "));
-//				groupLayout.addComponent(layout);
-//			}
+
+			// // add the empty
+			// int appSize = linkedInConnections.size();
+			// int c = appSize % 3;
+			// if (c != 0) {
+			// c = 3 - c;
+			// }
+			// for (int i = 0; i < c; i++) {
+			// VerticalLayout layout = new VerticalLayout();
+			// layout.setWidth("248px");
+			// layout.addComponent(WidgetFactory.createLabel(" "));
+			// groupLayout.addComponent(layout);
+			// }
 		}
 		this.addComponent(groupLayout);
 	}
@@ -90,5 +92,13 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 
 	public void setSelectedConn(LinkedinConnection selectedConn) {
 		this.selectedConn = selectedConn;
+	}
+
+	public int getConnNum() {
+		return connNum;
+	}
+
+	public void setConnNum(int connNum) {
+		this.connNum = connNum;
 	}
 }

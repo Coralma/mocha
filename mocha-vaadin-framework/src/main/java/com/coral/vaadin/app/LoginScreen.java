@@ -70,7 +70,7 @@ public class LoginScreen extends VerticalLayout {
 		FormLayout formLayout = new FormLayout();
 		formLayout.setSpacing(true);
 		formLayout.setMargin(true);
-		Panel loginPanel = new Panel();
+		final Panel loginPanel = new Panel();
 		loginPanel.setContent(formLayout);
 		loginPanel.setCaption(message.getString("login.Welcome"));
 		loginPanel.setWidth("500px");
@@ -106,22 +106,29 @@ public class LoginScreen extends VerticalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				String inputUserName = userName.getValue().toString();
-				String inputPassword = password.getValue().toString();
-				CommonSecurityManager cm = new CommonSecurityManager();
-				BasicUser user = cm.build().login(inputUserName, inputPassword);
-				if (user == null) {
-					errorHandling(inputUserName, inputPassword);
-					return;
-				}
-				else {
-					if (rememberMe.getValue().equals(true)) {
-						user.setRememberMe(true);
+				try {
+					String inputUserName = userName.getValue().toString();
+					String inputPassword = password.getValue().toString();
+					CommonSecurityManager cm = new CommonSecurityManager();
+					BasicUser user = cm.build().login(inputUserName, inputPassword);
+					if (user == null) {
+						errorHandling(inputUserName, inputPassword);
+						return;
 					}
-					AbstractMainPage homepage = SpringContextUtils.getBean("homepage", AbstractMainPage.class);
-					homepage.setResponse(response);
-					getApplication().setUser(user);
-					getWindow().setContent(homepage);
+					else {
+						if (rememberMe.getValue().equals(true)) {
+							user.setRememberMe(true);
+						}
+						AbstractMainPage homepage = SpringContextUtils.getBean("homepage", AbstractMainPage.class);
+						homepage.setResponse(response);
+						getApplication().setUser(user);
+						getWindow().setContent(homepage);
+					}
+				}
+				catch (NullPointerException e) {
+					log.error("Errors occus on user login page");
+					log.error(e.getMessage());
+					loginPanel.requestRepaintAll();
 				}
 			}
 

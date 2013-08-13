@@ -1,26 +1,18 @@
 package com.coral.foundation.linkedin;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate;
-import com.coral.foundation.security.model.LinkedinGroup;
 import com.google.code.linkedinapi.client.AsyncLinkedInApiClient;
 import com.google.code.linkedinapi.client.GroupsApiClient;
 import com.google.code.linkedinapi.client.LinkedInApiClient;
 import com.google.code.linkedinapi.client.LinkedInApiClientFactory;
-import com.google.code.linkedinapi.client.enumeration.CompanyField;
-import com.google.code.linkedinapi.client.enumeration.ConnectionModificationType;
-import com.google.code.linkedinapi.client.enumeration.GroupField;
 import com.google.code.linkedinapi.client.enumeration.GroupMembershipField;
 import com.google.code.linkedinapi.client.enumeration.NetworkUpdateType;
 import com.google.code.linkedinapi.client.enumeration.ProfileField;
@@ -102,8 +94,12 @@ public class LinkedinImpl {
 		// System.out.println("ship is: "+ship.getGroup().getName()+" Persion is: "+ship.getPerson().getFirstName());
 		// }
 		// }
-		LinkedInAccessToken token = new LinkedInAccessToken("ff40e54b-76b3-4c4a-b884-5086c914056e", "14f5262d-1bfc-49c7-be5f-49f57509b825");
-//		apiSample.getAllNetworkUpdate(token);
+//		LinkedInAccessToken token = new LinkedInAccessToken("ff40e54b-76b3-4c4a-b884-5086c914056e", "14f5262d-1bfc-49c7-be5f-49f57509b825");
+		LinkedinImpl impl=new LinkedinImpl();
+		
+		LinkedInAccessToken accessToken=new LinkedInAccessToken("3357e089-f96e-4162-927b-292e3a48eac1", "1b787100-4087-4b0e-a6a2-d79f87e7de22");
+		impl.getFollowedConNetworkUpdate(accessToken,null);
+		// apiSample.getAllNetworkUpdate(token);
 	}
 
 	public LinkedInOAuthService getOauthService() {
@@ -201,9 +197,11 @@ public class LinkedinImpl {
 			connection.setFirstName(p.getFirstName());
 			connection.setLastName(p.getLastName());
 			connection.setPictUrl(p.getPictureUrl());
+			
 			// if(p.getPositions()!=null && p.getPositions().getPositionList()!=null){
 			// connection.setCompanyName(p.getPositions().getPositionList().get(0).getCompany().getName());
 			// }
+			
 			if (p.getPositions() != null) {
 				for (Position po : p.getPositions().getPositionList()) {
 					Company company = po.getCompany();
@@ -225,7 +223,7 @@ public class LinkedinImpl {
 	}
 
 	@SuppressWarnings("unused")
-	public List<LinkedinConnectionNetworkUpdate> getFollowedConNetworkUpdate(LinkedInAccessToken accessToken,List<LinkedinConnection> conns) {
+	public List<LinkedinConnectionNetworkUpdate> getFollowedConNetworkUpdate(LinkedInAccessToken accessToken, List<LinkedinConnection> conns) {
 		AsyncLinkedInApiClient client = factory.createAsyncLinkedInApiClient(accessToken);
 		Set<LinkedinConnectionNetworkUpdate> updateModels = new HashSet<LinkedinConnectionNetworkUpdate>();
 		Set<NetworkUpdateType> networkUpdates = EnumSet.of(
@@ -233,11 +231,11 @@ public class LinkedinImpl {
 				NetworkUpdateType.CONNECTION_UPDATE, 
 				NetworkUpdateType.PROFILE_UPDATE,
 				NetworkUpdateType.STATUS_UPDATE, 
-				NetworkUpdateType.SHARED_ITEM,
-				NetworkUpdateType.GROUP_UPDATE,
+				NetworkUpdateType.SHARED_ITEM, 
+				NetworkUpdateType.GROUP_UPDATE, 
 				NetworkUpdateType.EXTENDED_PROFILE_UPDATE,
 				NetworkUpdateType.RECOMMENDATION_UPDATE);
-		
+
 		Network network;
 		boolean connFindFlg = false;
 		try {
@@ -245,12 +243,18 @@ public class LinkedinImpl {
 			Updates updates = network.getUpdates();
 			NetworkStats networkStats = network.getNetworkStats();
 			// System.out.println("Total updates fetched:" + network.getUpdates().getTotal());
+
 			for (Update update : network.getUpdates().getUpdateList()) {
-				for (LinkedinConnection con : conns) {
-					if (con.getFirstName().equals(update.getUpdateContent().getPerson().getFirstName())
-							&& con.getLastName().equals(update.getUpdateContent().getPerson().getLastName())) {
-						connFindFlg = true;
-						break;
+				if (conns == null) {
+					connFindFlg = true;
+				}
+				else {
+					for (LinkedinConnection con : conns) {
+						if (con.getFirstName().equals(update.getUpdateContent().getPerson().getFirstName())
+								&& con.getLastName().equals(update.getUpdateContent().getPerson().getLastName())) {
+							connFindFlg = true;
+							break;
+						}
 					}
 				}
 				if (connFindFlg) {
@@ -261,10 +265,6 @@ public class LinkedinImpl {
 					updateModel.setFirstName(person.getFirstName());
 					updateModel.setLastName(person.getLastName());
 					updateModel.setTimeStamp(update.getTimestamp().toString());
-//					System.out.println("-------------------------------");
-//					System.out.println(update.getUpdateKey() + ":" + update.getUpdateContent().getPerson().getFirstName() + " "
-//							+ update.getUpdateContent().getPerson().getLastName() + "->" + update.getUpdateContent().getPerson().getCurrentStatus()
-//							+ " return type is: " + update.getUpdateType().value());
 
 					// CONN case
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_ADDED_CONNECTIONS)) {
@@ -291,21 +291,29 @@ public class LinkedinImpl {
 						updateMessage.append(update.getUpdateContent().getPerson().getCurrentStatus());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-					
+
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_JOINED_GROUP)) {
 						updateMessage.append("join a new group:  ");
-						if(update.getUpdateContent().getPerson().getMemberGroups()!=null){
-							updateMessage.append(update.getUpdateContent().getPerson().getMemberGroups().getMemberGroupList().get(0).getName());							
+						if (update.getUpdateContent().getPerson().getMemberGroups() != null) {
+							updateMessage.append(update.getUpdateContent().getPerson().getMemberGroups().getMemberGroupList().get(0).getName());
 						}
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-					
-					if(!checkDuplidateUpdates(updateModels,updateModel)){
-						updateModels.add(updateModel);						
+
+					if (update.getUpdateType().equals(NetworkUpdateReturnType.NEW_CONNECTIONS)) {
+						updateMessage.append(person.getConnections().getPersonList().get(0).getFirstName());
+						updateMessage.append(".");
+						updateMessage.append(person.getConnections().getPersonList().get(0).getLastName());
+						updateMessage.append("has add a connection with " + person.getFirstName() + "." + person.getLastName());
+						updateModel.setUpdateMessage(updateMessage.toString());
+					}
+
+					if (!checkDuplidateUpdates(updateModels, updateModel)) {
+						updateModels.add(updateModel);
 					}
 				}
 			}
-			List<LinkedinConnectionNetworkUpdate> models=new ArrayList<LinkedinConnectionNetworkUpdate>();
+			List<LinkedinConnectionNetworkUpdate> models = new ArrayList<LinkedinConnectionNetworkUpdate>();
 			models.addAll(updateModels);
 			return models;
 		}
@@ -314,7 +322,8 @@ public class LinkedinImpl {
 		}
 		catch (ExecutionException e) {
 			e.printStackTrace();
-		}catch (NullPointerException e){
+		}
+		catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -322,12 +331,11 @@ public class LinkedinImpl {
 
 	// false means no duplicate found
 	private boolean checkDuplidateUpdates(Set<LinkedinConnectionNetworkUpdate> updateModels, LinkedinConnectionNetworkUpdate updateModel) {
-		
 		// init the updateModels first
-		if(updateModels.size()<1){
+		if (updateModels.size() < 1) {
 			return false;
 		}
-		
+
 		for (LinkedinConnectionNetworkUpdate m : updateModels) {
 			if (m.getFirstName().trim().equals(updateModel.getFirstName().trim())) {
 				if (m.getLastName().trim().equals(updateModel.getLastName().trim())) {
@@ -339,5 +347,4 @@ public class LinkedinImpl {
 		}
 		return false;
 	}
-
 }
