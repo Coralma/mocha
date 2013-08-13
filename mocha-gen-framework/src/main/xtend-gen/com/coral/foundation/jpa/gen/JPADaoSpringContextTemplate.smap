@@ -1,0 +1,22 @@
+SMAP
+JPADaoSpringContextTemplate.java
+Xtend
+*S Xtend
+*F
++ 0 JPADaoSpringContextTemplate.xtend
+src/main/java/com/coral/foundation/jpa/gen/JPADaoSpringContextTemplate.xtend
+*L
+12:14
+11:15
+15:19,43
+32:62
+15:63
+33:64,3
+34:67,3
+35:70,3
+36:73,5
+37:78,7
+15:85,4
+39:89,3
+15:92
+*E

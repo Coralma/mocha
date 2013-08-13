@@ -373,17 +373,25 @@ public class JPAEntityTemplate {
     _builder.append(_genDBName, "");
     _builder.append("\")");
     _builder.newLineIfNotEmpty();
-    String _upperCase = entityIdField.toUpperCase();
-    final String seqName = (_upperCase + "_SEQ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("@GeneratedValue(generator=\"");
-    _builder.append(seqName, "");
-    _builder.append("\")");
-    _builder.newLineIfNotEmpty();
-    _builder.append("@TableGenerator(name=\"");
-    _builder.append(seqName, "");
-    _builder.append("\", table=\"SEQUENCE\", pkColumnName=\"SEQ_NAME\", valueColumnName=\"SEQ_COUNT\", allocationSize=1)");
-    _builder.newLineIfNotEmpty();
+    {
+      boolean _isSpecifySeq = this.entity.isSpecifySeq();
+      if (_isSpecifySeq) {
+        String _upperCase = entityIdField.toUpperCase();
+        final String seqName = (_upperCase + "_SEQ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("@GeneratedValue(generator=\"");
+        _builder.append(seqName, "");
+        _builder.append("\")");
+        _builder.newLineIfNotEmpty();
+        _builder.append("@TableGenerator(name=\"");
+        _builder.append(seqName, "");
+        _builder.append("\", table=\"SEQUENCE\", pkColumnName=\"SEQ_NAME\", valueColumnName=\"SEQ_COUNT\", allocationSize=1)");
+        _builder.newLineIfNotEmpty();
+      } else {
+        _builder.append("@GeneratedValue(strategy=GenerationType.IDENTITY)");
+        _builder.newLine();
+      }
+    }
     return _builder;
   }
   

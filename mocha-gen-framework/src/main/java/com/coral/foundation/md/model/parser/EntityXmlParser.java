@@ -158,6 +158,10 @@ public class EntityXmlParser {
 			if (needViewStr != null) {
 				entity.setNeedView(Boolean.parseBoolean(needViewStr));
 			}
+			String specifySeq = handlerNode.attributeValue("specifySeq");
+			if (specifySeq != null) {
+				entity.setSpecifySeq(Boolean.parseBoolean(needViewStr));
+			}
 
 			List<Element> attributeList = handlerNode.elements("property");
 			for (Element attributeNode : attributeList) {

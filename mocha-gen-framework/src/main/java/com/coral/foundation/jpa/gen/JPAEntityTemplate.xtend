@@ -131,9 +131,13 @@ class JPAEntityTemplate {
 	def getIdAnnotation(String entityIdField)'''
 		@Id()
 		@Column (name = "«StrUtils::genDBName(entityIdField)»")
-		«val seqName = entityIdField.toUpperCase+ "_SEQ"»
-		@GeneratedValue(generator="«seqName»")
-		@TableGenerator(name="«seqName»", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
+		«IF entity.isSpecifySeq»
+			«val seqName = entityIdField.toUpperCase+ "_SEQ"»
+			@GeneratedValue(generator="«seqName»")
+			@TableGenerator(name="«seqName»", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
+		«ELSE»
+			@GeneratedValue(strategy=GenerationType.IDENTITY)
+		«ENDIF»
 	'''
 	def getDateAnnotation(String fieldName,String columnName) '''
 «««		@Column(name = "«StrUtils::genDBName(fieldName)»" )

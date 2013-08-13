@@ -1,0 +1,37 @@
+SMAP
+JPADaoTemplate.java
+Xtend
+*S Xtend
+*F
++ 0 JPADaoTemplate.xtend
+src/main/java/com/coral/foundation/jpa/gen/JPADaoTemplate.xtend
+*L
+19:27,2
+20:29
+21:30
+22:31
+23:32,2
+25:34
+26:35,2
+27:37,2
+19:39,3
+31:45
+33:46,3
+35:49,4
+36:53,3
+37:56,3
+31:59
+39:63,2
+40:65,5
+42:70,8
+39:78
+46:82,5
+48:87,7
+50:94,7
+46:101
+53:105,4
+55:109,5
+56:114,5
+53:119
+59:123,4
+*E

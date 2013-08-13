@@ -14,8 +14,7 @@ public class CodeTableValue extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CODE_TABLE_VALUE_ID")
-	@GeneratedValue(generator="CODETABLEVALUEID_SEQ")
-	@TableGenerator(name="CODETABLEVALUEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codeTableValueId;
 	
 	@Column(name = "CODE_TABLE_NAME" )

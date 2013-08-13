@@ -118,7 +118,7 @@
 		<property name="codeTables" type="List" ref="CodeTable" orm="one-to-many"/>
 	</entity>
 
-	<entity entityName="CodeTable">
+	<entity entityName="CodeTable" specifySeq="false">
 		<property name="name"/><!-- 		invoke name -->
 		<property name="ids"/>
 		<property name="parent"/>
@@ -127,7 +127,7 @@
 <!-- 		<property name="unitCodeTables" type="List" ref="CodeTable" orm="one-to-many"/> -->
 	</entity>
 	
-	<entity entityName="CodeTableValue">
+	<entity entityName="CodeTableValue" specifySeq="false">
 		<property name="codeTableName"/>
 		<property name="language"/>
 		<property name="datas"/>

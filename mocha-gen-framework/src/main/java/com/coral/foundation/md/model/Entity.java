@@ -19,6 +19,7 @@ public class Entity implements Serializable {
 	public List<Property> properties = new ArrayList<Property>();
 	public List<View> views = new ArrayList<View>();
 	public boolean needView;
+	public boolean specifySeq = true;
 	public String entityClass;
 	public Mocha mocha;
 	
@@ -124,4 +125,19 @@ public class Entity implements Serializable {
 	public void setMocha(Mocha mocha) {
 		this.mocha = mocha;
 	}
+
+	/**
+	 * @return the specifySeq
+	 */
+	public boolean isSpecifySeq() {
+		return specifySeq;
+	}
+
+	/**
+	 * @param specifySeq the specifySeq to set
+	 */
+	public void setSpecifySeq(boolean specifySeq) {
+		this.specifySeq = specifySeq;
+	}
+
 }
