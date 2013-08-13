@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.TimeLine + "</p>
@@ -12,27 +10,24 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "TimeLine")
 @Table(name = "T_TIME_LINE")
-public class TimeLine extends BaseEntity {
+public class TimeLine extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "TIME_LINE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="TIMELINEID_SEQ")
+	@TableGenerator(name="TIMELINEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long timeLineId;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = Status.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Status.class)
 	private Status status;
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = Discuss.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Discuss.class)
 	private Discuss discuss;
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = ToDo.class)
 	private ToDo todo;
 	
 
@@ -69,10 +64,6 @@ public class TimeLine extends BaseEntity {
 
 	public Long getID() {
 		return getTimeLineId();
-	}
-	
-	public void setID(Long id) {
-		setTimeLineId(id);
 	}
 }
 

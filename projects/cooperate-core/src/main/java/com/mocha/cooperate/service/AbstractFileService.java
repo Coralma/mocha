@@ -20,7 +20,7 @@ public abstract class AbstractFileService {
 	}
 	
 	public com.mocha.cooperate.model.File loadFileById(Long id) {
-		return fileDao.findById(id);
+		return fileDao.load(id);
 	}
 	
 	public String createPhysicalFolder(String folderPath) {

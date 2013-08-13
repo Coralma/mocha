@@ -1,13 +1,16 @@
 package com.mocha.cooperate.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.cooperate.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * ChatNotifyDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface ChatNotifyDao extends Dao<ChatNotify> {
+public class ChatNotifyDao extends BaseDao<ChatNotify> {
 	
+	@Override
+	public Class<ChatNotify> getEntityClass() {
+		return ChatNotify.class;
+	}
 }
 

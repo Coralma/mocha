@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.Shotcut + "</p>
@@ -12,20 +10,19 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Shotcut")
 @Table(name = "T_SHOTCUT")
-public class Shotcut extends BaseEntity {
+public class Shotcut extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SHOTCUT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SHOTCUTID_SEQ")
+	@TableGenerator(name="SHOTCUTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long shotcutId;
 	
-	@Basic(optional = true)
 	@Column(name = "TITLE" )
 	private String title;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ShotcutItem.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ShotcutItem.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="SHOTCUT_ID")
 	private List<ShotcutItem> shotcutItems = new ArrayList<ShotcutItem>();
 	
@@ -51,10 +48,6 @@ public class Shotcut extends BaseEntity {
 
 	public Long getID() {
 		return getShotcutId();
-	}
-	
-	public void setID(Long id) {
-		setShotcutId(id);
 	}
 }
 

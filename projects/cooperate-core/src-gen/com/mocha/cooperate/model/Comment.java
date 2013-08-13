@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.Comment + "</p>
@@ -12,39 +10,34 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Comment")
 @Table(name = "T_COMMENT")
-public class Comment extends BaseEntity {
+public class Comment extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "COMMENT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="COMMENTID_SEQ")
+	@TableGenerator(name="COMMENTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long commentId;
 	
-	@Basic(optional = true)
-	@Column(name = "CONTENT" )
+	@Column(name = "CONTENT" ,length = 1000)
 	private String content;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Status.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "status") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="status")
 	private Status status;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Discuss.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "discuss") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="discuss")
 	private Discuss discuss;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "todo") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="todo")
 	private ToDo todo;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Attachment.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Attachment.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="COMMENT_ID")
 	private List<Attachment> attachments = new ArrayList<Attachment>();
 	
@@ -94,10 +87,6 @@ public class Comment extends BaseEntity {
 
 	public Long getID() {
 		return getCommentId();
-	}
-	
-	public void setID(Long id) {
-		setCommentId(id);
 	}
 }
 

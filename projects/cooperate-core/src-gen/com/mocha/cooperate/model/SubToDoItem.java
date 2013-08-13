@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.SubToDoItem + "</p>
@@ -12,40 +10,35 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "SubToDoItem")
 @Table(name = "T_SubToDoItem")
-public class SubToDoItem extends BaseEntity {
+public class SubToDoItem extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SUB_TO_DO_ITEM_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SUBTODOITEMID_SEQ")
+	@TableGenerator(name="SUBTODOITEMID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long subToDoItemId;
 	
-	@Basic(optional = true)
 	@Column(name = "CONTENT" )
 	private String content;
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser assginedUser;
 	
-	@Basic(optional = true)
 	@Column(name = "EXPIRED_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date expiredDate;
 	
-	@Basic(optional = true)
 	@Column(name = "FINISH_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date finishDate;
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private Long status = new Long(0);
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "ToDo") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="ToDo")
 	private ToDo ToDo;
 	
 
@@ -94,10 +87,6 @@ public class SubToDoItem extends BaseEntity {
 
 	public Long getID() {
 		return getSubToDoItemId();
-	}
-	
-	public void setID(Long id) {
-		setSubToDoItemId(id);
 	}
 }
 

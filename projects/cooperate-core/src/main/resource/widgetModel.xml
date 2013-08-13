@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="policy" entityPackage="com.mocha.cooperate.model"
-	daoIntfPackage="com.mocha.cooperate.basic.dao" daoImplPackage="com.mocha.cooperate.basic.dao.impl">
+	daoImplPackage="com.mocha.cooperate.basic.dao">
 	
 	<entity entityName="TimeLine">
 		<property name="creator" type="com.coral.foundation.security.model.BasicUser" 
@@ -19,7 +19,7 @@
 		<property name="notifyLines" type="List" ref="NotifyLine" orm="one-to-many"/>
 	</entity>
 	<entity entityName="Discuss">
-		<property name="title" label="Title" required="true" />
+		<property name="title" label="Title" required="true" length="500"/>
 		<property name="content" label="Content" style="rich" required="true" length="1000"/>
 		<property name="status" /><!-- null for discuss, Q for question, I for Information-->
 		<property name="creator" label="Creator" type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
@@ -28,7 +28,7 @@
 		<property name="notifyLines" label="NotifyLine" type="List" ref="NotifyLine" orm="one-to-many"/>
 	</entity>
 	<entity entityName="Comment">
-		<property name="content" label="Content" style="rich" required="true" />
+		<property name="content" label="Content" style="rich" required="true" length="1000"/>
 		<property name="status" type="Status" ref="Status" orm="many-to-one" />
 		<property name="discuss" type="Discuss" ref="Discuss" orm="many-to-one" />
 		<property name="todo" type="ToDo" ref="ToDo" orm="many-to-one" />

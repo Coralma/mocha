@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.ChatPerson + "</p>
@@ -12,18 +10,17 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ChatPerson")
 @Table(name = "T_CHAT_PERSON")
-public class ChatPerson extends BaseEntity {
+public class ChatPerson extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CHAT_PERSON_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CHATPERSONID_SEQ")
+	@TableGenerator(name="CHATPERSONID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long chatPersonId;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser person;
 	
-	@Basic(optional = true)
 	@Column(name = "LEADER" )
 	private Long leader = new Long(0);
 	
@@ -50,10 +47,6 @@ public class ChatPerson extends BaseEntity {
 
 	public Long getID() {
 		return getChatPersonId();
-	}
-	
-	public void setID(Long id) {
-		setChatPersonId(id);
 	}
 }
 

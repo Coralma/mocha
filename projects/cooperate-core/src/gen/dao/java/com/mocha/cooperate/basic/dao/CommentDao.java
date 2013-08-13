@@ -1,13 +1,16 @@
 package com.mocha.cooperate.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.cooperate.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * CommentDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface CommentDao extends Dao<Comment> {
+public class CommentDao extends BaseDao<Comment> {
 	
+	@Override
+	public Class<Comment> getEntityClass() {
+		return Comment.class;
+	}
 }
 

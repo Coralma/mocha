@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
@@ -93,10 +95,11 @@ public class TimeLineService {
 //		return timeLineDao.loadActivityTodo(basicUser);
 //	}
 	
+	@Transactional
 	public TimeLine saveStatus(Status status, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
 		status.setCreator(creator);
-		status = statusDao.merge(status);
+//		statusDao.persist(status);
 		// store notification
 		List<NotifyLine> notifyLines = Lists.newArrayList();
 		if(notifiedUsers != null) {
@@ -108,9 +111,6 @@ public class TimeLineService {
 			}
 		}
 		status.setNotifyLines(notifyLines);
-//		for(Attachment attachment : attachments) {
-//			attachment.set
-//		}
 		status.setAttachments(attachments);
 		if(attachments != null) {
 			for(Attachment attachment : attachments) {
@@ -119,16 +119,18 @@ public class TimeLineService {
 		}
 		timeLine.setStatus(status);
 		timeLine.setCreator(creator);
-		timeLineDao.merge(timeLine);
+//		timeLineDao.merge(timeLine);
+		timeLineDao.persist(timeLine);
 		return timeLine;
 	}
 	
+	@Transactional
 	public TimeLine saveDiscuss(Discuss discuss, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
 		if(discuss.getID() != null) {
 			timeLine = queryTimelineByDiscuss(discuss);
 		}
-		discuss = discussDao.merge(discuss);
+//		discuss = discussDao.merge(discuss);
 		// store notification
 		List<NotifyLine> notifyLines = Lists.newArrayList();
 		if(notifiedUsers != null) {
@@ -146,16 +148,18 @@ public class TimeLineService {
 		}
 		timeLine.setDiscuss(discuss);
 		timeLine.setCreator(creator);
-		timeLineDao.merge(timeLine);
+//		timeLineDao.merge(timeLine);
+		timeLineDao.persist(timeLine);
 		return timeLine;
 	}
 	
+	@Transactional
 	public TimeLine saveToDo(ToDo todo, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
 		if(todo.getID() != null) {
 			timeLine = queryTimelineByTodo(todo);
 		}
-		todo = toDoDao.merge(todo);
+//		todo = toDoDao.merge(todo);
 		// store notification
 		List<NotifyLine> notifyLines = Lists.newArrayList();
 		if(notifiedUsers != null) {
@@ -173,7 +177,11 @@ public class TimeLineService {
 		}
 		timeLine.setTodo(todo);
 		timeLine.setCreator(creator);
-		timeLineDao.merge(timeLine);
+		if(timeLine.getID() == null) {
+			timeLineDao.persist(timeLine);
+		} else {
+			timeLineDao.merge(timeLine);
+		}
 		return timeLine;
 	}
 	
@@ -239,7 +247,7 @@ public class TimeLineService {
  	
  	public Status replyStatus(Status status, Set<BasicUser> notifiedUsers) {
  		// mix notifyedUser with comment user;
- 		List<BasicUser> allNotifyUsers = Lists.newArrayList();
+/* 		List<BasicUser> allNotifyUsers = Lists.newArrayList();
  		for(Comment comment : status.getComments()) {
  			allNotifyUsers.add(comment.getCreator());
  		}
@@ -253,7 +261,7 @@ public class TimeLineService {
  		List<NotifyLine> notifyLines = status.getNotifyLines();
  		for(NotifyLine notifyLine : status.getNotifyLines()) {
  			notifyLine.setType(new Long(1));
- 			notifyLine.setLastModifiedTime(new Date());
+ 			notifyLine.setUpdateTime(new Date());
  			BasicUser notifyUser = notifyLine.getNotifiedUser();
  			BasicUser removedNotifyUser = null;
  			for(BasicUser newNotifyUser : allNotifyUsers) {
@@ -273,9 +281,11 @@ public class TimeLineService {
 			notifyLine.setStatus(status);
 			notifyLines.add(notifyLine);
  		}
- 		status.setNotifyLines(notifyLines);
+ 		status.setNotifyLines(notifyLines);*/
  		
- 		return statusDao.merge(status);
+// 		return statusDao.merge(status);
+ 		statusDao.persist(status);
+ 		return status;
  	}
 	
 	public Discuss updateDiscuss(Discuss discuss) {
