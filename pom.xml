@@ -186,11 +186,6 @@
 				<version>${vaadin.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.bsb.common.vaadin</groupId>
-				<artifactId>com.bsb.common.vaadin.embed</artifactId>
-				<version>0.4</version>
-			</dependency>						
-			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>customfield</artifactId>
 				<version>0.9.3</version>
@@ -207,34 +202,9 @@
 			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
-				<artifactId>buttongroup</artifactId>
-				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>ratingstars</artifactId>
-				<version>1.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>appfoundation</artifactId>
-				<version>1.3.5</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
 				<artifactId>invient-charts</artifactId>
 				<version>0.8.6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>vaadin-sqlcontainer</artifactId>
-				<version>1.1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>flexibleoptiongroup</artifactId>
-				<version>1.0.0</version>
-			</dependency>
+			</dependency>						
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>easyuploads</artifactId>
@@ -259,17 +229,7 @@
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>sessionguard</artifactId>
 				<version>0.0.5</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>popupbutton</artifactId>
-				<version>1.2.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>weelayout</artifactId>
-				<version>0.2.2</version>
-			</dependency>
+			</dependency>						
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>css-tools</artifactId>
@@ -282,19 +242,19 @@
 			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
-				<artifactId>refresher</artifactId>
-				<version>1.1.1</version>
+				<artifactId>buttongroup</artifactId>
+				<version>1.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>toolbox</artifactId>
-				<version>0.3.0</version>
+				<version>0.3.0</version> 
 			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
-				<artifactId>distributionbar</artifactId>
-				<version>0.3.3</version>
-			</dependency>
+				<artifactId>refresher</artifactId>
+				<version>1.1.1</version>
+			</dependency>			
 			<dependency>
 		   <groupId>com.vaadin.addon</groupId>
 		   <artifactId>vaadin-touchkit-agpl</artifactId>
