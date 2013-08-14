@@ -54,8 +54,7 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 			String[] columnNames = (String[]) reportResultSet.get(0);
 
 			for (String columnName : columnNames) {
-				contactContainer.addContainerProperty(columnName, String.class,
-						"");
+				contactContainer.addContainerProperty(columnName, String.class,"");
 			}
 			for (int i = 1; i < reportResultSet.size(); i++) {
 				String[] columnValues = (String[]) reportResultSet.get(i);
@@ -67,7 +66,8 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 			}
 			newReportViewer.setContactContainer(contactContainer);
 		}
-
+		
+		// edit case
 		if (reportId != null) {
 			mochaReport = mochaReportDao.findById(Long.valueOf(reportId
 					.toString()));

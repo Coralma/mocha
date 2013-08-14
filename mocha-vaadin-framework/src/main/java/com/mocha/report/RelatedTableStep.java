@@ -38,17 +38,30 @@ import com.vaadin.ui.Button.ClickListener;
 public class RelatedTableStep extends AbstarctReportWizardStep{
 	
 	String fieldWidth = "300px";
-	ArrayList<ReportTable> relateReportTables;
+	List<ReportTable> relateReportTables;
 	private Wizard w;
 	private WizardStep nStep;
 	private WizardStep pStep;
 	private BasicUser user;
+	private ReportTable editableReportTable;
+	private boolean isEditableFlg=false;
 	
 	public RelatedTableStep(Wizard w,BasicUser user) {
 		this.w=w;
 		nStep=new ReportFilterStep(w,user);
 //		pStep = new MainTableStep(w,user);
 		this.user=user;
+		getContent();
+	}
+	
+	
+	public RelatedTableStep(Wizard w, BasicUser user,List<ReportTable> relateReportTables) {
+		System.out.println("Relate user is: "+user.getUserName());
+		this.w=w;
+		this.user=user;
+		nStep=new ReportFilterStep(w,user);
+		this.isEditableFlg=true;
+		this.relateReportTables=relateReportTables;
 		getContent();
 	}
 
@@ -64,15 +77,13 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 
 	@Override
 	public Component getContent() {
-		System.out.println();
 		try {
 			if(user!=null && ReportModelPool.findReportModelByCurrentUser(user)!=null){
 				removeDuplciateRelateResult();
-				return buildRelatedTableStep();				
+				return buildRelatedTableStep();
 			}
-			return new Label("");
+			return null;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -88,15 +99,17 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		if(ReportModelPool.findReportModelByCurrentUser(user)==null){
 			throw new Exception("Error occurs when initialing the related data");
 		}
-		relateReportTables=new ArrayList<ReportTable>();
-		for(ReportTable r:ReportModelPool.findReportModelByCurrentUser(user).getReportTables())
-		{
-			if(r.getType().toString().equals(ReportConfiguration.ReportType.SubTable.toString())){
-				if(relateReportTables!=null){					
-					relateReportTables.add(r);
+		
+		if(relateReportTables==null || relateReportTables.size()==0 ){
+			relateReportTables=new ArrayList<ReportTable>();
+			for(ReportTable r:ReportModelPool.findReportModelByCurrentUser(user).getReportTables())
+			{
+				if(r.getType()!=null && r.getType().toString().equals(ReportConfiguration.ReportType.SubTable.toString())){
+					if(relateReportTables!=null){					
+						relateReportTables.add(r);
+					}
 				}
-			}
-				
+			}		
 		}
 		ReportTableEditor editor = new ReportTableEditor(getRelateTableModel(),ReportConfiguration.ReportType.SubTable.toString());
 		formLayout.addComponent(editor);
@@ -110,9 +123,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 
 
 	public class ReportTableEditor extends VerticalLayout implements ValueChangeListener {
-
 		private static final long serialVersionUID = 1L;
-
 		private List<ReportModel> reportModels;
 		private ComboBox box = new ComboBox();
 		private VerticalLayout columnLayout = new VerticalLayout();
@@ -124,13 +135,14 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 		private Label reportColumnLabel=new Label("Report Columns");
 		private Label reportColumnStepDesc=new Label("Select Costom Report Columns");
 
+		
+
 		public ReportTableEditor(List<ReportModel> reportModels, String stepType) {
 			this.setReportModels(reportModels);
 			this.stepType = stepType;
 		}
 
-		public ReportTableEditor(List<ReportModel> reportModels,
-				String stepType, boolean queryFilterFlg) {
+		public ReportTableEditor(List<ReportModel> reportModels,String stepType, boolean queryFilterFlg) {
 			this.setReportModels(reportModels);
 			this.stepType = stepType;
 			this.queryFilterFlg = queryFilterFlg;
@@ -144,8 +156,7 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 			box.setWidth(fieldWidth);
 			box.setImmediate(true);
 			box.addStyleName("custom-report-step-box");
-			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(
-					ReportModel.class);
+			BeanItemContainer<ReportModel> container = new BeanItemContainer<ReportModel>(ReportModel.class);
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
 			box.setItemCaptionPropertyId("tableLabel");
@@ -153,6 +164,66 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 			this.addComponent(box);
 			columnLayout.setSpacing(true);
 			columnLayout.setVisible(false);
+			
+//			List<ReportTable> relateReportTables=null;
+//			if(getEditableReportTable()!=null){
+//				for(Iterator<ReportModel> it=container.getItemIds().iterator();it.hasNext();){
+//					rm=(ReportModel) it.next();
+//					if(rm.getTableName().equals(getEditableReportTable().getTableName())){
+//						box.setValue(rm);
+//						mainReportTable=rm.getReportTables().iterator().next();
+//						relateReportTables=buildEditableRelatedTableInfo();
+//						break;
+//					}
+//				}
+//				box.setValue(getEditableReportTable().getTableName());				
+//				rm.getReportTables().addAll(relateReportTables);
+//			}
+			
+			if(relateReportTables!=null && isEditableFlg){
+				columnLayout.setVisible(true);
+				columnLayout.setImmediate(true);
+//				columnLayout.addComponent(gridLayout);
+				
+//				box.setValue(getEditableReportTable().getTableName());				
+//				rm.getReportTables().addAll(relateReportTables);
+				
+				for(ReportTable relateRT: relateReportTables){
+					for(Iterator<ReportModel> it=container.getItemIds().iterator();it.hasNext();){
+						ReportModel tempRm=it.next();
+						if(tempRm.getTableName().equals(relateRT.getTableName())){
+							box.setValue(tempRm);
+							break;
+						}
+					}
+					List<ReportColumn> columnFields =relateRT.getReportColumns();
+					
+					for (final ReportColumn columnField : columnFields) {							
+						if (columnField.getColumnLabel() != null) {
+						ReportColumnCard reportColumnCard = new ReportColumnCard(columnField) {
+							private static final long serialVersionUID = 1L;
+							@Override
+							public void layoutClick(LayoutClickEvent event) {
+								ReportColumn reportColumn = columnField;
+								reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+								rm.getSubTableSelectedColumns().add(reportColumn);
+							}
+						};
+						
+						for(ReportColumn rc:relateRT.getReportColumns()){
+							if(rc.getColumnUseMode()!=null && rc.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())){
+								if(rc.getColumnName().equals(columnField.getColumnName())){
+									reportColumnCard.getCheckBox().setValue(true);
+								}
+							}
+						}
+						
+						gridLayout.addComponent(reportColumnCard);
+					}
+				}
+			}
+		}		
+			
 			this.addComponent(columnLayout);
 			reportColumnLabel.setStyleName("custom-report-step-column-caption");
 			reportColumnLabel.setVisible(false);
@@ -248,6 +319,24 @@ public class RelatedTableStep extends AbstarctReportWizardStep{
 
 	private void removeDuplciateRelateResult() {
 		
+	}
+
+	public ReportTable getEditableReportTable() {
+		return editableReportTable;
+	}
+
+	public void setEditableReportTable(ReportTable editableReportTable) {
+		this.editableReportTable = editableReportTable;
+	}
+
+
+	public boolean isEditableFlg() {
+		return isEditableFlg;
+	}
+
+
+	public void setEditableFlg(boolean isEditableFlg) {
+		this.isEditableFlg = isEditableFlg;
 	}
 
 	
