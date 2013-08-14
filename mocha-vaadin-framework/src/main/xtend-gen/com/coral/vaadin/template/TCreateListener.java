@@ -3,7 +3,6 @@ package com.coral.vaadin.template;
 import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Mocha;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.foundation.utils.StrUtils;
 import java.util.List;
@@ -75,8 +74,6 @@ public class TCreateListener {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.listenerName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -101,8 +98,6 @@ public class TCreateListener {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.listenerName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

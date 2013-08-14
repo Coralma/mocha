@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.OrderProduct + "</p>
@@ -12,34 +10,30 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "OrderProduct")
 @Table(name = "T_ORDER_PRODUCT")
-public class OrderProduct extends BaseEntity {
+public class OrderProduct extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "ORDER_PRODUCT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="ORDERPRODUCTID_SEQ")
+	@TableGenerator(name="ORDERPRODUCTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long orderProductId;
 	
-	@Basic(optional = true)
 	@Column(name = "PRODUCT" )
 	private String product;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "QUANTITY_ORDERED" )
 	private Long quantityOrdered;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRICE" )
 	private String price;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SUB_TOTAL" )
 	private String subTotal;
 	
@@ -84,10 +78,6 @@ public class OrderProduct extends BaseEntity {
 
 	public Long getID() {
 		return getOrderProductId();
-	}
-	
-	public void setID(Long id) {
-		setOrderProductId(id);
 	}
 }
 

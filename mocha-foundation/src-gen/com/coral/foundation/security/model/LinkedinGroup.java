@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.LinkedinGroup + "</p>
@@ -12,26 +10,24 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "LinkedinGroup")
 @Table(name = "T_LINKEDIN_GROUP")
-public class LinkedinGroup extends BaseEntity {
+public class LinkedinGroup extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "LINKEDIN_GROUP_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="LINKEDINGROUPID_SEQ")
+	@TableGenerator(name="LINKEDINGROUPID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long linkedinGroupId;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = LinkedinConnection.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "linkedinConnection") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="linkedinConnection")
 	private LinkedinConnection linkedinConnection;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = LinkedinPersonProfile.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "LinkedinPersonProfile") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="LinkedinPersonProfile")
 	private LinkedinPersonProfile LinkedinPersonProfile;
 	
 
@@ -62,10 +58,6 @@ public class LinkedinGroup extends BaseEntity {
 
 	public Long getID() {
 		return getLinkedinGroupId();
-	}
-	
-	public void setID(Long id) {
-		setLinkedinGroupId(id);
 	}
 }
 

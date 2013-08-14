@@ -2,12 +2,11 @@ package com.coral.vaadin.template
 
 import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
-import com.coral.foundation.md.model.helper.GLog
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.foundation.utils.StrUtils
 import com.coral.vaadin.widget.Viewer
 import java.util.List
-import com.coral.foundation.md.model.Mocha
 
 class TSearch {
 	
@@ -56,7 +55,6 @@ class TSearch {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(searchViewClassName)»
 		/**
 		  * «searchViewClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -90,9 +88,7 @@ class TSearch {
 			SectionLayout «sectionName» = createSection("«section.label»", «column»);
 			«FOR field : section.viewFields»
 				«val p = VGenHelper::getFieldProperty(entity, field.fieldName)»
-				«IF p.ref != null»
-					«GLog::error(p.propertyName + " is a " + p.type + " type. System can not generate it as a query condition.")»
-				«ELSE»
+				«IF p.ref == null»
 					addWidget(«sectionName», "«p.label»", "«p.propertyName»", "«p.type»",false);
 				«ENDIF»
 			«ENDFOR»
@@ -149,7 +145,6 @@ class TSearch {
 		}
 	'''
 	def GENClassEnd()'''
-		«GLog::endClass(searchViewClassName)»
 		}
 	'''
 }

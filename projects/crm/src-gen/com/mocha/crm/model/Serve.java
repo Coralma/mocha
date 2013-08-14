@@ -2,9 +2,7 @@ package com.mocha.crm.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.crm.model.Serve + "</p>
@@ -12,54 +10,46 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Serve")
 @Table(name = "T_SERVE")
-public class Serve extends BaseEntity {
+public class Serve extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SERVE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SERVEID_SEQ")
+	@TableGenerator(name="SERVEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long serveId;
 	
-	@Basic(optional = true)
 	@Column(name = "OWNER" )
 	private String owner;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CUSTOMER_NAME" )
 	private String customerName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRIORITY" )
 	private String priority;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DATE" )
 	private String date;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "RESULT" )
 	private String result;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FEEDBACK" )
 	private String feedback;
 	
@@ -128,10 +118,6 @@ public class Serve extends BaseEntity {
 
 	public Long getID() {
 		return getServeId();
-	}
-	
-	public void setID(Long id) {
-		setServeId(id);
 	}
 }
 

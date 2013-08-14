@@ -43,7 +43,7 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 		ReportDisplayViewer newReportViewer = new ReportDisplayViewer();
 		Object reportId = this.eventBus.getContext().get("reportID");
 		mochaReport = mochaReportDao
-				.findById(Long.valueOf(reportId.toString()));
+				.load(Long.valueOf(reportId.toString()));
 		if (mochaReport != null) {
 			AppReport appReport = new AppReport();
 			AppCusteomReportService appCustomReportService = new AppCusteomReportService(
@@ -69,7 +69,7 @@ public class ReportDisplayPresenter extends AppCommonPresenter
 		
 		// edit case
 		if (reportId != null) {
-			mochaReport = mochaReportDao.findById(Long.valueOf(reportId
+			mochaReport = mochaReportDao.load(Long.valueOf(reportId
 					.toString()));
 			newReportViewer.setReportId(Long.valueOf(reportId.toString()));
 			eventBus.resetContext();

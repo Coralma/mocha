@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.Promotion + "</p>
@@ -12,44 +10,38 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Promotion")
 @Table(name = "T_PROMOTION")
-public class Promotion extends BaseEntity {
+public class Promotion extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "PROMOTION_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="PROMOTIONID_SEQ")
+	@TableGenerator(name="PROMOTIONID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long promotionId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = CommerceProduct.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "product") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="product")
 	private CommerceProduct product;
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DISCOUNT" )
 	private String discount;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PRICE" )
 	private String price;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "START_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 	
-	@Basic(optional = true)
 	@Column(name = "EXPIRY_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
@@ -106,10 +98,6 @@ public class Promotion extends BaseEntity {
 
 	public Long getID() {
 		return getPromotionId();
-	}
-	
-	public void setID(Long id) {
-		setPromotionId(id);
 	}
 }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="Commerce" entityPackage="com.mocha.co.model"
-	daoIntfPackage="com.mocha.co.dao" daoImplPackage="com.mocha.co.dao.impl"
-	servicePackage="com.mocha.co.service">
+	daoImplPackage="com.mocha.co.dao" servicePackage="com.mocha.co.service">
 	
 	<entity entityName="SourceApplication">
 		<property name="customer" type="CommerceCustomer" ref="CommerceCustomer" orm="many-to-one"/>

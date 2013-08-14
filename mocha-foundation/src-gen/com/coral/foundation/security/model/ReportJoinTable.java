@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.ReportJoinTable + "</p>
@@ -12,16 +10,16 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ReportJoinTable")
 @Table(name = "T_REPORT_JOIN_TABLE")
-public class ReportJoinTable extends BaseEntity {
+public class ReportJoinTable extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "REPORT_JOIN_TABLE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="REPORTJOINTABLEID_SEQ")
+	@TableGenerator(name="REPORTJOINTABLEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long reportJoinTableId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "reportTable") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="reportTable")
 	private ReportTable reportTable;
 	
 
@@ -40,10 +38,6 @@ public class ReportJoinTable extends BaseEntity {
 
 	public Long getID() {
 		return getReportJoinTableId();
-	}
-	
-	public void setID(Long id) {
-		setReportJoinTableId(id);
 	}
 }
 

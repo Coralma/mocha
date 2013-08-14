@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.Chat + "</p>
@@ -12,30 +10,27 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Chat")
 @Table(name = "T_CHAT")
-public class Chat extends BaseEntity {
+public class Chat extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CHAT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CHATID_SEQ")
+	@TableGenerator(name="CHATID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long chatId;
 	
-	@Basic(optional = true)
 	@Column(name = "TITLE" )
 	private String title;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PERSON_NUMBER" )
 	private Long personNumber;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ChatPerson.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ChatPerson.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="CHAT_ID")
 	private List<ChatPerson> chatPersons = new ArrayList<ChatPerson>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ChatMessage.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ChatMessage.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="CHAT_ID")
 	private List<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
 	
@@ -73,10 +68,6 @@ public class Chat extends BaseEntity {
 
 	public Long getID() {
 		return getChatId();
-	}
-	
-	public void setID(Long id) {
-		setChatId(id);
 	}
 }
 

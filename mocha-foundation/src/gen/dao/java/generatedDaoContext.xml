@@ -13,24 +13,24 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-		<bean id="SoicalAppDao" class="com.coral.foundation.security.basic.dao.impl.SoicalAppDaoImpl"></bean>
-		<bean id="LinkedinConnectionDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinConnectionDaoImpl"></bean>
-		<bean id="LinkedinGroupDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinGroupDaoImpl"></bean>
-		<bean id="LinkedinPersonProfileDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinPersonProfileDaoImpl"></bean>
-		<bean id="LinkedinConnectionNetworkUpdateDao" class="com.coral.foundation.security.basic.dao.impl.LinkedinConnectionNetworkUpdateDaoImpl"></bean>
-		<bean id="AccountDao" class="com.coral.foundation.security.basic.dao.impl.AccountDaoImpl"></bean>
-		<bean id="BasicUserDao" class="com.coral.foundation.security.basic.dao.impl.BasicUserDaoImpl"></bean>
-		<bean id="BasicRoleDao" class="com.coral.foundation.security.basic.dao.impl.BasicRoleDaoImpl"></bean>
-		<bean id="MenuPermissionDao" class="com.coral.foundation.security.basic.dao.impl.MenuPermissionDaoImpl"></bean>
-		<bean id="AppDao" class="com.coral.foundation.security.basic.dao.impl.AppDaoImpl"></bean>
-		<bean id="CodeTableDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableDaoImpl"></bean>
-		<bean id="CodeTableValueDao" class="com.coral.foundation.security.basic.dao.impl.CodeTableValueDaoImpl"></bean>
-		<bean id="AppReportDao" class="com.coral.foundation.security.basic.dao.impl.AppReportDaoImpl"></bean>
-		<bean id="ReportTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl"></bean>
-		<bean id="ReportColumnDao" class="com.coral.foundation.security.basic.dao.impl.ReportColumnDaoImpl"></bean>
-		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.impl.ReportFilterDaoImpl"></bean>
-		<bean id="ReportJoinTableDao" class="com.coral.foundation.security.basic.dao.impl.ReportJoinTableDaoImpl"></bean>
-		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.impl.MochaReportDaoImpl"></bean>
+		<bean id="SoicalAppDao" class="com.coral.foundation.security.basic.dao.SoicalAppDao"></bean>
+		<bean id="LinkedinConnectionDao" class="com.coral.foundation.security.basic.dao.LinkedinConnectionDao"></bean>
+		<bean id="LinkedinGroupDao" class="com.coral.foundation.security.basic.dao.LinkedinGroupDao"></bean>
+		<bean id="LinkedinPersonProfileDao" class="com.coral.foundation.security.basic.dao.LinkedinPersonProfileDao"></bean>
+		<bean id="LinkedinConnectionNetworkUpdateDao" class="com.coral.foundation.security.basic.dao.LinkedinConnectionNetworkUpdateDao"></bean>
+		<bean id="AccountDao" class="com.coral.foundation.security.basic.dao.AccountDao"></bean>
+		<bean id="BasicUserDao" class="com.coral.foundation.security.basic.dao.BasicUserDao"></bean>
+		<bean id="BasicRoleDao" class="com.coral.foundation.security.basic.dao.BasicRoleDao"></bean>
+		<bean id="MenuPermissionDao" class="com.coral.foundation.security.basic.dao.MenuPermissionDao"></bean>
+		<bean id="AppDao" class="com.coral.foundation.security.basic.dao.AppDao"></bean>
+		<bean id="CodeTableDao" class="com.coral.foundation.security.basic.dao.CodeTableDao"></bean>
+		<bean id="CodeTableValueDao" class="com.coral.foundation.security.basic.dao.CodeTableValueDao"></bean>
+		<bean id="AppReportDao" class="com.coral.foundation.security.basic.dao.AppReportDao"></bean>
+		<bean id="ReportTableDao" class="com.coral.foundation.security.basic.dao.ReportTableDao"></bean>
+		<bean id="ReportColumnDao" class="com.coral.foundation.security.basic.dao.ReportColumnDao"></bean>
+		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.ReportFilterDao"></bean>
+		<bean id="ReportJoinTableDao" class="com.coral.foundation.security.basic.dao.ReportJoinTableDao"></bean>
+		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.MochaReportDao"></bean>
 </beans>
 
 

@@ -1,13 +1,16 @@
 package com.mocha.cooperate.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.cooperate.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * ShotcutItemDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface ShotcutItemDao extends Dao<ShotcutItem> {
+public class ShotcutItemDao extends BaseDao<ShotcutItem> {
 	
+	@Override
+	public Class<ShotcutItem> getEntityClass() {
+		return ShotcutItem.class;
+	}
 }
 

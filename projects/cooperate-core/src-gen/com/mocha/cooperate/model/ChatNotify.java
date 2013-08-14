@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.ChatNotify + "</p>
@@ -12,18 +10,17 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ChatNotify")
 @Table(name = "T_CHAT_NOTIFY")
-public class ChatNotify extends BaseEntity {
+public class ChatNotify extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CHAT_NOTIFY_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CHATNOTIFYID_SEQ")
+	@TableGenerator(name="CHATNOTIFYID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long chatNotifyId;
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser notifiedUser;
 	
-	@Basic(optional = true)
 	@Column(name = "MESSAGE_INDEX" )
 	private Long messageIndex = new Long(0);
 	
@@ -50,10 +47,6 @@ public class ChatNotify extends BaseEntity {
 
 	public Long getID() {
 		return getChatNotifyId();
-	}
-	
-	public void setID(Long id) {
-		setChatNotifyId(id);
 	}
 }
 

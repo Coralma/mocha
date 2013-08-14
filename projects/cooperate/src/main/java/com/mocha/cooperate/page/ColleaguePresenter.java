@@ -26,7 +26,7 @@ public class ColleaguePresenter extends CommonPresenter implements Presenter {
 	private BasicUserDao basicUserDao = SpringContextUtils.getBean(BasicUserDao.class);
 	public ColleaguePresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		List<BasicUser> basicUsers = basicUserDao.findAll();
+		List<BasicUser> basicUsers = basicUserDao.loadAll();
 		this.viewer = new ColleagueView(basicUsers);
 	}
 	
@@ -46,7 +46,7 @@ public class ColleaguePresenter extends CommonPresenter implements Presenter {
 			@Override
 			public void searchUser(String text) {
 				if(StrUtils.isEmpty(text)) {
-					List<BasicUser> listUsers = basicUserDao.findAll();
+					List<BasicUser> listUsers = basicUserDao.loadAll();
 					colleagueView.setListUsers(listUsers);
 					colleagueView.buildListUserPanel();
 				} else {

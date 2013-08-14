@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.Discuss + "</p>
@@ -12,44 +10,38 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Discuss")
 @Table(name = "T_DISCUSS")
-public class Discuss extends BaseEntity {
+public class Discuss extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "DISCUSS_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="DISCUSSID_SEQ")
+	@TableGenerator(name="DISCUSSID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long discussId;
 	
-	@Basic(optional = true)
-	@Column(name = "TITLE" )
+	@Column(name = "TITLE" ,length = 500)
 	private String title;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CONTENT" ,length = 1000)
 	private String content;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Attachment.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Attachment.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="DISCUSS_ID")
 	private List<Attachment> attachments = new ArrayList<Attachment>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Comment.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Comment.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="DISCUSS_ID")
 	private List<Comment> comments = new ArrayList<Comment>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = NotifyLine.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=NotifyLine.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="DISCUSS_ID")
 	private List<NotifyLine> notifyLines = new ArrayList<NotifyLine>();
 	
@@ -105,10 +97,6 @@ public class Discuss extends BaseEntity {
 
 	public Long getID() {
 		return getDiscussId();
-	}
-	
-	public void setID(Long id) {
-		setDiscussId(id);
 	}
 }
 

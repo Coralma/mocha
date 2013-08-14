@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.Supplier + "</p>
@@ -12,70 +10,59 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Supplier")
 @Table(name = "T_SUPPLIER")
-public class Supplier extends BaseEntity {
+public class Supplier extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SUPPLIER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SUPPLIERID_SEQ")
+	@TableGenerator(name="SUPPLIERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long supplierId;
 	
-	@Basic(optional = true)
 	@Column(name = "SUPPLIER_NAME" )
 	private String supplierName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CONTECT_PERSON" )
 	private String contectPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DISTRICT" )
 	private String district;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "POSTCODE" )
 	private String postcode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ADDRESS" )
 	private String address;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MOBILE" )
 	private String mobile;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PHONE" )
 	private String phone;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FAX" )
 	private String fax;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "URL" )
 	private String url;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = CommerceProduct.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=CommerceProduct.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="SUPPLIER_ID")
 	private List<CommerceProduct> products = new ArrayList<CommerceProduct>();
 	
@@ -161,10 +148,6 @@ public class Supplier extends BaseEntity {
 
 	public Long getID() {
 		return getSupplierId();
-	}
-	
-	public void setID(Long id) {
-		setSupplierId(id);
 	}
 }
 

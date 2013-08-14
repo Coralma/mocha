@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.BasicUser + "</p>
@@ -12,84 +10,70 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "BasicUser")
 @Table(name = "T_USER")
-public class BasicUser extends BaseEntity {
+public class BasicUser extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "BASIC_USER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="BASICUSERID_SEQ")
+	@TableGenerator(name="BASICUSERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long basicUserId;
 	
-	@Basic(optional = true)
 	@Column(name = "USER_NAME" )
 	private String userName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "USER_PHOTO" )
 	private String userPhoto;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "USER_ICON" )
 	private String userIcon;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PASSWORD" )
 	private String password;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "RE_PASSWORD" )
 	private String rePassword;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "REAL_NAME" )
 	private String realName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ENGLISH_NAME" )
 	private String englishName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "LANGUAGE" )
 	private String language;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "JOB_TITLE" )
 	private String jobTitle;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EXTENSION" )
 	private String extension;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MOBILE" )
 	private String mobile;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "INIT" )
 	private Long init = new Long(0);
 	
@@ -102,18 +86,15 @@ public class BasicUser extends BaseEntity {
 	private org.apache.shiro.authz.SimpleAuthorizationInfo simpleAuthorizationInfo;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = BasicRole.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "basicRole") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="basicRole")
 	private BasicRole basicRole;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Account.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "account") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="account")
 	private Account account;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = SoicalApp.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=SoicalApp.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="BASIC_USER_ID")
 	private List<SoicalApp> soicalApp = new ArrayList<SoicalApp>();
 	
@@ -247,10 +228,6 @@ public class BasicUser extends BaseEntity {
 
 	public Long getID() {
 		return getBasicUserId();
-	}
-	
-	public void setID(Long id) {
-		setBasicUserId(id);
 	}
 }
 

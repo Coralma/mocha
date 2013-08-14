@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate + "</p>
@@ -12,51 +10,44 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "LinkedinConnectionNetworkUpdate")
 @Table(name = "T_LINKEDIN_CONNECTION_NETWORK_UPDATE")
-public class LinkedinConnectionNetworkUpdate extends BaseEntity {
+public class LinkedinConnectionNetworkUpdate extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "LINKEDIN_CONNECTION_NETWORK_UPDATE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="LINKEDINCONNECTIONNETWORKUPDATEID_SEQ")
+	@TableGenerator(name="LINKEDINCONNECTIONNETWORKUPDATEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long linkedinConnectionNetworkUpdateId;
 	
-	@Basic(optional = true)
 	@Column(name = "LINKEDIN_UPDATE_KEY" )
 	private String linkedinUpdateKey;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "UPDATED_KEY" )
 	private String updatedKey;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "UPDATE_TYPE" )
 	private String updateType;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FIRST_NAME" )
 	private String firstName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "LAST_NAME" )
 	private String lastName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "UPDATE_MESSAGE" )
 	private String updateMessage;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TIME_STAMP" )
 	private String timeStamp;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = LinkedinConnection.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "linkedinConnection") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="linkedinConnection")
 	private LinkedinConnection linkedinConnection;
 	
 
@@ -117,10 +108,6 @@ public class LinkedinConnectionNetworkUpdate extends BaseEntity {
 
 	public Long getID() {
 		return getLinkedinConnectionNetworkUpdateId();
-	}
-	
-	public void setID(Long id) {
-		setLinkedinConnectionNetworkUpdateId(id);
 	}
 }
 

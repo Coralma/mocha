@@ -43,14 +43,6 @@
 			<artifactId>vaadin</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.vaadin.addon</groupId>
-			<artifactId>jpacontainer-addon-agpl-3.0</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>navigator7</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>customfield</artifactId>
 		</dependency>
@@ -64,27 +56,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>buttongroup</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>ratingstars</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>collectioncontainer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
 			<artifactId>invient-charts</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>vaadin-sqlcontainer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>flexibleoptiongroup</artifactId>
 		</dependency>
 		<dependency>
 		   <groupId>com.vaadin.addon</groupId>

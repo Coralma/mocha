@@ -22,7 +22,7 @@ public class NotifyLineService {
 	
 	public List<NotifyLine> loadNotifyLine(BasicUser basicUser) {
 		List<NotifyLine> userNotifyLines = Lists.newArrayList();
-		List<NotifyLine> notifyLines = notifyLineDao.findAll();
+		List<NotifyLine> notifyLines = notifyLineDao.loadAll();
 		for(NotifyLine notifyLine : notifyLines) {
 			if(BasicHelper.isCurrentUser(basicUser,notifyLine.getNotifiedUser())) {
 				userNotifyLines.add(notifyLine);

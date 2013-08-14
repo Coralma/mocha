@@ -7,7 +7,6 @@ import com.coral.foundation.md.model.Property;
 import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.md.model.ViewSection;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.Viewer;
@@ -113,8 +112,6 @@ public class TSearch {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.searchViewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -225,15 +222,8 @@ public class TSearch {
           final Property p = VGenHelper.getFieldProperty(this.entity, field.fieldName);
           _builder.newLineIfNotEmpty();
           {
-            boolean _notEquals = (!Objects.equal(p.ref, null));
-            if (_notEquals) {
-              _builder.append("\t");
-              String _plus = (p.propertyName + " is a ");
-              String _plus_1 = (_plus + p.type);
-              String _plus_2 = (_plus_1 + " type. System can not generate it as a query condition.");
-              GLog.error(_plus_2);
-              _builder.newLineIfNotEmpty();
-            } else {
+            boolean _equals_1 = Objects.equal(p.ref, null);
+            if (_equals_1) {
               _builder.append("\t");
               _builder.append("addWidget(");
               _builder.append(sectionName, "	");
@@ -383,8 +373,6 @@ public class TSearch {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.searchViewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

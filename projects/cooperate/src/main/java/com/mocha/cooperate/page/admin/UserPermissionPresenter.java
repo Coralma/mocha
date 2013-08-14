@@ -58,7 +58,7 @@ public class UserPermissionPresenter extends CommonPresenter {
 			@Override
 			public BasicUser saveUser(BasicUser user) {
 				if(user.getAccount() == null) {
-					Account account = accountDao.findById(currentUser.getAccount().getID());
+					Account account = accountDao.load(currentUser.getAccount().getID());
 					user.setAccount(account);
 //					user.setPassword(StrUtils.getRandomString(6));
 					EmailUtils emailUtils = new EmailUtils(CooperateMailFactory.getUserRegister(user));
@@ -158,7 +158,7 @@ public class UserPermissionPresenter extends CommonPresenter {
 	}
 
 	public List<BasicUser> loadAllBasicUsers() {
-		List<BasicUser> basicUsers = basicUserDao.findAll();
+		List<BasicUser> basicUsers = basicUserDao.loadAll();
 		return basicUsers;
 	}
 	

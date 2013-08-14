@@ -1,13 +1,16 @@
 package com.mocha.cooperate.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.cooperate.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * AttachmentDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface AttachmentDao extends Dao<Attachment> {
+public class AttachmentDao extends BaseDao<Attachment> {
 	
+	@Override
+	public Class<Attachment> getEntityClass() {
+		return Attachment.class;
+	}
 }
 

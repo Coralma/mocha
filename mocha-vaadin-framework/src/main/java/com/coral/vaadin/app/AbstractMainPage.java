@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.vaadin.johan.Toolbox;
-
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.md.model.Menu;
 import com.coral.foundation.md.model.Mocha;
@@ -34,7 +32,6 @@ public abstract class AbstractMainPage extends Panel {
 	protected MochaEventBus eventBus = new MochaEventBus();
 	protected PageController controller;
 	protected VerticalLayout mainContent;
-	protected Toolbox toolbox;
 	protected Message message;
 	protected HttpServletResponse response; 
 	

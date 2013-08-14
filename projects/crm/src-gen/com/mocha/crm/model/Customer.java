@@ -2,9 +2,7 @@ package com.mocha.crm.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.crm.model.Customer + "</p>
@@ -12,84 +10,70 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Customer")
 @Table(name = "T_CUSTOMER")
-public class Customer extends BaseEntity {
+public class Customer extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CUSTOMER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CUSTOMERID_SEQ")
+	@TableGenerator(name="CUSTOMERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long customerId;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CONTECT_PERSON" )
 	private String contectPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DISTRICT" )
 	private String district;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "POSTCODE" )
 	private String postcode;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ADDRESS" )
 	private String address;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MOBILE" )
 	private String mobile;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PHONE" )
 	private String phone;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FAX" )
 	private String fax;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_BANK" )
 	private String accountBank;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_NUMBER" )
 	private String accountNumber;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_PERSON" )
 	private String accountPerson;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_MARK" )
 	private String accountMark;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
@@ -194,10 +178,6 @@ public class Customer extends BaseEntity {
 
 	public Long getID() {
 		return getCustomerId();
-	}
-	
-	public void setID(Long id) {
-		setCustomerId(id);
 	}
 }
 

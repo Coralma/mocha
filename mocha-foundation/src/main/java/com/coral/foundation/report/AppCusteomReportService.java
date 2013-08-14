@@ -5,11 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.bcel.generic.RET;
-import org.hibernate.exception.ConstraintViolationException;
 
 import com.coral.foundation.security.basic.dao.ReportJoinTableDao;
 import com.coral.foundation.security.basic.dao.ReportTableDao;
-import com.coral.foundation.security.basic.dao.impl.ReportTableDaoImpl;
 import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.MochaReport;

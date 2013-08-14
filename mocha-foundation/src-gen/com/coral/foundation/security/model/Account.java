@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.Account + "</p>
@@ -12,30 +10,27 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Account")
 @Table(name = "T_ACCOUNT")
-public class Account extends BaseEntity {
+public class Account extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "ACCOUNT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="ACCOUNTID_SEQ")
+	@TableGenerator(name="ACCOUNTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long accountId;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EMAIL" )
 	private String email;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=BasicUser.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="ACCOUNT_ID")
 	private List<BasicUser> users = new ArrayList<BasicUser>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = App.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=App.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="ACCOUNT_ID")
 	private List<App> apps = new ArrayList<App>();
 	
@@ -73,10 +68,6 @@ public class Account extends BaseEntity {
 
 	public Long getID() {
 		return getAccountId();
-	}
-	
-	public void setID(Long id) {
-		setAccountId(id);
 	}
 }
 

@@ -1,13 +1,16 @@
 package com.mocha.crm.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.crm.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * CampaignDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface CampaignDao extends Dao<Campaign> {
+public class CampaignDao extends BaseDao<Campaign> {
 	
+	@Override
+	public Class<Campaign> getEntityClass() {
+		return Campaign.class;
+	}
 }
 

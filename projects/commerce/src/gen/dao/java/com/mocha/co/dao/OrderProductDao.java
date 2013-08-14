@@ -1,13 +1,16 @@
 package com.mocha.co.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.co.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * OrderProductDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface OrderProductDao extends Dao<OrderProduct> {
+public class OrderProductDao extends BaseDao<OrderProduct> {
 	
+	@Override
+	public Class<OrderProduct> getEntityClass() {
+		return OrderProduct.class;
+	}
 }
 

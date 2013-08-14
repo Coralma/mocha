@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.SourceApplication + "</p>
@@ -12,39 +10,34 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "SourceApplication")
 @Table(name = "T_SOURCE_APPLICATION")
-public class SourceApplication extends BaseEntity {
+public class SourceApplication extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SOURCE_APPLICATION_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SOURCEAPPLICATIONID_SEQ")
+	@TableGenerator(name="SOURCEAPPLICATIONID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long sourceApplicationId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = CommerceCustomer.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "customer") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="customer")
 	private CommerceCustomer customer;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SESSION_I_D" )
 	private String sessionID;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SECRET_I_D" )
 	private String secretID;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "AUTH_TOKEN" )
 	private String authToken;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "AUTH_TOKEN_EXPIRE_DATE" )
 	private String authTokenExpireDate;
 	
@@ -95,10 +88,6 @@ public class SourceApplication extends BaseEntity {
 
 	public Long getID() {
 		return getSourceApplicationId();
-	}
-	
-	public void setID(Long id) {
-		setSourceApplicationId(id);
 	}
 }
 

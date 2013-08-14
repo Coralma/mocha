@@ -13,21 +13,21 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-		<bean id="TimeLineDao" class="com.mocha.cooperate.basic.dao.impl.TimeLineDaoImpl"></bean>
-		<bean id="StatusDao" class="com.mocha.cooperate.basic.dao.impl.StatusDaoImpl"></bean>
-		<bean id="DiscussDao" class="com.mocha.cooperate.basic.dao.impl.DiscussDaoImpl"></bean>
-		<bean id="CommentDao" class="com.mocha.cooperate.basic.dao.impl.CommentDaoImpl"></bean>
-		<bean id="AttachmentDao" class="com.mocha.cooperate.basic.dao.impl.AttachmentDaoImpl"></bean>
-		<bean id="NotifyLineDao" class="com.mocha.cooperate.basic.dao.impl.NotifyLineDaoImpl"></bean>
-		<bean id="ShotcutDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutDaoImpl"></bean>
-		<bean id="ShotcutItemDao" class="com.mocha.cooperate.basic.dao.impl.ShotcutItemDaoImpl"></bean>
-		<bean id="ToDoDao" class="com.mocha.cooperate.basic.dao.impl.ToDoDaoImpl"></bean>
-		<bean id="SubToDoItemDao" class="com.mocha.cooperate.basic.dao.impl.SubToDoItemDaoImpl"></bean>
-		<bean id="FileDao" class="com.mocha.cooperate.basic.dao.impl.FileDaoImpl"></bean>
-		<bean id="ChatDao" class="com.mocha.cooperate.basic.dao.impl.ChatDaoImpl"></bean>
-		<bean id="ChatNotifyDao" class="com.mocha.cooperate.basic.dao.impl.ChatNotifyDaoImpl"></bean>
-		<bean id="ChatPersonDao" class="com.mocha.cooperate.basic.dao.impl.ChatPersonDaoImpl"></bean>
-		<bean id="ChatMessageDao" class="com.mocha.cooperate.basic.dao.impl.ChatMessageDaoImpl"></bean>
+		<bean id="TimeLineDao" class="com.mocha.cooperate.basic.dao.TimeLineDao"></bean>
+		<bean id="StatusDao" class="com.mocha.cooperate.basic.dao.StatusDao"></bean>
+		<bean id="DiscussDao" class="com.mocha.cooperate.basic.dao.DiscussDao"></bean>
+		<bean id="CommentDao" class="com.mocha.cooperate.basic.dao.CommentDao"></bean>
+		<bean id="AttachmentDao" class="com.mocha.cooperate.basic.dao.AttachmentDao"></bean>
+		<bean id="NotifyLineDao" class="com.mocha.cooperate.basic.dao.NotifyLineDao"></bean>
+		<bean id="ShotcutDao" class="com.mocha.cooperate.basic.dao.ShotcutDao"></bean>
+		<bean id="ShotcutItemDao" class="com.mocha.cooperate.basic.dao.ShotcutItemDao"></bean>
+		<bean id="ToDoDao" class="com.mocha.cooperate.basic.dao.ToDoDao"></bean>
+		<bean id="SubToDoItemDao" class="com.mocha.cooperate.basic.dao.SubToDoItemDao"></bean>
+		<bean id="FileDao" class="com.mocha.cooperate.basic.dao.FileDao"></bean>
+		<bean id="ChatDao" class="com.mocha.cooperate.basic.dao.ChatDao"></bean>
+		<bean id="ChatNotifyDao" class="com.mocha.cooperate.basic.dao.ChatNotifyDao"></bean>
+		<bean id="ChatPersonDao" class="com.mocha.cooperate.basic.dao.ChatPersonDao"></bean>
+		<bean id="ChatMessageDao" class="com.mocha.cooperate.basic.dao.ChatMessageDao"></bean>
 </beans>
 
 

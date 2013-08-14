@@ -2,9 +2,7 @@ package com.mocha.co.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.co.model.StockProduct + "</p>
@@ -12,33 +10,29 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "StockProduct")
 @Table(name = "T_STOCK_PRODUCT")
-public class StockProduct extends BaseEntity {
+public class StockProduct extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "STOCK_PRODUCT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="STOCKPRODUCTID_SEQ")
+	@TableGenerator(name="STOCKPRODUCTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long stockProductId;
 	
-	@OneToOne(cascade = { CascadeType.ALL }, targetEntity = CommerceProduct.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = CommerceProduct.class)
 	private CommerceProduct product;
 	
-	@Basic(optional = true)
 	@Column(name = "EXISTENCE_QUANTITY" )
 	private Long existenceQuantity;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MAXIMAL_QUANTITY" )
 	private Long maximalQuantity;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MINIMUM_QUANTITY" )
 	private Long minimumQuantity;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STOCK_PRICE" )
 	private String stockPrice;
 	
@@ -83,10 +77,6 @@ public class StockProduct extends BaseEntity {
 
 	public Long getID() {
 		return getStockProductId();
-	}
-	
-	public void setID(Long id) {
-		setStockProductId(id);
 	}
 }
 

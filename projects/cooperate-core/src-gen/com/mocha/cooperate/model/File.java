@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.File + "</p>
@@ -12,65 +10,55 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "File")
 @Table(name = "T_FILE")
-public class File extends BaseEntity {
+public class File extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "FILE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="FILEID_SEQ")
+	@TableGenerator(name="FILEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long fileId;
 	
-	@Basic(optional = true)
 	@Column(name = "PARENT_I_D" )
 	private Long parentID;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PATH" )
 	private String path;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "PHYSICAL_TYPE" )
 	private Long physicalType;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SIZE" )
 	private Long size;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SHARE_KEY" )
 	private String shareKey;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "SHARE_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date shareDate;
 	
-	@Basic(optional = true)
 	@Column(name = "ACCOUNT_NAME" )
 	private String accountName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FILE_TYPE" )
 	private Long fileType = new Long(0);
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
 
@@ -149,10 +137,6 @@ public class File extends BaseEntity {
 
 	public Long getID() {
 		return getFileId();
-	}
-	
-	public void setID(Long id) {
-		setFileId(id);
 	}
 }
 

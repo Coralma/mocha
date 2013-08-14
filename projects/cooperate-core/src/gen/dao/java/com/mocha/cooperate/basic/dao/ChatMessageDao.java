@@ -1,14 +1,34 @@
 package com.mocha.cooperate.basic.dao;
+
 import java.util.List;
-import com.coral.foundation.jpa.Dao;
-import com.mocha.cooperate.model.*;
+
+import javax.persistence.Query;
+
+import com.coral.foundation.persistence.BaseDao;
+import com.mocha.cooperate.model.Chat;
+import com.mocha.cooperate.model.ChatMessage;
 
 /**
   * ChatMessageDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface ChatMessageDao extends Dao<ChatMessage> {
+public class ChatMessageDao extends BaseDao<ChatMessage> {
 	
-	public List<ChatMessage> loadNewMessage(ChatMessage lastMessage, Chat currentChat);
+	@Override
+	public Class<ChatMessage> getEntityClass() {
+		return ChatMessage.class;
+	}
+	
+	public List<ChatMessage> loadNewMessage(ChatMessage lastMessage,
+			Chat currentChat) {
+		Long messageId = new Long(0);
+		if(lastMessage != null) {
+			messageId = lastMessage.getID();
+		}
+		Query query = getEntityManager().createQuery("from ChatMessage c where c.chatMessageId > :chatMessageId and c.chat=:chat",ChatMessage.class);
+		query.setParameter("chatMessageId", messageId);
+		query.setParameter("chat", currentChat);
+		List<ChatMessage> chatMessages = query.getResultList();
+		return chatMessages;
+	}
 }
 

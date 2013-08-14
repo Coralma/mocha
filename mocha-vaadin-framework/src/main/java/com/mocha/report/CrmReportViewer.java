@@ -175,7 +175,7 @@ public class CrmReportViewer extends CommonViewer implements Viewer {
 		userAccountReport = new AppReport();
 		userAccountReport.setName("Default Report for User And Account Mapping");
 		userAccountReport.setDescription("This statistics report will display the users under account");
-		userAccountReport.setID(7L);
+		userAccountReport.setAppReportId(7L);
 		
 		reports.add(userAccountReport);
 		return reports;

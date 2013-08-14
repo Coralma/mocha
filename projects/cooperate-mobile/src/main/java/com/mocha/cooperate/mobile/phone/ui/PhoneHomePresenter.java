@@ -3,7 +3,7 @@ package com.mocha.cooperate.mobile.phone.ui;
 import java.util.List;
 
 import com.coral.foundation.core.impl.MochaEventBus;
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.mocha.cooperate.mobile.MobileConstants;
 import com.mocha.cooperate.mobile.phone.widgets.cards.PhoneCardListener;
 import com.mocha.cooperate.model.Discuss;

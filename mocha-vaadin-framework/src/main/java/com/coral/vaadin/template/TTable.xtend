@@ -1,12 +1,11 @@
 package com.coral.vaadin.template
 
+import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.helper.VGenHelper
-import com.coral.foundation.md.model.helper.GLog
 import com.coral.vaadin.widget.Viewer
 import java.util.List
-import com.coral.foundation.constant.SystemConstant
-import com.coral.foundation.md.model.Mocha
 
 class TTable {
 	
@@ -50,7 +49,6 @@ class TTable {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(tableClassName)»
 		/**
 		  * «tableClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -111,11 +109,7 @@ class TTable {
 		}
 	'''
 	
-	
-	
-	
 	def GENClassEnd()'''
-		«GLog::endClass(tableClassName)»
 		}
 	'''
 }

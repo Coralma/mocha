@@ -2,9 +2,7 @@ package com.mocha.crm.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.crm.model.Campaign + "</p>
@@ -12,89 +10,74 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Campaign")
 @Table(name = "T_CAMPAIGN")
-public class Campaign extends BaseEntity {
+public class Campaign extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CAMPAIGN_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CAMPAIGNID_SEQ")
+	@TableGenerator(name="CAMPAIGNID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long campaignId;
 	
-	@Basic(optional = true)
 	@Column(name = "OWNER" )
 	private String owner;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CAMPAIGN_NAME" )
 	private String campaignName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CAMPAIGN_DESCRIPTION" )
 	private String campaignDescription;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "STATUS" )
 	private String status;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "START_DATE" )
 	private String startDate;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "END_DATE" )
 	private String endDate;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ADDRESS" )
 	private String address;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EXPECTED_AMOUNT" )
 	private String expectedAmount;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "BUDGETED_COST" )
 	private String budgetedCost;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EXPECTED_SALES_VOLUME" )
 	private String expectedSalesVolume;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EXPECTED_RESPONSE" )
 	private String expectedResponse;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACTUAL_AMOUNT" )
 	private String actualAmount;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACTUAL_COST" )
 	private String actualCost;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACTUAL_SALES_VOLUME" )
 	private String actualSalesVolume;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
@@ -205,10 +188,6 @@ public class Campaign extends BaseEntity {
 
 	public Long getID() {
 		return getCampaignId();
-	}
-	
-	public void setID(Long id) {
-		setCampaignId(id);
 	}
 }
 

@@ -14,26 +14,9 @@
 			<artifactId>mocha-foundation</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.mocha.appframework</groupId> -->
-<!-- 			<artifactId>mocha-vaadin-component</artifactId> -->
-<!-- 			<version>${project.parent.version}</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -44,14 +27,6 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin.addon</groupId>
-			<artifactId>jpacontainer-addon-agpl-3.0</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>navigator7</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
@@ -67,31 +42,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>buttongroup</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
 			<artifactId>contextmenu</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>ratingstars</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>collectioncontainer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
 			<artifactId>invient-charts</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>vaadin-sqlcontainer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>flexibleoptiongroup</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
@@ -115,14 +70,6 @@
 		</dependency>
 		<dependency>
 		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>popupbutton</artifactId>
-		</dependency>
-		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>weelayout</artifactId>
-		</dependency>
-		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>css-tools</artifactId>
 		</dependency>
 		<dependency>
@@ -130,27 +77,16 @@
 		   <artifactId>wizards-for-vaadin</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>buttongroup</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>toolbox</artifactId>
+		</dependency>
+		<dependency>
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>refresher</artifactId>
-		</dependency>
-		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>toolbox</artifactId>
-		</dependency>
-<!-- 		<dependency> -->
-<!-- 		   <groupId>org.vaadin.alump.fancylayouts</groupId> -->
-<!-- 		   <artifactId>fancylayouts-addon</artifactId> -->
-<!-- 		</dependency> -->
-		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>distributionbar</artifactId>
-		   <version>0.3.3</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.bsb.common.vaadin</groupId>
-			<artifactId>com.bsb.common.vaadin.embed</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -272,10 +208,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<skipTests>true</skipTests>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

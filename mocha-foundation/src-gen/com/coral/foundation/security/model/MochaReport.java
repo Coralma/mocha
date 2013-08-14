@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.MochaReport + "</p>
@@ -12,35 +10,31 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "MochaReport")
 @Table(name = "T_MochaReport")
-public class MochaReport extends BaseEntity {
+public class MochaReport extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "MOCHA_REPORT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="MOCHAREPORTID_SEQ")
+	@TableGenerator(name="MOCHAREPORTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long mochaReportId;
 	
-	@Basic(optional = true)
 	@Column(name = "REPORT_NAME" )
 	private String reportName;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "creator") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="creator")
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-	@Basic(optional = true)
 	@Column(name = "CREATED_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "appReport") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="appReport")
 	private AppReport appReport;
 	
-	@Basic(optional = true)
-	@Column(name = "REPORT_PURE_QUERY" ,length = 65536)
+	@Column(name = "REPORT_PURE_QUERY" ,length = 1000)
 	private String reportPureQuery;
 	
 	
@@ -84,10 +78,6 @@ public class MochaReport extends BaseEntity {
 
 	public Long getID() {
 		return getMochaReportId();
-	}
-	
-	public void setID(Long id) {
-		setMochaReportId(id);
 	}
 }
 

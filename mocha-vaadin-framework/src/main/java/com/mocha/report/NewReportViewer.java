@@ -1,56 +1,13 @@
 package com.mocha.report;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-
 import org.vaadin.teemu.wizards.Wizard;
-import org.vaadin.teemu.wizards.WizardStep;
-import org.vaadin.teemu.wizards.event.WizardCancelledEvent;
-import org.vaadin.teemu.wizards.event.WizardCompletedEvent;
-import org.vaadin.teemu.wizards.event.WizardProgressListener;
-import org.vaadin.teemu.wizards.event.WizardStepActivationEvent;
-import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 
-import com.coral.foundation.jdbc.impl.DBToolUtil;
 import com.coral.foundation.report.AbstrctAppRawData;
-import com.coral.foundation.report.AppCusteomReportService;
-import com.coral.foundation.report.ReportConfiguration;
-import com.coral.foundation.report.ReportConfiguration.ReportQueryFilterType;
-import com.coral.foundation.report.ReportConfiguration.ReportType;
-import com.coral.foundation.report.ReportModel;
-import com.coral.foundation.report.ReportModelPool;
-import com.coral.foundation.report.ReportQueryFilterCondition;
-import com.coral.foundation.security.CommonWebSessionManager;
-import com.coral.foundation.security.model.Account;
-import com.coral.foundation.security.model.AppReport;
 import com.coral.foundation.security.model.BasicUser;
-import com.coral.foundation.security.model.ReportColumn;
 import com.coral.foundation.security.model.ReportTable;
-import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.view.CommonViewer;
-import com.google.common.collect.Lists;
-import com.vaadin.data.Container.PropertySetChangeEvent;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.event.FieldEvents.TextChangeEvent;
-import com.vaadin.event.FieldEvents.TextChangeListener;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import javax.persistence.*;
 
 
 public class NewReportViewer extends CommonViewer implements Viewer {

@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.NotifyLine + "</p>
@@ -12,35 +10,31 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "NotifyLine")
 @Table(name = "T_NOTIFY_LINE")
-public class NotifyLine extends BaseEntity {
+public class NotifyLine extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "NOTIFY_LINE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="NOTIFYLINEID_SEQ")
+	@TableGenerator(name="NOTIFYLINEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long notifyLineId;
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private Long type = new Long(1);
 	
 	
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser notifiedUser;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Status.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "status") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="status")
 	private Status status;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Discuss.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "discuss") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="discuss")
 	private Discuss discuss;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = ToDo.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "todo") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="todo")
 	private ToDo todo;
 	
 
@@ -83,10 +77,6 @@ public class NotifyLine extends BaseEntity {
 
 	public Long getID() {
 		return getNotifyLineId();
-	}
-	
-	public void setID(Long id) {
-		setNotifyLineId(id);
 	}
 }
 

@@ -3,10 +3,7 @@
  */
 package com.mocha.cooperate.mobile.phone.widgets.cards;
 
-import com.coral.foundation.model.BaseEntity;
 import com.mocha.cooperate.model.Status;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;

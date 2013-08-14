@@ -2,11 +2,10 @@ package com.coral.vaadin.template
 
 import com.coral.foundation.constant.SystemConstant
 import com.coral.foundation.md.model.Entity
-import com.coral.foundation.md.model.helper.GLog
+import com.coral.foundation.md.model.Mocha
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.foundation.utils.StrUtils
 import java.util.List
-import com.coral.foundation.md.model.Mocha
 
 class TCreatePresenter {
 
@@ -66,7 +65,6 @@ class TCreatePresenter {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(createPresenterClassName)»
 		/**
 		  * «createPresenterClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -157,7 +155,6 @@ class TCreatePresenter {
 	'''
 	
 	def GENClassEnd()'''
-		«GLog::endClass(createPresenterClassName)»
 		}
 	'''	
 }

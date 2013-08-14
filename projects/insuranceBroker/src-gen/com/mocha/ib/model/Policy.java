@@ -2,9 +2,7 @@ package com.mocha.ib.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.ib.model.Policy + "</p>
@@ -12,64 +10,54 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "Policy")
 @Table(name = "T_POLICY")
-public class Policy extends BaseEntity {
+public class Policy extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "POLICY_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="POLICYID_SEQ")
+	@TableGenerator(name="POLICYID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long policyId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = InsuranceCustomer.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "customer") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="customer")
 	private InsuranceCustomer customer;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = Claim.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=Claim.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="POLICY_ID")
 	private List<Claim> claim = new ArrayList<Claim>();
 	
-	@Basic(optional = true)
 	@Column(name = "INSURANCE_COMPANY" )
 	private String insuranceCompany;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "CATEGORY" )
 	private String category;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "INSURANCE_PRODUCT" )
 	private String insuranceProduct;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "POLICY_NO" )
 	private String policyNo;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "EFFECTIVE_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date effectiveDate;
 	
-	@Basic(optional = true)
 	@Column(name = "EXPIRY_DATE" )
 	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
 	
-	@Basic(optional = true)
 	@Column(name = "PREMIUM" )
 	private String premium;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "COMMISSION" )
 	private String commission;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "MARK" )
 	private String mark;
 	
@@ -150,10 +138,6 @@ public class Policy extends BaseEntity {
 
 	public Long getID() {
 		return getPolicyId();
-	}
-	
-	public void setID(Long id) {
-		setPolicyId(id);
 	}
 }
 

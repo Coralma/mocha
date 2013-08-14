@@ -3,6 +3,7 @@ package com.mocha.email.cooperate.template
 import com.coral.foundation.security.model.BasicUser
 import com.mocha.cooperate.model.TimeLine
 
+
 class NotifyEmail {
 	
 	BasicUser sender

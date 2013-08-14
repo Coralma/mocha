@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.ShotcutItem + "</p>
@@ -12,41 +10,36 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ShotcutItem")
 @Table(name = "T_SHOTCUT_ITEM")
-public class ShotcutItem extends BaseEntity {
+public class ShotcutItem extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "SHOTCUT_ITEM_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="SHOTCUTITEMID_SEQ")
+	@TableGenerator(name="SHOTCUTITEMID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long shotcutItemId;
 	
-	@Basic(optional = true)
 	@Column(name = "LABEL" )
 	private String label;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "NUMBER" )
 	private Long number = new Long(0);
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ACTION" )
 	private String action;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ICON" )
 	private String icon;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Shotcut.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "shotcut") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="shotcut")
 	private Shotcut shotcut;
 	
 
@@ -95,10 +88,6 @@ public class ShotcutItem extends BaseEntity {
 
 	public Long getID() {
 		return getShotcutItemId();
-	}
-	
-	public void setID(Long id) {
-		setShotcutItemId(id);
 	}
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
-	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	daoImplPackage="com.mocha.crm.dao"
 	servicePackage="com.mocha.crm.service">
 	
 	<entity entityName="Customer">

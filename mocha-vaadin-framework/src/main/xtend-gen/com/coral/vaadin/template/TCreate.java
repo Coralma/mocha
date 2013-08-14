@@ -7,7 +7,6 @@ import com.coral.foundation.md.model.View;
 import com.coral.foundation.md.model.ViewAction;
 import com.coral.foundation.md.model.ViewField;
 import com.coral.foundation.md.model.ViewSection;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.foundation.utils.StrUtils;
 import com.coral.vaadin.widget.Viewer;
@@ -115,8 +114,6 @@ public class TCreate {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.viewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -385,8 +382,6 @@ public class TCreate {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.viewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

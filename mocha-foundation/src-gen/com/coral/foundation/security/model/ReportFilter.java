@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.ReportFilter + "</p>
@@ -12,31 +10,28 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ReportFilter")
 @Table(name = "T_REPORT_FILTER")
-public class ReportFilter extends BaseEntity {
+public class ReportFilter extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "REPORT_FILTER_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="REPORTFILTERID_SEQ")
+	@TableGenerator(name="REPORTFILTERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long reportFilterId;
 	
-	@Basic(optional = true)
 	@Column(name = "FILTER_NAME" )
 	private String filterName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FILTER_TYPE" )
 	private String filterType;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "FILTER_BUILD_STRING" )
 	private String filterBuildString;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = AppReport.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "appReport") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="appReport")
 	private AppReport appReport;
 	
 
@@ -73,10 +68,6 @@ public class ReportFilter extends BaseEntity {
 
 	public Long getID() {
 		return getReportFilterId();
-	}
-	
-	public void setID(Long id) {
-		setReportFilterId(id);
 	}
 }
 

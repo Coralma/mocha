@@ -4,7 +4,6 @@ import com.coral.foundation.constant.SystemConstant;
 import com.coral.foundation.md.model.Entity;
 import com.coral.foundation.md.model.Mocha;
 import com.coral.foundation.md.model.View;
-import com.coral.foundation.md.model.helper.GLog;
 import com.coral.foundation.md.model.helper.VGenHelper;
 import com.coral.vaadin.widget.Viewer;
 import com.google.common.base.Objects;
@@ -81,8 +80,6 @@ public class PresenterFactory {
   
   public CharSequence GENClassHead() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.startClass(this.viewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("/**");
     _builder.newLine();
     _builder.append("  ");
@@ -160,8 +157,6 @@ public class PresenterFactory {
   
   public CharSequence GENClassEnd() {
     StringConcatenation _builder = new StringConcatenation();
-    GLog.endClass(this.viewClassName);
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

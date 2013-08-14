@@ -13,14 +13,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-		<bean id="SourceApplicationDao" class="com.mocha.co.dao.impl.SourceApplicationDaoImpl"></bean>
-		<bean id="CommerceCustomerDao" class="com.mocha.co.dao.impl.CommerceCustomerDaoImpl"></bean>
-		<bean id="OrderDao" class="com.mocha.co.dao.impl.OrderDaoImpl"></bean>
-		<bean id="OrderProductDao" class="com.mocha.co.dao.impl.OrderProductDaoImpl"></bean>
-		<bean id="PromotionDao" class="com.mocha.co.dao.impl.PromotionDaoImpl"></bean>
-		<bean id="CommerceProductDao" class="com.mocha.co.dao.impl.CommerceProductDaoImpl"></bean>
-		<bean id="SupplierDao" class="com.mocha.co.dao.impl.SupplierDaoImpl"></bean>
-		<bean id="StockProductDao" class="com.mocha.co.dao.impl.StockProductDaoImpl"></bean>
+		<bean id="SourceApplicationDao" class="com.mocha.co.dao.SourceApplicationDao"></bean>
+		<bean id="CommerceCustomerDao" class="com.mocha.co.dao.CommerceCustomerDao"></bean>
+		<bean id="OrderDao" class="com.mocha.co.dao.OrderDao"></bean>
+		<bean id="OrderProductDao" class="com.mocha.co.dao.OrderProductDao"></bean>
+		<bean id="PromotionDao" class="com.mocha.co.dao.PromotionDao"></bean>
+		<bean id="CommerceProductDao" class="com.mocha.co.dao.CommerceProductDao"></bean>
+		<bean id="SupplierDao" class="com.mocha.co.dao.SupplierDao"></bean>
+		<bean id="StockProductDao" class="com.mocha.co.dao.StockProductDao"></bean>
 </beans>
 
 

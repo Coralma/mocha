@@ -1,13 +1,16 @@
 package com.coral.foundation.security.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.coral.foundation.security.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * ReportFilterDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface ReportFilterDao extends Dao<ReportFilter> {
+public class ReportFilterDao extends BaseDao<ReportFilter> {
 	
+	@Override
+	public Class<ReportFilter> getEntityClass() {
+		return ReportFilter.class;
+	}
 }
 

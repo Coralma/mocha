@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.BasicRole + "</p>
@@ -12,30 +10,27 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "BasicRole")
 @Table(name = "T_ROLE")
-public class BasicRole extends BaseEntity {
+public class BasicRole extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "BASIC_ROLE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="BASICROLEID_SEQ")
+	@TableGenerator(name="BASICROLEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long basicRoleId;
 	
-	@Basic(optional = true)
 	@Column(name = "ROLE_NAME" )
 	private String roleName;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "ROLE_DESCRIPTION" )
 	private String roleDescription;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = BasicUser.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=BasicUser.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="BASIC_ROLE_ID")
 	private List<BasicUser> user = new ArrayList<BasicUser>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = MenuPermission.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=MenuPermission.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="BASIC_ROLE_ID")
 	private List<MenuPermission> menuPermissions = new ArrayList<MenuPermission>();
 	
@@ -73,10 +68,6 @@ public class BasicRole extends BaseEntity {
 
 	public Long getID() {
 		return getBasicRoleId();
-	}
-	
-	public void setID(Long id) {
-		setBasicRoleId(id);
 	}
 }
 

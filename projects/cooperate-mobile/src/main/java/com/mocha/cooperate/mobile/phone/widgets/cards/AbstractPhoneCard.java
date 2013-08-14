@@ -5,12 +5,11 @@ package com.mocha.cooperate.mobile.phone.widgets.cards;
 
 import java.util.Date;
 
-import com.coral.foundation.model.BaseEntity;
+import com.coral.foundation.persistence.BaseEntity;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.DateUtils;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
 import com.vaadin.addon.touchkit.ui.NavigationButton;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Embedded;
@@ -66,7 +65,7 @@ public abstract class AbstractPhoneCard extends VerticalLayout {
 		
 		if(!detailCard) {
 			detailButton.setCaption("Detail");
-			detailButton.setWidth("60px");
+			detailButton.setWidth("55px");
 			headLayout.addComponent(detailButton);
 			headLayout.setExpandRatio(detailButton, 1.0f);
 		}

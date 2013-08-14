@@ -74,8 +74,8 @@ public class PolicyViewPresenter extends AppCommonPresenter implements Presenter
 		final UnitSelectionWidget companyWidget = (UnitSelectionWidget)policyView.getField("insuranceCompany");
 		final UnitSelectionWidget categoryWidget = (UnitSelectionWidget)policyView.getField("category");
 		final UnitSelectionWidget productWidget = (UnitSelectionWidget)policyView.getField("insuranceProduct");
-		List<InsuranceCompany> companys = companyDao.findAll();
-		List<InsuranceProduct> products = productDao.findAll();
+		List<InsuranceCompany> companys = companyDao.loadAll();
+		List<InsuranceProduct> products = productDao.loadAll();
 		companyWidget.setItems(companys, InsuranceCompany.class, "companyName");
 		categoryWidget.setItems("Vehicle","Accident","Life","Property","Liability","Contract");
 		productWidget.setItems(products, InsuranceProduct.class, "productName");

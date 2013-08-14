@@ -1,13 +1,16 @@
 package com.mocha.cooperate.basic.dao;
-import java.util.List;
-import com.coral.foundation.jpa.Dao;
+
 import com.mocha.cooperate.model.*;
+import com.coral.foundation.persistence.BaseDao;
 
 /**
   * StatusDao is a auto Generated class. Please don't modify it.
-  * @author Coral
   */
-public interface StatusDao extends Dao<Status> {
+public class StatusDao extends BaseDao<Status> {
 	
+	@Override
+	public Class<Status> getEntityClass() {
+		return Status.class;
+	}
 }
 

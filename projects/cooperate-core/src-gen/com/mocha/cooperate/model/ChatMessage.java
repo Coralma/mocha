@@ -2,9 +2,7 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.mocha.cooperate.model.ChatMessage + "</p>
@@ -12,26 +10,24 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "ChatMessage")
 @Table(name = "T_CHAT_MESSAGE")
-public class ChatMessage extends BaseEntity {
+public class ChatMessage extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "CHAT_MESSAGE_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="CHATMESSAGEID_SEQ")
+	@TableGenerator(name="CHATMESSAGEID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long chatMessageId;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = com.coral.foundation.security.model.BasicUser.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "person") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="person")
 	private com.coral.foundation.security.model.BasicUser person;
 	
-	@Basic(optional = true)
 	@Column(name = "MESSAGE" )
 	private String message;
 	
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH }, targetEntity = Chat.class, fetch=FetchType.EAGER)
-	@JoinColumns({ @JoinColumn(name = "chat") })
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="chat")
 	private Chat chat;
 	
 
@@ -62,10 +58,6 @@ public class ChatMessage extends BaseEntity {
 
 	public Long getID() {
 		return getChatMessageId();
-	}
-	
-	public void setID(Long id) {
-		setChatMessageId(id);
 	}
 }
 

@@ -2,9 +2,7 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
-import com.coral.foundation.model.BaseEntity;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.coral.foundation.persistence.*;
 
 /**
   * <p>Title: com.coral.foundation.security.model.AppReport + "</p>
@@ -12,35 +10,31 @@ import org.hibernate.annotations.FetchMode;
   */
 @Entity(name = "AppReport")
 @Table(name = "T_APP_REPORT")
-public class AppReport extends BaseEntity {
+public class AppReport extends JPABaseEntity {
 	
 	@Id()
 	@Column (name = "APP_REPORT_ID")
-	@GeneratedValue(strategy = GenerationType. AUTO)
+	@GeneratedValue(generator="APPREPORTID_SEQ")
+	@TableGenerator(name="APPREPORTID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long appReportId;
 	
-	@Basic(optional = true)
 	@Column(name = "NAME" )
 	private String name;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "DESCRIPTION" )
 	private String description;
 	
 	
-	@Basic(optional = true)
 	@Column(name = "TYPE" )
 	private String type;
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportFilter.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ReportFilter.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="APP_REPORT_ID")
 	private List<ReportFilter> reportFilters = new ArrayList<ReportFilter>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, targetEntity = ReportTable.class, fetch=FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(targetEntity=ReportTable.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="APP_REPORT_ID")
 	private List<ReportTable> reportTables = new ArrayList<ReportTable>();
 	
@@ -84,10 +78,6 @@ public class AppReport extends BaseEntity {
 
 	public Long getID() {
 		return getAppReportId();
-	}
-	
-	public void setID(Long id) {
-		setAppReportId(id);
 	}
 }
 

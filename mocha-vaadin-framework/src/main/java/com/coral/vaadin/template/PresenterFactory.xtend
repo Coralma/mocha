@@ -1,6 +1,5 @@
 package com.coral.vaadin.template
 
-import com.coral.foundation.md.model.helper.GLog
 import com.coral.foundation.md.model.helper.VGenHelper
 import com.coral.vaadin.widget.Viewer
 import java.util.List
@@ -46,7 +45,6 @@ class PresenterFactory {
 		
 	'''
 	def GENClassHead()'''
-		«GLog::startClass(viewClassName)»
 		/**
 		  * «viewClassName» is a auto Generated class. Please don't modify it.
 		  * @author Coral
@@ -83,7 +81,6 @@ class PresenterFactory {
 	'''
 	
 	def GENClassEnd()'''
-		«GLog::endClass(viewClassName)»
 		}
 	'''
 }
