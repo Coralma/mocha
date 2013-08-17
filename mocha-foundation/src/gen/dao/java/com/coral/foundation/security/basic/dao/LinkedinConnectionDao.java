@@ -19,14 +19,14 @@ public class LinkedinConnectionDao extends BaseDao<LinkedinConnection> {
 	}
 	
 	public List<LinkedinConnection> findFollowedConnectionByPerson(LinkedinPersonProfile profile) {
-		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.Linkedin_person_profile_id = :linkedinPersonProfile and l.needFollow = '00000001'", LinkedinConnection.class);
+		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.linkedinPersonProfile = :linkedinPersonProfile and l.needFollow='1'", LinkedinConnection.class);
 		query.setParameter("linkedinPersonProfile", profile);
 		List<LinkedinConnection> followed = query.getResultList();
 		return followed;
 	}
 
 	public List<LinkedinConnection> findEntireConnectionByConn(LinkedinConnection connUser) {
-		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.Linkedin_person_profile_id = :linkedinPersonProfile and l.firstName = :firstName and l.lastName = :lastName", LinkedinConnection.class);
+		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.linkedinPersonProfile = :linkedinPersonProfile and l.firstName = :firstName and l.lastName = :lastName", LinkedinConnection.class);
 		query.setParameter("firstName", connUser.getFirstName());
 		query.setParameter("lastName", connUser.getLastName());
 		query.setParameter("linkedinPersonProfile", connUser.getLinkedinPersonProfile());

@@ -117,7 +117,11 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 							LinkedInAccessToken token = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
 							connections = apiImpl.getAlUserConnects(token);
 							user.getSoicalApp().remove(soicalApp);
-							soicalApp.getLinkedinPersonProfiles().get(0).setLinkedinConnections(connections);
+							LinkedinPersonProfile linkedProfile = soicalApp.getLinkedinPersonProfiles().get(0);
+							linkedProfile.setLinkedinConnections(connections);
+							for (LinkedinConnection linkedConn : connections) {
+								linkedConn.setLinkedinPersonProfile(linkedProfile);
+							}
 							user.getSoicalApp().add(soicalApp);
 							buDao.merge(user);
 							break;
