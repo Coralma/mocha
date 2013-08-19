@@ -95,7 +95,6 @@ public class TimeLineService {
 //		return timeLineDao.loadActivityTodo(basicUser);
 //	}
 	
-	@Transactional
 	public TimeLine saveStatus(Status status, BasicUser creator, Set<BasicUser> notifiedUsers, List<Attachment> attachments) {
 		TimeLine timeLine = new TimeLine();
 		status.setCreator(creator);

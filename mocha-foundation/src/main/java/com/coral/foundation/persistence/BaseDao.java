@@ -188,7 +188,7 @@ public abstract class BaseDao<T> {
     /**
      * Calls {@link EntityManager#persist(Object)}.
      */
-//    @Transactional
+    @Transactional
     public void persist(T t) {
         getEntityManager().persist(t);
     }
