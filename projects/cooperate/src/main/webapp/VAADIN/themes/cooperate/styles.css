@@ -2140,3 +2140,15 @@
 	height: 16.666667938232422px;
 	margin-bottom: 10px;
 }
+.v-label-newsFeedsUserName{
+	font-weight:bold;
+	font-size:13;
+}
+.v-label-newsFeedsCompanyName{
+	color: #D5D5DB;
+	font-size:11;
+}
+.v-label-newsFeedslastUpdateStatus{
+	font-size:15;
+	height: 17;
+}

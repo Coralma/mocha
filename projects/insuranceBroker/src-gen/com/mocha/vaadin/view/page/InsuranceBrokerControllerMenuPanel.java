@@ -20,6 +20,13 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			menuItem = createMenu("Home",action);
 			addComponent(menuItem);
 			
+			// news feeds from soical network
+			action = new MenuAction();
+			action.setPanel(Class.forName("com.mocha.newsfeeds.NewsFeedsPresenter"));
+			menuItem = createMenu("NewsFeed",action);
+			addComponent(menuItem);
+			
+			
 			// create the menu group and sub menu item.
 			groupTitle = createMenuTitle("Customer Management");
 			addComponent(groupTitle);

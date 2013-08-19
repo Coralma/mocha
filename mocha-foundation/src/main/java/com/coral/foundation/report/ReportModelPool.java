@@ -45,18 +45,16 @@ public class ReportModelPool {
 	
 	
 	public static ReportModel findReportModelByCurrentUser(BasicUser baiscUser){
-		
 		if(getUserSelectReport(baiscUser)==null){
 			return null;
 		}
 		
 		if(getUserSelectReport(baiscUser).containsKey(baiscUser.getUserName())){
-//			System.out.println("current reportModel has value: "+ReportModelPool.getUserSelectReport().get(baiscUser.getUserName()).getAppRawRata().getReportTables().size());
 			ReportModel rm=ReportModelPool.getUserSelectReport(baiscUser).get(baiscUser.getUserName()); 
 			return rm;
 		}
-		return null;
 		
+		return null;
 	}
 
 	public static void setUserSelectReport(ConcurrentHashMap<String,ReportModel> userSelectReport) {

@@ -113,6 +113,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		for(ReportTable reportTable:getAppCustomReprotRowData()){
 			for(ReportJoinTable rj:reportTable.getReportJoinReportTableId()){
 				ReportColumn reportJoinColumn=new ReportColumn();
+				// default reference column is with an "_ID" ends
 				String refernceId=reportTable.getTableName()+"_ID";
 				refernceId=refernceId.trim().substring(2, refernceId.length());
 				reportJoinColumn.setColumnName(refernceId);
@@ -127,6 +128,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			r.add(reportTable);
 			reportTables.put(reportTable.getTableName(),reportTable);
 		}
+		
 		setReportTables(reportTables);
 		return getReportTableModels(r);
 	}
@@ -209,6 +211,8 @@ public class MainTableStep extends AbstarctReportWizardStep {
 		private Label reportColumnLabel=new Label("Main Table Columns");
 		private Label reportColumnStepDesc=new Label("Select Custom Report Columns");
 		private GridLayout reportColmnDesc=new GridLayout(2,1);
+		private ReportTable mainReportTable;
+		private RelatedTableStep secondeStep;
 		
 		public ReportTableEditor(List<ReportModel> reportModels, String stepType) {
 			this.setReportModels(reportModels);
@@ -240,18 +244,19 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			container.addAll(getReportModels());
 			box.setContainerDataSource(container);
 			
-			
-			ReportTable mainReportTable=null;
+			List<ReportTable> relateReportTables=null;
 			if(getEditableReportTable()!=null){
 				for(Iterator<ReportModel> it=container.getItemIds().iterator();it.hasNext();){
-					ReportModel rm=(ReportModel) it.next();
+					rm=(ReportModel) it.next();
 					if(rm.getTableName().equals(getEditableReportTable().getTableName())){
 						box.setValue(rm);
 						mainReportTable=rm.getReportTables().iterator().next();
+						relateReportTables=buildEditableRelatedTableInfo();
 						break;
 					}
 				}
 				box.setValue(getEditableReportTable().getTableName());				
+				rm.getReportTables().addAll(relateReportTables);
 			}
 			
 			box.setItemCaptionPropertyId("tableLabel");
@@ -272,39 +277,59 @@ public class MainTableStep extends AbstarctReportWizardStep {
 			reportColmnDesc.setSpacing(true);
 			
 			if(getEditableReportTable()!=null && mainReportTable!=null){
-			columnLayout.setVisible(true);
-			columnLayout.setImmediate(true);
-			columnLayout.addComponent(gridLayout);
-			List<ReportColumn> columnFields =mainReportTable.getReportColumns();
-				for (final ReportColumn columnField : columnFields) {
-					if (columnField.getColumnLabel() != null) {
-						ReportColumnCard reportColumnCard = new ReportColumnCard(
-								columnField) {
-							
-							private static final long serialVersionUID = 1L;
-
-							@Override
-							public void layoutClick(LayoutClickEvent event) {
-								ReportColumn reportColumn = columnField;
-								reportColumn
-										.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn
-												.toString());
-								rm.getMainTableSelectedColumns().add(
-										reportColumn);
-							}
-						};
+				columnLayout.setVisible(true);
+				columnLayout.setImmediate(true);
+				columnLayout.addComponent(gridLayout);
+				List<ReportColumn> columnFields =mainReportTable.getReportColumns();
+					for (final ReportColumn columnField : columnFields) {
 						
-						for(ReportColumn rc:editableReportTable.getReportColumns()){
-							if(rc.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())){
-								if(rc.getColumnName().equals(columnField.getColumnName())){
-								reportColumnCard.getCheckBox().setValue(true);
+						if (columnField.getColumnLabel() != null) {
+							ReportColumnCard reportColumnCard = new ReportColumnCard(columnField) {
+								private static final long serialVersionUID = 1L;
+	
+								@Override
+								public void layoutClick(LayoutClickEvent event) {
+									ReportColumn reportColumn = columnField;
+									reportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+									rm.getMainTableSelectedColumns().add(reportColumn);
+								}
+							};
+							
+							for(ReportColumn rc:editableReportTable.getReportColumns()){
+								if(rc.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())){
+									if(rc.getColumnName().equals(columnField.getColumnName())){
+									reportColumnCard.getCheckBox().setValue(true);
+									}
 								}
 							}
+							gridLayout.addComponent(reportColumnCard);
 						}
-						
-						gridLayout.addComponent(reportColumnCard);
 					}
-				}
+					
+					// init the report model -- main table				
+					if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null){
+						ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables().clear();
+					}
+					ReportModelPool.putUserReportModel(getUser(), rm);
+					
+					
+					// auto add the step
+					secondeStep = new RelatedTableStep(w,getUser(),relateReportTables);
+					boolean removeStepflg = false;
+					for (WizardStep step : w.getSteps()) {
+						if (step.getCaption().equals(secondeStep.getCaption())) {
+							removeStepflg = true;
+						}
+					}
+					
+					if (removeStepflg) {
+						w.removeStep(secondeStep.getCaption());
+						w.removeStep("Preview Step");
+					} else {
+						w.removeStep("Preview Step");
+					}
+					w.addStep(secondeStep, "Related Table Step");
+					w.addStep(new PreviewStep(w,getUser()),"Preview Step");
 			}
 		}
 
@@ -319,7 +344,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				columnLayout.setImmediate(true);
 				columnLayout.addComponent(gridLayout);
 				//build main table info
-				ReportTable mainReportTable=rm.getReportTables().iterator().next();
+				mainReportTable=rm.getReportTables().iterator().next();
 				columnLayout.setVisible(true);
 				columnLayout.setImmediate(true);
 				List<ReportColumn> columnFields =mainReportTable.getReportColumns();
@@ -330,6 +355,11 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				for (final ReportColumn columnField : columnFields) {
 					if(columnField.getColumnLabel()!=null){						
 						ReportColumnCard reportColumnCard=new ReportColumnCard(columnField){
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
 							@Override
 							public void layoutClick(LayoutClickEvent event) {								
 								ReportColumn reportColumn=columnField;
@@ -343,22 +373,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				this.addComponent(columnLayout);				
 				
 				//build related table info
-				List<ReportTable> relateReportTables=new ArrayList<ReportTable>();
-				mainReportTable.setType(ReportConfiguration.ReportType.MainTable.toString());
-				for (ReportColumn reportColumn : mainReportTable.getReportColumns()) {
-					if (reportColumn.getColumnUseMode() != null
-							&& reportColumn.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.ForeignKeyRefernceColumn.toString())) {
-						//find reference tables first
-						if (reportTables.get(reportColumn.getReferenceTableName()) != null) {
-							String referenceTableName = reportTables.get(reportColumn.getReferenceTableName()).getTableName().toString();
-							ReportTable reportTable=reportTables.get(referenceTableName);
-							reportTable.setType(ReportConfiguration.ReportType.SubTable.toString());
-							relateReportTables.add(reportTable);
-						}
-						
-						
-					}
-				}
+				List<ReportTable> relateReportTables=buildRelatedTableInfo();
 				
 				for(ReportTable reportTable:reportTables.values()){
 					for(ReportColumn reportColumn : reportTable.getReportColumns()){
@@ -367,7 +382,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 							//find reference tables first
 							if (reportTables.get(reportColumn.getReferenceTableName()) != null) {
 								if(reportColumn.getReferenceTableName().equals(mainReportTable.getTableName())){
-									String referenceTableName = reportTables.get(reportColumn.getReferenceTableName()).getTableName().toString();
+//									String referenceTableName = reportTables.get(reportColumn.getReferenceTableName()).getTableName().toString();
 									ReportTable subReportTable=reportTables.get(reportTable.getTableName());
 									subReportTable.setType(ReportConfiguration.ReportType.SubTable.toString());
 									relateReportTables.add(subReportTable);
@@ -381,7 +396,7 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null &&ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables()!=null ){				
 					for(Iterator<ReportTable> it=ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables().iterator();it.hasNext();){
 						ReportTable rt=it.next();
-							if(rt.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
+							if(rt.getType()!=null && rt.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
 									it.remove();
 							}
 					}
@@ -397,13 +412,14 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				ReportModelPool.putUserReportModel(getUser(), rm);
 								
 				// auto add the step
-				RelatedTableStep secondeStep = new RelatedTableStep(w,getUser());
+				secondeStep = new RelatedTableStep(w,getUser());
 				boolean removeStepflg = false;
 				for (WizardStep step : w.getSteps()) {
 					if (step.getCaption().equals(secondeStep.getCaption())) {
 						removeStepflg = true;
 					}
 				}
+				
 				if (removeStepflg) {
 					w.removeStep(secondeStep.getCaption());
 					w.removeStep("Preview Step");
@@ -412,8 +428,81 @@ public class MainTableStep extends AbstarctReportWizardStep {
 				}
 				w.addStep(secondeStep, "Related Table Step");
 				w.addStep(new PreviewStep(w,getUser()),"Preview Step");
+				
 			}
 		}
+
+		private List<ReportTable> buildRelatedTableInfo() {
+			List<ReportTable> relateReportTables=new ArrayList<ReportTable>();
+			mainReportTable.setType(ReportConfiguration.ReportType.MainTable.toString());
+			System.out.println(reportTables.size());
+			for (ReportColumn reportColumn : mainReportTable.getReportColumns()) {
+				if (reportColumn.getColumnUseMode() != null
+						&& reportColumn.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.ForeignKeyRefernceColumn.toString())) {
+					//find reference tables first
+					if (reportTables.get(reportColumn.getReferenceTableName()) != null) {
+						String referenceTableName = reportTables.get(reportColumn.getReferenceTableName()).getTableName().toString();
+						ReportTable reportTable=reportTables.get(referenceTableName);
+						reportTable.setType(ReportConfiguration.ReportType.SubTable.toString());
+						relateReportTables.add(reportTable);
+						return relateReportTables;
+					}
+				}
+			}
+			return null;
+		}
+		
+		private List<ReportTable> buildEditableRelatedTableInfo(){
+			ArrayList<ReportTable> relateReportTables=new ArrayList<ReportTable>();
+			for(ReportJoinTable rt:getEditableReportTable().getReportJoinReportTableId()){
+
+				// find output column
+				for (ReportTable fullRt : appCustomReprotRowData) {
+					if (fullRt.getTableName().equals(
+							rt.getReportTable().getTableName())) {
+						for (ReportColumn rc : rt.getReportTable().getReportColumns()) {
+							if (rc.getColumnUseMode()
+									.equals(ReportConfiguration.ReportColumnType.OutputColumn.toString())) {
+//								for(Iterator<ReportColumn> it=fullRt.getReportColumns().iterator();it.hasNext();){
+//									ReportColumn fullRtRc=it.next();
+//									if(fullRtRc.getColumnName().equals(rc.getColumnName())){
+//										
+//										fullRt.getReportColumns().add(rc);
+//									}
+//								}
+								
+								for(int i=0;i<fullRt.getReportColumns().size();i++){
+									ReportColumn fullRtRc=fullRt.getReportColumns().get(i);
+									if(fullRtRc.getColumnName().equals(rc.getColumnName())){
+										fullRtRc.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
+									}
+								}
+								
+							}
+						}
+						
+						if(relateReportTables.size()>0){
+							boolean needAdd=true;
+							for(ReportTable resultRT:relateReportTables){
+								if(resultRT.getTableName().equals(fullRt.getTableName())){
+									needAdd=false;
+								}
+							}
+							if(needAdd){
+								relateReportTables.add(fullRt);
+							}
+						}
+						if(relateReportTables.size()==0){
+							relateReportTables.add(fullRt);																
+						}
+						
+					}
+				}
+			}
+			
+			return relateReportTables;
+		}
+		
 
 //		private void clearMainTableReslut() {
 //			if(ReportModelPool.findReportModelByCurrentUser(getUser())!=null &&ReportModelPool.findReportModelByCurrentUser(getUser()).getReportTables()!=null ){				
