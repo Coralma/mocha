@@ -90,7 +90,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 				personProfile.setHeadline(person.getHeadline());
 				sa.getLinkedinPersonProfiles().add(personProfile);
 				sa.setAuthToken(linkedAccessToken.getToken());
-				 sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
+				sa.setAuthTokenSecret(linkedAccessToken.getTokenSecret());
 				saDao.merge(sa);
 
 				// getUser().getSoicalApp().remove(soicalApp);

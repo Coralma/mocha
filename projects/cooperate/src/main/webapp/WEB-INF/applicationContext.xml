@@ -52,12 +52,13 @@
 		<property name="jpaProperties">
             <props>
            	 	<prop key="eclipselink.deploy-on-startup">true</prop>
-                <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
+                <!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop> -->
 <!-- 				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
                 <prop key="eclipselink.ddl-generation.output-mode">both</prop>
                 <prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
                 <prop key="eclipselink.logging.level">FINE</prop>
                 <prop key="eclipselink.weaving">false</prop>
+                <prop key="eclipselink.cache.shared.default">false</prop>
             </props>
         </property>
 	</bean>
@@ -77,8 +78,7 @@
 
 	<bean id="commonSearchDao" class="com.coral.foundation.jpa.search.CommonSearchDao"></bean>
 	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
-	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage"
-		scope="prototype"></bean>
+	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage" scope="prototype"></bean>
 
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
