@@ -131,6 +131,7 @@
 
 
 	<div class="nav navbar navbar-fixed-top">
+
 		<div class="navbar-inner">
 			<div class="container">
 				<ul class="nav nav nav-tabs  signin-menu pull-left">
@@ -147,21 +148,23 @@
 								<div wicket:id="myUserLogin"></div>
 							</li>
 						</ul></li>
-					<li>
-							<a wicket:id="commonUserLogoutLnk" title="basepage.header.logout"></a>
-							
-						</li>
+					<li><a wicket:id="commonUserLogoutLnk"
+						title="basepage.header.logout"></a></li>
 				</ul>
 			</div>
 		</div>
+
+		<button class="btn btn-primary" wicket:id="newHomePage">New Home Page</button>
+		
 	</div>
+
 
 	<wicket:child>
 	</wicket:child>
 
 	<div wicket:id="userLoginPopupWindow"></div>
 	<div wicket:id="userLoginSampelWindow"></div>
-
+	
 	<span wicket:id="footer" class="homepagefooter">
 		<hr class="featurette-divider"> <footer>
 			<center>

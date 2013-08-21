@@ -1,40 +1,8 @@
 package com.homepage.pages;
 
 //import com.newrelic.api.agent.NewRelic;
-import de.agilecoders.wicket.Bootstrap;
-import de.agilecoders.wicket.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.markup.html.bootstrap.block.Code;
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonBehavior;
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonGroup;
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.dropdown.DropDownButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.markup.html.bootstrap.button.dropdown.MenuButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.markup.html.bootstrap.dialog.Modal;
-import de.agilecoders.wicket.markup.html.bootstrap.html.ChromeFrameMetaTag;
-import de.agilecoders.wicket.markup.html.bootstrap.html.HtmlTag;
-import de.agilecoders.wicket.markup.html.bootstrap.html.MetaTag;
-import de.agilecoders.wicket.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
-import de.agilecoders.wicket.markup.html.bootstrap.image.Icon;
-import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.AffixBehavior;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.ImmutableNavbarComponent;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.NavbarAjaxButton;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.NavbarAjaxLink;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.NavbarComponents;
-import de.agilecoders.wicket.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.markup.html.bootstrap.navigation.BootstrapPagingNavigator.Position;
-//import de.agilecoders.wicket.samples.WicketApplication;
-//import de.agilecoders.wicket.samples.assets.base.ApplicationJavaScript;
-//import de.agilecoders.wicket.samples.assets.base.FixBootstrapStylesCssResourceReference;
-//import de.agilecoders.wicket.samples.components.site.Footer;
-import de.agilecoders.wicket.settings.IBootstrapSettings;
-import de.agilecoders.wicket.settings.ITheme;
+
+
 import mx4j.tools.remote.http.WebContainer;
 
 import org.apache.wicket.AttributeModifier;
@@ -82,6 +50,15 @@ import com.homepage.pages.login.UserLoginPanel;
 import com.homepage.pages.login.UserLoginWindow;
 import com.homepage.pages.register.RegisterPage;
 import com.homepage.security.SecuritySession;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarAjaxLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 import java.sql.Date;
 import java.util.List;
@@ -144,11 +121,8 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	 */
 	private void commonInit(PageParameters pageParameters) {
 
-		System.out.println("Current Location is: "
-				+ getSession().getLocale().toString());
-		String str = "<ul class=\"dropdown-menu\">"
-				+ ""
-				+ "<li><a href=\"#\" onclick=\"return false\" id=\"chimpanzee\">Chimpanzee</a></li>"
+		System.out.println("Current Location is: " + getSession().getLocale().toString());
+		String str = "<ul class=\"dropdown-menu\">" + "" + "<li><a href=\"#\" onclick=\"return false\" id=\"chimpanzee\">Chimpanzee</a></li>"
 				+ "<li><a href=\"#\" onclick=\"return false\" id=\"lemur\">Lemur</a></li></ul>";
 
 		Label dynamticHtml = new Label("dynamticHtml", str);
@@ -173,9 +147,9 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		// if user signed successfully, thus should enable the profile link
 		Button commonUserLoginLnk = new Button("commonUserLogin");
 		String userProfileLinkName = "";
-		NavbarAjaxLink<Object> commonUserLogoutLnk = new NavbarAjaxLink<Object>(
-				"commonUserLogoutLnk", new ResourceModel("commonUserLogoutLnk")) {
+		NavbarAjaxLink<Object> commonUserLogoutLnk = new NavbarAjaxLink<Object>("commonUserLogoutLnk", new ResourceModel("commonUserLogoutLnk")) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				setBasePageUser(null);
@@ -190,9 +164,9 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			commonUserLogoutLnk.setVisible(true);
 		}
 
-		NavbarAjaxLink<Object> commonUserLoginPrfileLnk = new NavbarAjaxLink<Object>(
-				"commonUserLoginPrfileLnk", Model.of(userProfileLinkName)) {
+		NavbarAjaxLink<Object> commonUserLoginPrfileLnk = new NavbarAjaxLink<Object>("commonUserLoginPrfileLnk", Model.of(userProfileLinkName)) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				setResponsePage(new AccountProfilePage());
@@ -203,16 +177,13 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		add(commonUserLogoutLnk);
 		add(new UserLoginPanel("myUserLogin") {
 			private static final long serialVersionUID = 1L;
+
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onLogin(AjaxRequestTarget target) {
-				boolean isSignIn = session.authenticate(getLoginUser()
-						.getEmailAddress(), getLoginUser().getPw());
+				boolean isSignIn = session.authenticate(getLoginUser().getEmailAddress(), getLoginUser().getPw());
 				if (isSignIn) {
-					((WebResponse) getRequestCycle().getResponse())
-							.addCookie(new Cookie("mochaSession",
-									getLoginUser().getEmailAddress()
-											+ UUID.randomUUID()));
+					((WebResponse) getRequestCycle().getResponse()).addCookie(new Cookie("mochaSession", getLoginUser().getEmailAddress() + UUID.randomUUID()));
 				}
 				setResponsePage(AccountProfilePage.class);
 				// handler the login failed later
@@ -220,8 +191,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 
 			private User valdateUser(User user) {
 				UserDao userDao = new UserDao();
-				User resultUser = userDao.findUserByEmail(user
-						.getEmailAddress());
+				User resultUser = userDao.findUserByEmail(user.getEmailAddress());
 				return resultUser;
 			}
 
@@ -237,7 +207,27 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			}
 		});
 
+		buildNewVersionComponnt();
+
 		buildFooterComponent();
+	}
+
+	private void buildNewVersionComponnt() {
+		AjaxLink<String> newHomePageBtn = new AjaxLink<String>("newHomePage",Model.of("New Home Page")) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				setResponsePage(SimpleHomePage.class);
+			}
+
+		};
+		add(newHomePageBtn);
 	}
 
 	private void buildFooterComponent() {
@@ -326,8 +316,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		add(modal);
 		modal.setPageCreator(new ModalWindow.PageCreator() {
 			public Page createPage() {
-				return new UserLoginPage(BasePage.this.getPageReference(),
-						modal);
+				return new UserLoginPage(BasePage.this.getPageReference(), modal);
 			}
 		});
 
@@ -340,8 +329,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 		});
 		modal.setTitle("");
 
-		final UserLoginWindow userLoginWindow = new UserLoginWindow(
-				"userLoginSampelWindow") {
+		final UserLoginWindow userLoginWindow = new UserLoginWindow("userLoginSampelWindow") {
 			/**
 			 * 
 			 */
@@ -350,8 +338,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onLogin(AjaxRequestTarget target) {
-				boolean isSignIn = session.authenticate(getUser()
-						.getEmailAddress(), getUser().getPw());
+				boolean isSignIn = session.authenticate(getUser().getEmailAddress(), getUser().getPw());
 				session.setUser(getUser());
 				setResponsePage(AccountProfilePage.class);
 				// handler the login failed later
@@ -360,8 +347,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			private User valdateUser(User user) {
 
 				UserDao userDao = new UserDao();
-				User resultUser = userDao.findUserByEmail(user
-						.getEmailAddress());
+				User resultUser = userDao.findUserByEmail(user.getEmailAddress());
 				return resultUser;
 			}
 
@@ -376,6 +362,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 
 		userLoginLink = new NavbarAjaxLink<Object>(Model.of("SignIn")) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				target.appendJavaScript("Wicket.Window.unloadConfirmation =false;");
@@ -388,8 +375,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			userProfileLinkName = session.getUser().getEmailAddress();
 		}
 
-		NavbarAjaxLink<Object> userProfileLink = new NavbarAjaxLink<Object>(
-				Model.of(userProfileLinkName)) {
+		NavbarAjaxLink<Object> userProfileLink = new NavbarAjaxLink<Object>(Model.of(userProfileLinkName)) {
 			/**
 			 * 
 			 */
@@ -401,8 +387,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			}
 		};
 
-		NavbarAjaxLink<Object> userLogout = new NavbarAjaxLink<Object>(
-				Model.of("Logout")) {
+		NavbarAjaxLink<Object> userLogout = new NavbarAjaxLink<Object>(Model.of("Logout")) {
 			/**
 					 * 
 					 */
@@ -422,29 +407,24 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 			userProfileLink.setVisible(true);
 			userLogout.setVisible(true);
 			getUserloginlink().setVisible(false);
-		} else if (session.isSessionInvalidated() || !session.isSignedIn()) {
+		}
+		else if (session.isSessionInvalidated() || !session.isSignedIn()) {
 			userProfileLink.setVisible(false);
 			getUserloginlink().setVisible(true);
 			userLogout.setVisible(false);
 		}
 
-		navbar.addComponents(NavbarComponents.transform(
-				Navbar.ComponentPosition.LEFT,
-				new NavbarButton<Homepage>(Homepage.class, Model.of("Home"))
-						.setIconType(IconType.home).add(
-								AttributeModifier.append("style",
-										"color: black"))));
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, new NavbarButton<Homepage>(Homepage.class, Model.of("Home"))
+				.setIconType(IconType.home).add(AttributeModifier.append("style", "color: black"))));
 
-		navbar.addComponents(NavbarComponents.transform(
-				Navbar.ComponentPosition.RIGHT, getSignUpLink(),
-				// getUserloginlink().add(
-				// AttributeModifier.append("data-toggle",
-				// "dropdown")).add(AttributeModifier.append("class",
-				// "dropdown-toggle"))
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, getSignUpLink(),
+		// getUserloginlink().add(
+		// AttributeModifier.append("data-toggle",
+		// "dropdown")).add(AttributeModifier.append("class",
+		// "dropdown-toggle"))
 				getUserloginlink()));
 
-		navbar.addComponents(NavbarComponents.transform(
-				Navbar.ComponentPosition.RIGHT, userProfileLink, userLogout));
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, userProfileLink, userLogout));
 
 		IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
 
@@ -452,8 +432,7 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	}
 
 	private Component getSignUpLink() {
-		NavbarButton navBarButton = (NavbarButton) new NavbarButton<Homepage>(
-				RegisterPage.class, Model.of("SignUp"))
+		NavbarButton navBarButton = (NavbarButton) new NavbarButton<Homepage>(RegisterPage.class, Model.of("SignUp"))
 				.add(AttributeModifier
 						.append("style",
 								"line-height: 24px;background-color: #AB0001; background-image: "
@@ -461,7 +440,8 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 										+ "background-repeat: repeat-x;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);box-shadow: none;color: #FFFFFF;font-family: 'PTSansBold';text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);"));
 		if (session.isSessionInvalidated() || !session.isSignedIn()) {
 			navBarButton.setVisible(true);
-		} else {
+		}
+		else {
 			navBarButton.setVisible(false);
 		}
 		return navBarButton;
@@ -495,20 +475,14 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 
-		response.render(CssHeaderItem
-				.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
+		response.render(CssHeaderItem.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
 		// bootstrap-tabs.js
-		response.render(CssHeaderItem
-				.forReference(new PackageResourceReference(
-						AccountProfilePage.class, "bootstrap-tabs.js")));
-		response.render(CssHeaderItem
-				.forReference(new PackageResourceReference(
-						AccountProfilePage.class, "jquery.easytabs.js")));
-		response.render(CssHeaderItem
-				.forReference(new PackageResourceReference(
-						AccountProfilePage.class, "bootstrap-tabs.js")));
+		response.render(CssHeaderItem.forReference(new PackageResourceReference(AccountProfilePage.class, "bootstrap-tabs.js")));
+		response.render(CssHeaderItem.forReference(new PackageResourceReference(AccountProfilePage.class, "jquery.easytabs.js")));
+		response.render(CssHeaderItem.forReference(new PackageResourceReference(AccountProfilePage.class, "bootstrap-tabs.js")));
 
 	}
+
 	protected boolean hasNavigation() {
 		return false;
 	}
@@ -520,19 +494,15 @@ public abstract class BasePage<T> extends GenericWebPage<T> {
 	 *            The component's markup id
 	 * @return a new navigation component.
 	 */
-	private Component newNavigation(String markupId) {
+	protected Component newNavigation(String markupId) {
 
 		WebMarkupContainer navigation = new WebMarkupContainer(markupId);
 
 		navigation.setVisible(hasNavigation());
 		Navbar navbar = new Navbar("Sign In");
 		navigation.add(navbar);
-		navbar.addComponents(NavbarComponents.transform(
-				Navbar.ComponentPosition.RIGHT,
-				new NavbarButton<Homepage>(Homepage.class, Model.of("New Link"))
-						.setIconType(IconType.home).add(
-								AttributeModifier.append("style",
-										"color: black")), getUserloginlink()));
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, new NavbarButton<Homepage>(Homepage.class, Model.of("New Link"))
+				.setIconType(IconType.home).add(AttributeModifier.append("style", "color: black")), getUserloginlink()));
 		add(navigation);
 		return navigation;
 	}

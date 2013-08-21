@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>HomePage</title>
+</head>
+<body>
+	<wicket:extend>
+
+		<script type="text/javascript">
+			$(function() {
+				/* alert('test');
+				$('.banner').unslider(); */
+			      !function ($) {
+			        $(function(){
+			          // carousel demo
+			          $('#myCarousel').carousel()
+			        })
+			      }(window.jQuery)
+			});
+		</script>
+		
+		<div class="hero-unit">
+			<div class="container pull-center">
+				 <!-- Carousel================================================== -->
+			    <div id="myCarousel" class="carousel slide">
+			      <div class="carousel-inner">
+			        <div class="item active">
+			          <img src="images/1.jpg" alt="">
+			          <div class="container">
+			            <div class="carousel-caption">
+			              <h1>Our.Design.Work</h1>
+			              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+			              <button id="sample" class="btn btn-primary btn-large" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="div.gallery-item">View Gallery</button>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="item">
+			          <img src="images/2.jpg" alt="">
+			          <div class="container">
+			            <div class="carousel-caption">
+			              <h1>Our.Design.Work</h1>
+			              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+			              <!-- <button id="sample" class="btn btn-large btn-primary" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="div.gallery-item">View Gallery</button> -->
+			            </div>
+			          </div>
+			        </div>
+			        <div class="item">
+			          <img src="images/3.jpg" alt="">
+			          <div class="container">
+			            <div class="carousel-caption">
+			              <h1>Our.Design.Work</h1>
+			              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+			              <!-- <button id="sample" class="btn btn-large btn-primary" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="div.gallery-item">View Gallery</button> -->
+			            </div>
+			          </div>
+			        </div>
+			        
+			      
+			      </div>
+			      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			    </div><!-- /.carousel -->	
+			</div>
+		</div>
+
+
+		<div class="container marketing">
+
+			<!-- Three columns of text below the carousel -->
+			<div class="row">
+				<div class="span4">
+					<img class="img-circle" data-src="holder.js/140x140">
+					<h2>Heading</h2>
+					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis
+						euismod. Nullam id dolor id nibh ultricies vehicula ut id elit.
+						Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+						Praesent commodo cursus magna, vel scelerisque nisl consectetur
+						et.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!-- /.span4 -->
+				<div class="span4">
+					<img class="img-circle" data-src="holder.js/140x140">
+					<h2>Heading</h2>
+					<p>Duis mollis, est non commodo luctus, nisi erat porttitor
+						ligula, eget lacinia odio sem nec elit. Cras mattis consectetur
+						purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo,
+						tortor mauris condimentum nibh, ut fermentum massa justo sit amet
+						risus.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!-- /.span4 -->
+				<div class="span4">
+					<img class="img-circle" data-src="holder.js/140x140">
+					<h2>Heading</h2>
+					<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis
+						in, egestas eget quam. Vestibulum id ligula porta felis euismod
+						semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+						condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!-- /.span4 -->
+			</div>
+			<!-- /.row -->
+
+
+			<!-- START THE FEATURETTES -->
+
+			<hr class="featurette-divider">
+
+			<div class="featurette">
+				<img class="featurette-image pull-right"
+					src="../assets/img/examples/browser-icon-chrome.png">
+				<h2 class="featurette-heading">
+					First featurette headling. <span class="muted">It'll blow
+						your mind.</span>
+				</h2>
+				<p class="lead">Donec ullamcorper nulla non metus auctor
+					fringilla. Vestibulum id ligula porta felis euismod semper.
+					Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+					Fusce dapibus, tellus ac cursus commodo.</p>
+			</div>
+
+			<hr class="featurette-divider">
+
+			<div class="featurette">
+				<img class="featurette-image pull-left"
+					src="../assets/img/examples/browser-icon-firefox.png">
+				<h2 class="featurette-heading">
+					Oh yeah, it's that good. <span class="muted">See for
+						yourself.</span>
+				</h2>
+				<p class="lead">Donec ullamcorper nulla non metus auctor
+					fringilla. Vestibulum id ligula porta felis euismod semper.
+					Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+					Fusce dapibus, tellus ac cursus commodo.</p>
+			</div>
+
+			<hr class="featurette-divider">
+
+			<div class="featurette">
+				<img class="featurette-image pull-right"
+					src="../assets/img/examples/browser-icon-safari.png">
+				<h2 class="featurette-heading">
+					And lastly, this one. <span class="muted">Checkmate.</span>
+				</h2>
+				<p class="lead">Donec ullamcorper nulla non metus auctor
+					fringilla. Vestibulum id ligula porta felis euismod semper.
+					Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+					Fusce dapibus, tellus ac cursus commodo.</p>
+			</div>
+
+			<hr class="featurette-divider">
+
+			<!-- /END THE FEATURETTES -->
+
+
+			<!-- FOOTER -->
+			<footer>
+				<p class="pull-right">
+					<a href="#">Back to top</a>
+				</p>
+				<p>
+					&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot;
+					<a href="#">Terms</a>
+				</p>
+			</footer>
+
+		</div>
+		<!-- /.container -->
+
+
+
+
+		<div class="jumbotron masthead">
+			<div class="container">
+				<h1>Company Slogan</h1>
+				<h4 class="lead">We provides online software for Event
+					Management, Web Surveys, & Email Marketing as well as a global
+					event venue directory with over 150000 venues.</h4>
+
+				<div class="row-fluid">
+					<div class="span4 offset8"></div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<br> <br>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="about" class="container-fluid">
+			<div class="container light">
+				<h2>What can we offer</h2>
+				<ul class="thumbnails">
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="1.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Meeting Management</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in
+								blandit.Curabitur vulputate</p>
+						</div>
+					</li>
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="2.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Exhibition Arrangements</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in
+								blandit.Curabitur vulputate</p>
+						</div>
+					</li>
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="3.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Hotel Booking</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in blandit.
+								Curabitur vulputate</p>
+						</div>
+					</li>
+				</ul>
+
+				<ul class="thumbnails">
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="4.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Meeting Management</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in blandit.
+								Curabitur vulputate</p>
+						</div>
+					</li>
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="5.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Exhibition Arrangements</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in blandit.
+								Curabitur vulputate</p>
+						</div>
+					</li>
+					<li class="span4">
+						<div class="thumbnail">
+							<img wicket:id="6.jpg" alt=""
+								style="height: 250px; width: 250px" class="img-polaroid">
+							<h3>Hotel Booking</h3>
+							<p>Nulla facilisi. Duis aliquet egestas purus in blandit.
+								Curabitur vulputate</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="contact" class="container-fluid">
+			<div class="container dark">
+				<h1>Get in contact with us</h1>
+				<div class="span5">
+					<form>
+						<div class="control-group">
+							<label class="control-label" for="inputName">Name</label>
+							<div class="controls">
+								<input id="inputName" class="span4" type="text"
+									placeholder="Name">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputEmail">Email</label>
+							<div class="controls">
+								<input id="inputEmail" class="span4" type="text"
+									placeholder="Email">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputContact">Message</label>
+							<div class="controls">
+								<textarea id="inputContact" class="span4"></textarea>
+							</div>
+						</div>
+						<button class="btn btn-primary" type="submit">Contact Us</button>
+					</form>
+				</div>
+				<div class="span4">
+					<h2>Company Details</h2>
+					<p>Nulla facilisi. Duis aliquet egestas purus in blandit.
+						Curabitur vulputate, ligula lacinia scelerisque tempor, lacus
+						lacus ornare ante, ac egestas est urna sit.</p>
+					<address>
+						<strong>Company, Inc.</strong> <br> 95 Shanghai Road Ave,
+						Shanghai Building <br> Shanghai <br> <abbr title="Phone">P:</abbr>
+						(123) 456-7890
+					</address>
+					<address>
+						<strong>Full Name</strong> <br> <a href="mailto:#">first.last@example.com</a>
+					</address>
+				</div>
+			</div>
+		</div>
+
+		<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=369950633&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:369950633:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> -->
+
+		<script>
+			$(function() {
+				$("#sample")
+						.click(
+								function() {
+									var options = $(this).data(), modal = $(options.target), data = modal
+											.data('modal');
+									if (data) {
+										$.extend(data.options, options);
+									} else {
+										options = $.extend(modal.data(),
+												options);
+									}
+									modal.find('.modal-slideshow').find('i')
+											.removeClass('icon-play').addClass(
+													'icon-pause');
+									modal.modal(options);
+								});
+			});
+		</script>
+		
+	</wicket:extend>
+</body>
+</html>

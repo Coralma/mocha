@@ -63,8 +63,6 @@ import com.homepage.payment.AccountFeeType;
 import com.homepage.payment.CheckOut;
 import com.homepage.security.SecuritySession;
 
-import de.agilecoders.wicket.markup.html.bootstrap.tabs.BootstrapTabbedPanel;
-
 public class AccountProfilePage extends BasePage {
 
 	/**
@@ -79,10 +77,8 @@ public class AccountProfilePage extends BasePage {
 		SecuritySession session = (SecuritySession) SecuritySession.get();
 		// user change to another account
 
-		if (user == null || account == null || !session.isSignedIn()
-				|| !user.equals(session.getUser())) {
-			setUser(session.getAuthenciateUserByUserEmail(session.getUser()
-					.getEmailAddress()));
+		if (user == null || account == null || !session.isSignedIn() || !user.equals(session.getUser())) {
+			setUser(session.getAuthenciateUserByUserEmail(session.getUser().getEmailAddress()));
 			setAccount(session.getAccount());
 		}
 		build();
@@ -90,16 +86,12 @@ public class AccountProfilePage extends BasePage {
 
 	public void build() {
 
-
-
 		add(getAccountProfilePanel());
 
 		// add(getAccountAdminPanel());
 
 		add(getAccountAdminSimplePanel());
 		add(getAccountFeePanel());
-		
-		
 
 		// List<AbstractTab> tabs = new ArrayList();
 		// tabs.add(new AbstractTab(new Model("Company Admin Profile")) {
@@ -153,18 +145,16 @@ public class AccountProfilePage extends BasePage {
 		// "userProfileTabs", tabs);
 		// add(simpleTabs);
 	}
+
 	private Component getAccountAdminSimplePanel() {
-		WebMarkupContainer simpleAdminPanel = new WebMarkupContainer(
-				"simpleAdminPanel");
+		WebMarkupContainer simpleAdminPanel = new WebMarkupContainer("simpleAdminPanel");
 
 		add(simpleAdminPanel);
 
-		Label userName = new Label("userName", Model.of(AccountProfilePage
-				.getUser().getUserName()));
+		Label userName = new Label("userName", Model.of(AccountProfilePage.getUser().getUserName()));
 		simpleAdminPanel.add(userName);
 
-		ExternalLink cooperateUrlLink = new ExternalLink("cooperateUrlLink",
-				Model.of(getUser().getCooperateUrl()));
+		ExternalLink cooperateUrlLink = new ExternalLink("cooperateUrlLink", Model.of(getUser().getCooperateUrl()));
 
 		simpleAdminPanel.add(cooperateUrlLink);
 
@@ -172,8 +162,7 @@ public class AccountProfilePage extends BasePage {
 	}
 
 	private Component getAccountFeePanel() {
-		WebMarkupContainer accountFeePanel = new WebMarkupContainer(
-				"accountFeePanel");
+		WebMarkupContainer accountFeePanel = new WebMarkupContainer("accountFeePanel");
 
 		final Form accountFeeForm = new Form("accountFeeForm");
 		accountFeePanel.add(accountFeeForm);
@@ -183,15 +172,12 @@ public class AccountProfilePage extends BasePage {
 		AccountFee accountFee = new AccountFee();
 		AccountFeeDao accountFeeDao = new AccountFeeDao();
 		accountFee = accountFeeDao.findLatestAccountFee(getUser());
-		checkPaidAccount.setDefaultModel(Model.of(accountFee.getType()
-				.toString()));
+		checkPaidAccount.setDefaultModel(Model.of(accountFee.getType().toString()));
 
-		Label accountFeeExpireDateLabel = new Label("accountFeeExpireDate",
-				Model.of(accountFee.getExpireDate().toString()));
+		Label accountFeeExpireDateLabel = new Label("accountFeeExpireDate", Model.of(accountFee.getExpireDate().toString()));
 
 		final Form accountFeeDetails = new Form("accountFeeDetails");
-		AjaxButton freeLink = new AjaxButton("freeLink", Model.of("Free"),
-				accountFeeDetails) {
+		AjaxButton freeLink = new AjaxButton("freeLink", Model.of("Free"), accountFeeDetails) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -202,8 +188,7 @@ public class AccountProfilePage extends BasePage {
 			}
 		};
 
-		AjaxButton proLink = new AjaxButton("proLink", Model.of("Pro"),
-				accountFeeDetails) {
+		AjaxButton proLink = new AjaxButton("proLink", Model.of("Pro"), accountFeeDetails) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -216,8 +201,7 @@ public class AccountProfilePage extends BasePage {
 			}
 		};
 
-		AjaxButton advancedLink = new AjaxButton("advancedLink",
-				Model.of("Advanced"), accountFeeDetails) {
+		AjaxButton advancedLink = new AjaxButton("advancedLink", Model.of("Advanced"), accountFeeDetails) {
 
 			private static final long serialVersionUID = 2742429779079782353L;
 
@@ -237,8 +221,7 @@ public class AccountProfilePage extends BasePage {
 		accountFeeForm.add(accountFeeExpireDateLabel);
 
 		// accountFeeForm.add(promoteToPro);
-		SimpleOrderForm simpleOrderForm = new SimpleOrderForm(
-				"simpleOrderForm", getUser());
+		SimpleOrderForm simpleOrderForm = new SimpleOrderForm("simpleOrderForm", getUser());
 		accountFeePanel.add(simpleOrderForm);
 		AjaxLink orderBtn = new AjaxLink("order") {
 			/**
@@ -252,7 +235,8 @@ public class AccountProfilePage extends BasePage {
 				if (getUser() == null) {
 					System.out.println("Current user is null");
 
-				} else {
+				}
+				else {
 					System.out.println("Current user" + user.getEmailAddress());
 				}
 				Order order = new Order();
@@ -261,17 +245,14 @@ public class AccountProfilePage extends BasePage {
 				OrderDao orderDao = new OrderDao(order);
 				// order.setAccount(user.getAccount());
 				// order.setUser(user);
-				long orderID = orderDao.createOrderWithAccountAndUser(order,
-						user);
+				long orderID = orderDao.createOrderWithAccountAndUser(order, user);
 				if (orderID == -1) {
 					System.out.println("Error create order!");
 				}
-				System.out
-						.println("create new orderOID " + order.getOrderOID());
+				System.out.println("create new orderOID " + order.getOrderOID());
 				String callUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
 				String orderOID = order.getOrderOID();
-				target.appendJavaScript("makeCallBack( '" + callUrl + "','"
-						+ orderOID + "' )");
+				target.appendJavaScript("makeCallBack( '" + callUrl + "','" + orderOID + "' )");
 			}
 		};
 		accountFeePanel.add(orderBtn);
@@ -281,63 +262,51 @@ public class AccountProfilePage extends BasePage {
 
 	private Component getAccountAdminPanel() {
 
-		WebMarkupContainer accountAdminContainer = new WebMarkupContainer(
-				"accountAdminContainer");
+		WebMarkupContainer accountAdminContainer = new WebMarkupContainer("accountAdminContainer");
 		add(accountAdminContainer);
 
-		Label userName = new Label("userName", Model.of(AccountProfilePage
-				.getUser().getUserName()));
+		Label userName = new Label("userName", Model.of(AccountProfilePage.getUser().getUserName()));
 		accountAdminContainer.add(userName);
 		Label pw = new Label("pw", getUser().getPw());
 		accountAdminContainer.add(pw);
 		Label lastLoginDate;
 		if (getUser().getLastLoginDate() != null) {
-			lastLoginDate = new Label("lastLoginDate", Model.of(getUser()
-					.getLastLoginDate().toGMTString()));
-		} else {
+			lastLoginDate = new Label("lastLoginDate", Model.of(getUser().getLastLoginDate().toGMTString()));
+		}
+		else {
 			lastLoginDate = new Label("lastLoginDate", Model.of("N/A"));
 		}
 		accountAdminContainer.add(lastLoginDate);
 
-		Label cooperateUrl = new Label("cooperateUrl", Model.of(getUser()
-				.getCooperateUrl()));
+		Label cooperateUrl = new Label("cooperateUrl", Model.of(getUser().getCooperateUrl()));
 		accountAdminContainer.add(cooperateUrl);
 
 		return accountAdminContainer;
 	}
 
 	/*
-	 * <div wicket:id="accountName"></div> <div wcket:id="accountType"></div>
-	 * <div wcket:id="accountSize"></div> <div wcket:id="accountTwitter"></div>
+	 * <div wicket:id="accountName"></div> <div wcket:id="accountType"></div> <div wcket:id="accountSize"></div> <div wcket:id="accountTwitter"></div>
 	 */
 	private Component getAccountProfilePanel() {
-		WebMarkupContainer accountProfileContainer = new WebMarkupContainer(
-				"accountProfilePanel");
-		Image accountDefaultLogo = new Image("accountProfileImage",
-				Model.of("defaultBrandLogo.png"));
+		WebMarkupContainer accountProfileContainer = new WebMarkupContainer("accountProfilePanel");
+		Image accountDefaultLogo = new Image("accountProfileImage", Model.of("defaultBrandLogo.png"));
 
 		accountProfileContainer.add(accountDefaultLogo);
 
-		Label accoutName = new Label("accountName", Model.of(getAccount()
-				.getName()));
+		Label accoutName = new Label("accountName", Model.of(getAccount().getName()));
 		accountProfileContainer.add(accoutName);
-		Label accountType = new Label("accountType", Model.of(getAccount()
-				.getAccountType()));
+		Label accountType = new Label("accountType", Model.of(getAccount().getAccountType()));
 		accountProfileContainer.add(accountType);
-		Label accountSize = new Label("accountSize", Model.of(getAccount()
-				.getAccountSize()));
+		Label accountSize = new Label("accountSize", Model.of(getAccount().getAccountSize()));
 		accountProfileContainer.add(accountSize);
 
-		Label accountAddress = new Label("accountAddress",
-				Model.of(getAccount().getAccountAddress()));
+		Label accountAddress = new Label("accountAddress", Model.of(getAccount().getAccountAddress()));
 		accountProfileContainer.add(accountAddress);
 
-		Label accountPhone = new Label("accountPhone", Model.of(getAccount()
-				.getAccountPhone()));
+		Label accountPhone = new Label("accountPhone", Model.of(getAccount().getAccountPhone()));
 		accountProfileContainer.add(accountPhone);
 
-		Label accountTwitter = new Label("accountTwitter", Model.of(account
-				.getTwitterAccount()));
+		Label accountTwitter = new Label("accountTwitter", Model.of(account.getTwitterAccount()));
 		accountProfileContainer.add(accountTwitter);
 
 		// accountProfileContainer.add(accountPanelPublicInfo);
@@ -345,8 +314,7 @@ public class AccountProfilePage extends BasePage {
 	}
 
 	private void buildPersonalProfile() {
-		WebMarkupContainer personaProfilePanel = new WebMarkupContainer(
-				"userProfile");
+		WebMarkupContainer personaProfilePanel = new WebMarkupContainer("userProfile");
 		add(personaProfilePanel);
 		Label userName = new Label("userName");
 		userName.setDefaultModel(Model.of(getUser().getUserName()));
@@ -390,22 +358,20 @@ public class AccountProfilePage extends BasePage {
 
 		private void build() {
 
-			Label userName = new Label("userName", Model.of(AccountProfilePage
-					.getUser().getUserName()));
+			Label userName = new Label("userName", Model.of(AccountProfilePage.getUser().getUserName()));
 			add(userName);
 			Label pw = new Label("pw", getUser().getPw());
 			add(pw);
 			Label lastLoginDate;
 			if (getUser().getLastLoginDate() != null) {
-				lastLoginDate = new Label("lastLoginDate", Model.of(getUser()
-						.getLastLoginDate().toGMTString()));
-			} else {
+				lastLoginDate = new Label("lastLoginDate", Model.of(getUser().getLastLoginDate().toGMTString()));
+			}
+			else {
 				lastLoginDate = new Label("lastLoginDate", Model.of("N/A"));
 			}
 			add(lastLoginDate);
 
-			Label cooperateUrl = new Label("cooperateUrl", Model.of(getUser()
-					.getCooperateUrl()));
+			Label cooperateUrl = new Label("cooperateUrl", Model.of(getUser().getCooperateUrl()));
 			add(cooperateUrl);
 		}
 	}
@@ -463,13 +429,11 @@ public class AccountProfilePage extends BasePage {
 			AccountFee accountFee = new AccountFee();
 			AccountFeeDao accountFeeDao = new AccountFeeDao();
 			accountFee = accountFeeDao.findLatestAccountFee(getUser());
-			checkPaidAccount.setDefaultModel(Model.of("Account Info: "
-					+ accountFee.getType().toString() + " will be expired in "
+			checkPaidAccount.setDefaultModel(Model.of("Account Info: " + accountFee.getType().toString() + " will be expired in "
 					+ accountFee.getExpireDate().toString()));
 
 			final Form accountFeeDetails = new Form("accountFeeDetails");
-			AjaxButton freeLink = new AjaxButton("freeLink", Model.of("Free"),
-					accountFeeDetails) {
+			AjaxButton freeLink = new AjaxButton("freeLink", Model.of("Free"), accountFeeDetails) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -480,8 +444,7 @@ public class AccountProfilePage extends BasePage {
 				}
 			};
 
-			AjaxButton proLink = new AjaxButton("proLink", Model.of("Pro"),
-					accountFeeDetails) {
+			AjaxButton proLink = new AjaxButton("proLink", Model.of("Pro"), accountFeeDetails) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -494,8 +457,7 @@ public class AccountProfilePage extends BasePage {
 				}
 			};
 
-			AjaxButton advancedLink = new AjaxButton("advancedLink",
-					Model.of("Advanced"), accountFeeDetails) {
+			AjaxButton advancedLink = new AjaxButton("advancedLink", Model.of("Advanced"), accountFeeDetails) {
 
 				private static final long serialVersionUID = 2742429779079782353L;
 
@@ -513,8 +475,7 @@ public class AccountProfilePage extends BasePage {
 			add(accountFeeDetails);
 			accountFeeForm.add(checkPaidAccount);
 			// accountFeeForm.add(promoteToPro);
-			SimpleOrderForm simpleOrderForm = new SimpleOrderForm(
-					"simpleOrderForm", getUser());
+			SimpleOrderForm simpleOrderForm = new SimpleOrderForm("simpleOrderForm", getUser());
 			add(simpleOrderForm);
 			AjaxLink orderBtn = new AjaxLink("order") {
 				/**
@@ -528,9 +489,9 @@ public class AccountProfilePage extends BasePage {
 					if (getUser() == null) {
 						System.out.println("Current user is null");
 
-					} else {
-						System.out.println("Current user"
-								+ user.getEmailAddress());
+					}
+					else {
+						System.out.println("Current user" + user.getEmailAddress());
 					}
 					Order order = new Order();
 					order.setOrderOID(UUID.randomUUID().toString());
@@ -538,17 +499,14 @@ public class AccountProfilePage extends BasePage {
 					OrderDao orderDao = new OrderDao(order);
 					// order.setAccount(user.getAccount());
 					// order.setUser(user);
-					long orderID = orderDao.createOrderWithAccountAndUser(
-							order, user);
+					long orderID = orderDao.createOrderWithAccountAndUser(order, user);
 					if (orderID == -1) {
 						System.out.println("Error create order!");
 					}
-					System.out.println("create new orderOID "
-							+ order.getOrderOID());
+					System.out.println("create new orderOID " + order.getOrderOID());
 					String callUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
 					String orderOID = order.getOrderOID();
-					target.appendJavaScript("makeCallBack( '" + callUrl + "','"
-							+ orderOID + "' )");
+					target.appendJavaScript("makeCallBack( '" + callUrl + "','" + orderOID + "' )");
 				}
 			};
 			add(orderBtn);
@@ -604,8 +562,7 @@ class SimpleOrderForm<T> extends Form<T> {
 
 	private void build() {
 
-		HiddenField<String> orderId = new HiddenField<String>("orderId",
-				Model.of("orderId")) {
+		HiddenField<String> orderId = new HiddenField<String>("orderId", Model.of("orderId")) {
 			/**
 					 * 
 					 */
@@ -619,8 +576,7 @@ class SimpleOrderForm<T> extends Form<T> {
 			}
 		};
 		// add(orderId);
-		HiddenField<String> notifyUrl = new HiddenField<String>("notify_url",
-				Model.of("notify_url")) {
+		HiddenField<String> notifyUrl = new HiddenField<String>("notify_url", Model.of("notify_url")) {
 			/**
 					 * 
 					 */

@@ -1,4 +1,5 @@
 package com.homepage.application;
+
 import java.io.File;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -57,22 +58,25 @@ import com.homepage.model.SystemPropertyDao;
 import com.homepage.model.User;
 import com.homepage.pages.BasePage;
 import com.homepage.pages.Homepage;
+import com.homepage.pages.SimpleHomePage;
 import com.homepage.pages.login.AccountProfilePage;
 import com.homepage.security.*;
 
-import de.agilecoders.wicket.Bootstrap;
-import de.agilecoders.wicket.javascript.GoogleClosureJavaScriptCompressor;
-import de.agilecoders.wicket.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
-import de.agilecoders.wicket.markup.html.bootstrap.extensions.html5player.Html5PlayerCssReference;
-import de.agilecoders.wicket.markup.html.bootstrap.extensions.html5player.Html5PlayerJavaScriptReference;
-import de.agilecoders.wicket.markup.html.bootstrap.extensions.jqueryui.JQueryUIJavaScriptReference;
-import de.agilecoders.wicket.markup.html.references.BootstrapPrettifyCssReference;
-import de.agilecoders.wicket.markup.html.references.BootstrapPrettifyJavaScriptReference;
-import de.agilecoders.wicket.markup.html.references.ModernizrJavaScriptReference;
-import de.agilecoders.wicket.markup.html.themes.metro.MetroTheme;
-import de.agilecoders.wicket.settings.BootstrapSettings;
-import de.agilecoders.wicket.settings.BootswatchThemeProvider;
-import de.agilecoders.wicket.settings.ThemeProvider;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
+import de.agilecoders.wicket.core.markup.html.references.ModernizrJavaScriptReference;
+import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.core.settings.ThemeProvider;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerCssReference;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerJavaScriptReference;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.jqueryui.JQueryUIJavaScriptReference;
+import de.agilecoders.wicket.less.BootstrapLess;
+
+import de.agilecoders.wicket.themes.markup.html.bootstrap3.Bootstrap3Theme;
+import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
+import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
+import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
+import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
 
 public class HomeApplication extends WebApplication {
 
@@ -89,29 +93,25 @@ public class HomeApplication extends WebApplication {
 		super.init();
 		configureBootstrap();
 		initDB();
-		getSecuritySettings().setAuthorizationStrategy(
-				new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
-		MetaDataRoleAuthorizationStrategy.authorize(AccountProfilePage.class,
-				"USER");
+		getSecuritySettings().setAuthorizationStrategy(new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
+		MetaDataRoleAuthorizationStrategy.authorize(AccountProfilePage.class, "USER");
 		configureApplication();
-
 		getApplicationSettings().setInternalErrorPage(com.homepage.pages.ErrorPage.class);
 	}
+
 	private void configureApplication() {
 		// we need a system level configuration here
 		SystemPropertyDao systemProperty = new SystemPropertyDao();
-		String paypal_ipn_url = systemProperty
-				.findSystemValueByKey("paypal_ipn_url");
+		String paypal_ipn_url = systemProperty.findSystemValueByKey("paypal_ipn_url");
 		if (paypal_ipn_url != null) {
 			HomepageSystemProperty.setPaypal_ipn_url(paypal_ipn_url);
 		}
 	}
+
 	private void initDB() {
 		if (needDBinit) {
-			setFactory(Persistence
-					.createEntityManagerFactory(PERSISTENCE_UNIT_NAME));
-			EntityManagerImpl entityMfg = (EntityManagerImpl) factory
-					.createEntityManager();
+			setFactory(Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME));
+			EntityManagerImpl entityMfg = (EntityManagerImpl) factory.createEntityManager();
 			entityMfg.find(User.class, 0l);
 			entityMfg.close();
 			needDBinit = false;
@@ -134,17 +134,11 @@ public class HomeApplication extends WebApplication {
 	private void configureResourceBundles() {
 		setHeaderResponseDecorator(new RenderJavaScriptToFooterHeaderResponseDecorator());
 
-		getResourceBundles()
-				.addJavaScriptBundle(
-						HomeApplication.class,
-						"core.js",
-						(JavaScriptResourceReference) getJavaScriptLibrarySettings()
-								.getJQueryReference(),
-						(JavaScriptResourceReference) getJavaScriptLibrarySettings()
-								.getWicketEventReference(),
-						(JavaScriptResourceReference) getJavaScriptLibrarySettings()
-								.getWicketAjaxReference(),
-						(JavaScriptResourceReference) ModernizrJavaScriptReference.INSTANCE);
+		getResourceBundles().addJavaScriptBundle(HomeApplication.class, "core.js",
+				(JavaScriptResourceReference) getJavaScriptLibrarySettings().getJQueryReference(),
+				(JavaScriptResourceReference) getJavaScriptLibrarySettings().getWicketEventReference(),
+				(JavaScriptResourceReference) getJavaScriptLibrarySettings().getWicketAjaxReference(),
+				(JavaScriptResourceReference) ModernizrJavaScriptReference.INSTANCE);
 
 		// getResourceBundles().addJavaScriptBundle(HomeApplication.class,
 		// "bootstrap.js",
@@ -157,13 +151,10 @@ public class HomeApplication extends WebApplication {
 		// ApplicationJavaScript.INSTANCE
 		// );
 
-		getResourceBundles().addJavaScriptBundle(HomeApplication.class,
-				"bootstrap-extensions.js",
-				JQueryUIJavaScriptReference.instance(),
+		getResourceBundles().addJavaScriptBundle(HomeApplication.class, "bootstrap-extensions.js", JQueryUIJavaScriptReference.instance(),
 				Html5PlayerJavaScriptReference.instance());
 
-		getResourceBundles().addCssBundle(HomeApplication.class,
-				"bootstrap-extensions.css", Html5PlayerCssReference.instance());
+		getResourceBundles().addCssBundle(HomeApplication.class, "bootstrap-extensions.css", Html5PlayerCssReference.instance());
 
 		// getResourceBundles().addCssBundle(HomeApplication.class,
 		// "application.css",
@@ -175,21 +166,21 @@ public class HomeApplication extends WebApplication {
 	}
 
 	private void configureBootstrap() {
-		BootstrapSettings settings = new BootstrapSettings();
-		settings.minify(true)
-				// use minimized version of all bootstrap references
-				.useJqueryPP(true).useModernizr(true).useResponsiveCss(true)
-				.setJsResourceFilterName("footer-container")
-				.getBootstrapLessCompilerSettings().setUseLessCompiler(false);
-
-		ThemeProvider themeProvider = new BootswatchThemeProvider() {
+		final ThemeProvider themeProvider = new BootswatchThemeProvider() {
 			{
-				// add(new MetroTheme());
-				defaultTheme("wicket");
+				add(new MetroTheme());
+				add(new GoogleTheme());
+				add(new WicketTheme());
+				add(new Bootstrap3Theme());
+				defaultTheme(new GoogleTheme());
 			}
 		};
-		// settings.setThemeProvider(themeProvider);
+
+		final BootstrapSettings settings = new BootstrapSettings();
+		settings.setJsResourceFilterName("footer-container").setThemeProvider(themeProvider);
 		Bootstrap.install(this, settings);
+
+		BootstrapLess.install(this);
 	}
 
 	public static EntityManagerFactory getFactory() {

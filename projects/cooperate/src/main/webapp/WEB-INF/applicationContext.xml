@@ -58,14 +58,13 @@
                 <prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
                 <prop key="eclipselink.logging.level">FINE</prop>
                 <prop key="eclipselink.weaving">false</prop>
-                <prop key="eclipselink.cache.shared.default">false</prop>
             </props>
         </property>
 	</bean>
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/cooperate?characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -78,7 +77,8 @@
 
 	<bean id="commonSearchDao" class="com.coral.foundation.jpa.search.CommonSearchDao"></bean>
 	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
-	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage" scope="prototype"></bean>
+	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage"
+		scope="prototype"></bean>
 
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
