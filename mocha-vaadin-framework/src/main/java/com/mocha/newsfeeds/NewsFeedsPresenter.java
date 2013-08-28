@@ -7,6 +7,7 @@ import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.basic.dao.LinkedinConnectionDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinConnection;
+import com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate;
 import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
@@ -17,12 +18,13 @@ public class NewsFeedsPresenter extends AppCommonPresenter implements Presenter 
 
 	LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
-	List<LinkedinConnection> linkedinConnections;
+	List<LinkedinConnectionNetworkUpdate> updateStatus;
 
 	public NewsFeedsPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		BasicUser user = buDao.findUserByUserName(eventBus.getUser().getUserName());
 		LinkedinPersonProfile lpp = null;
+		
 		for (SoicalApp sa : user.getSoicalApp()) {
 			if (sa.getName().equals("linkedin")) {
 				if (sa.getAuthToken() != null && sa.getAuthTokenSecret() != null) {
@@ -30,18 +32,17 @@ public class NewsFeedsPresenter extends AppCommonPresenter implements Presenter 
 				}
 			}
 		}
-		dao.findFollowedConnectionByPerson(lpp);
 
 		eventBus.setUser(buDao.findUserByUserName(eventBus.getUser().getUserName()));
 		for (SoicalApp soicalApp : eventBus.getUser().getSoicalApp()) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getLinkedinPersonProfiles().size() > 0) {
 				for (LinkedinPersonProfile p : soicalApp.getLinkedinPersonProfiles()) {
-					linkedinConnections = dao.findFollowedConnectionByPerson(p);
+					updateStatus = dao.findUpdateStatusWithFollowedConnections(p);
 					break;
 				}
 			}
 		}
-		this.viewer = new NewsFeedsViewer(linkedinConnections);
+		this.viewer = new NewsFeedsViewer(updateStatus);
 	}
 
 	@Override

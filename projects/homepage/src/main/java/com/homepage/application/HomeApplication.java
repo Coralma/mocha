@@ -1,6 +1,7 @@
 package com.homepage.application;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -13,6 +14,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.Session;
+import javax.servlet.http.Cookie;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.apache.wicket.authorization.strategies.page.SimplePageAuthorizationStrategy;
@@ -34,6 +36,7 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.component.IRequestableComponent;
 import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
@@ -52,6 +55,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import com.google.gwt.user.client.Cookies;
 import com.google.javascript.jscomp.CompilationLevel;
 import com.homepage.mail.task.MailQueueConsumer;
 import com.homepage.model.SystemPropertyDao;
@@ -97,6 +101,13 @@ public class HomeApplication extends WebApplication {
 		MetaDataRoleAuthorizationStrategy.authorize(AccountProfilePage.class, "USER");
 		configureApplication();
 		getApplicationSettings().setInternalErrorPage(com.homepage.pages.ErrorPage.class);
+	}
+
+	private void loadSessions(Request request) {
+		List<Cookie> cookies = ((WebRequest) request).getCookies();
+		for (Cookie cookie : cookies) {
+			System.out.println(cookie.getName());
+		}
 	}
 
 	private void configureApplication() {
@@ -194,7 +205,7 @@ public class HomeApplication extends WebApplication {
 
 	@Override
 	public Session newSession(Request request, Response response) {
-
+		loadSessions(request);
 		return new SecuritySession(request);
 	}
 
