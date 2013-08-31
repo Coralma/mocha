@@ -52,7 +52,7 @@
 		<property name="jpaProperties">
             <props>
            	 	<prop key="eclipselink.deploy-on-startup">true</prop>
-                <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
+                <!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop> -->
 <!-- 				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
                 <prop key="eclipselink.ddl-generation.output-mode">both</prop>
                 <prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
@@ -64,7 +64,7 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/cooperate?characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>

@@ -24,43 +24,45 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
-public class IbFollowedMembersViewer extends EntityViewPanel implements Viewer  {
-	
+public class IbFollowedMembersViewer extends EntityViewPanel implements Viewer {
+
 	private static final long serialVersionUID = 1L;
 	String width = "765px";
 	private BasicUser user;
 	private final VerticalLayout mainLayout = new VerticalLayout();
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
-	private List<LinkedinConnection> followedConnection=new ArrayList<LinkedinConnection>();
-	private Button groupbtn=new Button();
+	private List<LinkedinConnection> followedConnection = new ArrayList<LinkedinConnection>();
+	private Button groupbtn = new Button();
 	private LinkedinConnection selectCon;
-	
-	public IbFollowedMembersViewer(List<LinkedinConnection> linkedinConnections,BasicUser basicUser){
-		this.followedConnection=linkedinConnections;
-		this.user=basicUser;
+
+	public IbFollowedMembersViewer(List<LinkedinConnection> linkedinConnections, BasicUser basicUser) {
+		this.followedConnection = linkedinConnections;
+		this.user = basicUser;
 		build();
 	}
-	
-	public void attach(){
+
+	public void attach() {
 		this.addComponent(mainLayout);
 		buildFollowedConnectionsLayout();
 	}
-	
+
 	@Override
 	public void build() {
 		// TODO Auto-generated method stub
 		buildFollowedConnectionsLayout();
 	}
-	
+
 	public void buildFollowedConnectionsLayout() {
 		mainLayout.removeAllComponents();
-		final LinkedInConnectionGroup group=new LinkedInConnectionGroup("Followed From LinkedIn Connections",followedConnection);
+		
+		final LinkedInConnectionGroup group = new LinkedInConnectionGroup("Followed From LinkedIn Connections", followedConnection);
 		group.getViewDetailBtn().addListener(new ClickListener() {
-			
+
 			/**
 			 * 
 			 */
@@ -91,5 +93,4 @@ public class IbFollowedMembersViewer extends EntityViewPanel implements Viewer  
 		this.selectCon = selectCon;
 	}
 
-	
 }

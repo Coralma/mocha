@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.servlet.http.Cookie;
+
 import org.apache.wicket.Component;
 import com.homepage.mail.task.MailQueueConsumer;
 import com.homepage.mail.task.MailQueueProvider;
@@ -82,6 +84,11 @@ public class Homepage extends BasePage {
 	public Homepage() {
 		super();
 		build();
+		
+		List<Cookie> cookies = ((WebRequest) getRequestCycle().getRequest()).getCookies();
+		for(Cookie cookie:cookies){
+			System.out.println(cookie.getName());
+		}
 	}
 
 	public void build() {
