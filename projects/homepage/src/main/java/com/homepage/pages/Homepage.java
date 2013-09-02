@@ -388,7 +388,7 @@ public class Homepage extends BasePage {
 
 					accountFee.setExpireDate(expireDate);
 
-					userDao.createUser(account, user, accountFee);
+					userDao.createUserByAccount(account, user, accountFee);
 					System.out.println("User Click register button");
 					registerSuccessPanel.setDefaultModel(Model
 							.of("We have sent a email on "

@@ -1,8 +1,8 @@
 CREATE TABLE t_user_t_accountFees (User_userId BIGINT NOT NULL, accountFees_accountFeeId BIGINT NOT NULL, PRIMARY KEY (User_userId, accountFees_accountFeeId))
-CREATE TABLE t_user (userId BIGINT NOT NULL, userLoginDate DATE, lastLoginDate DATE, paidAccountFlag TINYINT(1) default 0, cooperateUrl VARCHAR(255), userName VARCHAR(255), emailAddress VARCHAR(255) UNIQUE, pw VARCHAR(255), ACCOUNT_accountId BIGINT, PRIMARY KEY (userId))
-
 CREATE TABLE t_contactmessage (contactMessageId BIGINT NOT NULL, subject VARCHAR(255), contactEmailaddress VARCHAR(255), messageCreateDate DATE, messageDetail VARCHAR(255), PRIMARY KEY (contactMessageId))
-CREATE TABLE t_order (orderId BIGINT NOT NULL, orderType INTEGER, name VARCHAR(255), orderOID VARCHAR(255), createdDate DATE, orderStatus VARCHAR(255), USER_userId BIGINT, ACCOUNT_accountId BIGINT, PRIMARY KEY (orderId))
+CREATE TABLE t_user (userId BIGINT NOT NULL, lastLoginDate DATE, paidAccountFlag TINYINT(1) default 0, emailAddress VARCHAR(255) UNIQUE, userLoginDate DATE, registerFlg TINYINT(1) default 0, userOID VARCHAR(255), cooperateUrl VARCHAR(255), userName VARCHAR(255), pw VARCHAR(255), ACCOUNT_accountId BIGINT, PRIMARY KEY (userId))
+
+CREATE TABLE t_order (orderId BIGINT NOT NULL, orderType INTEGER, name VARCHAR(255), orderOID VARCHAR(255), createdDate DATE, orderStatus VARCHAR(255), ACCOUNT_accountId BIGINT, USER_userId BIGINT, PRIMARY KEY (orderId))
 CREATE TABLE t_account_t_accountFees (Account_accountId BIGINT NOT NULL, accountFees_accountFeeId BIGINT NOT NULL, PRIMARY KEY (Account_accountId, accountFees_accountFeeId))
 CREATE TABLE t_account_t_order (Account_accountId BIGINT NOT NULL, orders_orderId BIGINT NOT NULL, PRIMARY KEY (Account_accountId, orders_orderId))
 CREATE TABLE t_accountFees (accountFeeId BIGINT NOT NULL, startDate DATE, name VARCHAR(255), expireDate DATE, type INTEGER, account BIGINT, userId BIGINT, PRIMARY KEY (accountFeeId))

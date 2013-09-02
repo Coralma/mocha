@@ -12,8 +12,8 @@ ALTER TABLE t_accountFees DROP FOREIGN KEY FK_t_accountFees_userId
 ALTER TABLE t_account_t_user DROP FOREIGN KEY FK_t_account_t_user_users_userId
 ALTER TABLE t_account_t_user DROP FOREIGN KEY FK_t_account_t_user_Account_accountId
 DROP TABLE t_user_t_accountFees
-DROP TABLE t_user
 DROP TABLE t_contactmessage
+DROP TABLE t_user
 DROP TABLE t_order
 DROP TABLE t_account_t_accountFees
 DROP TABLE t_account_t_order

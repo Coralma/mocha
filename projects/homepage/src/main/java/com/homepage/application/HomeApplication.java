@@ -131,7 +131,7 @@ public class HomeApplication extends WebApplication {
 
 	@Override
 	public Class<? extends Page> getHomePage() {
-		return Homepage.class;
+		return SimpleHomePage.class;
 	}
 
 	// @Override

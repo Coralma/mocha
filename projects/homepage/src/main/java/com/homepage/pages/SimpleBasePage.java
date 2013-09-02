@@ -33,6 +33,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownBut
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
 //import de.agilecoders.wicket.samples.assets.base.FixBootstrapStylesCssResourceReference;
 import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
 
@@ -48,21 +49,21 @@ abstract class SimpleBasePage<T> extends GenericWebPage<T> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final CssResourceReference basePageCss = new CssResourceReference(BasePage.class, "basepage.css");
-	private static final JavaScriptResourceReference basepageJs = new JavaScriptResourceReference(BasePage.class, "unslider.js");
+	// private static final CssResourceReference basePageCss = new CssResourceReference(BasePage.class, "basepage.css");
+	// private static final JavaScriptResourceReference basepageJs = new JavaScriptResourceReference(BasePage.class, "unslider.js");
 
 	/*
 	 * Colin Slides Shows
 	 */
-	private static final CssResourceReference carouselCss = new CssResourceReference(BasePage.class, "full.css");
+	// private static final CssResourceReference carouselCss = new CssResourceReference(BasePage.class, "full.css");
 
 	/*
 	 * boostarp-image-gallery
 	 */
-	private static final CssResourceReference bootstrapImageGalleryCss = new CssResourceReference(BasePage.class, "bootstrap-image-gallery.css");
-	private static final JavaScriptResourceReference loadImageJs = new JavaScriptResourceReference(BasePage.class, "load-image.js");
-	private static final JavaScriptResourceReference bootstrapImageGalleryJs = new JavaScriptResourceReference(BasePage.class, "bootstrap-image-gallery.js");
-	private static final JavaScriptResourceReference mainJs = new JavaScriptResourceReference(BasePage.class, "main.js");
+	// private static final CssResourceReference bootstrapImageGalleryCss = new CssResourceReference(BasePage.class, "bootstrap-image-gallery.css");
+	// private static final JavaScriptResourceReference loadImageJs = new JavaScriptResourceReference(BasePage.class, "load-image.js");
+	// private static final JavaScriptResourceReference bootstrapImageGalleryJs = new JavaScriptResourceReference(BasePage.class, "bootstrap-image-gallery.js");
+	// private static final JavaScriptResourceReference mainJs = new JavaScriptResourceReference(BasePage.class, "main.js");
 
 	/**
 	 * Construct.
@@ -92,9 +93,9 @@ abstract class SimpleBasePage<T> extends GenericWebPage<T> {
 	 */
 	protected Navbar newNavbar(String markupId) {
 		Navbar navbar = new Navbar(markupId);
-		// navbar.setPosition(Navbar.Position.TOP);
+		navbar.setPosition(Navbar.Position.TOP);
 		// show brand name
-		navbar.brandName(Model.of("Company Name"));
+		navbar.brandName(Model.of("Mocha-Platform"));
 		NavbarButton<Homepage> homepageBtn = new NavbarButton<Homepage>(Homepage.class, Model.of("Overview"));
 		homepageBtn.setMarkupId("navButton");
 		homepageBtn.setIconType(IconType.home);
@@ -137,7 +138,7 @@ abstract class SimpleBasePage<T> extends GenericWebPage<T> {
 		List<ITheme> avalThemes = Bootstrap.getSettings(getApplication()).getThemeProvider().available();
 		StringValue theme = pageParameters.get("theme");
 		IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
-		// settings.getActiveThemeProvider().setActiveTheme(new MetroTheme());
+		settings.getActiveThemeProvider().setActiveTheme(new GoogleTheme());
 	}
 
 	protected ITheme activeTheme() {
@@ -155,16 +156,14 @@ abstract class SimpleBasePage<T> extends GenericWebPage<T> {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		response.render(JavaScriptReferenceHeaderItem.forReference(basepageJs));
-		response.render(CssHeaderItem.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
-		response.render(CssHeaderItem.forReference(basePageCss));
-		response.render(CssHeaderItem.forReference(carouselCss));
-
-		response.render(CssHeaderItem.forReference(bootstrapImageGalleryCss));
-		response.render(JavaScriptReferenceHeaderItem.forReference(loadImageJs));
-		response.render(JavaScriptReferenceHeaderItem.forReference(bootstrapImageGalleryJs));
-		response.render(JavaScriptReferenceHeaderItem.forReference(mainJs));
-
+		// response.render(JavaScriptReferenceHeaderItem.forReference(basepageJs));
+		// response.render(CssHeaderItem.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
+		// response.render(CssHeaderItem.forReference(basePageCss));
+		// response.render(CssHeaderItem.forReference(carouselCss));
+		// response.render(CssHeaderItem.forReference(bootstrapImageGalleryCss));
+		// response.render(JavaScriptReferenceHeaderItem.forReference(loadImageJs));
+		// response.render(JavaScriptReferenceHeaderItem.forReference(bootstrapImageGalleryJs));
+		// response.render(JavaScriptReferenceHeaderItem.forReference(mainJs));
 	}
 
 	protected boolean hasNavigation() {

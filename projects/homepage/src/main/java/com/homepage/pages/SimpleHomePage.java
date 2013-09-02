@@ -1,11 +1,15 @@
 package com.homepage.pages;
 
-
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -13,6 +17,9 @@ import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
+
+import com.homepage.model.User;
+import com.homepage.model.UserDao;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 
@@ -26,30 +33,43 @@ public class SimpleHomePage<T> extends SimpleBasePage<T> {
 	 */
 	public SimpleHomePage(PageParameters parameters) {
 		super(parameters);
-
-		Image image1 = new Image("1.jpg", new ContextRelativeResource("/images/1.jpg"));
-		add(image1);
-
-		Image image2 = new Image("2.jpg", new ContextRelativeResource("/images/2.jpg"));
-		add(image2);
-
-		Image image3 = new Image("3.jpg", new ContextRelativeResource("/images/3.jpg"));
-		add(image3);
-
-		Image image4 = new Image("4.jpg", new ContextRelativeResource("/images/4.jpg"));
-		add(image4);
-
-		Image image5 = new Image("5.jpg", new ContextRelativeResource("/images/5.jpg"));
-		add(image5);
-
-		Image image6 = new Image("6.jpg", new ContextRelativeResource("/images/6.jpg"));
-		add(image6);
-
 		buildMainSlideComponent();
 	}
 
 	private void buildMainSlideComponent() {
-		
+		// build email address register page
+		buildEmailRegisterPage();
+	}
+
+	private void buildEmailRegisterPage() {
+		Form registerForm = new Form("registerForm", Model.of("registerForm"));
+		registerForm.setOutputMarkupId(true);
+		add(registerForm);
+		final RequiredTextField<String> emailAddressTextField = new RequiredTextField<String>("registerEmail", Model.of(""));
+		emailAddressTextField.setOutputMarkupId(true);
+		registerForm.add(emailAddressTextField);
+		final Label messageLabel = new Label("registerMessageLabel");
+		messageLabel.setOutputMarkupId(true);
+		registerForm.add(messageLabel);
+		AjaxButton registerBtn = new AjaxButton("registerBtn", registerForm) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				messageLabel.setDefaultModel(Model.of("谢谢您！我们已经发了一封注册邮件到您的邮箱，请查收！"));
+				System.out.println("User Click Register Btn");
+//				UserDao userDao = new UserDao();
+//				User newRegisterUser = new User();
+//				newRegisterUser.setEmailAddress(emailAddressTextField.getValue());
+//				newRegisterUser.setRegisterFlg(true);
+//				userDao.persist(newRegisterUser);
+				target.add(messageLabel);
+			}
+		};
+		registerForm.add(registerBtn);
 	}
 
 	@Override

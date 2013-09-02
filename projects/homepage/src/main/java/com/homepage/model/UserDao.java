@@ -16,38 +16,36 @@ public class UserDao extends abstractDao {
 		super();
 	}
 
-	public Long createUser(Account account, User user, AccountFee accountFee) {
+	public Long createUserByAccount(Account account, User user, AccountFee accountFee) {
 		entityMfg.getTransaction().begin();
-
-
 		accountFee.setAccount(account);
 		accountFee.setUser(user);
 		entityMfg.persist(accountFee);
-
 		account.getAccountFees().add(accountFee);
 		account.getUsers().add(user);
-		
 		entityMfg.persist(account);
-		
 		user.getAccountFees().add(accountFee);
 		user.setAccount(account);
 		entityMfg.persist(user);
-//		accountFee.setAccount(account);
-//		accountFee.setUser(user);		
+		// accountFee.setAccount(account);
+		// accountFee.setUser(user);
 		entityMfg.getTransaction().commit();
 		closeEntityMfg();
 		return user.getId();
 	}
+	
+	
+	
 
 	public User findUserByEmail(String emailAddress) {
 		entityMfg.getTransaction().begin();
-		Query findUserQuery = entityMfg
-				.createNamedQuery("findUserByEmailaddress");
+		Query findUserQuery = entityMfg.createNamedQuery("findUserByEmailaddress");
 		findUserQuery.setParameter("emailAddress", emailAddress);
 		User user;
 		try {
 			user = (User) findUserQuery.getSingleResult();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.out.println("Errors in UserDao");
 			e.printStackTrace();
 			return null;
@@ -58,8 +56,7 @@ public class UserDao extends abstractDao {
 
 	public User findUserAndPw(String emailAddress, String pw) {
 		entityMfg.getTransaction().begin();
-		Query findUserQuery = entityMfg
-				.createNamedQuery("findUserByEmailAddresAndPw");
+		Query findUserQuery = entityMfg.createNamedQuery("findUserByEmailAddresAndPw");
 		findUserQuery.setParameter("emailAddress", emailAddress.trim());
 		findUserQuery.setParameter("pw", pw.trim());
 		User user;
@@ -67,7 +64,8 @@ public class UserDao extends abstractDao {
 			user = (User) findUserQuery.getSingleResult();
 			closeEntityMfg();
 			return user;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.out.println("Errors in UserDao");
 			return null;
 		}

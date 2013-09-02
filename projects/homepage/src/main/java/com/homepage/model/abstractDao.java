@@ -22,4 +22,16 @@ public class abstractDao {
 		entityMfg.close();
 	}
 
+	public <T> T merge(T entity) {
+		entityMfg.getTransaction().begin();
+		T newEntity = entityMfg.merge(entity);
+		entityMfg.getTransaction().commit();
+		return newEntity;
+	}
+
+	public <T> void persist(T entity) {
+		entityMfg.getTransaction().begin();
+		entityMfg.persist(entity);
+		entityMfg.getTransaction().commit();
+	}
 }

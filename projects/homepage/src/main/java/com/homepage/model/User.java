@@ -13,8 +13,7 @@ import org.eclipse.persistence.annotations.JoinFetchType;
 
 @Entity
 @Table(name = "t_user")
-@NamedQueries({
-		@NamedQuery(name = "findUserByEmailaddress", query = "SELECT u FROM User u WHERE u.emailAddress = :emailAddress"),
+@NamedQueries({ @NamedQuery(name = "findUserByEmailaddress", query = "SELECT u FROM User u WHERE u.emailAddress = :emailAddress"),
 		@NamedQuery(name = "findUserByEmailAddresAndPw", query = "SELECT u FROM User u WHERE u.emailAddress = :emailAddress and u.pw= :pw") })
 public class User extends Beans implements Serializable {
 	/**
@@ -57,6 +56,14 @@ public class User extends Beans implements Serializable {
 	@Column(name = "paidAccountFlag")
 	private boolean paidAccountFlag;
 
+	@Basic(optional = true)
+	@Column(name = "userOID")
+	private String userOID;
+
+	@Basic(optional = true)
+	@Column(name = "registerFlg")
+	private boolean registerFlg;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinFetch(JoinFetchType.INNER)
 	private List<AccountFee> accountFees = new ArrayList<AccountFee>();
@@ -64,7 +71,7 @@ public class User extends Beans implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private Account account = new Account();
 
-	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL, orphanRemoval = true,mappedBy="user")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
 	private ArrayList<Order> orders = new ArrayList<Order>();
 
 	public String getUserName() {
@@ -166,6 +173,22 @@ public class User extends Beans implements Serializable {
 
 	public void setOrders(ArrayList<Order> orders) {
 		this.orders = orders;
+	}
+
+	public String getUserOID() {
+		return userOID;
+	}
+
+	public void setUserOID(String userOID) {
+		this.userOID = userOID;
+	}
+
+	public boolean isRegisterFlg() {
+		return registerFlg;
+	}
+
+	public void setRegisterFlg(boolean registerFlg) {
+		this.registerFlg = registerFlg;
 	}
 
 }

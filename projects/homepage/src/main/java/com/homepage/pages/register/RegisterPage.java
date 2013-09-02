@@ -140,7 +140,7 @@ public class RegisterPage extends BasePage {
 				// ArrayList<AccountFee> accountFees=new ArrayList() ;
 				// accountFees.add(accountFee);
 				// user.setAccountFees(accountFees);
-				userDao.createUser(account, user, accountFee);
+				userDao.createUserByAccount(account, user, accountFee);
 				System.out.println("User Click register button");
 				registerSuccessPanel.setDefaultModel(Model
 						.of("We have sent a email on "
