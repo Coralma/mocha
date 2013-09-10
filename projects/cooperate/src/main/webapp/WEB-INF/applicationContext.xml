@@ -56,7 +56,7 @@
 <!-- 				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
                 <prop key="eclipselink.ddl-generation.output-mode">both</prop>
                 <prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
-                <prop key="eclipselink.logging.level">FINE</prop>
+                <prop key="eclipselink.logging.level">SEVERE</prop>
                 <prop key="eclipselink.weaving">false</prop>
             </props>
         </property>
