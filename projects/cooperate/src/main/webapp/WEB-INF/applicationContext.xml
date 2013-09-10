@@ -14,57 +14,64 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:spring-configured />
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
 	<bean id="SpringContextUtils" class="com.coral.foundation.spring.bean.SpringContextUtils"
 		scope="singleton" />
 
 	<bean id="messageSource"
-	      class="org.springframework.context.support.ResourceBundleMessageSource">
-	  <property name="basenames">
-	    <list>
-	      <value>message</value>
-	    </list>
-	  </property>
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message</value>
+			</list>
+		</property>
 	</bean>
 
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="entityManagerFactory" />
-<!-- 		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" /> -->
+		<!-- <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" 
+			/> -->
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
-            <list>
-                <value>com.coral.foundation.security.model</value>
-                <value>com.mocha.cooperate.model</value>
-                <value>com.mocha.ib.model</value>
-                <value>com.mocha.co.model</value>
-            </list>
-        </property>
+			<list>
+				<value>com.coral.foundation.security.model</value>
+				<value>com.mocha.cooperate.model</value>
+				<value>com.mocha.ib.model</value>
+				<value>com.mocha.co.model</value>
+				<value>com.mocha.marketing.model</value>
+			</list>
+		</property>
 		<property name="jpaVendorAdapter">
 			<bean
 				class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
 			</bean>
 		</property>
 		<property name="jpaProperties">
-            <props>
-           	 	<prop key="eclipselink.deploy-on-startup">true</prop>
-                <!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop> -->
-<!-- 				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
-                <prop key="eclipselink.ddl-generation.output-mode">both</prop>
-                <prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
-                <prop key="eclipselink.logging.level">FINE</prop>
-                <prop key="eclipselink.weaving">false</prop>
-            </props>
-        </property>
+			<props>
+				<prop key="eclipselink.deploy-on-startup">true</prop>
+				<!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
+				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
+				<prop key="eclipselink.ddl-generation.output-mode">both</prop>
+				<prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
+				<prop key="eclipselink.logging.level">FINE</prop>
+				<prop key="eclipselink.weaving">false</prop>
+			</props>
+		</property>
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -72,8 +79,9 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
-	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
+
+	<tx:annotation-driven mode="aspectj"
+		transaction-manager="transactionManager" />
 
 	<bean id="commonSearchDao" class="com.coral.foundation.jpa.search.CommonSearchDao"></bean>
 	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
@@ -83,9 +91,11 @@
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
 	<import resource="classpath*:co-beans.xml" />
-<!-- 	<import resource="classpath*:crm-beans.xml" /> -->
+	<import resource="classpath*:marketing-beans.xml" />
+	<!-- <import resource="classpath*:crm-beans.xml" /> -->
 
-<!-- 	<context:component-scan base-package="com.coral.foundation.security" /> -->
-<!-- 	<context:component-scan base-package="com.mocha.oa.model" /> -->
-     <tx:annotation-driven />
+	<!-- <context:component-scan base-package="com.coral.foundation.security" 
+		/> -->
+	<!-- <context:component-scan base-package="com.mocha.oa.model" /> -->
+	<tx:annotation-driven />
 </beans>
