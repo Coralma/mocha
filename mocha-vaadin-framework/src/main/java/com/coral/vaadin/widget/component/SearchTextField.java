@@ -40,4 +40,8 @@ public class SearchTextField extends HorizontalLayout {
 	public void addShortcutListener(ShortcutListener shortcutListener){
 		textField.addShortcutListener(shortcutListener);
 	}
+	
+	public void setValue(Object value) {
+		textField.setValue(value);
+	}
 }

@@ -31,7 +31,7 @@ public abstract class FunctionPanel extends VerticalLayout {
 	protected ContextMenu createContextMenu = new ContextMenu();
 	protected ContextMenu settingContextMenu = new ContextMenu();
 	protected Map<String, ContextMenuItem> contextMenuMap = Maps.newHashMap();
-	protected Map<ContextMenuItem, FunctionMenu> contextMenuCache = Maps.newHashMap();
+	protected Map<String, FunctionMenu> contextMenuCache = Maps.newHashMap();
 	protected FunctionControllerPanel controllerPanel = new FunctionControllerPanel();
 	public Viewer currentViewer;
 	
@@ -128,7 +128,7 @@ public abstract class FunctionPanel extends VerticalLayout {
 		for(FunctionMenu functionMenu : functionMenus) {
 			ContextMenuItem item = createContextMenu.addItem(functionMenu.getLabel());
 			contextMenuMap.put(functionMenu.getName(), item);
-			contextMenuCache.put(item, functionMenu);
+			contextMenuCache.put(functionMenu.getName(), functionMenu);
 		}
 		funButton.addListener(new ClickListener() {
             public void buttonClick(final com.vaadin.ui.Button.ClickEvent event) {
@@ -148,7 +148,7 @@ public abstract class FunctionPanel extends VerticalLayout {
 			ContextMenuItem item = settingContextMenu.addItem(functionMenu.getLabel());
 			item.setSeparatorVisible(functionMenu.isSeparator());
 			contextMenuMap.put(functionMenu.getName(), item);
-			contextMenuCache.put(item, functionMenu);
+			contextMenuCache.put(functionMenu.getName(), functionMenu);
 		}
 		funButton.addListener(new ClickListener() {
             public void buttonClick(final com.vaadin.ui.Button.ClickEvent event) {
@@ -183,6 +183,6 @@ public abstract class FunctionPanel extends VerticalLayout {
 	}
 	
 	public FunctionMenu getFunctionMenu(ContextMenuItem contextMenuItem) {
-		return contextMenuCache.get(contextMenuItem);
+		return contextMenuCache.get(contextMenuItem.getName());
 	}
 }

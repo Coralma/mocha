@@ -40,7 +40,7 @@ public class ChatDao extends BaseDao<Chat> {
 //		Chat chat = (Chat)query.getSingleResult();
 		List chats = query.getResultList();
 		if(chats.size() > 0) {
-			BigInteger chatId = (BigInteger)chats.get(0);
+			Long chatId = (Long)chats.get(0);
 			return load(chatId.longValue());
 		} else {
 			return null;

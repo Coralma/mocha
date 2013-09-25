@@ -28,6 +28,7 @@ public class GlobleSearchWidget extends HorizontalLayout {
 	
 	public GlobleSearchWidget() {
 		this.setWidth("100%");
+		this.setHeight("30px");
 		this.addStyleName("globle-search-widget");
 		build();
 		bind();

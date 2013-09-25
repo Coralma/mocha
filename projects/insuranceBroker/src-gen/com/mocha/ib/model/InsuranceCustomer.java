@@ -86,7 +86,7 @@ public class InsuranceCustomer extends JPABaseEntity {
 	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
 	
-	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class, cascade=CascadeType.ALL)
 	private com.coral.foundation.security.model.BasicUser referUser;
 	
 	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)

@@ -195,7 +195,7 @@ public class ChatViewer extends CommonViewer implements Viewer, ClickListener {
 		outputMessageLayout.removeAllComponents();
 		if(currentChat != null) {
 			Refresher refresher = new Refresher();
-		    refresher.setRefreshInterval(3000);
+		    refresher.setRefreshInterval(30000);
 			refresher.addListener(new RefreshListener() {
 				@Override
 				public void refresh(Refresher source) {

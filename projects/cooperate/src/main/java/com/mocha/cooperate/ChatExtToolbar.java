@@ -176,7 +176,7 @@ public class ChatExtToolbar extends Toolbox {
 			this.addComponent(messagePanel);
 			
 			Refresher refresher = new Refresher();
-		    refresher.setRefreshInterval(5000);
+		    refresher.setRefreshInterval(500000);
 			refresher.addListener(new RefreshListener() {
 				@Override
 				public void refresh(Refresher source) {
