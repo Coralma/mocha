@@ -15,13 +15,9 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xtextxbase</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xbaselib</artifactId>
-		</dependency>
+      <groupId>org.eclipse.xtend</groupId>
+      <artifactId>org.eclipse.xtend.lib</artifactId>          
+    </dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
