@@ -23,17 +23,9 @@
 			<artifactId>guava</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xtextxbase</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xtextcommontypes</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xbaselib</artifactId>
-		</dependency>	
+      <groupId>org.eclipse.xtend</groupId>
+      <artifactId>org.eclipse.xtend.lib</artifactId>          
+    </dependency>
 	</dependencies>
 
 	<build>

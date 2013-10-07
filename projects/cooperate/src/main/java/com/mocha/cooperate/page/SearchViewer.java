@@ -31,6 +31,7 @@ public class SearchViewer extends CommonViewer implements Viewer {
 		
 		SearchTextField searchTextField = new SearchTextField();
 		searchTextField.setWidth(SystemProperty.content_widget_width);
+		searchTextField.setValue(searchText);
 		layout.addComponent(searchTextField);
 		
 		this.addComponent(layout);

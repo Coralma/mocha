@@ -39,6 +39,7 @@ public class PagingVerticalLayout extends VerticalLayout implements ClickListene
 		nextPageLayout.addListener(this);
 		nextPageLayout.setComponentAlignment(nextButton, Alignment.BOTTOM_CENTER);
 		nextPageLayout.setWidth(SystemProperty.content_widget_width);
+		nextPageLayout.setVisible(false);
 		super.addComponent(nextPageLayout);
 	}
 	

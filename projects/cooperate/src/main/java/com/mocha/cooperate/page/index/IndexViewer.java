@@ -88,7 +88,7 @@ public class IndexViewer extends CommonViewer implements Viewer {
 		infoColumn.addComponent(menu);
 		
 		Refresher refresher = new Refresher();
-	    refresher.setRefreshInterval(30000);
+	    refresher.setRefreshInterval(300000);
 		refresher.addListener(new RefreshListener() {
 			@Override
 			public void refresh(Refresher source) {
