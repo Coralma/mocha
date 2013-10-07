@@ -80,24 +80,31 @@ public class SimpleOAuthHandler extends OauthHandler {
 	}
 
 	@Override
-	public boolean saveUserAuthenToken(HttpServletRequest request) {
+	public boolean saveUserAuthenToken(BasicUser user) {
 		// get oauth_verifier
 		Enumeration en = request.getParameterNames();
 		String token = null;
 
-		while (en.hasMoreElements()) {
-			String paramName = (String) en.nextElement();
-			if (paramName.equals("oauth_verifier")) {
-				setOauthVerifier(request.getParameter(paramName));
-			}
-			if (paramName.equals("fr")) {
-				token = request.getParameter(paramName);
-				if (token.contains("linkedin?oauth_token=")) {
-					token = token.split("=")[1];
-					System.out.println(token);
-					setOauthToken(token);
-				}
-			}
+		// while (en.hasMoreElements()) {
+		// String paramName = (String) en.nextElement();
+		// System.out.println(paramName);
+		// if (paramName.equals("oauth_verifier")) {
+		// setOauthVerifier(request.getParameter(paramName));
+		// }
+		// if (paramName.equals("fr")) {
+		// token = request.getParameter(paramName);
+		// if (token.contains("linkedin?oauth_token=")) {
+		// token = token.split("=")[1];
+		// System.out.println(token);
+		// setOauthToken(token);
+		// }
+		// }
+		// }
+
+		if (referrUrl.contains("oauth_token=") && referrUrl.contains("&oauth_verifier=")) {
+			token = referrUrl.split("oauth_token=")[1].split("&oauth_verifier=")[0];
+			setOauthToken(token);
+			setOauthVerifier(referrUrl.split("oauth_token=")[1].split("&oauth_verifier=")[1]);
 		}
 
 		if (oauthToken != null && oauthVerifier != null) {
@@ -105,7 +112,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 			LinkedinImpl linkedImple = new LinkedinImpl();
 			// for(SoicalApp soicalApp:basicUser.getSoicalApp()){
 
-			if (sa.getName().equals("linkedin") && sa.getRequesToken().equals(token)) {
+			if (sa.getName().equals("linkedin") && sa.getRequesToken().equals(token) && sa.getAuthToken() == null) {
 				LinkedInRequestToken castToken = new LinkedInRequestToken(token, sa.getRequesTokenSecret());
 				LinkedInAccessToken linkedAccessToken = linkedImple.getAccessToken(castToken, oauthVerifier);
 				LinkedinPersonProfile personProfile = new LinkedinPersonProfile();
@@ -186,7 +193,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 			SoicalApp newSa = new SoicalApp();
 			newSa.setUser(user);
 			newSa.setName("facebook");
-			
+
 			newSa.setAuthToken(accessToken.getToken());
 			if (newSa != null && newSa.getAuthToken() != null) {
 				saDao.persist(newSa);

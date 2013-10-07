@@ -112,18 +112,19 @@ public class CooperateApplication extends MochaApplication {
 			}
 		}
 		// System.out.println("cookieUsername is: "+cookieUsername);
-		if (referrer != null && getUser() != null) {
-			if (referrer.toString().contains("linkedin")) {
+		if (referrer != null) {
+			if (referrer.toString().contains("oauth")) {
 				SimpleOAuthHandler simpleOA = new SimpleOAuthHandler(request);
 				simpleOA.setReferrUrl(referrer);
 				simpleOA.setUserName(cookieUsername);
 				simpleOA.setSoicalAppName("linkedin");
-				boolean needCloseWin = simpleOA.saveUserAuthenToken(request);
-				if (needCloseWin) {
-					getMainWindow().executeJavaScript("window.close()");
-				}
+				simpleOA.saveUserAuthenToken((BasicUser) getUser());
+//				boolean needCloseWin = simpleOA.saveUserAuthenToken(request);
+//				if (needCloseWin) {
+//					getMainWindow().executeJavaScript("window.close()");
+//				}
 			}
-			else if (referrer.startsWith(APIKeys.facebookCallBackUrl)) {
+			else if (referrer.startsWith(APIKeys.facebookCallBackUrl) && getUser() != null) {
 				SimpleOAuthHandler simpleOA = new SimpleOAuthHandler(request);
 				simpleOA.setReferrUrl(referrer);
 				Object user = getMainWindow().getApplication().getUser();

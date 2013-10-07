@@ -44,7 +44,8 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/oauth#linkedin";
+	// public static String LinkedinCallBackUrl = "http://vk1.pagekite.me/cooperate/oauth#linkedin";
+	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/linkedin";
 	protected static long linkedinSyncNetworkStatusInternval = 1000 * 60 * 30;
 	public static String linkedinSystemAccessToken = "ff40e54b-76b3-4c4a-b884-5086c914056e";
 	public static String linkedinSystemAccessTokenSecert = "14f5262d-1bfc-49c7-be5f-49f57509b825";

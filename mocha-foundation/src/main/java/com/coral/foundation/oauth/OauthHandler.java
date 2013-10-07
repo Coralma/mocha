@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.basic.dao.SoicalAppDao;
+import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 
 public abstract class OauthHandler {
@@ -17,5 +18,5 @@ public abstract class OauthHandler {
 		this.request=request;
 	}
 
-	abstract boolean saveUserAuthenToken(HttpServletRequest request);
+	abstract boolean saveUserAuthenToken(BasicUser user);
 }
