@@ -52,7 +52,7 @@ public class FBImpl {
 	private static Facebook facebook = new FacebookFactory().getInstance();
 	private static String token = "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
 	private static Properties properties;
-	public static String facebookCallBackUrl = "http://vk1.pagekite.me/cooperate/facebook";
+	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
 
 	private static Facebook getFacebookPublicInstance() {
 		init();

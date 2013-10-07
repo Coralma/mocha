@@ -44,7 +44,7 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-	public static String LinkedinCallBackUrl = "http://11672d39.ngrok.com/cooperate/oauth#linkedin";
+	public static String LinkedinCallBackUrl = "https://www.mocha-platform.com/cooperate/oauth#linkedin";
 	protected static long linkedinSyncNetworkStatusInternval = 1000 * 60 * 30;
 	public static String linkedinSystemAccessToken = "ff40e54b-76b3-4c4a-b884-5086c914056e";
 	public static String linkedinSystemAccessTokenSecert = "14f5262d-1bfc-49c7-be5f-49f57509b825";
@@ -53,5 +53,5 @@ public class APIKeys {
 
 	public static String facebookAPIId = "207409882754187";
 	public static String facebookSecertKey = "d8a9c0f327aa1770e6fee1864658a037";
-	public static String facebookCallBackUrl = "http://vk1.pagekite.me/cooperate/facebook";
+	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
 }

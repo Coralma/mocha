@@ -57,8 +57,8 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="eclipselink.deploy-on-startup">true</prop>
-				<!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
-				<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
+				<!-- <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop> 
+					<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
 				<prop key="eclipselink.ddl-generation.output-mode">both</prop>
 				<prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
 				<prop key="eclipselink.logging.level">FINE</prop>
@@ -70,11 +70,12 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <!-- Set for local dev env -->
+		<!-- Set for local dev env -->
+		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" 
+			/> -->
+		<!-- Set for Production -->
 		<property name="url"
-			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
-        <!-- Set for Production-->
-		<property name="url" value="jdbc:mysql://54.249.197.119:3306/cooperate?characterEncoding=utf8" />
+			value="jdbc:mysql://54.249.197.119:3306/cooperate?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -94,18 +95,11 @@
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
 	<import resource="classpath*:co-beans.xml" />
-	<import resource="classpath*:marketing-beans.xml" />
+	<!-- <import resource="classpath*:marketing-beans.xml" /> -->
 	<!-- <import resource="classpath*:crm-beans.xml" /> -->
-
-<<<<<<< HEAD
 	<!-- <context:component-scan base-package="com.coral.foundation.security" 
 		/> -->
 	<!-- <context:component-scan base-package="com.mocha.oa.model" /> -->
 	<tx:annotation-driven />
 </beans>
-=======
-<!-- 	<context:component-scan base-package="com.coral.foundation.security" /> -->
-<!-- 	<context:component-scan base-package="com.mocha.oa.model" /> -->
-     <tx:annotation-driven />
-</beans>
->>>>>>> 045dc2affce05881e4d359d7b29cf7013c9cac7f
+

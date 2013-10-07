@@ -47,7 +47,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 
 	private static final String appId = "207409882754187";
 	private static final String appSecret = "d8a9c0f327aa1770e6fee1864658a037";
-	public static String facebookCallBackUrl = "http://vk1.pagekite.me/cooperate/facebook";
+	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
 	private SoicalAppDao saDao = SpringContextUtils.getBean(SoicalAppDao.class);
 
 	public SimpleOAuthHandler(HttpServletRequest request) {
@@ -186,13 +186,7 @@ public class SimpleOAuthHandler extends OauthHandler {
 			SoicalApp newSa = new SoicalApp();
 			newSa.setUser(user);
 			newSa.setName("facebook");
-			// try {
-			// // String url = facebook.getOAuthAuthorizationURL("http://vk1.pagekite.me/cooperate/facebook");
-			// accessToken = facebookClient.getOAuthAccessToken(fbCode);
-			// }
-			// catch (FacebookException e) {
-			// e.printStackTrace();
-			// }
+			
 			newSa.setAuthToken(accessToken.getToken());
 			if (newSa != null && newSa.getAuthToken() != null) {
 				saDao.persist(newSa);

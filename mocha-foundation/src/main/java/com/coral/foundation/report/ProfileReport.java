@@ -54,7 +54,6 @@ public class ProfileReport {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public void faceBookLogin() {
 		try {
 			DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -182,8 +181,9 @@ public class ProfileReport {
 			bw.write(doc.html());
 			String profileMainHtml = doc.html();
 			for (String str : profileMainHtml.split("\n")) {
+
 				// find this user's timeline section only
-				if (str.contains("</code>") && str.contains("fbTimelineSection")) {
+				if (str.contains("</code>") && str.contains("fbTimelineSection") && !str.contains("Others Named")) {
 					str = StringUtils.removeStart(StringUtils.removeEnd(str.trim(), "--></code>"), "<!--");
 					fbTimelineSections.add(str);
 				}
