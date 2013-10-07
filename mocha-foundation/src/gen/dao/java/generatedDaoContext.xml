@@ -31,6 +31,9 @@
 		<bean id="ReportFilterDao" class="com.coral.foundation.security.basic.dao.ReportFilterDao"></bean>
 		<bean id="ReportJoinTableDao" class="com.coral.foundation.security.basic.dao.ReportJoinTableDao"></bean>
 		<bean id="MochaReportDao" class="com.coral.foundation.security.basic.dao.MochaReportDao"></bean>
+		<bean id="EmailDao" class="com.coral.foundation.security.basic.dao.EmailDao"></bean>
+		<bean id="ContactDao" class="com.coral.foundation.security.basic.dao.ContactDao"></bean>
+		<bean id="CampaingnsDao" class="com.coral.foundation.security.basic.dao.CampaingnsDao"></bean>
 </beans>
 
 

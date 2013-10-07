@@ -18,6 +18,11 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class LinkedInConnectionGroup extends VerticalLayout {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String category;
 	public List<LinkedinConnection> linkedInConnections;
 	public LinkedinThumbnailListener tnListener;
@@ -33,9 +38,11 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 	}
 
 	public void attach() {
+
 		Label categoryLabel = new Label();
 		categoryLabel.setHeight("5px");
-		categoryLabel.setIcon(new ThemeResource("icons/linkedin.ico"));
+		ThemeResource icon=new ThemeResource("icons/icon-linkedin.jpg");
+		categoryLabel.setIcon(icon);
 		categoryLabel.setCaption(category);
 		categoryLabel.addStyleName("report-category");
 		this.addComponent(categoryLabel);

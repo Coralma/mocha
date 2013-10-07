@@ -3,17 +3,17 @@ package com.mocha.soicalAPI;
 import java.io.File;
 
 public class APIKeys {
-	
+
 	public static String FILE_PATH;
-	
+
 	static {
 		if (FILE_PATH == null) {
 			// check if the OS is windows, if it is using the
 			if (System.getProperty("os.name").startsWith("Win")) {
 				FILE_PATH = "D:/cooperateCache/";
-			} else {
-				FILE_PATH = System.getProperty("user.home")
-						+ "/cooperateCache/";
+			}
+			else {
+				FILE_PATH = System.getProperty("user.home") + "/cooperateCache/";
 				File file = new File(FILE_PATH);
 				if (!file.exists()) {
 					file.mkdir();
@@ -31,7 +31,7 @@ public class APIKeys {
 	public static String uesr_default_icon_name = "defalut_user_icon.jpg";
 	public static long file_limited_Size = 50000000;
 	public static long file_name_limited_Length = 50;
-	
+
 	// ebay
 	public static String ebayProdServerURL = "https://api.ebay.com/ws/api.dll";
 	public static String ebaySandboxServerURL = "https://api.sandbox.ebay.com/ws/api.dll";
@@ -44,6 +44,14 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-	public static String LinkedinCallBackUrl = "https://www.mocha-platform.me/cooperate/oauth#linkedin";
-	protected static long linkedinSyncNetworkStatusInternval=1000*60*30;
+	public static String LinkedinCallBackUrl = "http://11672d39.ngrok.com/cooperate/oauth#linkedin";
+	protected static long linkedinSyncNetworkStatusInternval = 1000 * 60 * 30;
+	public static String linkedinSystemAccessToken = "ff40e54b-76b3-4c4a-b884-5086c914056e";
+	public static String linkedinSystemAccessTokenSecert = "14f5262d-1bfc-49c7-be5f-49f57509b825";
+
+	// facebook
+
+	public static String facebookAPIId = "207409882754187";
+	public static String facebookSecertKey = "d8a9c0f327aa1770e6fee1864658a037";
+	public static String facebookCallBackUrl = "http://vk1.pagekite.me/cooperate/facebook";
 }

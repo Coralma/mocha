@@ -48,6 +48,11 @@ public class InsCustomerDisplay extends EntityDisplayPanel implements Viewer {
 		final Button showDetailBtn = WidgetFactory.createLink("Show Detail");
 		showDetailBtn.setIcon(new ThemeResource("icons/arrow-collapse.png"));
 		showDetailBtn.addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if(viewPanel.isVisible()) {

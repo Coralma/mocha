@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
+	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	servicePackage="com.mocha.crm.service">
+	
+	<!-- 	customer search view -->
+	<view name="CustomerSearch" template="EntityCardSearch" entity="Customer">
+		<section name="CompanyCustomerCondition" template="SearchCondition">
+			<field name="name" />
+			<field name="district"/>
+			<field name="contectPerson"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+			<field name="email"/>
+			<field name="accountBank"/>
+			<field name="accountNumber"/>
+			<field name="accountPerson"/>
+		</section>
+		<section name="CompanySearchCard" label="Leave Apply" template="SearchCard" icon="card-cust.png">
+			<field name="name" required="true"/>
+			<field name="district"/>
+			<field name="address" wholeRow="true" style="textarea"/>
+			<field name="postcode" changeLine="true"/>
+			<field name="mobile"/>
+			<field name="email"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+	<!-- 	customer edit view -->
+	<view name="CustomerView" template="EntityEditView" entity="Customer">
+		<section name="companyCustInfo" label="Customer Information">
+			<field name="name" label="Customer Name" required="true"/>
+			<field name="status" codeTable="customer-status"/>
+			<field name="district"/>
+			<field name="address" wholeRow="true" style="textarea"/>
+			<field name="postcode" changeLine="true"/>
+		</section>
+		<section name="companyCustInfo" label="Contect Person">
+			<field name="contectPerson" required="true"/>
+			<field name="mobile"/>
+			<field name="phone"/>
+			<field name="fax"/>
+			<field name="email"/>
+		</section>
+		<section name="accountInfo" label="Company Customer Bank Account">
+			<field name="accountBank"/>
+			<field name="accountNumber"/>
+			<field name="accountPerson"/>
+			<field name="accountMark" wholeRow="true" style="textarea"/>
+		</section>
+		<section name="custMark" label="Company Customer Mark">
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+</mocha>	

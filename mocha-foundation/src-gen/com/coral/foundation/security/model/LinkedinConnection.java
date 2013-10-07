@@ -82,6 +82,18 @@ public class LinkedinConnection extends JPABaseEntity {
 	private String industry;
 	
 	
+	@Column(name = "EXPERIENCE" )
+	private String experience;
+	
+	
+	@Column(name = "EDUCTION" )
+	private String eduction;
+	
+	
+	@Column(name = "PUBLIC_PROFILE_URL" )
+	private String publicProfileUrl;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="linkedinPersonProfile")
 	private LinkedinPersonProfile linkedinPersonProfile;
@@ -196,6 +208,24 @@ public class LinkedinConnection extends JPABaseEntity {
 	} 
 	public String getIndustry () {
 		return industry;
+	}
+	public void setExperience (String experience) {
+		this.experience = experience;
+	} 
+	public String getExperience () {
+		return experience;
+	}
+	public void setEduction (String eduction) {
+		this.eduction = eduction;
+	} 
+	public String getEduction () {
+		return eduction;
+	}
+	public void setPublicProfileUrl (String publicProfileUrl) {
+		this.publicProfileUrl = publicProfileUrl;
+	} 
+	public String getPublicProfileUrl () {
+		return publicProfileUrl;
 	}
 	public void setLinkedinPersonProfile (LinkedinPersonProfile linkedinPersonProfile) {
 		this.linkedinPersonProfile = linkedinPersonProfile;

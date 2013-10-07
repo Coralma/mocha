@@ -16,11 +16,10 @@ import com.vaadin.ui.Component;
 
 /**
  * @author Coral
- *
+ * 
  */
 public class ReportWizardStep implements WizardStep {
-	
-	
+
 	String caption;
 	Component content;
 	boolean advance = true;
@@ -28,21 +27,21 @@ public class ReportWizardStep implements WizardStep {
 	WizardProgressListener listener;
 	WizardStep w;
 	private static BasicUser user;
-	
-	public ReportWizardStep(WizardStep w,WizardStep nStep){
-		this.w=w;
+
+	public ReportWizardStep(WizardStep w, WizardStep nStep) {
+		this.w = w;
 	}
-	
+
 	public ReportWizardStep(String caption, Component content) {
 		this.caption = caption;
 		this.content = content;
-		this.listener=new ReportWizardProgressListener();
+		this.listener = new ReportWizardProgressListener();
 	}
-	
-	public ReportWizardStep(){	
-		
+
+	public ReportWizardStep() {
+
 	}
-	
+
 	@Override
 	public String getCaption() {
 		return caption;
@@ -62,7 +61,7 @@ public class ReportWizardStep implements WizardStep {
 	public boolean onBack() {
 		return advance;
 	}
-	
+
 	public static BasicUser getUser() {
 		return user;
 	}
@@ -75,7 +74,6 @@ public class ReportWizardStep implements WizardStep {
 
 		@Override
 		public void activeStepChanged(WizardStepActivationEvent event) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -99,5 +97,4 @@ public class ReportWizardStep implements WizardStep {
 
 	}
 
-	
 }

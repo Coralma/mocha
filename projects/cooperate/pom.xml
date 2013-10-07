@@ -41,11 +41,17 @@
 			<artifactId>commerce</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.mocha.appframework.project</groupId>
 			<artifactId>crm</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+		</dependency> -->
+		<dependency>
+			<groupId>com.mocha.appframework.project</groupId>
+			<artifactId>marketing</artifactId>
+			<version>1.0.0-SNAPSHOT</version><classifier></classifier>
 		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>

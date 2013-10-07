@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="officeAdmin" entityPackage="com.mocha.crm.model"
+	daoIntfPackage="com.mocha.crm.dao" daoImplPackage="com.mocha.crm.dao.impl"
+	servicePackage="com.mocha.crm.service">
+	
+<!-- 	Customer Activity Search -->
+	<view name="CustomerActivitySearch" template="EntityCardSearch" entity="Campaign">
+		<section name="CustomerActivityCondition" template="SearchCondition">
+			<field name="campaignName" />
+			<field name="type"/>
+			<field name="startDate"/>
+			<field name="endDate"/>			
+		</section>
+		<section name="CustomerActivitySearchCard" label="Leave Apply" template="SearchCard" icon="card-cp.png">
+			<field name="campaignName" />
+			<field name="type"/>
+			<field name="startDate"/>
+			<field name="endDate"/>
+			<action name="edit" label="Edit" action="Edit"/>
+			<action name="delete" label="Delete" action="Delete"/>
+		</section>
+	</view>
+	
+<!-- 	Customer Activity edit View -->
+	<view name="CustomerActivityView" template="EntityEditView" entity="Campaign">
+		<section name="CampaignInfo" label="Campaign Information">
+			<field name="campaignName" required="true"/>
+			<field name="owner"/>
+			<field name="campaignDescription"/>
+			<field name="type"/>
+			<field name="status"/>
+			<field name="startDate"/>
+			<field name="endDate"/>
+			<field name="address"/>
+		</section>
+		<section name="CampaignExpectedRevenue" label="Expected Revenue">
+			<field name="expectedAmount"/>
+			<field name="budgetedCost"/>
+			<field name="expectedSalesVolume"/>
+			<field name="expectedResponse"/>
+		</section>
+		<section name="CampaignActualRevenue" label="Actual Revenue">
+			<field name="actualAmount"/>
+			<field name="actualCost"/>
+			<field name="actualSalesVolume"/>
+		</section>
+		<section name="CampaignMark" label="Mark">
+			<field name="mark" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+		<action name="back" label="Back" action="Back"/>
+	</view>
+
+</mocha>	

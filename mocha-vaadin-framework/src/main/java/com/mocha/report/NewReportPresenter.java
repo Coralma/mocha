@@ -32,48 +32,49 @@ import com.coral.foundation.security.model.ReportJoinTable;
 
 /**
  * @author Coral
- *
+ * 
  */
 public class NewReportPresenter extends CommonPresenter implements Presenter {
-	
+
 	static AbstrctAppRawData appCustomReprotRowData;
 	private MochaReport userEditMochaReport;
-	
+
 	public NewReportPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
-		ReportModel reportModel=new ReportModel("","","");
-		
-		
+		ReportModel reportModel = new ReportModel("", "", "");
+
 		// if appCustomReprotRowData is null means user already initial one instance in report model pool
-		if(appCustomReprotRowData==null){
-			appCustomReprotRowData=(AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
+		if (appCustomReprotRowData == null) {
+			appCustomReprotRowData = (AbstrctAppRawData) eventBus.getContext().get("appCustomReprotRowData");
 			reportModel.setAppRawRata(appCustomReprotRowData);
-			if(ReportModelPool.findReportModelByCurrentUser(eventBus.getUser())==null){
-				ReportModelPool.initInstance(eventBus.getUser(),reportModel);
+			if (ReportModelPool.findReportModelByCurrentUser(eventBus.getUser()) == null) {
+				ReportModelPool.initInstance(eventBus.getUser(), reportModel);
 			}
-		}else{
-//			appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser()).getAppRawRata();
 		}
-		
+		else {
+			// appCustomReprotRowData=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser()).getAppRawRata();
+		}
+
 		// Edit the specified mocha report
-		if(eventBus.getContext().get("Entity")!=null){
-			userEditMochaReport=(MochaReport) eventBus.getContext().get("Entity");
-			List<ReportTable> reportTables=userEditMochaReport.getAppReport().getReportTables();
-			for(ReportTable rt:reportTables){
-				if(rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())){
-					this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData,rt);
+		if (eventBus.getContext().get("Entity") != null) {
+			userEditMochaReport = (MochaReport) eventBus.getContext().get("Entity");
+			List<ReportTable> reportTables = userEditMochaReport.getAppReport().getReportTables();
+			for (ReportTable rt : reportTables) {
+				if (rt.getType().equals(ReportConfiguration.ReportType.MainTable.toString())) {
+					this.viewer = new NewReportViewer(eventBus.getUser(), appCustomReprotRowData, rt);
 				}
 			}
 		}
-		else{
-			this.viewer = new NewReportViewer(eventBus.getUser(),appCustomReprotRowData);
+		else {
+			this.viewer = new NewReportViewer(eventBus.getUser(), appCustomReprotRowData);
 		}
 	}
 
 	@Override
 	public void bind() {
-		NewReportViewer newReportViewer=(NewReportViewer) viewer;
-		newReportViewer.setListener(new ReportWizardProgressListener(){
+
+		NewReportViewer newReportViewer = (NewReportViewer) viewer;
+		newReportViewer.setListener(new ReportWizardProgressListener() {
 			@Override
 			public void activeStepChanged(WizardStepActivationEvent event) {
 				// TODO Auto-generated method stub
@@ -86,65 +87,65 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 
 			@Override
 			public void wizardCompleted(WizardCompletedEvent event) {
-				ReportModel reportModel=ReportModelPool.findReportModelByCurrentUser(eventBus.getUser());
+				ReportModel reportModel = ReportModelPool.findReportModelByCurrentUser(eventBus.getUser());
 				AppReport appReport = reportModel.getAppReport();
-				BasicUser creator=getEventBus().getUser();
-				AppCusteomReportService appCustomReportService = new AppCusteomReportService(appReport,creator);
-				//Support one main table with one sub tables
+				BasicUser creator = getEventBus().getUser();
+				AppCusteomReportService appCustomReportService = new AppCusteomReportService(appReport, creator);
+				// Support one main table with one sub tables
 				ReportTable subTable = new ReportTable();
 				ReportTable mainTable = new ReportTable();
 				mainTable.setType(ReportConfiguration.ReportType.MainTable.toString());
 				subTable.setType(ReportConfiguration.ReportType.SubTable.toString());
 				List<ReportColumn> subTableReportColumns = new ArrayList<ReportColumn>();
-				List<ReportColumn> mainTableReportColumns =new ArrayList<ReportColumn>(); 
-				
+				List<ReportColumn> mainTableReportColumns = new ArrayList<ReportColumn>();
+
 				for (Iterator<ReportTable> it = reportModel.getReportTables().iterator(); it.hasNext();) {
-					ReportTable reportTable=(ReportTable) it.next();
-					//build subTable relate info
-					if(reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString())){
-						//build subTable name
+					ReportTable reportTable = (ReportTable) it.next();
+					// build subTable relate info
+					if (reportTable.getType().equals(ReportConfiguration.ReportType.SubTable.toString())) {
+						// build subTable name
 						subTable.setTableName(reportTable.getTableName());
-						//build subTable output columns
-						for(ReportColumn subReportColumn: reportModel.getSubTableSelectedColumns()){
-//							ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
+						// build subTable output columns
+						for (ReportColumn subReportColumn : reportModel.getSubTableSelectedColumns()) {
+							// ReportColumn subReportColumn = reportModel.getSubTableSelectedColumns().get(tableKey);
 							subTableReportColumns.add(subReportColumn);
 						}
 					}
 				}
-				
+
 				subTable.setReportColumns(subTableReportColumns);
-				
+
 				for (Iterator<ReportTable> it = reportModel.getReportTables().iterator(); it.hasNext();) {
-					ReportTable reportTable=(ReportTable) it.next();
+					ReportTable reportTable = (ReportTable) it.next();
 					// build mainTable infor
-					String mainTableType=ReportConfiguration.ReportType.MainTable.toString();
-					if(reportTable.getType().toString().equals(mainTableType)){
-						//build mainTable name and join type
+					String mainTableType = ReportConfiguration.ReportType.MainTable.toString();
+					if (reportTable.getType().toString().equals(mainTableType)) {
+						// build mainTable name and join type
 						mainTable.setTableName(reportTable.getTableName());
 						mainTable.setJoinType("inner join");
-						//build maintable output
-						for(ReportColumn mainTableSelectReportColumn : reportModel.getMainTableSelectedColumns()){
-//							ReportColumn mainTableSelectReportColumn = reportModel.getMainTableSelectedColumns().get(tableKey);
+						// build maintable output
+						for (ReportColumn mainTableSelectReportColumn : reportModel.getMainTableSelectedColumns()) {
+							// ReportColumn mainTableSelectReportColumn = reportModel.getMainTableSelectedColumns().get(tableKey);
 							mainTableSelectReportColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.OutputColumn.toString());
 							mainTableReportColumns.add(mainTableSelectReportColumn);
 						}
-						//build mainTable join columns
-						for(ReportColumn reportColumn:reportTable.getReportColumns()){
+						// build mainTable join columns
+						for (ReportColumn reportColumn : reportTable.getReportColumns()) {
 							if (reportColumn.getColumnUseMode() != null
 									&& reportColumn.getColumnUseMode().equals(ReportConfiguration.ReportColumnType.ForeignKeyRefernceColumn.toString())) {
-								if(reportColumn.getReferenceTableName().equals(subTable.getTableName())){
+								if (reportColumn.getReferenceTableName().equals(subTable.getTableName())) {
 									// maintable join column
 									ReportColumn mainReportJoinColumn = new ReportColumn();
 									mainReportJoinColumn.setColumnName(reportColumn.getColumnName());
 									mainReportJoinColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.JoinColumn.toString());
 									mainTableReportColumns.add(mainReportJoinColumn);
-									
+
 									// subTable join column
 									ReportColumn subTableReportJoinColumn = new ReportColumn();
 									subTableReportJoinColumn.setColumnName(reportColumn.getReferenceColumnName());
 									subTableReportJoinColumn.setColumnUseMode(ReportConfiguration.ReportColumnType.JoinColumn.toString());
 									subTable.getReportColumns().add(subTableReportJoinColumn);
-									
+
 									// maintable join table
 									ReportJoinTable mainReportJoinTable = new ReportJoinTable();
 									mainReportJoinTable.setReportTable(subTable);
@@ -155,17 +156,17 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 							}
 						}
 						mainTable.setReportColumns(mainTableReportColumns);
-					
+
 					}
 				}
-				
-				ReportFilter reportFilter=new ReportFilter();
-				if(reportModel.getReportQueryFilterCondition().size()>0){
-					com.coral.foundation.report.ReportQueryFilterCondition rqfc=reportModel.getReportQueryFilterCondition().get(0);					
+
+				ReportFilter reportFilter = new ReportFilter();
+				if (reportModel.getReportQueryFilterCondition().size() > 0) {
+					com.coral.foundation.report.ReportQueryFilterCondition rqfc = reportModel.getReportQueryFilterCondition().get(0);
 					reportFilter.setFilterBuildString(rqfc.getQueryStrings());
-					appReport.getReportFilters().add(reportFilter);				
+					appReport.getReportFilters().add(reportFilter);
 				}
-				
+
 				appReport.getReportTables().add(mainTable);
 				appCustomReportService.setAppReport(appReport);
 				appCustomReportService.saveMainReportTable();
@@ -173,9 +174,9 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass("com.mocha.report.CrmReportPresenter");
 				eventBus.post(appContentEvent);
-				//Keep the report row data for this user
+				// Keep the report row data for this user
 				ReportModelPool.clearReportModelByUser(eventBus.getUser());
-				
+
 			}
 
 			@Override
@@ -186,8 +187,7 @@ public class NewReportPresenter extends CommonPresenter implements Presenter {
 				ReportModelPool.clearReportModelByUser(eventBus.getUser());
 			}
 		});
-		
-		
+
 	}
 
 	@Override

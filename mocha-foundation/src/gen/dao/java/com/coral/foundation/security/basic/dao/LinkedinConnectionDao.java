@@ -27,12 +27,10 @@ public class LinkedinConnectionDao extends BaseDao<LinkedinConnection> {
 		return followed;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<LinkedinConnection> findEntireConnectionByConn(LinkedinConnection connUser) {
-		Query query = getEntityManager().createQuery(
-				"from LinkedinConnection l where l.linkedinPersonProfile = :linkedinPersonProfile and l.firstName = :firstName and l.lastName = :lastName",
+		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.linkedinPersonProfile = :linkedinPersonProfile",
 				LinkedinConnection.class);
-		query.setParameter("firstName", connUser.getFirstName());
-		query.setParameter("lastName", connUser.getLastName());
 		query.setParameter("linkedinPersonProfile", connUser.getLinkedinPersonProfile());
 		List<LinkedinConnection> followed = query.getResultList();
 		return followed;
@@ -46,5 +44,12 @@ public class LinkedinConnectionDao extends BaseDao<LinkedinConnection> {
 		query.setParameter("linkedinPersonProfile", profile);
 		List<LinkedinConnectionNetworkUpdate> udpateStatus = query.getResultList();
 		return udpateStatus;
+	}
+
+	public LinkedinConnection findConnectByPublicProfile(String linkedinProfileUrl) {
+		Query query = getEntityManager().createQuery("from LinkedinConnection l where l.publicProfileUrl = :publicProfileUrl", LinkedinConnection.class);
+		query.setParameter("publicProfileUrl", linkedinProfileUrl);
+		LinkedinConnection conn = (LinkedinConnection) query.getSingleResult();
+		return conn;
 	}
 }

@@ -5,7 +5,7 @@
 	version="2.0">
 
 	<persistence-unit name="cooperate" transaction-type="RESOURCE_LOCAL">
-		<!-- 	cooperate -->
+		<!-- cooperate -->
 		<class>com.mocha.cooperate.model.Attachment</class>
 		<class>com.mocha.cooperate.model.Chat</class>
 		<class>com.mocha.cooperate.model.ChatMessage</class>
@@ -21,7 +21,7 @@
 		<class>com.mocha.cooperate.model.SubToDoItem</class>
 		<class>com.mocha.cooperate.model.TimeLine</class>
 		<class>com.mocha.cooperate.model.ToDo</class>
-		<!-- 	foundation -->
+		<!-- foundation -->
 		<class>com.coral.foundation.security.model.Account</class>
 		<class>com.coral.foundation.security.model.App</class>
 		<class>com.coral.foundation.security.model.BasicRole</class>
@@ -33,25 +33,25 @@
 		<class>com.coral.foundation.security.model.ReportColumn</class>
 		<class>com.coral.foundation.security.model.ReportTable</class>
 		<class>com.coral.foundation.security.model.ReportFilter</class>
-		<class>com.coral.foundation.security.model.MochaReport</class>	
+		<class>com.coral.foundation.security.model.MochaReport</class>
 		<class>com.coral.foundation.security.model.ReportJoinTable</class>
 		<class>com.coral.foundation.security.model.SoicalApp</class>
 		<class>com.coral.foundation.security.model.LinkedinConnection</class>
 		<class>com.coral.foundation.security.model.LinkedinGroup</class>
 		<class>com.coral.foundation.security.model.LinkedinPersonProfile</class>
 		<class>com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate</class>
-		<!-- 		CRM -->
+		<!-- CRM -->
 		<class>com.mocha.crm.model.Customer</class>
 		<class>com.mocha.crm.model.Campaign</class>
 		<class>com.mocha.crm.model.Serve</class>
-		<!-- 		insurance broker -->
+		<!-- insurance broker -->
 		<class>com.mocha.ib.model.Claim</class>
 		<class>com.mocha.ib.model.Policy</class>
 		<class>com.mocha.ib.model.InsuranceCompany</class>
 		<class>com.mocha.ib.model.InsuranceCustomer</class>
 		<class>com.mocha.ib.model.InsuranceCustomerServe</class>
 		<class>com.mocha.ib.model.InsuranceProduct</class>
-		<!-- 		e-commerce -->
+		<!-- e-commerce -->
 		<class>com.mocha.co.model.CommerceCustomer</class>
 		<class>com.mocha.co.model.SourceApplication</class>
 		<class>com.mocha.co.model.CommerceProduct</class>
@@ -60,5 +60,7 @@
 		<class>com.mocha.co.model.Promotion</class>
 		<class>com.mocha.co.model.StockProduct</class>
 		<class>com.mocha.co.model.Supplier</class>
+		<!-- Marketing -->
+		<class>com.mocha.crm.model.Email</class>
 	</persistence-unit>
 </persistence>

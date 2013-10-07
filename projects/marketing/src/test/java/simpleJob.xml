@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+                                
+    <import resource="applicationContext.xml"/>
+   
+    <bean id="taskletStep" abstract="true"
+        class="org.springframework.batch.core.step.tasklet.TaskletStep">
+        <property name="jobRepository" ref="jobRepository"/>
+        <property name="transactionManager" ref="transactionManager"/>        
+    </bean>
+       
+    <bean id="hello" class="com.techavalanche.batch.PrintTasklet">
+        <property name="message" value="Hello"/>
+    </bean>
+
+    <bean id="world" class="com.techavalanche.batch.PrintTasklet">
+        <property name="message" value="World!"/>
+    </bean>
+
+    <bean id="mySimpleJob" class="org.springframework.batch.core.job.SimpleJob">
+        <property name="name" value="mySimpleJob" />
+        <property name="steps">
+            <list>
+                <bean parent="taskletStep">
+                    <property name="tasklet" ref="hello"/>
+                </bean>
+			
+                <bean parent="taskletStep">
+                    <property name="tasklet" ref="world"/>
+                </bean>
+				
+            </list>
+        </property>
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+    
+	<bean id="batchLauncher" class="com.techavalanche.batch.BatchLauncher">
+		<property name="jobLauncher" ref="jobLauncher"/>
+		<property name="jobRepository" ref="jobRepository"/>
+		<property name="job" ref="mySimpleJob"/>
+    </bean>    
+</beans>

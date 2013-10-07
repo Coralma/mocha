@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="marketing" entityPackage="com.mocha.marketing.model"
+	daoImplPackage="com.mocha.marketing.dao" servicePackage="com.mocha.marketing.service">
+
+	<entity entityName="Customer">
+		<property name="name" />
+		<property name="status" />
+		<property name="contectPerson" />
+		<property name="district" />
+		<property name="postcode" />
+		<property name="address" />
+		<property name="mobile" />
+		<property name="phone" />
+		<property name="fax" />
+		<property name="email" />
+		<property name="accountBank" />
+		<property name="accountNumber" />
+		<property name="accountPerson" />
+		<property name="accountMark" />
+		<property name="mark" />
+	</entity>
+	<entity entityName="Campaign">
+		<property name="owner" />
+		<property name="campaignName" />
+		<property name="campaignDescription" />
+		<property name="type" />
+		<property name="status" />
+		<property name="startDate" />
+		<property name="endDate" />
+		<property name="address" /><!-- 活动地点 -->
+		<property name="expectedAmount" /><!-- 预期收益 -->
+		<property name="budgetedCost" /><!-- 预算成本 -->
+		<property name="expectedSalesVolume" /><!-- 预期销售量 -->
+		<property name="expectedResponse" /><!-- 期望成功率(%) -->
+		<property name="actualAmount" /><!-- 实际收益 -->
+		<property name="actualCost" /><!-- 实际成本 -->
+		<property name="actualSalesVolume" /><!-- 实际销售量 -->
+		<!-- <property name="needSendEmail"/> -->
+		<!-- <property name="scheduleSendEmailDate"/> -->
+		<!-- <property name="emailSendStatus"/>Flag -->
+		<!-- <property name="customers"/> -->
+		<property name="mark" />
+	</entity>
+	<entity entityName="Serve">
+		<property name="owner" />
+		<property name="customerName" />
+		<property name="type" /> <!-- call, visit, -->
+		<property name="priority" />
+		<property name="date" />
+		<property name="status" /> <!-- -->
+		<property name="mark" />
+		<property name="result" />
+		<property name="feedback" />
+	</entity>
+	
+</mocha>

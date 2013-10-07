@@ -53,13 +53,12 @@ public class IbFollowedMembersViewer extends EntityViewPanel implements Viewer {
 
 	@Override
 	public void build() {
-		// TODO Auto-generated method stub
 		buildFollowedConnectionsLayout();
 	}
 
 	public void buildFollowedConnectionsLayout() {
 		mainLayout.removeAllComponents();
-		
+
 		final LinkedInConnectionGroup group = new LinkedInConnectionGroup("Followed From LinkedIn Connections", followedConnection);
 		group.getViewDetailBtn().addListener(new ClickListener() {
 

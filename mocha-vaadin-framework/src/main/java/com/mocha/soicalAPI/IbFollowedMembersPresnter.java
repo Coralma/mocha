@@ -19,13 +19,14 @@ import com.vaadin.ui.Button.ClickListener;
 public class IbFollowedMembersPresnter extends AppCommonPresenter implements Presenter {
 
 	LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
-	BasicUserDao buDao=SpringContextUtils.getBean(BasicUserDao.class);
+	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
 	List<LinkedinConnection> linkedinConnections;
-	private static String viewConProfilePage="com.mocha.soicalAPI.SoicalConnectionProfileViewPresenter";
+	private static String viewConProfilePage = "com.mocha.soicalAPI.SoicalConnectionProfileViewPresenter";
 
 	public IbFollowedMembersPresnter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		eventBus.setUser(buDao.findUserByUserName(eventBus.getUser().getUserName()));
+
 		for (SoicalApp soicalApp : eventBus.getUser().getSoicalApp()) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getLinkedinPersonProfiles().size() > 0) {
 				for (LinkedinPersonProfile p : soicalApp.getLinkedinPersonProfiles()) {
@@ -34,15 +35,15 @@ public class IbFollowedMembersPresnter extends AppCommonPresenter implements Pre
 				}
 			}
 		}
-//		System.out.println("linked matche member is:"+linkedinConnections.size());
+
 		this.viewer = new IbFollowedMembersViewer(linkedinConnections, eventBus.getUser());
 	}
 
 	@Override
 	public void bind() {
-		final IbFollowedMembersViewer viewer=(IbFollowedMembersViewer) this.viewer;
+		final IbFollowedMembersViewer viewer = (IbFollowedMembersViewer) this.viewer;
 		viewer.getGroupbtn().addListener(new ClickListener() {
-			
+
 			/**
 			 * 
 			 */
@@ -50,8 +51,8 @@ public class IbFollowedMembersPresnter extends AppCommonPresenter implements Pre
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				System.out.println("User select linkedin connection "+viewer.getSelectCon().getFirstName());
-				AppContentEvent appContextEvent=new AppContentEvent();
+				System.out.println("User select linkedin connection " + viewer.getSelectCon().getFirstName());
+				AppContentEvent appContextEvent = new AppContentEvent();
 				appContextEvent.setCustomizeClass(viewConProfilePage);
 				eventBus.put("linkedConn", viewer.getSelectCon());
 				eventBus.post(appContextEvent);

@@ -8,8 +8,8 @@ import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
 import com.coral.vaadin.widget.view.CommonPresenter;
-import com.mocha.ib.dao.InsuranceCustomerDao;
 import com.mocha.ib.model.InsuranceCustomer;
+import com.mocha.ib.dao.InsuranceCustomerDao;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 

@@ -1,5 +1,6 @@
 package com.coral.foundation.linkedin;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -17,11 +18,14 @@ import com.google.code.linkedinapi.client.GroupsApiClient;
 import com.google.code.linkedinapi.client.LinkedInApiClient;
 import com.google.code.linkedinapi.client.LinkedInApiClientFactory;
 import com.google.code.linkedinapi.client.Parameter;
+import com.google.code.linkedinapi.client.PeopleApiClient;
 import com.google.code.linkedinapi.client.constant.IndustryCodes;
+import com.google.code.linkedinapi.client.constant.LinkedInApiUrls;
 import com.google.code.linkedinapi.client.constant.RelationshipCodes;
 import com.google.code.linkedinapi.client.enumeration.GroupMembershipField;
 import com.google.code.linkedinapi.client.enumeration.NetworkUpdateType;
 import com.google.code.linkedinapi.client.enumeration.ProfileField;
+import com.google.code.linkedinapi.client.enumeration.ProfileType;
 import com.google.code.linkedinapi.client.enumeration.SearchParameter;
 import com.google.code.linkedinapi.client.impl.BaseLinkedInApiClient;
 import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
@@ -45,17 +49,16 @@ import com.google.code.linkedinapi.schema.Update;
 import com.google.code.linkedinapi.schema.UpdateComment;
 import com.google.code.linkedinapi.schema.UpdateComments;
 import com.google.code.linkedinapi.schema.Updates;
-import com.google.code.linkedinapi.schema.impl.CountryImpl;
 
 public class LinkedinImpl {
 
 	private String consumerKeyValue = "pps9akw5t85u";
 	private String consumerSecretValue = "rz2R2HpXYQoQasr2";
 	private String callBackUrl = "https://www.mocha-platform.com/cooperate";
-	private final LinkedInOAuthService oauthService = LinkedInOAuthServiceFactory.getInstance().createLinkedInOAuthService(consumerKeyValue,
-			consumerSecretValue);
-	private final LinkedInApiClientFactory factory = LinkedInApiClientFactory.newInstance(consumerKeyValue, consumerSecretValue);
-	private Object scope;
+	private String scopeParams = "r_basicprofile+r_fullprofile+r_emailaddress+r_network+r_contactinfo+rw_nus+rw_groups+w_messages+rw_company_admin";
+	private LinkedInOAuthService oauthService = LinkedInOAuthServiceFactory.getInstance().createLinkedInOAuthService(consumerKeyValue, consumerSecretValue,
+			scopeParams);
+	private LinkedInApiClientFactory factory = LinkedInApiClientFactory.newInstance(consumerKeyValue, consumerSecretValue);
 
 	public LinkedinImpl(String consumerKeyValue, String consumerSecretValue, String callBackUrl) {
 		this.consumerKeyValue = consumerKeyValue;
@@ -69,47 +72,22 @@ public class LinkedinImpl {
 
 	/**
 	 * @param args
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
 	 */
-	public static void main(String[] args) {
-		LinkedinImpl apiSample = new LinkedinImpl();
-		String callbackUrl = "https://www.mocha-platform.com/cooperate";
-		// LinkedInRequestToken requestToken = apiSample.getOauthService().getOAuthRequestToken();
-		// LinkedInRequestToken requestToken = apiSample.getOauthService().getOAuthRequestToken(callbackUrl);
-		// String authUrl = requestToken.getAuthorizationUrl();
-		// System.out.println(authUrl);
-		// LinkedInApiClient client = apiSample.factory.createLinkedInApiClient(token);
-		// GroupsApiClient groupClient=apiSample.factory.createLinkedInApiClient(token);
-		// Set<ProfileField> profileFields=EnumSet.of(
-		// ProfileField.ID,
-		// ProfileField.POSITIONS,
-		// ProfileField.FIRST_NAME,
-		// ProfileField.LAST_NAME,
-		// ProfileField.SUMMARY,
-		// ProfileField.LOCATION_COUNTRY,
-		// ProfileField.HEADLINE,
-		// ProfileField.SUMMARY,
-		// ProfileField.ASSOCIATIONS);
-		//
-		// Set<GroupMembershipField> groupFields=EnumSet.of(
-		// GroupMembershipField.GROUP,
-		// GroupMembershipField.GROUP_NAME,
-		// GroupMembershipField.GROUP_ID);
-		//
-		// Connections connects =client.getConnectionsForCurrentUser(profileFields,1,50);
-		// List<Person> personList = connects.getPersonList();
-		// List<LinkedinConnection> connections = new ArrayList<LinkedinConnection>();
-		// for (Person p : personList) {
-		// System.out.println(p.getId());
-		// GroupMemberships ships=groupClient.getGroupMemberships(p.getId());
-		// for(GroupMembership ship:ships.getGroupMembershipList()){
-		// System.out.println("ship is: "+ship.getGroup().getName()+" Persion is: "+ship.getPerson().getFirstName());
-		// }
-		// }
-		// LinkedInAccessToken token = new LinkedInAccessToken("ff40e54b-76b3-4c4a-b884-5086c914056e", "14f5262d-1bfc-49c7-be5f-49f57509b825");
+	public static void main(String[] args) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+
+		LinkedInAccessToken token = new LinkedInAccessToken("ff40e54b-76b3-4c4a-b884-5086c914056e", "14f5262d-1bfc-49c7-be5f-49f57509b825");
 		LinkedinImpl impl = new LinkedinImpl();
 
-		LinkedInAccessToken accessToken = new LinkedInAccessToken("3357e089-f96e-4162-927b-292e3a48eac1", "1b787100-4087-4b0e-a6a2-d79f87e7de22");
-		impl.searchAPI(accessToken);
+		// String url = "http://www.linkedin.com/pub/wei-jiang-007jiangwei-sina-com/45/80a/6b1";
+		String url = "http://www.linkedin.com/pub/nina-li/32/40b/665";
+		// LinkedInAccessToken accessToken = new LinkedInAccessToken("3357e089-f96e-4162-927b-292e3a48eac1", "1b787100-4087-4b0e-a6a2-d79f87e7de22");
+		// impl.searchPeopleByIndustry(token, IndustryCodes.Management_Consulting);
+		impl.getProfileByUser(token, url);
+		// impl.getAlUserConnects(token);
 		// apiSample.getAllNetworkUpdate(token);
 	}
 
@@ -135,35 +113,41 @@ public class LinkedinImpl {
 		return accessToken;
 	}
 
-	public List<People> searchAPI(LinkedInAccessToken accessToken) {
+	public People searchPeopleByIndustry(LinkedInAccessToken accessToken, String industryCode) {
 		LinkedInApiClient client = factory.createLinkedInApiClient(accessToken);
 		Map<SearchParameter, String> searchParameters = new EnumMap<SearchParameter, String>(SearchParameter.class);
 		String keywords = null;
-//		searchParameters.put(SearchParameter.COUNTRY_CODE, CountryCodeType.AA.toString());
-		// String companyName = null;
-		// searchParameters.put(SearchParameter.COMPANY_NAME, companyName);
-
 		ArrayList<Parameter<FacetType, String>> facets = new ArrayList<Parameter<FacetType, String>>();
-		facets.add(new Parameter<FacetType, String>(FacetType.INDUSTRY, IndustryCodes.Marketing_and_Advertising));
-		facets.add(new Parameter<FacetType, String>(FacetType.NETWORK, RelationshipCodes.OUT_OF_NETWORK_CONNECTIONS));
-		facets.add(new Parameter<FacetType, String>(FacetType.NETWORK, RelationshipCodes.SECOND_DEGREE_CONNECTIONS));
-		
-		People people = client.searchPeople(searchParameters, EnumSet.of(ProfileField.INDUSTRY), facets);
+		// sample IndustryCodes.Marketing_and_Advertising
+		facets.add(new Parameter<FacetType, String>(FacetType.INDUSTRY, industryCode));
+		Set<ProfileField> returnProfileFileds = new HashSet<ProfileField>();
+		for (ProfileField pf : ProfileField.values()) {
+			returnProfileFileds.add(pf);
+		}
+		People people = client.searchPeople(searchParameters, returnProfileFileds, facets);
 		System.out.println("Total search result:" + people.getCount());
 		for (Person person : people.getPersonList()) {
-			System.out.println(person.getId() + ":" + person.getFirstName() + " " + person.getLastName() + ":" + person.getHeadline());
+			System.out.println(person.getId() + ":" + person.getFirstName() + " " + person.getLastName() + ":" + person.getHeadline() + ":"
+					+ person.getSummary());
 		}
-		return null;
+		return people;
 	}
 
+	// Get entire profile for user connections
 	public List<LinkedinConnection> getAlUserConnects(LinkedInAccessToken accessToken) {
 
 		LinkedInApiClient client = factory.createLinkedInApiClient(accessToken);
 		GroupsApiClient gaClient = factory.createLinkedInApiClient(accessToken);
-		Set<ProfileField> profileFields = EnumSet.of(ProfileField.ID, ProfileField.POSITIONS, ProfileField.FIRST_NAME, ProfileField.LAST_NAME,
-				ProfileField.SUMMARY, ProfileField.LOCATION_COUNTRY, ProfileField.HEADLINE, ProfileField.PICTURE_URL, ProfileField.LOCATION,
-				ProfileField.INDUSTRY, ProfileField.CURRENT_STATUS, ProfileField.PHONE_NUMBERS, ProfileField.IM_ACCOUNTS, ProfileField.TWITTER_ACCOUNTS);
 
+		// add entire profilefield
+		Set<ProfileField> profileFields = new HashSet<ProfileField>();
+		for (ProfileField profileField : ProfileField.values()) {
+			profileFields.add(profileField);
+		}
+
+		// Set<ProfileField> profileFields = EnumSet.of(ProfileField.ID, ProfileField.POSITIONS, ProfileField.FIRST_NAME, ProfileField.LAST_NAME,
+		// ProfileField.SUMMARY, ProfileField.LOCATION_COUNTRY, ProfileField.HEADLINE, ProfileField.PICTURE_URL, ProfileField.LOCATION,
+		// ProfileField.INDUSTRY, ProfileField.CURRENT_STATUS, ProfileField.PHONE_NUMBERS, ProfileField.IM_ACCOUNTS, ProfileField.TWITTER_ACCOUNTS);
 		Set<GroupMembershipField> groupFields = EnumSet.of(GroupMembershipField.GROUP, GroupMembershipField.GROUP_NAME, GroupMembershipField.GROUP_ID);
 
 		Connections connects = client.getConnectionsForCurrentUser(profileFields);
@@ -175,6 +159,7 @@ public class LinkedinImpl {
 			connection.setLastName(p.getLastName());
 			connection.setPictUrl(p.getPictureUrl());
 			connection.setHeadline(p.getHeadline());
+			connection.setPublicProfileUrl(p.getPublicProfileUrl());
 			if (p.getImAccounts() != null) {
 				connection.setImAccount(p.getImAccounts().getImAccountList().get(0).toString());
 			}
@@ -193,16 +178,7 @@ public class LinkedinImpl {
 			if (p.getMemberGroups() != null) {
 				System.out.println("group is: " + p.getMemberGroups());
 			}
-			// GroupMemberships groupMemberShips=gaClient.getGroupMemberships(p.getId());
-			// if (groupMemberShips != null) {
-			// if (groupMemberShips.getGroupMembershipList() != null && groupMemberShips.getGroupMembershipList().size()>0) {
-			// for (GroupMembership gms : groupMemberShips.getGroupMembershipList()) {
-			// LinkedinGroup lg = new LinkedinGroup();
-			// lg.setName(gms.getGroup().getName());
-			// connection.getLinkedinGroups().add(lg);
-			// }
-			// }
-			// }
+
 			if (p.getPositions() != null) {
 				for (Position po : p.getPositions().getPositionList()) {
 					Company company = po.getCompany();
@@ -249,6 +225,21 @@ public class LinkedinImpl {
 		Set<ProfileField> profileFields = EnumSet.of(ProfileField.POSITIONS, ProfileField.FIRST_NAME, ProfileField.LAST_NAME, ProfileField.SUMMARY,
 				ProfileField.LOCATION_COUNTRY, ProfileField.HEADLINE);
 		Person profile = client.getProfileForCurrentUser(profileFields);
+		return profile;
+	}
+
+	public Person getProfileByUser(LinkedInAccessToken accessToken, String url) {
+		PeopleApiClient client = factory.createPeopleApiClient(accessToken);
+		// add entire profilefield
+		Set<ProfileField> profileFields = new HashSet<ProfileField>();
+		for (ProfileField profileField : ProfileField.values()) {
+			profileFields.add(profileField);
+		}
+		profileFields.addAll(EnumSet.of(ProfileField.EDUCATIONS, ProfileField.POSITIONS, ProfileField.POSITIONS_COMPANY, ProfileField.POSITIONS_COMPANY_ID,
+				ProfileField.POSITIONS_COMPANY_INDUSTRY, ProfileField.POSITIONS_COMPANY_NAME, ProfileField.POSITIONS_COMPANY_SIZE,
+				ProfileField.POSITIONS_COMPANY_TICKER, ProfileField.POSITIONS_COMPANY_TYPE, ProfileField.POSITIONS_END_DATE, ProfileField.POSITIONS_IS_CURRENT,
+				ProfileField.POSITIONS_START_DATE, ProfileField.POSITIONS_SUMMARY, ProfileField.POSITIONS_TITLE));
+		Person profile = client.getProfileByUrl(url, ProfileType.STANDARD, profileFields);
 		return profile;
 	}
 

@@ -80,9 +80,6 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		toolbar.setToolbarWidth(RuntimeConstant.APP_CONTENT_WIDTH);
 		toolbar.addLeftComponent(getAllLink());
 		toolbar.addLeftComponent(getFollowedLink());
-
-		// createButton = WidgetFactory.createButton("Create Report");
-		// toolbar.addRightComponent(createButton);
 		this.addComponent(toolbar);
 	}
 
