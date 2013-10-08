@@ -35,6 +35,7 @@ import org.jsoup.select.Elements;
 import com.coral.foundation.security.basic.dao.LinkedinConnectionDao;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.spring.bean.SpringContextUtils;
+import com.google.gwt.dom.client.Element;
 
 public class ProfileReport {
 
@@ -42,7 +43,7 @@ public class ProfileReport {
 	private String profileExperenceCSSPath;
 	private String profileEductionCSSPath;
 
-	private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
+	 private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
 
 	public ProfileReport(String linkedinProfileUrl, String profileExperenceCSSPath, String profileEductionCSSPath) {
 		this.setLinkedinProfileUrl(linkedinProfileUrl);
@@ -54,7 +55,8 @@ public class ProfileReport {
 
 	}
 
-	public void faceBookLogin() {
+	private Map<String, String> faceBookLogin() {
+		Map<String, String> jSoupCookie = new HashMap<String, String>();
 		try {
 			DefaultHttpClient httpclient = new DefaultHttpClient();
 
@@ -78,11 +80,7 @@ public class ProfileReport {
 				}
 			}
 
-			HttpPost httpost = new HttpPost("https://www.facebook.com/login.php?skip_api_login=1&api_key=207409882754187&signed_next=1&next=https%3A%2F%2"
-					+ "Fwww.facebook.com%2Fdialog%2Foauth%3Fredirect_uri%3Dhttp%253A%252F%252F458784c9.ngrok.com%252Fcooperate%26client_id%3D207409882754187%"
-					+ "26ret%3Dlogin&cancel_uri=http%3A%2F%2F458784c9.ngrok.com%2Fcooperate%3Ferror%3Daccess_denied%26error_code%3D200"
-					+ "%26error_description%3DPermissions%2Berror%26error_reason" + "%3Duser_denied%23_%3D_&display=page");
-
+			HttpPost httpost = new HttpPost("http://www.facebook.com/login.php");
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair("email", "vancezhao@gmail.com"));
 			nvps.add(new BasicNameValuePair("pass", "jsvskk"));
@@ -106,7 +104,7 @@ public class ProfileReport {
 
 			System.out.println("Post logon cookies:");
 			cookies = httpclient.getCookieStore().getCookies();
-			Map<String, String> jSoupCookie = new HashMap<String, String>();
+
 			if (cookies.isEmpty()) {
 				System.out.println("None");
 			}
@@ -116,41 +114,32 @@ public class ProfileReport {
 					jSoupCookie.put(cookies.get(i).getName(), cookies.get(i).getValue());
 				}
 			}
-			httpclient.getConnectionManager().shutdown();
-
-			// HttpPost authRequest = new HttpPost(
-			// "https://www.facebook.com/login.php?skip_api_login=1&api_key=207409882754187&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Foauth%3Fredirect_uri%3Dhttp%253A%252F%252F458784c9.ngrok.com%252Fcooperate%26client_id%3D207409882754187%26ret%3Dlogin&cancel_uri=http%3A%2F%2F458784c9.ngrok.com%2Fcooperate%3Ferror%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied%23_%3D_&display=page");
+			// httpclient.getConnectionManager().shutdown();
+			// httpclient = new DefaultHttpClient();
 			// httpclient.getCookieStore().getCookies().addAll(cookies);
-			// HttpResponse httpResponse = httpclient.execute(authRequest);
-			// System.out.println(httpResponse.getParams().getParameter("code"));
-
-			httpclient = new DefaultHttpClient();
-			httpclient.getCookieStore().getCookies().addAll(cookies);
-			HttpPost hp = new HttpPost(fbLoginAuth);
-			HttpResponse hr = httpclient.execute(hp);
-			System.out.println(hr);
-
-			Document doc = Jsoup.connect("https://www.facebook.com/KinderKindrelu/about").cookies(jSoupCookie).get();
-			Elements element = doc.getElementsByClass("fbTimelineFamilyGrid");
-			System.out.println(element);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File("request.log")));
-			bw.write(doc.html());
-			bw.close();
-			System.out.println(doc.html());
+			// HttpPost hp = new HttpPost(fbLoginAuth);
+			// HttpResponse hr = httpclient.execute(hp);
+			// System.out.println(hr);
+			//
+			// Document doc = Jsoup.connect("https://www.facebook.com/chun.chen.1422/about").cookies(jSoupCookie).get();
+			// // Elements element = doc.getElementsByClass("fbTimelineFamilyGrid");
+			// System.out.println(doc.html());
+			// BufferedWriter bw = new BufferedWriter(new FileWriter(new File("request.log")));
+			// bw.write(doc.html());
+			// bw.close();
+			// System.out.println(doc.html());
+			return jSoupCookie;
 		}
 		catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return null;
 	}
 
 	public LinkedinConnection parseProfilePage() {
@@ -176,18 +165,20 @@ public class ProfileReport {
 		ArrayList<String> fbTimelineSections = new ArrayList<String>();
 		Document doc;
 		try {
-			doc = Jsoup.connect(fbProfileUrl).get();
+			doc = Jsoup.connect(fbProfileUrl).cookies(faceBookLogin()).get();
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File("fb.log")));
 			bw.write(doc.html());
+			System.out.println(doc.html());
 			String profileMainHtml = doc.html();
 			for (String str : profileMainHtml.split("\n")) {
-
 				// find this user's timeline section only
+
 				if (str.contains("</code>") && str.contains("fbTimelineSection") && !str.contains("Others Named")) {
 					str = StringUtils.removeStart(StringUtils.removeEnd(str.trim(), "--></code>"), "<!--");
 					fbTimelineSections.add(str);
 				}
 			}
+			fbTimelineSections.addAll(parseFacebookProfilePage(fbProfileUrl + "/about"));
 			return fbTimelineSections;
 		}
 		catch (IOException e) {
@@ -205,11 +196,13 @@ public class ProfileReport {
 		// ProfileReport p = new ProfileReport(linkedinProfileUrl, profileExperenceCSSPath, profileEductionCSSPath);
 		// // p.parseProfilePage();
 		// p.faceBookLogin();
-
 		ProfileReport p = new ProfileReport();
-		String fbProfileUrl = "https://www.facebook.com/chun.chen.1422/about";
+		String fbProfileUrl;
+		fbProfileUrl = "https://www.facebook.com/chun.chen.1422/about";
 		p.parseFacebookProfilePage(fbProfileUrl);
 
+		// fbProfileUrl = "https://www.facebook.com/chun.chen.1422/";
+		// p.parseFacebookProfilePage(fbProfileUrl);
 	}
 
 	public String getLinkedinProfileUrl() {
