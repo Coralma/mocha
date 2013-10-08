@@ -43,7 +43,7 @@ public class ProfileReport {
 	private String profileExperenceCSSPath;
 	private String profileEductionCSSPath;
 
-	// private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
+	private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
 
 	public ProfileReport(String linkedinProfileUrl, String profileExperenceCSSPath, String profileEductionCSSPath) {
 		this.setLinkedinProfileUrl(linkedinProfileUrl);
