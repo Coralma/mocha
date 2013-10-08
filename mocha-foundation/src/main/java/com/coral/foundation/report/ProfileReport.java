@@ -43,7 +43,7 @@ public class ProfileReport {
 	private String profileExperenceCSSPath;
 	private String profileEductionCSSPath;
 
-	 private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
+	// private LinkedinConnectionDao dao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
 
 	public ProfileReport(String linkedinProfileUrl, String profileExperenceCSSPath, String profileEductionCSSPath) {
 		this.setLinkedinProfileUrl(linkedinProfileUrl);
@@ -172,13 +172,14 @@ public class ProfileReport {
 			String profileMainHtml = doc.html();
 			for (String str : profileMainHtml.split("\n")) {
 				// find this user's timeline section only
-
 				if (str.contains("</code>") && str.contains("fbTimelineSection") && !str.contains("Others Named")) {
 					str = StringUtils.removeStart(StringUtils.removeEnd(str.trim(), "--></code>"), "<!--");
 					fbTimelineSections.add(str);
 				}
 			}
-			fbTimelineSections.addAll(parseFacebookProfilePage(fbProfileUrl + "/about"));
+			if (!fbProfileUrl.endsWith("/about")) {
+				fbTimelineSections.addAll(parseFacebookProfilePage(fbProfileUrl + "/about"));
+			}
 			return fbTimelineSections;
 		}
 		catch (IOException e) {
@@ -198,11 +199,8 @@ public class ProfileReport {
 		// p.faceBookLogin();
 		ProfileReport p = new ProfileReport();
 		String fbProfileUrl;
-		fbProfileUrl = "https://www.facebook.com/chun.chen.1422/about";
+		fbProfileUrl = "https://www.facebook.com/chun.chen.1422";
 		p.parseFacebookProfilePage(fbProfileUrl);
-
-		// fbProfileUrl = "https://www.facebook.com/chun.chen.1422/";
-		// p.parseFacebookProfilePage(fbProfileUrl);
 	}
 
 	public String getLinkedinProfileUrl() {
