@@ -162,6 +162,7 @@ public class ProfileReport {
 	}
 
 	public ArrayList<String> parseFacebookProfilePage(String fbProfileUrl) {
+		fbProfileUrl = fbProfileUrl + "/about";
 		ArrayList<String> fbTimelineSections = new ArrayList<String>();
 		Document doc;
 		try {

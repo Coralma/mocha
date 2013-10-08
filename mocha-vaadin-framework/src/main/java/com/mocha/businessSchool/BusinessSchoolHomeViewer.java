@@ -55,7 +55,7 @@ public class BusinessSchoolHomeViewer extends EntityViewPanel implements Viewer 
 	}
 
 	private void buildBusinessProgramModuel() {
-		profileBussiness = new BusinessProgramModuel("Profile Soluations", "This is our first sample solutions based on Linkedin Profile Solution");
+		profileBussiness = new BusinessProgramModuel("Profile Solutions", "Find More characteristic from Your Linkedin Connections");
 		mainLayout.addComponent(profileBussiness);
 
 		mainLayout
