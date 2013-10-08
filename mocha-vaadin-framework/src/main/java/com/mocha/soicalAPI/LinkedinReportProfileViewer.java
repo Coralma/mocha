@@ -208,8 +208,13 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 	}
 
 	public Component buildFBUserLayout() {
-//		buildSoicalAppLayout();
+		// buildSoicalAppLayout();
 		VerticalLayout fbUserLayout = new VerticalLayout();
+		
+		Label fbFindLabel = new Label("We've find some People matches name with '" + linkedConn.getFirstName() + " " + linkedConn.getLastName() + "'");
+		fbFindLabel.addStyleName("fbFindLabel");
+		
+		fbUserLayout.addComponent(fbFindLabel);
 		final GridLayout gl = new GridLayout(10, fbUserModel.size() % 5 > 1 ? fbUserModel.size() : 1);
 		gl.removeAllComponents();
 		fbUserLayout.addComponent(gl);
@@ -245,9 +250,10 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 					VerticalLayout v = new VerticalLayout();
 					h.addComponent(v);
 					for (int i = 1; i < fbTimelineSections.size(); i++) {
-						Label timeline = new Label(fbTimelineSections.get(i));
-						timeline.setContentMode(Label.CONTENT_XHTML);
-						v.addComponent(timeline);
+						Label timelineLabel = new Label(fbTimelineSections.get(i));
+						timelineLabel.setWidth("30%");
+						timelineLabel.setContentMode(Label.CONTENT_XHTML);
+						v.addComponent(timelineLabel);
 					}
 				}
 			});
