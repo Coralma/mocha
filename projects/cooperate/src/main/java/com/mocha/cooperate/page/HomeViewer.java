@@ -13,6 +13,7 @@ import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.help.GettingStartedWindow;
 import com.mocha.cooperate.page.event.HomePageListener;
 import com.mocha.cooperate.widget.PublisherWidget;
+import com.mocha.cooperate.widget.SimplePublisherWidget;
 import com.mocha.cooperate.widget.wrap.HomeLineSheetWrap;
 import com.mocha.cooperate.widget.wrap.TimeLineSheetWrap;
 
@@ -23,7 +24,8 @@ import com.mocha.cooperate.widget.wrap.TimeLineSheetWrap;
 public class HomeViewer extends CommonViewer implements Viewer {
 
 	private String pageWidth = SystemProperty.content_page_width;
-	private PublisherWidget publisherWidget;
+//	private PublisherWidget publisherWidget;
+	private SimplePublisherWidget publisherWidget;
 	private HomeLineSheetWrap homeLineSheetWrap;
 	private HomePageListener listener;
 	private BasicUser currentUser;
@@ -39,7 +41,9 @@ public class HomeViewer extends CommonViewer implements Viewer {
 	
 	public void attach() {
 		super.attach();
-		publisherWidget = new PublisherWidget(currentUser);
+//		publisherWidget = new PublisherWidget(currentUser);
+		publisherWidget = new SimplePublisherWidget(currentUser);
+		
 //		if(listener != null) {
 //			publisherWidget.setListener(listener);
 //		}
@@ -66,13 +70,13 @@ public class HomeViewer extends CommonViewer implements Viewer {
 	public HomeLineSheetWrap getHomeLineSheetWrap() {
 		return homeLineSheetWrap;
 	}
-
-	/**
-	 * @return the publisherWidget
-	 */
-	public PublisherWidget getPublisherWidget() {
-		return publisherWidget;
-	}
+//
+//	/**
+//	 * @return the publisherWidget
+//	 */
+//	public PublisherWidget getPublisherWidget() {
+//		return publisherWidget;
+//	}
 
 	/**
 	 * @return the listener

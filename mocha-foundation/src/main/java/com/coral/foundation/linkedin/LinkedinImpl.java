@@ -56,8 +56,7 @@ public class LinkedinImpl {
 	private String consumerSecretValue = "rz2R2HpXYQoQasr2";
 	private String callBackUrl = "https://www.mocha-platform.com/cooperate";
 	private String scopeParams = "r_basicprofile+r_fullprofile+r_emailaddress+r_network+r_contactinfo+rw_nus+rw_groups+w_messages+rw_company_admin";
-	private LinkedInOAuthService oauthService = LinkedInOAuthServiceFactory.getInstance().createLinkedInOAuthService(consumerKeyValue, consumerSecretValue,
-			scopeParams);
+	private LinkedInOAuthService oauthService = LinkedInOAuthServiceFactory.getInstance().createLinkedInOAuthService(consumerKeyValue, consumerSecretValue);
 	private LinkedInApiClientFactory factory = LinkedInApiClientFactory.newInstance(consumerKeyValue, consumerSecretValue);
 
 	public LinkedinImpl(String consumerKeyValue, String consumerSecretValue, String callBackUrl) {

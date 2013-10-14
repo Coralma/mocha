@@ -60,7 +60,7 @@ public class ChatExtToolbar extends Toolbox {
 	public void attach() {
 		layout = new VerticalLayout();
 		layout.setWidth("150px");
-		layout.setHeight("300px");
+		layout.setHeight("400px");
 		layout.setSpacing(true);
 
 		// title
@@ -69,7 +69,7 @@ public class ChatExtToolbar extends Toolbox {
 		titleLayout.setWidth("100%");
 		Label chatIcon = new Label();
 		chatIcon.setWidth("16px");
-		chatIcon.setIcon(new ThemeResource("icons/chat-ext.png"));
+		chatIcon.setIcon(new ThemeResource("icons/discuss_icon.png"));
 		titleLayout.addComponent(chatIcon);
 		titleLayout.setExpandRatio(chatIcon, 1f);
 		
@@ -89,7 +89,7 @@ public class ChatExtToolbar extends Toolbox {
 		Panel userPanel = new Panel();
 		userPanel.addStyleName(Reindeer.PANEL_LIGHT);
 		userPanel.setWidth("153px");
-		userPanel.setHeight("285px");
+		userPanel.setHeight("385px");
 		// person list
 		VerticalLayout userLayout = new VerticalLayout();
 		userLayout.setWidth("130px");
@@ -118,7 +118,7 @@ public class ChatExtToolbar extends Toolbox {
 		public ChatContent() {
 			this.addStyleName("chat-ext-message-panel");
 			this.setWidth("202px");
-			this.setHeight("280px");
+			this.setHeight("380px");
 		}
 		
 		@SuppressWarnings("serial")
@@ -169,7 +169,7 @@ public class ChatExtToolbar extends Toolbox {
 			Panel messagePanel = new Panel();
 			messagePanel.addStyleName(Reindeer.PANEL_LIGHT);
 			messagePanel.setWidth(contentWidth);
-			messagePanel.setHeight("240px");
+			messagePanel.setHeight("340px");
 			messageLayout = new VerticalLayout();
 			messagePanel.setContent(messageLayout);
 			

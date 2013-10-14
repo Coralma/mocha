@@ -295,11 +295,25 @@
 	color: #000000;
 }
 
+.user-info-layout {
+	padding-left: 5px;
+	padding-top: 2px;
+}
+
+.user-info-layout .v-button-caption {
+	color: #000000;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: inherit;
+    text-shadow: none;
+}
+
 .user-name-title {
 	font-size: 16px;
 	font-weight: bold;
 	text-shadow: 0 1px 0 #e7e9e9;
 	color: #393939;
+	padding-bottom: 5px;
 }
 
 .user-photo {
@@ -771,8 +785,8 @@
 	border: none;
 	margin: 0px 0 0px 0;
 	padding: 0 10px;
-	height: 28px;
-	line-height: 28px;
+	height: 32px;
+	line-height: 32px;
 	text-shadow: 0 2px 0 #fff;
 	text-align: left;
 	font-weight: normal;
@@ -785,8 +799,15 @@
 	outline: none;
 }
 
+.mocha-shotcut .v-nativebutton .v-icon {
+    height: 18px !important;
+    width: 18px !important;
+}
+
 .mocha-shotcut .v-nativebutton .v-nativebutton-caption {
 	padding-left: 10px;
+	font-size: 14px;
+	color: #4d4d4d;
 }
 
 .mocha-shotcut .v-nativebutton-selected {
@@ -794,8 +815,8 @@
 	/* 	border-left: 3px solid #0394e8; */
 	margin: 0px 0 0px 0;
 	padding: 0 10px;
-	height: 28px;
-	line-height: 28px;
+	height: 32px;
+	line-height: 32px;
 	text-shadow: 0 1px 0 #e7e9e9;
 	text-align: left;
 	font-weight: normal;
@@ -1445,6 +1466,7 @@
 .todo-project-title {
 	font-size: 12px;
 	font-weight: bold;
+	padding-top: 5px;
 }
 
 .todo-project-title-special {

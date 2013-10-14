@@ -50,7 +50,7 @@ public class ExampleData {
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("cooperate.shotcut.Colleague");
 		shotcutItem.setAction(PresenterProperty.COLLEAGUE);
-		shotcutItem.setIcon("icons/userOper_icon.png");
+		shotcutItem.setIcon("icons/colleague_icon.png");
 		shotcutItemList.add(shotcutItem);
 
 		shotcutItem = new ShotcutItem();

@@ -15,6 +15,7 @@ import com.coral.vaadin.controller.ContentChangeEvent;
 import com.coral.vaadin.controller.PageFactory;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.widget.Viewer;
+import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.view.CommonViewer;
 import com.github.wolfie.refresher.Refresher;
 import com.github.wolfie.refresher.Refresher.RefreshListener;
@@ -23,9 +24,11 @@ import com.google.common.eventbus.Subscribe;
 import com.mocha.cooperate.PresenterProperty;
 import com.mocha.cooperate.page.data.ExampleData;
 import com.mocha.cooperate.widget.ShotcutPanel;
+import com.mocha.cooperate.widget.UserInfoWidget;
 import com.mocha.cooperate.widget.UserPhotoWidget;
 import com.mocha.cooperate.widget.listener.IndexListener;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -77,8 +80,12 @@ public class IndexViewer extends CommonViewer implements Viewer {
 	public VerticalLayout buildInformationColumn() {
 		infoColumn.addStyleName("index-info-panel");
 		infoColumn.setWidth(infoWidth);
-		UserPhotoWidget userPhoto =new UserPhotoWidget(user);
-		infoColumn.addComponent(userPhoto);
+		
+//		UserPhotoWidget userPhoto =new UserPhotoWidget(user);
+//		infoColumn.addComponent(userPhoto);
+		
+		UserInfoWidget userInfo = new UserInfoWidget(user);
+		infoColumn.addComponent(userInfo);
 
 		menu = new ShotcutPanel(eventBus, ExampleData.getShotcut());
 		menu.setWidth(infoWidth);
