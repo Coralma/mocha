@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coral.foundation.linkedin.LinkedinImpl;
+import com.coral.foundation.oauth.APIKeys;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinConnection;

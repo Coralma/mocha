@@ -5,6 +5,7 @@ import java.util.List;
 import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.facebook.FBImpl;
 import com.coral.foundation.facebook.FBUserModel;
+import com.coral.foundation.oauth.APIKeys;
 import com.coral.foundation.security.basic.dao.LinkedinConnectionNetworkUpdateDao;
 import com.coral.foundation.security.basic.dao.SoicalAppDao;
 import com.coral.foundation.security.model.LinkedinConnection;
@@ -59,7 +60,7 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 		});
 
 		viewer.getFacebookCommonSearchBtn().addListener(new ClickListener() {
-			/**
+			/**;
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
@@ -83,8 +84,11 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 			@Override
 			public void buttonClick(ClickEvent event) {
 				SoicalApp sa = saDao.findSoicaAppByName(eventBus.getUser(), "facebook");
+				
+				// auth from facebook
 				if (sa == null) {
-					String sourceURL = "https://www.facebook.com/dialog/oauth?client_id=" + APIKeys.facebookAPIId + "&redirect_uri="
+					String sourceURL = "https://www.facebook.com/dialog/oauth?client_id=" + APIKeys.facebookAPIId 
+							+ "&redirect_uri="
 							+ APIKeys.facebookCallBackUrl;
 					viewer.getApplication().getMainWindow().open(new ExternalResource(sourceURL));
 				}

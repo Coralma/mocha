@@ -17,13 +17,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.coral.foundation.constant.RuntimeConstant;
+import com.coral.foundation.oauth.APIKeys;
 import com.coral.foundation.oauth.OauthHandler;
 import com.coral.foundation.oauth.SimpleOAuthHandler;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.utils.FileUtils;
 import com.coral.vaadin.app.MochaApplication;
 import com.google.code.linkedinapi.schema.Application;
-import com.mocha.soicalAPI.APIKeys;
 import com.vaadin.service.ApplicationContext;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.terminal.gwt.server.WebBrowser;
