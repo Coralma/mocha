@@ -13,6 +13,7 @@ import com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
+import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.vaadin.Application;
 import com.vaadin.event.MouseEvents;
@@ -43,6 +44,23 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 	@Override
 	public void bind() {
 		final LinkedinReportProfileViewer viewer = (LinkedinReportProfileViewer) this.viewer;
+
+		viewer.getBackBtn().addListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				String viewConProfilePage = "com.mocha.soicalAPI.IbEntireConnectionProfilePresnter";
+				AppContentEvent appContextEvent = new AppContentEvent();
+				appContextEvent.setCustomizeClass(viewConProfilePage);
+				eventBus.post(appContextEvent);
+			}
+		});
+
 		viewer.getSearchEngineBtn().addListener(new ClickListener() {
 
 			/**
@@ -60,7 +78,8 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 		});
 
 		viewer.getFacebookCommonSearchBtn().addListener(new ClickListener() {
-			/**;
+			/**
+			 * ;
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
@@ -84,11 +103,10 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 			@Override
 			public void buttonClick(ClickEvent event) {
 				SoicalApp sa = saDao.findSoicaAppByName(eventBus.getUser(), "facebook");
-				
+
 				// auth from facebook
 				if (sa == null) {
-					String sourceURL = "https://www.facebook.com/dialog/oauth?client_id=" + APIKeys.facebookAPIId 
-							+ "&redirect_uri="
+					String sourceURL = "https://www.facebook.com/dialog/oauth?client_id=" + APIKeys.facebookAPIId + "&redirect_uri="
 							+ APIKeys.facebookCallBackUrl;
 					viewer.getApplication().getMainWindow().open(new ExternalResource(sourceURL));
 				}
@@ -106,10 +124,24 @@ public class LinkedinReportProfilePresenter extends AppCommonPresenter implement
 				}
 			}
 		});
+
+		viewer.getRecommanedBtn().addListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 4021976684628859192L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				viewer.buildPerferencePlan();
+			}
+		});
 	}
 
 	@Override
 	public String getPresenterName() {
 		return null;
 	}
+
 }

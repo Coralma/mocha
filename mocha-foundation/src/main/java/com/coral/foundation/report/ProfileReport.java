@@ -86,7 +86,6 @@ public class ProfileReport {
 			nvps.add(new BasicNameValuePair("pass", "jsvskk"));
 
 			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-
 			String fbLoginAuth = null;
 			response = httpclient.execute(httpost);
 			for (Header h : response.getAllHeaders()) {
@@ -96,7 +95,6 @@ public class ProfileReport {
 			}
 			entity = response.getEntity();
 			System.out.println("Double check we've got right page " + EntityUtils.toString(entity));
-
 			System.out.println("Login form get: " + response.getStatusLine());
 			if (entity != null) {
 				entity.consumeContent();
@@ -114,20 +112,6 @@ public class ProfileReport {
 					jSoupCookie.put(cookies.get(i).getName(), cookies.get(i).getValue());
 				}
 			}
-			// httpclient.getConnectionManager().shutdown();
-			// httpclient = new DefaultHttpClient();
-			// httpclient.getCookieStore().getCookies().addAll(cookies);
-			// HttpPost hp = new HttpPost(fbLoginAuth);
-			// HttpResponse hr = httpclient.execute(hp);
-			// System.out.println(hr);
-			//
-			// Document doc = Jsoup.connect("https://www.facebook.com/chun.chen.1422/about").cookies(jSoupCookie).get();
-			// // Elements element = doc.getElementsByClass("fbTimelineFamilyGrid");
-			// System.out.println(doc.html());
-			// BufferedWriter bw = new BufferedWriter(new FileWriter(new File("request.log")));
-			// bw.write(doc.html());
-			// bw.close();
-			// System.out.println(doc.html());
 			return jSoupCookie;
 		}
 		catch (UnsupportedEncodingException e) {
