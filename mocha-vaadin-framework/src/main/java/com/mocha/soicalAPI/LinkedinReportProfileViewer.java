@@ -1,57 +1,36 @@
 package com.mocha.soicalAPI;
 
-import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import com.coral.foundation.facebook.FBUserModel;
 import com.coral.foundation.report.ProfileReport;
-import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.LinkedinConnectionNetworkUpdate;
 import com.coral.vaadin.view.template.sat.panel.impl.EntityViewPanel;
-import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
-import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
-import com.coral.vaadin.widget.table.PagedTable;
-import com.coral.vaadin.widget.table.PagedTableContainer;
 import com.coral.vaadin.widget.view.builder.PageBuildHelper;
-import com.vaadin.Application;
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Container.Indexed;
-import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.MouseEvents;
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.terminal.ExternalResource;
-import com.vaadin.terminal.FileResource;
-import com.vaadin.terminal.PaintException;
-import com.vaadin.terminal.PaintTarget;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
-import com.vaadin.ui.Select;
-import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.Reindeer;
 
 public class LinkedinReportProfileViewer extends EntityViewPanel implements Viewer {
 
@@ -59,10 +38,11 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private NativeButton backBtn = new NativeButton("Back");
 	private LinkedinConnection linkedConn;
 	private VerticalLayout settingContentPanel = new VerticalLayout();
 	private NativeButton searchEngineBtn = new NativeButton("Get More Characteristic From Social Engine");
+	private NativeButton recommanedBtn = new NativeButton("Show Our Perference Plan");
 	private List<FBUserModel> fbUserModel;
 	private NativeButton facebookCommonSearchBtn = new NativeButton("Search");
 	private NativeButton facebookSearchFriend = new NativeButton("Search");
@@ -72,6 +52,7 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 	public LinkedinReportProfileViewer(LinkedinConnection linkedConn) {
 		this.addStyleName("mocha-coding-viewer");
 		this.setLinkedConn(linkedConn);
+		this.backBtn.addStyleName("mocha-button-dark");
 	}
 
 	@Override
@@ -84,12 +65,9 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		VerticalLayout simpleAppsLayout = new VerticalLayout();
 		mainLayout.addComponent(simpleAppsLayout);
 		simpleAppsLayout.addStyleName("simpleApps");
-
 		Embedded facebookCommonSearch = new Embedded("", new ThemeResource("images/fb-signIn.png"));
 		Embedded facebookSign = new Embedded("", new ThemeResource("images/fb-signIn.png"));
-
 		getMainLayout().addComponent(simpleAppsLayout);
-
 		HorizontalLayout fbCommonSearchLayout = new HorizontalLayout();
 		simpleAppsLayout.addComponent(fbCommonSearchLayout);
 		facebookCommonSearch.setHeight("100px");
@@ -101,15 +79,13 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		Label introTitle = new Label("Facebook Search");
 		intro.addComponent(introTitle);
 		intro.setComponentAlignment(introTitle, Alignment.MIDDLE_CENTER);
-		Label introIntro = new Label("Looking for people with name of" + linkedConn.getFirstName() + " " + linkedConn.getLastName()
+		Label introIntro = new Label("Looking for people with name of " + linkedConn.getFirstName() + " " + linkedConn.getLastName()
 				+ " within Facebook's public search engine");
 		intro.addComponent(introIntro);
 		intro.setComponentAlignment(introIntro, Alignment.MIDDLE_CENTER);
-
 		getFacebookCommonSearchBtn().addStyleName("mocha-button");
 		intro.addComponent(getFacebookCommonSearchBtn());
 		intro.setComponentAlignment(getFacebookCommonSearchBtn(), Alignment.MIDDLE_CENTER);
-
 		HorizontalLayout fbSignInLayout = new HorizontalLayout();
 		simpleAppsLayout.addComponent(fbSignInLayout);
 		facebookSign.setHeight("100px");
@@ -137,6 +113,18 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		getMainLayout().addComponent(settingContentPanel);
 		this.addComponent(getMainLayout());
 		this.buildBasicInformationPanel();
+		this.buildBottomButtonPanel();
+	}
+
+	private void buildBottomButtonPanel() {
+		HorizontalLayout buttonPanel = new HorizontalLayout();
+		buttonPanel.addStyleName("socialEngineBtnPanellayout");
+		getMainLayout().addComponent(buttonPanel);
+		getMainLayout().setComponentAlignment(buttonPanel, Alignment.BOTTOM_RIGHT);
+		buttonPanel.setSpacing(true);
+		buttonPanel.addComponent(backBtn);
+		buttonPanel.addComponent(recommanedBtn);
+		recommanedBtn.addStyleName("mocha-button-dark");
 	}
 
 	@Override
@@ -145,16 +133,31 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 	}
 
 	public void buildBasicInformationPanel() {
+
 		settingContentPanel.removeAllComponents();
 		VerticalLayout settingSection = new VerticalLayout();
 		settingSection.addStyleName("setting-user-info");
 		settingSection.setWidth("500px");
 
 		FormLayout userFormLayout = new FormLayout();
+		
+		Embedded profilePic = null;
+		try {
+			profilePic = PageBuildHelper.buildUserPhotoFromURL(new URL(linkedConn.getPictUrl()), getApplication());
+		}
+		catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		profilePic.setSource(new ExternalResource(linkedConn.getPictUrl()));
+		userFormLayout.addComponent(profilePic);
+		userFormLayout.setComponentAlignment(profilePic, Alignment.BOTTOM_RIGHT);
+
 		userFormLayout.setCaption(getLinkedConn().getFirstName() + "." + getLinkedConn().getLastName() + "'s Profile");
 		userFormLayout.setSpacing(true);
+
 		Label firstName = WidgetFactory.createCaptionLabel("First Name", getLinkedConn().getFirstName());
 		userFormLayout.addComponent(firstName);
+
 		Label lastName = WidgetFactory.createCaptionLabel("Last Name", getLinkedConn().getLastName());
 		userFormLayout.addComponent(lastName);
 
@@ -196,24 +199,24 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		experience.setContentMode(Label.CONTENT_XHTML);
 		userFormLayout.addComponent(experience);
 		settingContentPanel.addComponent(settingSection);
-		getSearchEngineBtn().addStyleName("mocha-button");
+		getSearchEngineBtn().addStyleName("mocha-button-dark");
 		getMainLayout().addComponent(userFormLayout);
 		getMainLayout().addComponent(searchEngineBtn);
 		searchEngineBtn.setWidth("100%");
-
 		if (fbUserModel != null) {
 			mainLayout.removeComponent(buildFBUserLayout());
 			mainLayout.addComponent(buildFBUserLayout());
 		}
+
 	}
 
 	public Component buildFBUserLayout() {
 		// buildSoicalAppLayout();
 		VerticalLayout fbUserLayout = new VerticalLayout();
-		
+
 		Label fbFindLabel = new Label("We've find some People matches name with '" + linkedConn.getFirstName() + " " + linkedConn.getLastName() + "'");
 		fbFindLabel.addStyleName("fbFindLabel");
-		
+
 		fbUserLayout.addComponent(fbFindLabel);
 		final GridLayout gl = new GridLayout(10, fbUserModel.size() % 5 > 1 ? fbUserModel.size() : 1);
 		gl.removeAllComponents();
@@ -281,7 +284,28 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 			}
 		}
 		this.addComponent(recentlyLayout);
+	}
 
+	public void buildPerferencePlan() {
+		// HorizontalLayout planLayout = new HorizontalLayout();
+		// getMainLayout().addComponent(planLayout);
+		// planLayout.addStyleName("fdw-pricing-table");
+		// for (int i = 0; i < 3; i++) {
+		// HorizontalLayout planDetailLayout = new HorizontalLayout();
+		// planLayout.addComponent(planDetailLayout);
+		// planDetailLayout.addStyleName("plan plan1");
+		// Label headerLabel = new Label("Enterprise");
+		// headerLabel.addStyleName("header");
+		// planDetailLayout.addComponent(headerLabel);
+		// Label price = new Label("$100");
+		// price.addStyleName("price");
+		// planDetailLayout.addComponent(price);
+		// Label monthly = new Label("Per month");
+		// monthly.addStyleName("monthly");
+		// planDetailLayout.addComponent(monthly);
+		// }
+
+		getApplication().getMainWindow().addWindow(new PlanWindow());
 	}
 
 	public LinkedinConnection getLinkedConn() {
@@ -330,6 +354,52 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 
 	public void setFacebookSearchFriend(NativeButton facebookSearchFriend) {
 		this.facebookSearchFriend = facebookSearchFriend;
+	}
+
+	public NativeButton getBackBtn() {
+		return backBtn;
+	}
+
+	public void setBackBtn(NativeButton backBtn) {
+		this.backBtn = backBtn;
+	}
+
+	public NativeButton getRecommanedBtn() {
+		return recommanedBtn;
+	}
+
+	public void setRecommanedBtn(NativeButton recommanedBtn) {
+		this.recommanedBtn = recommanedBtn;
+	}
+
+	public class PlanWindow extends Window {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public PlanWindow() {
+			this.setCaption("Planning");
+			this.center();
+			this.addStyleName("mocha-app");
+			this.setWidth("1024px");
+			this.setHeight("600px");
+			this.setClosable(true);
+			this.setResizeLazy(true);
+			this.setResizable(true);
+			this.setModal(true);
+			this.addStyleName(Reindeer.WINDOW_LIGHT);
+			this.setImmediate(true);
+			this.setHeight("400px");
+		}
+
+		// simplePensionResut
+
+		@Override
+		public void attach() {
+			CustomLayout cl = new CustomLayout("advancedPensionResult");
+			addComponent(cl);
+		}
 	}
 
 }

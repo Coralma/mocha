@@ -45,9 +45,10 @@ public class SimpleOAuthHandler extends OauthHandler {
 	private HttpServletRequest request;
 	private String fbCode;
 
-	private static final String appId = "207409882754187";
-	private static final String appSecret = "d8a9c0f327aa1770e6fee1864658a037";
-	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
+	// private static final String appId = "207409882754187";
+	// private static final String appSecret = "d8a9c0f327aa1770e6fee1864658a037";
+	// public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
+
 	private SoicalAppDao saDao = SpringContextUtils.getBean(SoicalAppDao.class);
 
 	public SimpleOAuthHandler(HttpServletRequest request) {
@@ -85,21 +86,21 @@ public class SimpleOAuthHandler extends OauthHandler {
 		Enumeration en = request.getParameterNames();
 		String token = null;
 
-		// while (en.hasMoreElements()) {
-		// String paramName = (String) en.nextElement();
-		// System.out.println(paramName);
-		// if (paramName.equals("oauth_verifier")) {
-		// setOauthVerifier(request.getParameter(paramName));
-		// }
-		// if (paramName.equals("fr")) {
-		// token = request.getParameter(paramName);
-		// if (token.contains("linkedin?oauth_token=")) {
-		// token = token.split("=")[1];
-		// System.out.println(token);
-		// setOauthToken(token);
-		// }
-		// }
-		// }
+		while (en.hasMoreElements()) {
+			String paramName = (String) en.nextElement();
+			System.out.println(paramName);
+			if (paramName.equals("oauth_verifier")) {
+				setOauthVerifier(request.getParameter(paramName));
+			}
+			if (paramName.equals("fr")) {
+				token = request.getParameter(paramName);
+				if (token.contains("linkedin?oauth_token=")) {
+					token = token.split("=")[1];
+					System.out.println(token);
+					setOauthToken(token);
+				}
+			}
+		}
 
 		if (referrUrl.contains("oauth_token=") && referrUrl.contains("&oauth_verifier=")) {
 			token = referrUrl.split("oauth_token=")[1].split("&oauth_verifier=")[0];
@@ -138,7 +139,6 @@ public class SimpleOAuthHandler extends OauthHandler {
 				// System.out.println("LinkedInAccessToken Secret is: " + linkedAccessToken.getTokenSecret());
 				// saDao.merge(sa);
 				// return true;
-
 			}
 		}
 		return false;
@@ -156,10 +156,10 @@ public class SimpleOAuthHandler extends OauthHandler {
 
 			Properties properties = new Properties();
 			properties.setProperty("DEBUG_ENABLED", "true");
-			properties.setProperty("APP_ID", appId);
-			properties.setProperty("APP_SECRET", appSecret);
+			properties.setProperty("APP_ID", APIKeys.facebookAPIId);
+			properties.setProperty("APP_SECRET", APIKeys.facebookSecertKey);
 			properties.setProperty("JSON_STORE_ENABLED", "true");
-			properties.setProperty("REDIRECT_URL", facebookCallBackUrl);
+			properties.setProperty("REDIRECT_URL", APIKeys.facebookCallBackUrl);
 
 			ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 			confBuilder.setDebugEnabled(Boolean.parseBoolean(properties.getProperty("DEBUG_ENABLED")));
@@ -170,7 +170,8 @@ public class SimpleOAuthHandler extends OauthHandler {
 			Configuration conf = confBuilder.build();
 
 			String fbRenewTokenURL = "https://graph.facebook.com/oauth/access_token?code=" + fbCode + "&client_id=" + properties.getProperty("APP_ID")
-					+ "&redirect_uri=" + properties.getProperty("REDIRECT_URL") + "&client_secret=d8a9c0f327aa1770e6fee1864658a037";
+					+ "&redirect_uri=" + properties.getProperty("REDIRECT_URL") + "&client_secret=" + properties.getProperty("APP_SECRET");
+
 			System.out.println(fbRenewTokenURL);
 			HttpGet httpost = new HttpGet(fbRenewTokenURL);
 			DefaultHttpClient client = new DefaultHttpClient();

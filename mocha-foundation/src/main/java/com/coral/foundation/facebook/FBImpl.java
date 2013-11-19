@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.coral.foundation.oauth.APIKeys;
 import com.google.gson.JsonObject;
 
 import facebook4j.Facebook;
@@ -47,19 +48,21 @@ import facebook4j.internal.org.json.JSONObject;
 
 public class FBImpl {
 
-	private static final String appId = "207409882754187";
-	private static final String appSecret = "d8a9c0f327aa1770e6fee1864658a037";
 	private static Facebook facebook = new FacebookFactory().getInstance();
-	private static String token = "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
+	 private static final String appId = "1457936687764700";
+	 private static final String appSecret = "00d1ee8bf2eaa563a8fb07513cfdb24d";
+	// private static String token =
+	// "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
 	private static Properties properties;
-	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
+
+	// public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
 
 	private static Facebook getFacebookPublicInstance() {
 		init();
 		Configuration conf = createConfiguration();
 		Facebook facebookClient = new FacebookFactory().getInstance(new OAuthAuthorization(conf));
 		// se the System Token here
-		AccessToken accessToken = new AccessToken(token);
+		AccessToken accessToken = new AccessToken(APIKeys.facebookSystemToken);
 		facebookClient.setOAuthAccessToken(accessToken);
 		return facebookClient;
 	}
@@ -89,9 +92,12 @@ public class FBImpl {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		AccessToken accessToken = new AccessToken(token);
+		AccessToken accessToken = new AccessToken(APIKeys.facebookSystemToken);
 		AccessToken fbAccessToken = facebookClient.getOAuthAccessToken(code);
 		facebookClient.setOAuthAccessToken(fbAccessToken);
+		
+		System.out.println("FB Token is: "+fbAccessToken);
+		
 		// String fbRenewTokenURL = "https://graph.facebook.com/oauth/authorize?code=" + code + "&client_id=" + properties.getProperty("APP_ID")
 		// + "&redirect_uri=" + properties.getProperty("REDIRECT_URL") + "&machine_id=" + UUID.randomUUID().toString();
 		// System.out.println(fbRenewTokenURL);
@@ -118,10 +124,10 @@ public class FBImpl {
 	private static void init() {
 		properties = new Properties();
 		properties.setProperty("DEBUG_ENABLED", "true");
-		properties.setProperty("APP_ID", appId);
-		properties.setProperty("APP_SECRET", appSecret);
+		properties.setProperty("APP_ID", APIKeys.facebookAPIId);
+		properties.setProperty("APP_SECRET", APIKeys.facebookSecertKey);
 		properties.setProperty("JSON_STORE_ENABLED", "true");
-		properties.setProperty("REDIRECT_URL", facebookCallBackUrl);
+		properties.setProperty("REDIRECT_URL", APIKeys.facebookCallBackUrl);
 	}
 
 	private static Configuration createConfiguration() {
