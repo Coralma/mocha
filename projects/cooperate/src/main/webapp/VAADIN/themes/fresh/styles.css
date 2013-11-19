@@ -148,16 +148,15 @@
 }
 
 .s-publisher .publisher-control .v-nativebutton .v-icon {
-    height: 18px !important;
-    width: 18px !important;
+    height: 16px !important;
+    width: 16px !important;
 }
 
 .s-publisher .publisher-control .v-nativebutton .v-nativebutton-caption {
 	color: #4d4d4d;
 	font-size: 14px;
 	vertical-align: middle;
-	white-space: nowrap;
-	padding-left: 10px;
+	padding-left: 5px;
 }
 
 .s-publisher .publisher-control .v-nativebutton-selected {
