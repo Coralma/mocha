@@ -22,6 +22,7 @@ import com.mocha.cooperate.page.UserTimeLinePresenter;
 import com.mocha.cooperate.page.admin.CompanyFilePresenter;
 import com.mocha.cooperate.page.admin.UserPermissionPresenter;
 import com.mocha.cooperate.page.cust.CustomerHomePresenter;
+import com.mocha.cooperate.page.hrapp.HumanResourcePresenter;
 import com.mocha.cooperate.page.index.CustomerIndexPresenter;
 import com.mocha.cooperate.page.index.IndexPresenter;
 
@@ -87,6 +88,9 @@ public class CooperateFactory implements PageFactory {
 		}
 		if(PresenterProperty.CUSTOMER_HOME.equals(entityName)) {
 			return new CustomerHomePresenter(eventBus);
+		}
+		if(PresenterProperty.HR.equals(entityName)) {
+			return new HumanResourcePresenter(eventBus);
 		}
 		return null;
 	}

@@ -74,6 +74,10 @@ public class WidgetFactory {
 		}
 		return linkBtn;
 	}
+	
+	/**
+	 * Create Icon button.
+	 */
 	public static Button createIconButton(String icon) {
 		return createIconButton(icon, null, null);
 	}
@@ -100,7 +104,14 @@ public class WidgetFactory {
 		}
 		return linkBtn;
 	}
-
+	
+	/**
+	 * Create Native Button.
+	 */
+	public static Button createNativeButton(String caption) {
+		Button nativeButton = new NativeButton(caption);
+		return nativeButton;
+	}
 	/**
 	 * Create label 
 	 */

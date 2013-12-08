@@ -41,7 +41,7 @@ public class DefaultSectionLayout extends AbstractSectionLayout implements Secti
 	    	gridLayout.setColumnExpandRatio(3, 3);
 	    	gridLayout.setComponentAlignment(field, Alignment.MIDDLE_LEFT);	
 		} catch (Exception e) {
-			System.out.println(field.getData());
+//			System.out.println(field.getData());
 			e.printStackTrace();
 		}
     	

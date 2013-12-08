@@ -34,14 +34,14 @@ public class EbayAPIInvokeImpl {
 		CommerceCustomer cc = ccDao.findCCByUser(user);
 		String authToken=cc.getSourceApplications().get(0).getAuthToken();
 		ManageTransactions m = new ManageTransactions();
-		System.out.println("cc user name is"+ cc.getReferUser().getUserName());
+//		System.out.println("cc user name is"+ cc.getReferUser().getUserName());
 		if(authToken==null){			
 			String sessionID = cc.getSourceApplications().get(0).getSessionID();
 			String secretID = cc.getSourceApplications().get(0).getSecretID();
 			authToken = m.getGetFetchTokenBySessionID(sessionID);
 			cc.getSourceApplications().get(0).setAuthToken(authToken);
 			ccDao.merge(cc);
-			System.out.println("Current user token is: " + authToken);
+//			System.out.println("Current user token is: " + authToken);
 		}
 		try {
 			List<OrderType> orders = m

@@ -62,7 +62,7 @@
 				<prop key="eclipselink.ddl-generation.output-mode">both</prop>
 				<prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
 <!-- 				<prop key="eclipselink.logging.level">FINE</prop> -->
-				<prop key="eclipselink.logging.level">INFO</prop>
+				<prop key="eclipselink.logging.level">SEVERE</prop>
 				<prop key="eclipselink.weaving">false</prop>
 			</props>
 		</property>
@@ -72,7 +72,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- Set for local dev env -->
-		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" /> -->
+<!-- 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" /> -->
 		<!-- Set for Production -->
 		<property name="url" value="jdbc:mysql://54.249.197.119:3306/cooperate?characterEncoding=utf8" />
 		<property name="username" value="root" />

@@ -58,18 +58,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xtextxbase</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.ebao.appframework</groupId>
-			<artifactId>xbaselib</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 		</dependency>

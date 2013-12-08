@@ -78,6 +78,13 @@ public class ExampleData {
 		shotcutItemList = new ArrayList<ShotcutItem>();
 		shotcut= new Shotcut();
 		shotcut.setTitle("cooperate.shotcut.Application");
+
+		shotcutItem = new ShotcutItem();
+		shotcutItem.setLabel("Human Resource");
+		shotcutItem.setAction(PresenterProperty.HR);
+		shotcutItem.setIcon("icons/hr_icon.png");
+		shotcutItem.setType(SystemProperty.PAGE_TYPE);
+		shotcutItemList.add(shotcutItem);
 		
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("Financial Advisor");

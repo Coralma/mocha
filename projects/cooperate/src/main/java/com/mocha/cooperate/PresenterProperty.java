@@ -27,4 +27,6 @@ public class PresenterProperty {
 	/** customer page*/
 	public static String CUSTOMER_INDEX = "customerIndex";
 	public static String CUSTOMER_HOME = "customerHome";
+	
+	public static String HR = "humanResource";
 }

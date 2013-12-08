@@ -70,7 +70,7 @@ public class CooperateApplication extends MochaApplication {
 
 		this.addWindow(new FileShareWindow());
 		ApplicationContext ac = getContext();
-		System.out.println(ac);
+//		System.out.println(ac);
 	}
 
 	public void checkDocumentPath() {
@@ -93,7 +93,7 @@ public class CooperateApplication extends MochaApplication {
 		BasicUser currentUser = null;
 		if (getUser() != null) {
 			currentUser = (BasicUser) getUser();
-			System.out.println("User Login with name" + currentUser.getUserName());
+//			System.out.println("User Login with name " + currentUser.getUserName());
 		}
 		String referrer = request.getHeader("referer");
 		// getMainWindow().removeAllComponents();

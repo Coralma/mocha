@@ -68,7 +68,7 @@ public class ModelCenter {
 		if(entityMap == null) {
 			initEntity();
 		}
-		System.out.println(entityMap.get(entityName).getEntityClass());
+//		System.out.println(entityMap.get(entityName).getEntityClass());
 		return entityMap.get(entityName);
 	}
 	
@@ -89,7 +89,7 @@ public class ModelCenter {
 			List<Entity> entityList = coral.getEntityList();
 			for(Entity entity: entityList) {
 				String entityName = entity.getEntityName();
-				System.out.println(entity.getEntityClass());
+//				System.out.println(entity.getEntityClass());
 				entityNameList.add(entityName);
 				entityMap.put(entityName, entity);
 			}

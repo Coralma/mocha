@@ -156,7 +156,7 @@ public class CommonSecurityManager extends AuthorizingRealm {
 		Subject currentUser = SecurityUtils.getSubject();
 		// implement the session later
 		Session sessionId = currentUser.getSession();
-		System.out.println("currentUser.isAuthenticated(): " + currentUser.isAuthenticated());
+//		System.out.println("currentUser.isAuthenticated(): " + currentUser.isAuthenticated());
 		UsernamePasswordToken userNamePwtoken = new UsernamePasswordToken(userName, pw);
 		if (!currentUser.isAuthenticated()) {
 			currentUser.login(userNamePwtoken);

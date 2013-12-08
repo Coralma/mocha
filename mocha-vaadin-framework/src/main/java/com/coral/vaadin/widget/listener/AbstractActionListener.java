@@ -21,13 +21,13 @@ public class AbstractActionListener {
 	public void buttonClick(ClickEvent event) {
 		String methodName = (String)event.getButton().getData();
 		invoke(methodName);
-		System.out.println("buttonClick " + event + " in entity " + this.getClass());
+//		System.out.println("buttonClick " + event + " in entity " + this.getClass());
 	}
 
 	public void valueChange(ValueChangeEvent event) {
 //		String methodName = (String)event.getButton().getData();
 //		invoke(methodName);
-		System.out.println("Value " + event + " in entity " + this.getClass());		
+//		System.out.println("Value " + event + " in entity " + this.getClass());		
 	}
 	
 	public void invoke(String methodName) {
@@ -35,7 +35,7 @@ public class AbstractActionListener {
 			Method method = this.getClass().getDeclaredMethod(methodName);
 			method.invoke(this);
 		} catch (Exception e) {
-			System.out.println("[Error!!!] Invoke " + methodName + " error in entity " + this.getClass());
+//			System.out.println("[Error!!!] Invoke " + methodName + " error in entity " + this.getClass());
 			e.printStackTrace();
 		}
 	}

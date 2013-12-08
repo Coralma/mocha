@@ -65,7 +65,6 @@ public class PagedTable extends Table {
             	if(container.getRealSize() > 5) {
             		controlBar.setVisible(true);
             	}
-            	System.out.println();
                 firePagedChangedEvent();
             }
         });

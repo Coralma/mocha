@@ -134,7 +134,7 @@ public class AppReportServiceTest {
 					reportTable.setTableName(entity.getEntityName());
 
 					for (Annotation ann : c.getAnnotations()) {
-						System.out.println(ann.getClass().getName());
+//						System.out.println(ann.getClass().getName());
 					}
 
 					for (Field field : c.getDeclaredFields()) {
