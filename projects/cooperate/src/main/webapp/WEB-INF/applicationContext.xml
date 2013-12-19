@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
@@ -62,7 +61,6 @@
 					<prop key="eclipselink.ddl-generation">drop-and-create-tables</prop> -->
 				<prop key="eclipselink.ddl-generation.output-mode">both</prop>
 				<prop key="eclipselink.create-ddl-jdbc-file-name">createDDL.jdbc</prop>
-<!-- 				<prop key="eclipselink.logging.level">FINE</prop> -->
 				<prop key="eclipselink.logging.level">SEVERE</prop>
 				<prop key="eclipselink.weaving">false</prop>
 			</props>
