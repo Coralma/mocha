@@ -752,6 +752,7 @@
 	color: #6E6E6E;
 	padding-left: 20px;
 	padding-top: 10px;
+	padding-bottom: 5px;
 }
 
 .general-app .app-section-content .v-button-link {
@@ -795,3 +796,121 @@
 	padding-left: 15px;
 }
 
+.general-app .property-widget {
+	background: 0;
+	margin-top: 20px;
+	margin-left: 10px;
+	padding: 0;
+	border: 1px #eaeaea solid;
+/* 	border-bottom: 1px #eaeaea solid; */
+/* 	border-left: 1px #eaeaea solid; */
+/* 	border-right: 1px #eaeaea solid; */
+	background-color: #fafafa;
+}
+
+.general-app .property-widget .property-caption-layout {
+	border-bottom: 1px #eaeaea solid;
+}
+
+.general-app .property-widget .property-caption-layout .property-caption {
+	font-size: 16px;
+	color: #6E6E6E;
+	font-weight: bold;
+}
+
+.general-app .property-widget .property-row-layout {
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+
+.general-app .property-widget .property-row-layout .key-label {
+	font-size: 14px;
+	color: #6E6E6E;
+	font-weight: normal;
+}
+
+.general-app .property-widget .property-row-layout .value-label {
+	font-size: 14px;
+	font-weight: bold;
+	color: #4ba733;
+}
+
+.general-app .create-button-layout {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.general-app .create-button {
+	border: 1px solid #50a200;
+	margin: 0px 0 0px 0;
+	padding: 0 10px;
+	font-size: 16px;
+	color: #ffffff;
+	background-color: #88c932;
+}
+
+.general-app .create-button:HOVER {
+	background-color: #50a200;
+}
+
+.general-app .action-button {
+	border: 1px solid #50a200;
+	margin: 0px 0 0px 0;
+	padding: 0 10px;
+	font-size: 14px;
+	color: #ffffff;
+	background-color: #88c932;
+	line-height: 30px;
+}
+
+.general-app .action-button:HOVER {
+	background-color: #50a200;
+}
+
+.general-app .viewPanel {
+	min-height: 500px;
+}
+
+.general-app .field-row {
+	padding-top: 5px;
+}
+
+.general-app .entity-field-row {
+	padding-top: 10px;
+	padding-bottom: 8px;
+	padding-left: 20px;
+}
+
+.general-app .entity-field-row-seperate {
+	padding-top: 10px;
+	padding-bottom: 8px;
+	padding-left: 20px;
+	border-top: 1px dotted #88c932;
+}
+
+.general-app .entity-grid-layout {
+	padding-top: 10px;
+	padding-left: 30px;
+}
+
+.general-app .entity-grid-layout .v-caption {
+	font-size: 11px;
+	color: #88c932;
+	font-weight: normal;
+}
+
+.general-app .entity-grid-layout .v-label {
+	font-size: 12px;
+	color: #6E6E6E;
+}
+
+.general-app .left-widget-layout {
+	padding-top: 20px;
+	padding-left: 30px;
+}
+.general-app .right-widget-layout {
+	padding-top: 5px;
+	padding-left: 20px;
+}

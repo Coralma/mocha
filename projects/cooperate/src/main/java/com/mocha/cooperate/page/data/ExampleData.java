@@ -81,7 +81,7 @@ public class ExampleData {
 
 		shotcutItem = new ShotcutItem();
 		shotcutItem.setLabel("Human Resource");
-		shotcutItem.setAction(PresenterProperty.HR);
+		shotcutItem.setAction("hr");
 		shotcutItem.setIcon("icons/hr_icon.png");
 		shotcutItem.setType(SystemProperty.PAGE_TYPE);
 		shotcutItemList.add(shotcutItem);

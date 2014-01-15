@@ -147,15 +147,16 @@ public class CooperateMainPage extends AbstractMainPage implements Button.ClickL
 		searchTextField.addShortcutListener(new ShortcutListener("search",KeyCode.ENTER, null) {
 			@Override
 			public void handleAction(Object sender, Object target) {
-				TextField searchField = (TextField) target;
-				String searchText = (String)searchField.getValue();
-				if(!StrUtils.isEmpty(searchText)) {
-					eventBus.resetContext();
-					eventBus.put("searchText", searchText);
-					ContentChangeEvent contentChangeEvent = new ContentChangeEvent();
-					contentChangeEvent.setPresenterName(PresenterProperty.SEARCH);
-					eventBus.post(contentChangeEvent);
-				}
+				//FIXME the search textfield action. 
+//				TextField searchField = (TextField) target;
+//				String searchText = (String)searchField.getValue();
+//				if(!StrUtils.isEmpty(searchText)) {
+//					eventBus.resetContext();
+//					eventBus.put("searchText", searchText);
+//					ContentChangeEvent contentChangeEvent = new ContentChangeEvent();
+//					contentChangeEvent.setPresenterName(PresenterProperty.SEARCH);
+//					eventBus.post(contentChangeEvent);
+//				}
 				
 			}
 		});
