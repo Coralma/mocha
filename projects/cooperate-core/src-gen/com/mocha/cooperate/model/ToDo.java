@@ -2,6 +2,13 @@ package com.mocha.cooperate.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.coral.foundation.persistence.*;
 
 /**
@@ -10,6 +17,8 @@ import com.coral.foundation.persistence.*;
   */
 @Entity(name = "ToDo")
 @Table(name = "T_ToDO")
+@XmlRootElement(name="ToDo")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ToDo extends JPABaseEntity {
 	
 	@Id()
@@ -18,17 +27,18 @@ public class ToDo extends JPABaseEntity {
 	@TableGenerator(name="TODOID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long toDoId;
 	
-	@Column(name = "NAME" )
-	private String name;
+	@Column(name = "NAME")
+	@XmlElement(name="name")
+	public String name;
 	
 	
 	@Column(name = "DESCIPTION" )
-	private String desciption;
+	@XmlAttribute(name="description")
+	public String desciption;
 	
 	
 	@Column(name = "STATUS" )
 	private Long status = new Long(0);
-	
 	
 	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser assginedUser;
@@ -53,14 +63,15 @@ public class ToDo extends JPABaseEntity {
 	@JoinColumn(name="TO_DO_ID")
 	private List<Comment> comments = new ArrayList<Comment>();
 	
+	@XmlTransient
 	@OneToMany(targetEntity=NotifyLine.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="TO_DO_ID")
 	private List<NotifyLine> notifyLines = new ArrayList<NotifyLine>();
 	
+	@XmlTransient
 	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser creator;
 	
-
 	public void setToDoId (Long toDoId) {
 		this.toDoId = toDoId;
 	} 

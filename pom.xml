@@ -381,6 +381,22 @@
 				<version>1.0.416</version>
 				<scope>compile</scope>
 			</dependency>
+			<!-- Adding Jersey -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-json</artifactId>
+				<version>1.9.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>1.9.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-bundle</artifactId>
+				<version>1.18</version>
+			</dependency>
 
 			<dependency>
 				<groupId>jaxen</groupId>
