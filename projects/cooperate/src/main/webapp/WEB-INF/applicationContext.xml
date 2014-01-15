@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,7 +12,11 @@
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://cxf.apache.org/jaxrs 
+        http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/transports/http/configuration 
+        http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
 	<context:spring-configured />
 	<bean
@@ -71,9 +76,11 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- Set for local dev env -->
-		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" /> -->
+		<!-- <property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" /> -->
 		<!-- Set for Production -->
-		<property name="url" value="jdbc:mysql://198.199.98.87:3306/cooperate?characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperate" 
+			/>
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -98,6 +105,9 @@
 	<!-- <context:component-scan base-package="com.coral.foundation.security" 
 		/> -->
 	<!-- <context:component-scan base-package="com.mocha.oa.model" /> -->
-	<tx:annotation-driven />
+	<!-- <tx:annotation-driven /> <jaxrs:server id="restContainer" address="/"> 
+		<jaxrs:serviceBeans> <ref bean="todoService" /> </jaxrs:serviceBeans> </jaxrs:server> -->
+	
+	<bean id="todoService" class="com.mocha.cooperate.service.ToDoServiceImpl"></bean>
 </beans>
 

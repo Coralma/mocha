@@ -2,6 +2,11 @@ package com.coral.foundation.security.model;
 import java.util.*;
 import java.math.BigDecimal;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.coral.foundation.persistence.*;
 
 /**
@@ -10,6 +15,8 @@ import com.coral.foundation.persistence.*;
   */
 @Entity(name = "BasicUser")
 @Table(name = "T_USER")
+@XmlRootElement(name="basicUser")
+@XmlAccessorType(XmlAccessType.NONE)
 public class BasicUser extends JPABaseEntity {
 	
 	@Id()
@@ -18,7 +25,7 @@ public class BasicUser extends JPABaseEntity {
 	@TableGenerator(name="BASICUSERID_SEQ", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", allocationSize=1)
 	private Long basicUserId;
 	
-	@Column(name = "USER_NAME" )
+	@Column(name = "USER_NAME")	
 	private String userName;
 	
 	
@@ -74,26 +81,27 @@ public class BasicUser extends JPABaseEntity {
 	private String type;
 	
 	
+	@XmlTransient
 	@Column(name = "INIT" )
 	private Long init = new Long(0);
-	
 	
 	@Transient
 	private Boolean rememberMe;
 	
+//	@Transient
+//	private org.apache.shiro.authz.SimpleAuthorizationInfo simpleAuthorizationInfo;
 	
-	@Transient
-	private org.apache.shiro.authz.SimpleAuthorizationInfo simpleAuthorizationInfo;
-	
-	
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name="basicRole")
 	private BasicRole basicRole;
 	
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name="account")
 	private Account account;
 	
+	@XmlTransient
 	@OneToMany(targetEntity=SoicalApp.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name="BASIC_USER_ID")
 	private List<SoicalApp> soicalApp = new ArrayList<SoicalApp>();
@@ -201,12 +209,12 @@ public class BasicUser extends JPABaseEntity {
 	public Boolean getRememberMe () {
 		return rememberMe;
 	}
-	public void setSimpleAuthorizationInfo (org.apache.shiro.authz.SimpleAuthorizationInfo simpleAuthorizationInfo) {
-		this.simpleAuthorizationInfo = simpleAuthorizationInfo;
-	} 
-	public org.apache.shiro.authz.SimpleAuthorizationInfo getSimpleAuthorizationInfo () {
-		return simpleAuthorizationInfo;
-	}
+//	public void setSimpleAuthorizationInfo (org.apache.shiro.authz.SimpleAuthorizationInfo simpleAuthorizationInfo) {
+//		this.simpleAuthorizationInfo = simpleAuthorizationInfo;
+//	} 
+//	public org.apache.shiro.authz.SimpleAuthorizationInfo getSimpleAuthorizationInfo () {
+//		return simpleAuthorizationInfo;
+//	}
 	public void setBasicRole (BasicRole basicRole) {
 		this.basicRole = basicRole;
 	} 
