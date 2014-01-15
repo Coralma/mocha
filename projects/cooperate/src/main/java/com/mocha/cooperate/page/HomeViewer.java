@@ -55,7 +55,7 @@ public class HomeViewer extends CommonViewer implements Viewer {
 		if(currentUser.getInit() == null || currentUser.getInit() == 0) {
 			getWindow().addWindow(new GettingStartedWindow());
 			currentUser.setInit(new Long(1));
-//			userService.merge(currentUser);
+			userService.merge(currentUser);
 		}
 	}
 	

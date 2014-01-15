@@ -89,9 +89,9 @@ public class CooperateFactory implements PageFactory {
 		if(PresenterProperty.CUSTOMER_HOME.equals(entityName)) {
 			return new CustomerHomePresenter(eventBus);
 		}
-		if(PresenterProperty.HR.equals(entityName)) {
-			return new HumanResourcePresenter(eventBus);
-		}
+//		if(PresenterProperty.HR.equals(entityName)) {
+//			return new HumanResourcePresenter(eventBus);
+//		}
 		return null;
 	}
 }

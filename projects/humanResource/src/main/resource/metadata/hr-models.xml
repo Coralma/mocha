@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="humanResource" entityPackage="com.mocha.hr.model"
+	daoImplPackage="com.mocha.hr.dao"
+	servicePackage="com.mocha.hr.service">
+	
+	<entity entityName="LeaveApply">
+		<property name="leaveType"/>
+		<property name="leaveDateFrom" type="Date"/>
+		<property name="leaveDateTo" type="Date"/>
+		<property name="leaveDuration"/>
+		<property name="comment"/>
+		<property name="status"/>
+		<property name="referEmails"/>
+		<property name="referUser" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+	    <property name="approvingAuthority" type="com.coral.foundation.security.model.BasicUser" 
+				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
+	</entity>
+
+</mocha>

@@ -25,6 +25,7 @@ public class DateUtils {
 
 	public static String defaultFormat = "yyyy-MM-dd HH:mm";
 	public static String shortFormat = "MM-dd HH:mm";
+	public static String dayFormat = "yyyy-MM-dd";
 
 	private DateUtils() {
 	}

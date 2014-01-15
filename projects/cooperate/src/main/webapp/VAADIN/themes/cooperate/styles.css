@@ -1285,6 +1285,11 @@
 	padding-left: 5px;
 }
 
+.viewPanel .app-section-panel {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
 .field-widget {
 	padding-left: 5px;
 }

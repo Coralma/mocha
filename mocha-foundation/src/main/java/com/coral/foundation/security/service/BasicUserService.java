@@ -30,6 +30,6 @@ public class BasicUserService {
 	}
 	
 	public void merge(BasicUser entity) {
-		basicUserDao.persist(entity);
+		basicUserDao.merge(entity);
 	}
 }
