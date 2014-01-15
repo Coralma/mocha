@@ -16,6 +16,7 @@ import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.service.TimeLineService;
 import com.mocha.cooperate.service.ToDoService;
+import com.mocha.cooperate.service.ToDoServiceImpl;
 import com.mocha.cooperate.widget.TodoProjectDisplayer;
 import com.mocha.cooperate.widget.TodoProjectDisplayer.TodoItemDisplay;
 import com.mocha.cooperate.widget.listener.TodoListener;
@@ -28,7 +29,7 @@ import com.vaadin.ui.Label;
  */
 public class TodoPresenter extends CommonPresenter implements Presenter {
 	
-	private ToDoService todoService = new ToDoService();
+	private ToDoService todoService = new ToDoServiceImpl();
 	
 	public TodoPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;

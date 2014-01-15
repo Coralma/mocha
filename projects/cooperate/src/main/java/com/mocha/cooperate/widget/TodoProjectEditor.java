@@ -20,6 +20,7 @@ import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.service.ToDoService;
+import com.mocha.cooperate.service.ToDoServiceImpl;
 import com.mocha.cooperate.widget.cards.StatusCard;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -64,7 +65,7 @@ public class TodoProjectEditor extends VerticalLayout {
 	private Button addTaskBtn;
 	private List<TodoTaskEditor> todoTaskEditors = new ArrayList<TodoTaskEditor>();
 	
-	private ToDoService toDoService = new ToDoService();
+	private ToDoServiceImpl toDoService = new ToDoServiceImpl();
 	private BasicUser currentUser;
 	
 	public TodoProjectEditor(ToDo toDo, BasicUser currentUser) {
