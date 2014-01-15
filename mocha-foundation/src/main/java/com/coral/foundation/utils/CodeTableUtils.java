@@ -48,7 +48,7 @@ public class CodeTableUtils {
 				if(codeTable.getCodeTableValues().size() == 0) {
 					List<CodeTableValue> codeTableValues = codeTableValueDao.findByName(codeTableName);
 					codeTable.setCodeTableValues(codeTableValues);
-					codeTableDao.persist(codeTable);
+//					codeTableDao.persist(codeTable);
 				}
 				codeTableCache.put(COMMON_KEY, codeTableName, codeTable);
 			} else {

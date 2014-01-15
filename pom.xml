@@ -12,12 +12,13 @@
 		<module>mocha-foundation</module>
 		<module>mocha-vaadin-framework</module>
 		<module>mocha-mobile-framework</module>
+		<module>mocha-app-template</module>
 		<module>projects/cooperate-core</module>		
 		<module>projects/crm</module>
 		<module>projects/commerce</module>
 		<module>projects/insuranceBroker</module>
+		<module>projects/humanResource</module>
 		<module>projects/cooperate</module>
-		<module>projects/cooperate-mobile</module>
 	</modules>
 
 	<properties>

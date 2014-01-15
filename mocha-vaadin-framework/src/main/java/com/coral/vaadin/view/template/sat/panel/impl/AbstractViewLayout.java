@@ -28,6 +28,7 @@ public abstract class AbstractViewLayout extends VerticalLayout {
 			FieldStatus status = field.getFieldStatus();
 			if(index == 0 || index == column || status.isChangeLine() ||status.isWholeRow()) {
 				rowLayout = new HorizontalLayout();
+				rowLayout.addStyleName("field-row");
 				rowLayout.setWidth("100%");
 				rowLayout.setSpacing(true);
 				addComponent(rowLayout);
