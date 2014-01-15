@@ -7,12 +7,12 @@
 	<packaging>pom</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<modules>		
+	<modules>
 		<module>mocha-gen-framework</module>
 		<module>mocha-foundation</module>
 		<module>mocha-vaadin-framework</module>
 		<module>mocha-mobile-framework</module>
-		<module>projects/cooperate-core</module>		
+		<module>projects/cooperate-core</module>
 		<module>projects/crm</module>
 		<module>projects/commerce</module>
 		<module>projects/insuranceBroker</module>
@@ -55,7 +55,7 @@
 				<artifactId>junit</artifactId>
 				<version>4.10</version>
 				<scope>compile</scope>
-			</dependency>		
+			</dependency>
 			<dependency>
 				<groupId>javax.el</groupId>
 				<artifactId>el-api</artifactId>
@@ -204,7 +204,7 @@
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>invient-charts</artifactId>
 				<version>0.8.6</version>
-			</dependency>						
+			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>easyuploads</artifactId>
@@ -229,7 +229,7 @@
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>sessionguard</artifactId>
 				<version>0.0.5</version>
-			</dependency>						
+			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>css-tools</artifactId>
@@ -248,22 +248,22 @@
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>toolbox</artifactId>
-				<version>0.3.0</version> 
+				<version>0.3.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>refresher</artifactId>
 				<version>1.1.1</version>
-			</dependency>			
-			<dependency>
-		   <groupId>com.vaadin.addon</groupId>
-		   <artifactId>vaadin-touchkit-agpl</artifactId>
-		   <version>2.1.5</version>
 			</dependency>
 			<dependency>
-			   <groupId>org.vaadin.addons</groupId>
-			   <artifactId>ckeditor-wrapper-for-vaadin</artifactId>
-			   <version>1.8.2</version>
+				<groupId>com.vaadin.addon</groupId>
+				<artifactId>vaadin-touchkit-agpl</artifactId>
+				<version>2.1.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.addons</groupId>
+				<artifactId>ckeditor-wrapper-for-vaadin</artifactId>
+				<version>1.8.2</version>
 			</dependency>
 
 			<dependency>
@@ -326,7 +326,7 @@
 				<groupId>com.ibm.icu</groupId>
 				<artifactId>icu4j</artifactId>
 				<version>4.8.1.1</version>
-			</dependency>			
+			</dependency>
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
 				<artifactId>shiro-core</artifactId>
@@ -363,24 +363,39 @@
 				<version>1.6.1</version>
 			</dependency>
 			<dependency>
-        <groupId>org.eclipse.xtend</groupId>
-        <artifactId>org.eclipse.xtend.lib</artifactId>
-        <version>2.4.2</version>
-      </dependency>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>org.eclipse.xtend.lib</artifactId>
+				<version>2.4.2</version>
+			</dependency>
 
 			<dependency>
 				<groupId>ebaysdkcore</groupId>
 				<artifactId>ebaysdkcore</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.googlecode.linkedin-j</groupId>
 				<artifactId>linkedin-j-core</artifactId>
 				<version>1.0.416</version>
 				<scope>compile</scope>
 			</dependency>
-
+			<!-- Adding Jersey -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-json</artifactId>
+				<version>1.9.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>1.9.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-bundle</artifactId>
+				<version>1.18</version>
+			</dependency>
 			<dependency>
 				<groupId>jaxen</groupId>
 				<artifactId>jaxen</artifactId>
@@ -436,17 +451,17 @@
 
 	<build>
 		<pluginManagement>
-        <plugins>
-             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.10</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-             </plugin>
-        </plugins>    
-    </pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.10</version>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
