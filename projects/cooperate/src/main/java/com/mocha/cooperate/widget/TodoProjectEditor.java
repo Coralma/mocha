@@ -20,22 +20,19 @@ import com.mocha.cooperate.SystemProperty;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.service.ToDoService;
-import com.mocha.cooperate.widget.cards.StatusCard;
+import com.mocha.cooperate.service.ToDoServiceImpl;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.BaseTheme;
 
 /**
  * @author Coral
@@ -64,7 +61,7 @@ public class TodoProjectEditor extends VerticalLayout {
 	private Button addTaskBtn;
 	private List<TodoTaskEditor> todoTaskEditors = new ArrayList<TodoTaskEditor>();
 	
-	private ToDoService toDoService = new ToDoService();
+	private ToDoServiceImpl toDoService = new ToDoServiceImpl();
 	private BasicUser currentUser;
 	
 	public TodoProjectEditor(ToDo toDo, BasicUser currentUser) {
