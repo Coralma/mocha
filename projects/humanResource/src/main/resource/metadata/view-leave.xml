@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mocha name="Insurance" entityPackage="com.mocha.ib.model"
+	daoIntfPackage="com.mocha.ib.dao" daoImplPackage="com.mocha.ib.dao.impl"
+	servicePackage="com.mocha.ib.service">
+	
+	<view name="LeaveApplyCreateView" template="EntityEditView" entity="LeaveApply">
+		<section name="customerStatus" label="Customer Status">
+			<field name="leaveType" codeTable="ins-customer-type" wholeRow="true"/>
+			<field name="leaveDateFrom"/>
+			<field name="leaveDateTo"/>
+			<field name="leaveDuration"/>
+			<field name="comment" wholeRow="true" style="textarea"/>
+			<field name="referEmails" wholeRow="true" style="textarea"/>
+		</section>
+		<action name="save" label="Save" action="Save"/>
+	</view>
+
+</mocha>
