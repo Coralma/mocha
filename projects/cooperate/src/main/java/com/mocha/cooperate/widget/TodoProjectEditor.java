@@ -21,10 +21,7 @@ import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.cooperate.service.ToDoService;
 import com.mocha.cooperate.service.ToDoServiceImpl;
-<<<<<<< .merge_file_X0NR5E
 import com.mocha.cooperate.widget.cards.StatusCard;
-=======
->>>>>>> .merge_file_aw5JR9
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
