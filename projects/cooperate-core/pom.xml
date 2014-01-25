@@ -30,11 +30,6 @@
 			<artifactId>junit</artifactId>
 			<scope>compile</scope>
 		</dependency>
-        <!-- Adding Jersey -->
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

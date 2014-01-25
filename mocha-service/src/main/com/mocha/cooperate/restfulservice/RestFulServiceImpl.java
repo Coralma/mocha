@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mocha.cooperate.service;
+package com.mocha.cooperate.restfulservice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,12 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.ws.WebServiceException;
 
 import org.springframework.stereotype.Service;
 
@@ -23,18 +26,26 @@ import com.mocha.cooperate.basic.dao.SubToDoItemDao;
 import com.mocha.cooperate.basic.dao.ToDoDao;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
-import com.sun.jersey.api.json.JSONWithPadding;
+import com.mocha.service.model.MobileFeeds;
+import com.mocha.service.model.UserFeeds;
+
+//import com.sun.jersey.api.json.JSONWithPadding;
 
 /**
  * @author Coral
  * 
  */
-@Service("todoService")
 // Use Spring IoC to create and manage this bean.
-public class ToDoServiceImpl implements ToDoService {
+@Service("todoService")
+@Path("/users")
+public class RestFulServiceImpl implements RestFulService {
 
 	private ToDoDao toDoDao = SpringContextUtils.getBean(ToDoDao.class);
 	private SubToDoItemDao subItemDao = SpringContextUtils.getBean(SubToDoItemDao.class);
+
+	public RestFulServiceImpl() {
+
+	}
 
 	@Override
 	public List<ToDo> loadActivityTodo(BasicUser basicUser) {
@@ -84,13 +95,35 @@ public class ToDoServiceImpl implements ToDoService {
 	}
 
 	@Override
-	public JSONWithPadding getFullToDos(String uuid, String callback, String emptyParam) {
+	@GET
+	@Path("/getToDo/{uuid}")
+	// @Consumes({ "application/json" })
+	@Produces("application/json")
+	public List<ToDo> getFullToDos(String uuid) {
 		List<ToDo> returnTodos = new ArrayList<ToDo>();
 		returnTodos.addAll(toDoDao.loadAll());
-		JSONWithPadding returnJSONP = new JSONWithPadding(new GenericEntity<List<ToDo>>(returnTodos) {
-		}, callback);
+		// JSONWithPadding returnJSONP = new JSONWithPadding(new GenericEntity<List<ToDo>>(returnTodos) {
+		// }, callback);
 		System.out.println("uuid is:" + uuid);
-		System.out.println("callback is: " + callback);
-		return returnJSONP;
+		return returnTodos;
+	}
+
+	@Override
+	@GET
+	@Path("/getMobileFeeds/{uuid}")
+	@Produces("application/json")
+	public MobileFeeds getMobileFeeds() throws WebServiceException {
+		System.out.println("start to get the mobile feeds");
+		MobileFeeds mobileFeeds = new MobileFeeds();
+		List<UserFeeds> userFeeds = new ArrayList<UserFeeds>();
+		List<ToDo> returnTodos = new ArrayList<ToDo>();
+		returnTodos.addAll(toDoDao.loadAll());
+		for (ToDo todo : returnTodos) {
+			UserFeeds userFeed = new UserFeeds();
+			userFeed.setTodo(todo);
+			userFeeds.add(userFeed);
+		}
+		mobileFeeds.setUserFeeds(userFeeds);
+		return mobileFeeds;
 	}
 }
