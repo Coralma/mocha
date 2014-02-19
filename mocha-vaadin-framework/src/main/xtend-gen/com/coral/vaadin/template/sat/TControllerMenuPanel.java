@@ -55,11 +55,11 @@ public class TControllerMenuPanel {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     String _classEnd = VGenHelper.getClassEnd();
     _builder.append(_classEnd, "");
@@ -109,14 +109,14 @@ public class TControllerMenuPanel {
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("Label ");
-    _builder.append(appTitle, "		");
+    _builder.append(appTitle, "\t\t");
     _builder.append(" = createAppTitle(\"");
-    _builder.append(this.appLabel, "		");
+    _builder.append(this.appLabel, "\t\t");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("addComponent(");
-    _builder.append(appTitle, "		");
+    _builder.append(appTitle, "\t\t");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -138,7 +138,7 @@ public class TControllerMenuPanel {
       for(final AppMenu mainAppMenu : _appMenus) {
         _builder.append("\t\t");
         CharSequence _GENMenuItem = this.GENMenuItem(mainAppMenu);
-        _builder.append(_GENMenuItem, "		");
+        _builder.append(_GENMenuItem, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -153,7 +153,7 @@ public class TControllerMenuPanel {
         _builder.append("\t\t");
         _builder.append("groupTitle = createMenuTitle(\"");
         String _label = group.getLabel();
-        _builder.append(_label, "		");
+        _builder.append(_label, "\t\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t\t");
@@ -164,7 +164,7 @@ public class TControllerMenuPanel {
           for(final AppMenu mainAppMenu_1 : _appMenus_1) {
             _builder.append("\t\t");
             CharSequence _GENMenuItem_1 = this.GENMenuItem(mainAppMenu_1);
-            _builder.append(_GENMenuItem_1, "		");
+            _builder.append(_GENMenuItem_1, "\t\t");
             _builder.newLineIfNotEmpty();
           }
         }

@@ -61,7 +61,7 @@ public class GeneralEntityPresenterTemplate {
     _builder.newLine();
     _builder.append("\t");
     String _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     String _GENClassEnd = this.GENClassEnd();
@@ -108,16 +108,16 @@ public class GeneralEntityPresenterTemplate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("public ");
-    _builder.append(this.viewPresenterName, "	");
+    _builder.append(this.viewPresenterName, "\t");
     _builder.append("(MochaEventBus eventBus) {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("this.eventBus = eventBus;");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append(this.viewClassName, "		");
+    _builder.append(this.viewClassName, "\t\t");
     _builder.append(" newView = new ");
-    _builder.append(this.viewClassName, "		");
+    _builder.append(this.viewClassName, "\t\t");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");

@@ -51,9 +51,9 @@ public abstract class MochaApplication extends Application implements HttpServle
 			window.setContent(homepage);
 		}
 		else {
-			LoginScreen loginScreen = new LoginScreen(cookieUsername);
-			loginScreen.setResponse(response);
-			window.setContent(loginScreen);
+			LoginView loginView = new LoginView(cookieUsername);
+			loginView.setResponse(response);
+			window.setContent(loginView);
 		}
 	}
 

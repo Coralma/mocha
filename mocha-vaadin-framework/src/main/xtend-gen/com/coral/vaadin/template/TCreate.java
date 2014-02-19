@@ -52,19 +52,19 @@ public class TCreate {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildVeriable = this.GENBuildVeriable();
-    _builder.append(_GENBuildVeriable, "	");
+    _builder.append(_GENBuildVeriable, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENConstructor = this.GENConstructor();
-    _builder.append(_GENConstructor, "	");
+    _builder.append(_GENConstructor, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENWidgetImplMethod = this.GENWidgetImplMethod();
-    _builder.append(_GENWidgetImplMethod, "	");
+    _builder.append(_GENWidgetImplMethod, "\t");
     _builder.newLineIfNotEmpty();
     CharSequence _GENClassEnd = this.GENClassEnd();
     _builder.append(_GENClassEnd, "");
@@ -86,8 +86,7 @@ public class TCreate {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import ");
-    String _plus_1 = (SystemConstant.TTable_PKG + ".*");
-    _builder.append(_plus_1, "");
+    _builder.append((SystemConstant.TTable_PKG + ".*"), "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import com.coral.vaadin.widget.Viewer;");
@@ -136,7 +135,7 @@ public class TCreate {
     _builder.append("\t");
     _builder.append("private static final long serialVersionUID = ");
     String _genserialVersionUID = VGenHelper.genserialVersionUID();
-    _builder.append(_genserialVersionUID, "	");
+    _builder.append(_genserialVersionUID, "\t");
     _builder.append("L;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -181,7 +180,7 @@ public class TCreate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("Entity entity = ModelCenter.getEntity(");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -198,7 +197,7 @@ public class TCreate {
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         CharSequence _GENSection = this.GENSection("null", section);
-        _builder.append(_GENSection, "	");
+        _builder.append(_GENSection, "\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -208,7 +207,7 @@ public class TCreate {
       if (viewer.root) {
         _builder.append("\t");
         CharSequence _GENViewAction = this.GENViewAction();
-        _builder.append(_GENViewAction, "	");
+        _builder.append(_GENViewAction, "\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -226,7 +225,7 @@ public class TCreate {
     if (_equals) {
       _xifexpression = 3;
     } else {
-      _xifexpression = section.column;
+      _xifexpression = (section.column).intValue();
     }
     final int column = _xifexpression;
     _builder.newLineIfNotEmpty();
@@ -262,7 +261,7 @@ public class TCreate {
       if (_notEquals_1) {
         {
           for(final ViewSection subSection : section.viewSections) {
-            CharSequence _GENSection = this.GENSection(sectionName, subSection);
+            Object _GENSection = this.GENSection(sectionName, subSection);
             _builder.append(_GENSection, "");
             _builder.newLineIfNotEmpty();
           }
@@ -324,9 +323,9 @@ public class TCreate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return getEntityValue(");
-    _builder.append(this.entityVariable, "	");
+    _builder.append(this.entityVariable, "\t");
     _builder.append(",");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(".class);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -336,9 +335,9 @@ public class TCreate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("this.");
-    _builder.append(this.entityVariable, "	");
+    _builder.append(this.entityVariable, "\t");
     _builder.append(" = (");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(")value;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -392,8 +391,7 @@ public class TCreate {
     if (_isEmpty) {
       return "null";
     } else {
-      String _plus = ("\"" + value);
-      return (_plus + "\"");
+      return (("\"" + value) + "\"");
     }
   }
   

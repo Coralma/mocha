@@ -36,7 +36,7 @@ public class PresenterFactory {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     CharSequence _GENClassEnd = this.GENClassEnd();
     _builder.append(_GENClassEnd, "");
@@ -57,8 +57,7 @@ public class PresenterFactory {
       boolean _hasView = VGenHelper.hasView(this.corals);
       if (_hasView) {
         _builder.append("import ");
-        String _plus = (SystemConstant.TCREATE_PRESENTER_PKG + ".*");
-        _builder.append(_plus, "");
+        _builder.append((SystemConstant.TCREATE_PRESENTER_PKG + ".*"), "");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
       }
@@ -120,7 +119,7 @@ public class PresenterFactory {
                 _builder.newLineIfNotEmpty();
                 _builder.append("\t");
                 CharSequence _GENGetterMethod = this.GENGetterMethod(createPresenterClassName, entity.entityName);
-                _builder.append(_GENGetterMethod, "	");
+                _builder.append(_GENGetterMethod, "\t");
                 _builder.newLineIfNotEmpty();
               }
             }
@@ -147,7 +146,7 @@ public class PresenterFactory {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return new ");
-    _builder.append(presenterClass, "	");
+    _builder.append(presenterClass, "\t");
     _builder.append("(viewContext, eventBus);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

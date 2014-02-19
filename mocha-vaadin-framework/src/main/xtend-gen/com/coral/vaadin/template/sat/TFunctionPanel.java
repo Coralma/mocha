@@ -43,11 +43,11 @@ public class TFunctionPanel {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENAttachMethod = this.GENAttachMethod();
-    _builder.append(_GENAttachMethod, "	");
+    _builder.append(_GENAttachMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     String _classEnd = VGenHelper.getClassEnd();
     _builder.append(_classEnd, "");
@@ -106,7 +106,7 @@ public class TFunctionPanel {
             _builder.append("\t");
             _builder.append("creationMenus.add(");
             String _generateFunctionMenu = VAppGenHelper.generateFunctionMenu(creationMenu);
-            _builder.append(_generateFunctionMenu, "	");
+            _builder.append(_generateFunctionMenu, "\t");
             _builder.append(");");
             _builder.newLineIfNotEmpty();
           }
@@ -137,7 +137,7 @@ public class TFunctionPanel {
             _builder.append("\t");
             _builder.append("settingMenus.add(");
             String _generateFunctionMenu_1 = VAppGenHelper.generateFunctionMenu(settingMenu);
-            _builder.append(_generateFunctionMenu_1, "	");
+            _builder.append(_generateFunctionMenu_1, "\t");
             _builder.append(");");
             _builder.newLineIfNotEmpty();
           }

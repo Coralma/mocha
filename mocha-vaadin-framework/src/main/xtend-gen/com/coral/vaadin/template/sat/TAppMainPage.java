@@ -57,15 +57,15 @@ public class TAppMainPage {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENAttachMethod = this.GENAttachMethod();
-    _builder.append(_GENAttachMethod, "	");
+    _builder.append(_GENAttachMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENImplementMethod = this.GENImplementMethod();
-    _builder.append(_GENImplementMethod, "	");
+    _builder.append(_GENImplementMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     String _classEnd = VGenHelper.getClassEnd();
     _builder.append(_classEnd, "");
@@ -121,16 +121,16 @@ public class TAppMainPage {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("private ");
-    _builder.append(this.controlMenuPanel, "	");
+    _builder.append(this.controlMenuPanel, "\t");
     _builder.append(" controllerMenu = new ");
-    _builder.append(this.controlMenuPanel, "	");
+    _builder.append(this.controlMenuPanel, "\t");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("private ");
-    _builder.append(this.functionPanel, "	");
+    _builder.append(this.functionPanel, "\t");
     _builder.append(" functionPanel = new ");
-    _builder.append(this.functionPanel, "	");
+    _builder.append(this.functionPanel, "\t");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
     {
@@ -139,7 +139,7 @@ public class TAppMainPage {
         _builder.append("\t");
         _builder.append("private static AbstrctAppRawData reportData = new ");
         String _name = this.reportDef.getName();
-        _builder.append(_name, "	");
+        _builder.append(_name, "\t");
         _builder.append("();");
         _builder.newLineIfNotEmpty();
       }
@@ -175,13 +175,13 @@ public class TAppMainPage {
         _builder.append("\t");
         _builder.append("event.setCustomizeClass(\"");
         String _customizedClass_1 = home.getCustomizedClass();
-        _builder.append(_customizedClass_1, "	");
+        _builder.append(_customizedClass_1, "\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("controllerMenu.setMenuStyle(null, \"");
         String _customizedClass_2 = home.getCustomizedClass();
-        _builder.append(_customizedClass_2, "	");
+        _builder.append(_customizedClass_2, "\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
       } else {
@@ -191,13 +191,13 @@ public class TAppMainPage {
           _builder.append("\t");
           _builder.append("event.setViewName(\"");
           String _viewName_1 = home.getViewName();
-          _builder.append(_viewName_1, "	");
+          _builder.append(_viewName_1, "\t");
           _builder.append("\");");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("controllerMenu.setMenuStyle(\"");
           String _viewName_2 = home.getViewName();
-          _builder.append(_viewName_2, "	");
+          _builder.append(_viewName_2, "\t");
           _builder.append("\", null);");
           _builder.newLineIfNotEmpty();
         }
@@ -239,13 +239,13 @@ public class TAppMainPage {
             _builder.append("\t");
             _builder.append("if(\"");
             String _name = viewer.getName();
-            _builder.append(_name, "	");
+            _builder.append(_name, "\t");
             _builder.append("\".equals(viewName)) {");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");
             _builder.append("\t");
             _builder.append("presenter = new ");
-            _builder.append(viewPresenterName, "		");
+            _builder.append(viewPresenterName, "\t\t");
             _builder.append("(eventBus);");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");

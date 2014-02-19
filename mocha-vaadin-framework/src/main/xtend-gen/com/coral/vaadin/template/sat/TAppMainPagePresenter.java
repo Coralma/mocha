@@ -54,7 +54,7 @@ public class TAppMainPagePresenter {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENFunctionMethod = this.GENFunctionMethod();
-    _builder.append(_GENFunctionMethod, "	");
+    _builder.append(_GENFunctionMethod, "\t");
     _builder.newLineIfNotEmpty();
     String _classEnd = VGenHelper.getClassEnd();
     _builder.append(_classEnd, "");
@@ -106,12 +106,12 @@ public class TAppMainPagePresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("public ");
-    _builder.append(this.appPresenterClass, "	");
+    _builder.append(this.appPresenterClass, "\t");
     _builder.append("() {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("this.viewer = new ");
-    _builder.append(this.appMainPageClass, "		");
+    _builder.append(this.appMainPageClass, "\t\t");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -131,7 +131,7 @@ public class TAppMainPagePresenter {
     _builder.append("\t");
     _builder.append("return \"");
     String _name = this.app.getName();
-    _builder.append(_name, "	");
+    _builder.append(_name, "\t");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -142,9 +142,9 @@ public class TAppMainPagePresenter {
     _builder.append("public void bind() {");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append(this.appMainPageClass, "	");
+    _builder.append(this.appMainPageClass, "\t");
     _builder.append(" page = (");
-    _builder.append(this.appMainPageClass, "	");
+    _builder.append(this.appMainPageClass, "\t");
     _builder.append(") viewer;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -167,9 +167,9 @@ public class TAppMainPagePresenter {
     _builder.append("final ContextMenuItem clickedItem = event.getClickedItem();");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append(this.appMainPageClass, "	");
+    _builder.append(this.appMainPageClass, "\t");
     _builder.append(" oaPage = (");
-    _builder.append(this.appMainPageClass, "	");
+    _builder.append(this.appMainPageClass, "\t");
     _builder.append(") viewer;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -226,7 +226,7 @@ public class TAppMainPagePresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("((");
-    _builder.append(this.appMainPageClass, "	");
+    _builder.append(this.appMainPageClass, "\t");
     _builder.append(") viewer).setEventBus(eventBus);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

@@ -74,6 +74,11 @@ public class WidgetFactory {
 		}
 		return linkBtn;
 	}
+	public static Label createSeperator() {
+		Label label = new Label("|");
+		label.setStyleName("text-seperator");
+		return label;
+	}
 	
 	/**
 	 * Create Icon button.

@@ -393,10 +393,10 @@ public class SimplePublisherWidget extends VerticalLayout implements ClickListen
 	public class TodoListPublisher extends VerticalLayout implements IPublisher {
 	
 		private static final long serialVersionUID = -3411230743455414309L;
-		private String widgetWidth = "745px";
-		private String contentLayoutWidth = "745px";
-		private String contentWidth = "745px";
-		private String contentTextWidth = "743px";
+		private String widgetWidth = "765px";
+		private String contentLayoutWidth = "765px";
+		private String contentWidth = "765px";
+		private String contentTextWidth = "763px";
 		private ToDo todo = new ToDo();
 		private TodoProjectEditor todoProjectEditor;
 		

@@ -58,15 +58,15 @@ public class TCreatePresenter {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildVeriable = this.GENBuildVeriable();
-    _builder.append(_GENBuildVeriable, "	");
+    _builder.append(_GENBuildVeriable, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENConstructor = this.GENConstructor();
-    _builder.append(_GENConstructor, "	");
+    _builder.append(_GENConstructor, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     CharSequence _GENClassEnd = this.GENClassEnd();
     _builder.append(_GENClassEnd, "");
@@ -88,8 +88,7 @@ public class TCreatePresenter {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import ");
-    String _plus_1 = (this.daoIntfPackage + ".*");
-    _builder.append(_plus_1, "");
+    _builder.append((this.daoIntfPackage + ".*"), "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import com.coral.vaadin.controller.Presenter;");
@@ -198,7 +197,7 @@ public class TCreatePresenter {
     _builder.append("if(id != null) {");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append(this.entityName, "		");
+    _builder.append(this.entityName, "\t\t");
     _builder.append(" value = dao.findById(id);");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -206,7 +205,7 @@ public class TCreatePresenter {
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("viewer.setValue((");
-    _builder.append(this.entityName, "			");
+    _builder.append(this.entityName, "\t\t\t");
     _builder.append(")value);");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -223,7 +222,7 @@ public class TCreatePresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return \"");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -287,9 +286,9 @@ public class TCreatePresenter {
     _builder.append("public void save() {");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(" value = (");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(")viewer.getValue();");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");

@@ -42,12 +42,12 @@ public class GeneralEntityViewTemplate {
     _builder.newLine();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     CharSequence _GENClassEnd = this.GENClassEnd();
@@ -99,7 +99,7 @@ public class GeneralEntityViewTemplate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("public ");
-    _builder.append(this.viewClassName, "	");
+    _builder.append(this.viewClassName, "\t");
     _builder.append("() {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -135,12 +135,12 @@ public class GeneralEntityViewTemplate {
         _builder.append("\t");
         _builder.append("sectionPanel = createGeneralAppSection(\"");
         String _name = section.getName();
-        _builder.append(_name, "	");
+        _builder.append(_name, "\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("sectionPanel.setLabel(\"");
-        _builder.append(section.label, "	");
+        _builder.append(section.label, "\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -154,7 +154,7 @@ public class GeneralEntityViewTemplate {
             _builder.append("\t");
             _builder.append("fieldStatus = ");
             String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field, this.mochas);
-            _builder.append(_generateFieldStatus, "	");
+            _builder.append(_generateFieldStatus, "\t");
             _builder.newLineIfNotEmpty();
             _builder.append("\t");
             _builder.append("sectionPanel.addField(createFieldWidget(fieldStatus));");
@@ -176,12 +176,12 @@ public class GeneralEntityViewTemplate {
       for(final ViewAction action : _viewActions) {
         _builder.append("\t");
         _builder.append("actionPanel.addButton(createActionButton(\"");
-        _builder.append(action.name, "	");
+        _builder.append(action.name, "\t");
         _builder.append("\", \"");
         String _generateActionLabel = VAppGenHelper.generateActionLabel(action);
-        _builder.append(_generateActionLabel, "	");
+        _builder.append(_generateActionLabel, "\t");
         _builder.append("\", \"");
-        _builder.append(action.action, "	");
+        _builder.append(action.action, "\t");
         _builder.append("\"));");
         _builder.newLineIfNotEmpty();
       }
@@ -218,7 +218,7 @@ public class GeneralEntityViewTemplate {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return ");
-    _builder.append(this.view.entity.entityName, "	");
+    _builder.append(this.view.entity.entityName, "\t");
     _builder.append(".class;");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -229,7 +229,7 @@ public class GeneralEntityViewTemplate {
     _builder.append("\t");
     _builder.append("return \"");
     String _generateCreateEntityViewTitle = VAppGenHelper.generateCreateEntityViewTitle(this.view);
-    _builder.append(_generateCreateEntityViewTitle, "	");
+    _builder.append(_generateCreateEntityViewTitle, "\t");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
