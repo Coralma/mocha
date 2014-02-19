@@ -2,6 +2,7 @@ package com.mocha.emailMarketing;
 
 import java.util.List;
 
+import org.glassfish.jersey.client.ClientResponse;
 import org.vaadin.teemu.wizards.Wizard;
 
 import com.coral.foundation.edm.mailgun.EDMSender;
@@ -10,7 +11,6 @@ import com.coral.foundation.security.model.Campaingns;
 import com.coral.foundation.security.model.Contact;
 import com.coral.foundation.security.model.Email;
 import com.coral.foundation.spring.bean.SpringContextUtils;
-import com.sun.jersey.api.client.ClientResponse;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
@@ -64,11 +64,9 @@ public class ConfirmEmailStep extends AbstractCreateEmailSteps {
 			public void buttonClick(ClickEvent event) {
 				Campaingns cam = getCampaingns(compainginskey);
 				List<Contact> contacts = cam.getContacts();
-
 				EDMSender emSender = new EDMSender();
 				emSender.setCampaingns(cam);
 				ClientResponse cr = emSender.execute();
-
 				// Email email = new Email();
 				// email.setEmailAddress("vancezhao@gmail.com");
 				// contact.getEmailAddress().add(email);

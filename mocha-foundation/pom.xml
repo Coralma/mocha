@@ -23,9 +23,9 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-      <groupId>org.eclipse.xtend</groupId>
-      <artifactId>org.eclipse.xtend.lib</artifactId>          
-    </dependency>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>org.eclipse.xtend.lib</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
@@ -154,11 +154,8 @@
 			<artifactId>linkedin-j-core</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.ecwid</groupId>
-			<artifactId>ecwid-mailchimp</artifactId>
-			<version>2.0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.ecwid</groupId> <artifactId>ecwid-mailchimp</artifactId> 
+			<version>2.0.0.1-SNAPSHOT</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -219,23 +216,14 @@
 
 		<!--Jersey -->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
+			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-bundle</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
+			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>1.17.1</version>
+			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-core</artifactId>

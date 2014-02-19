@@ -76,12 +76,15 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- Set for local dev env -->
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
 		<!-- Set for Production -->
-<!-- 		<property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperate"/> -->
+		<!-- <property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperate"/> -->
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
+	
+	
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -89,24 +92,13 @@
 
 	<tx:annotation-driven mode="aspectj"
 		transaction-manager="transactionManager" />
-
-	<bean id="commonSearchDao" class="com.coral.foundation.jpa.search.CommonSearchDao"></bean>
-	<bean id="pageFactory" class="com.mocha.cooperate.CooperateFactory"></bean>
-	<bean id="homepage" class="com.mocha.cooperate.CooperateMainPage"
-		scope="prototype"></bean>
-
+	
 	<import resource="classpath*:generatedDaoContext.xml" />
 	<import resource="classpath*:ib-beans.xml" />
 	<import resource="classpath*:co-beans.xml" />
 	<import resource="classpath*:hr-beans.xml" />
-	<!-- <import resource="classpath*:marketing-beans.xml" /> -->
-	<!-- <import resource="classpath*:crm-beans.xml" /> -->
-	<!-- <context:component-scan base-package="com.coral.foundation.security" 
-		/> -->
-	<!-- <context:component-scan base-package="com.mocha.oa.model" /> -->
-	<!-- <tx:annotation-driven /> <jaxrs:server id="restContainer" address="/"> 
-		<jaxrs:serviceBeans> <ref bean="todoService" /> </jaxrs:serviceBeans> </jaxrs:server> -->
-	
+
+	<bean id="RestFulService" class="com.mocha.cooperate.restfulservice.RestFulServiceImpl"></bean>
 	<tx:annotation-driven />
 </beans>
 
