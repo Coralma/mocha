@@ -19,7 +19,7 @@ public class PhoneNotificationPresenter extends AbstractMobilePresenter {
 	public PhoneNotificationPresenter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		PhoneNotificationView timeLineView = new PhoneNotificationView();
-		List<NotifyLine> notifylines = notifyService.loadNotifyLine(eventBus.getUser());
+		List<NotifyLine> notifylines = notifyService.loadNotifyLine(eventBus.getUser(),10);
 		timeLineView.setNotifylines(notifylines);
 		timeLineView.setCurrentUser(eventBus.getUser());
 		this.view = timeLineView;

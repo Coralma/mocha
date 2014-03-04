@@ -105,10 +105,9 @@ public class FBStatusUpdatechedulerTask extends TimerTask {
     StringBuilder newRecordTemplate = new StringBuilder();
 
     for (FbFriendWork merFbFriendWork : mergeFbWorks) {
-      System.out.println("new Work is: " + merFbFriendWork.getEmployer_name());
-      newRecordTemplate.append("Employer Name: " + merFbFriendWork.getEmployer_name() + "<\br>");
+      newRecordTemplate.append("Employer Name: " + merFbFriendWork.getEmployer_name() + " <br>");
       if (merFbFriendWork.getLocation_name() != null) {
-        newRecordTemplate.append("Location: " + merFbFriendWork.getLocation_name() + "<\br>");
+        newRecordTemplate.append("Location: " + merFbFriendWork.getLocation_name() + " <br>");
       }
     }
     statusMessage.append(newRecordTemplate);

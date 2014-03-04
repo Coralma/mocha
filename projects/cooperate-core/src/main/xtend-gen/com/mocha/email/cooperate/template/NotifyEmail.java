@@ -122,7 +122,7 @@ public class NotifyEmail {
             _builder.append("<div style=\"font-size: 14px; font-family: Arial; color: #000000; font-weight: bold;word-wrap: break-word;word-break: normal;\">");
             _builder.newLine();
             ToDo _todo_1 = this.timeLine.getTodo();
-            _builder.append(_todo_1.name, "");
+            _builder.append(_todo_1.getName(), "");
             _builder.append(" - ");
             ToDo _todo_2 = this.timeLine.getTodo();
             BasicUser _assginedUser = _todo_2.getAssginedUser();
