@@ -73,6 +73,7 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		facebookCommonSearch.setHeight("100px");
 		facebookCommonSearch.setWidth("100px");
 		fbCommonSearchLayout.addComponent(facebookCommonSearch);
+
 		VerticalLayout intro = new VerticalLayout();
 		intro.addStyleName("soicalAppIntro");
 		fbCommonSearchLayout.addComponent(intro);
@@ -86,17 +87,20 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		getFacebookCommonSearchBtn().addStyleName("mocha-button");
 		intro.addComponent(getFacebookCommonSearchBtn());
 		intro.setComponentAlignment(getFacebookCommonSearchBtn(), Alignment.MIDDLE_CENTER);
+
 		HorizontalLayout fbSignInLayout = new HorizontalLayout();
 		simpleAppsLayout.addComponent(fbSignInLayout);
 		facebookSign.setHeight("100px");
 		facebookSign.setWidth("100px");
 		fbSignInLayout.addComponent(facebookSign);
+
 		VerticalLayout introFbSign = new VerticalLayout();
 		fbSignInLayout.addComponent(introFbSign);
 		introFbSign.addStyleName("soicalAppIntro");
 		Label introTitleFBSign = new Label("Search within Facebook Friends");
 		introFbSign.addComponent(introTitleFBSign);
 		introFbSign.setComponentAlignment(introTitleFBSign, Alignment.MIDDLE_CENTER);
+
 		Label introIntroFBSign = new Label("Looking for friends with name of " + linkedConn.getFirstName() + " " + linkedConn.getLastName()
 				+ " within Your Facebook's Personal Account");
 		introFbSign.addComponent(introIntroFBSign);
@@ -140,7 +144,7 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 		settingSection.setWidth("500px");
 
 		FormLayout userFormLayout = new FormLayout();
-		
+
 		Embedded profilePic = null;
 		try {
 			profilePic = PageBuildHelper.buildUserPhotoFromURL(new URL(linkedConn.getPictUrl()), getApplication());
@@ -287,24 +291,6 @@ public class LinkedinReportProfileViewer extends EntityViewPanel implements View
 	}
 
 	public void buildPerferencePlan() {
-		// HorizontalLayout planLayout = new HorizontalLayout();
-		// getMainLayout().addComponent(planLayout);
-		// planLayout.addStyleName("fdw-pricing-table");
-		// for (int i = 0; i < 3; i++) {
-		// HorizontalLayout planDetailLayout = new HorizontalLayout();
-		// planLayout.addComponent(planDetailLayout);
-		// planDetailLayout.addStyleName("plan plan1");
-		// Label headerLabel = new Label("Enterprise");
-		// headerLabel.addStyleName("header");
-		// planDetailLayout.addComponent(headerLabel);
-		// Label price = new Label("$100");
-		// price.addStyleName("price");
-		// planDetailLayout.addComponent(price);
-		// Label monthly = new Label("Per month");
-		// monthly.addStyleName("monthly");
-		// planDetailLayout.addComponent(monthly);
-		// }
-
 		getApplication().getMainWindow().addWindow(new PlanWindow());
 	}
 

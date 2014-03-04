@@ -36,6 +36,18 @@ public class LinkedinConnectionDao extends BaseDao<LinkedinConnection> {
 		return followed;
 	}
 
+	public LinkedinConnection findConnectionByCon(LinkedinConnection connuser) {
+		Query query = getEntityManager()
+				.createQuery(
+						"from LinkedinConnection l where l.linkedinPersonProfile = :linkedinPersonProfile and "
+								+ "l.firstName = :firstName and l.lastName = :lastName", LinkedinConnection.class);
+		query.setParameter("linkedinPersonProfile", connuser.getLinkedinPersonProfile());
+		query.setParameter("firstName", connuser.getFirstName());
+		query.setParameter("lastName", connuser.getLastName());
+		LinkedinConnection followed = (LinkedinConnection) query.getSingleResult();
+		return followed;
+	}
+
 	public List<LinkedinConnectionNetworkUpdate> findUpdateStatusWithFollowedConnections(LinkedinPersonProfile profile) {
 		Query query = getEntityManager().createQuery(
 				"from LinkedinConnectionNetworkUpdate lc left join lc.linkedinConnection l"

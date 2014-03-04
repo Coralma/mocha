@@ -14,8 +14,7 @@ import com.mocha.cooperate.restfulservice.ServiceDomainAdapter;
 @XmlRootElement(name = "MobileFeeds")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MobileFeeds {
-
-	// @XmlJavaTypeAdapter(ServiceDomainAdapter.class)
+	
 	@XmlElement
 	private List<UserFeeds> userFeeds = new ArrayList<UserFeeds>();
 

@@ -13,6 +13,7 @@ import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
 
 public class LinkedinScheduleTimterTask extends TimerTask {
+
 	private LinkedInAccessToken token;
 	private LinkedinPersonProfile profile;
 	static LinkedinConnectionNetworkUpdateDao updateDao = SpringContextUtils.getBean(LinkedinConnectionNetworkUpdateDao.class);
@@ -40,8 +41,6 @@ public class LinkedinScheduleTimterTask extends TimerTask {
 					String lastNameCon = con.getLastName().trim();
 					if (firstNameCon.equals(firstNameUpdate) && lastNameCon.equals(lastNameUpdate)) {
 						if (!updateDao.findDuplicateUpdate(con, update)) {
-							// con.getLinkedinConnectionNetworkUpdate().add(update);
-							// connDao.merge(con);
 							update.setLinkedinConnection(con);
 							updateDao.merge(update);
 						}

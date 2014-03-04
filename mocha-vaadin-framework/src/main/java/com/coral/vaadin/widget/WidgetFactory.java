@@ -3,6 +3,10 @@
  */
 package com.coral.vaadin.widget;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.vaadin.widget.component.UserComboBox;
@@ -33,78 +37,85 @@ import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author Coral
- *
+ * 
  */
 public class WidgetFactory {
-	
+
 	/**
 	 * Create Mocha button.
 	 */
 	public static Button createButton(String caption) {
 		return createButton(caption, null);
 	}
+
 	public static Button createButton(String caption, Object data) {
 		return createButton(caption, null, null);
 	}
+
 	public static Button createButton(String caption, Object data, ClickListener listener) {
 		Button mochaButton = new NativeButton(caption);
 		mochaButton.addStyleName("mocha-button");
 		mochaButton.setData(data);
-		if(listener != null) {
+		if (listener != null) {
 			mochaButton.addListener(listener);
 		}
 		return mochaButton;
 	}
 
 	/**
-	 * Create Link button 
+	 * Create Link button
 	 */
 	public static Button createLink(String caption) {
 		return createLink(caption, null);
 	}
+
 	public static Button createLink(String caption, Object data) {
 		return createLink(caption, data, null);
 	}
+
 	public static Button createLink(String caption, Object data, ClickListener listener) {
 		Button linkBtn = new Button(caption);
 		linkBtn.addStyleName(BaseTheme.BUTTON_LINK);
 		linkBtn.setData(data);
-		if(listener != null) {
+		if (listener != null) {
 			linkBtn.addListener(listener);
 		}
 		return linkBtn;
 	}
-	
+
 	/**
 	 * Create Icon button.
 	 */
 	public static Button createIconButton(String icon) {
 		return createIconButton(icon, null, null);
 	}
+
 	public static Button createIconButton(String icon, Object data) {
 		return createIconButton(icon, data, null);
 	}
+
 	public static Button createIconButton(String icon, Object data, ClickListener listener) {
 		Button linkBtn = new Button();
 		linkBtn.addStyleName(BaseTheme.BUTTON_LINK);
-		linkBtn.setIcon(new ThemeResource("icons/"+ icon));
+		linkBtn.setIcon(new ThemeResource("icons/" + icon));
 		linkBtn.setData(data);
-		if(listener != null) {
+		if (listener != null) {
 			linkBtn.addListener(listener);
 		}
 		return linkBtn;
 	}
+
 	public static Button createIconButton(Resource resource, Object data, ClickListener listener) {
 		Button linkBtn = new Button();
 		linkBtn.addStyleName(BaseTheme.BUTTON_LINK);
 		linkBtn.setIcon(resource);
 		linkBtn.setData(data);
-		if(listener != null) {
+		if (listener != null) {
 			linkBtn.addListener(listener);
 		}
 		return linkBtn;
 	}
-	
+
 	/**
 	 * Create Native Button.
 	 */
@@ -112,8 +123,9 @@ public class WidgetFactory {
 		Button nativeButton = new NativeButton(caption);
 		return nativeButton;
 	}
+
 	/**
-	 * Create label 
+	 * Create label
 	 */
 	public static Label createCaptionLabel(String caption, String value) {
 		Label label = new Label();
@@ -121,30 +133,40 @@ public class WidgetFactory {
 		label.setValue(value);
 		return label;
 	}
+
+	public static Label createSocialLabel(String caption, String value) {
+		Label label = new Label();
+		label.setCaption(caption + ":");
+		label.setValue(value);
+		label.addStyleName("facebookProfileProperty");
+		return label;
+	}
+
 	public static Label createCaptionLabel(String caption, Property property) {
 		Label label = new Label();
 		label.setCaption(caption + ":");
 		label.setPropertyDataSource(property);
 		return label;
 	}
+
 	public static Label createLabel(String value) {
 		Label label = new Label(value, Label.CONTENT_XHTML);
 		return label;
 	}
-	
+
 	/**
 	 * Create binding property
 	 */
-	public static Property createProperty(Object instance, String propertyName) { 
+	public static Property createProperty(Object instance, String propertyName) {
 		Property property = new NestedMethodProperty(instance, propertyName);
 		return property;
 	}
-	
+
 	/**
 	 * Create textfield
 	 */
 	private static String defaultTextFieldWidth = "210px";
-	
+
 	public static TextField createSearchTextField(String inputPrompt, String data, final EnterClickListener enterClickListener) {
 		final TextField textField = new TextField();
 		textField.setImmediate(true);
@@ -155,17 +177,18 @@ public class WidgetFactory {
 		textField.addShortcutListener(new ShortcutListener(data, KeyCode.ENTER, null) {
 			@Override
 			public void handleAction(Object sender, Object target) {
-				enterClickListener.handleEnter((String)textField.getValue());
+				enterClickListener.handleEnter((String) textField.getValue());
 			}
 		});
-//		textField.addListener(new BlurListener() {
-//			@Override
-//			public void blur(BlurEvent event) {
-//				enterClickListener.handleEnter((String)textField.getValue());
-//			}
-//		});
-		return textField; 
+		// textField.addListener(new BlurListener() {
+		// @Override
+		// public void blur(BlurEvent event) {
+		// enterClickListener.handleEnter((String)textField.getValue());
+		// }
+		// });
+		return textField;
 	}
+
 	public static TextField createTextField(String caption, Property property) {
 		TextField textField = new TextField(caption);
 		textField.setWidth(defaultTextFieldWidth);
@@ -173,6 +196,7 @@ public class WidgetFactory {
 		textField.setNullRepresentation("");
 		return textField;
 	}
+
 	public static TextField createRequiredTextField(String caption, Property property) {
 		TextField textField = new TextField(caption);
 		textField.setRequired(true);
@@ -181,28 +205,30 @@ public class WidgetFactory {
 		textField.setNullRepresentation("");
 		return textField;
 	}
+
 	public static PasswordField createPasswordField(String caption) {
 		PasswordField passwordField = new PasswordField(caption);
 		passwordField.setWidth(defaultTextFieldWidth);
 		return passwordField;
 	}
-	
+
 	/**
-	 * Create combobox 
+	 * Create combobox
 	 */
 	public static ComboBox createLanguageCombo(String caption, Property property) {
 		ComboBox comboBox = new ComboBox(caption);
 		comboBox.setImmediate(true);
 		String[] langs = RuntimeConstant.SUPPORTED_LANGUAGES;
-		for(String lang : langs) {
+		for (String lang : langs) {
 			comboBox.addItem(lang);
 		}
-		if(property != null) {
+		if (property != null) {
 			comboBox.setPropertyDataSource(property);
 		}
 		comboBox.setWidth(defaultTextFieldWidth);
 		return comboBox;
 	}
+
 	/**
 	 * Create user list combo
 	 */
@@ -210,7 +236,7 @@ public class WidgetFactory {
 		UserComboBox userCombox = new UserComboBox(defaultUser);
 		return userCombox;
 	}
-	
+
 	/**
 	 * Create Window
 	 */
@@ -221,9 +247,9 @@ public class WidgetFactory {
 		window.addStyleName(Reindeer.WINDOW_LIGHT);
 		return window;
 	}
-	
+
 	/**
-	 * Create Date 
+	 * Create Date
 	 */
 	public static DateField createDateField(String caption) {
 		DateField datePickup = new DateField(caption);
@@ -232,7 +258,7 @@ public class WidgetFactory {
 		datePickup.setResolution(InlineDateField.RESOLUTION_DAY);
 		return datePickup;
 	}
-	
+
 	public static Component createMidAvatar(BasicUser createUser, Application application) {
 		String frame_size = "58px";
 		String photo_size = "50px";
@@ -248,7 +274,7 @@ public class WidgetFactory {
 		userArea.addComponent(userPhoto);
 		return userArea;
 	}
-	
+
 	public static Component createSmallAvatar(BasicUser createUser, Application application) {
 		String url = createUser.getUserPhoto();
 		String frame_size = "37px";
@@ -265,7 +291,7 @@ public class WidgetFactory {
 		userArea.addComponent(userPhoto);
 		return userArea;
 	}
-	
+
 	public static Component createMiniAvatar(BasicUser createUser, Application application) {
 		String url = createUser.getUserPhoto();
 		String frame_size = "27px";
@@ -282,7 +308,7 @@ public class WidgetFactory {
 		userArea.addComponent(userPhoto);
 		return userArea;
 	}
-	
+
 	public static Component createSmallAvatar(String url, Application application) {
 		String frame_size = "37px";
 		String photo_size = "35px";
@@ -296,5 +322,28 @@ public class WidgetFactory {
 		userPhoto.setHeight(photo_size);
 		userArea.addComponent(userPhoto);
 		return userArea;
+	}
+
+	public static Component createSocialAvatar(String url, Application application) {
+		String frame_size = "105px";
+		String photo_size = "100px";
+		VerticalLayout userArea = new VerticalLayout();
+		userArea.setWidth(frame_size);
+		userArea.setHeight(frame_size);
+		// add user photo
+		Embedded userPhoto;
+		try {
+			userPhoto = PageBuildHelper.buildUserPhotoFromURL(new URL(url), application);
+			userPhoto.addStyleName("user-card-reply-photo");
+			userPhoto.setWidth(photo_size);
+			userPhoto.setHeight(photo_size);
+			userArea.addComponent(userPhoto);
+			return userArea;
+		}
+		catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

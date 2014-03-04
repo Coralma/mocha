@@ -9,11 +9,14 @@ import com.coral.vaadin.view.template.sat.ControllerMenuPanel.ControllerMenuList
 import com.mocha.vaadin.entity.presenter.*;
 import com.mocha.vaadin.view.page.InsuranceBrokerControllerMenuPanel;
 import com.mocha.vaadin.view.page.InsuranceBrokerFunctionPanel;
+
+/*Route and mapping the url to view*/
 public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMenuListener {
-	
+
 	private InsuranceBrokerControllerMenuPanel controllerMenu = new InsuranceBrokerControllerMenuPanel();
 	private InsuranceBrokerFunctionPanel functionPanel = new InsuranceBrokerFunctionPanel();
 	private static AbstrctAppRawData reportData = new InsuranceBrokerReport();
+
 	public void attach() {
 		addComponent(controllerMenu);
 		addComponent(functionPanel);
@@ -23,74 +26,81 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		controllerMenu.setMenuStyle(null, "com.mocha.ib.presenter.IBDashboardPresenter");
 		eventBus.put("appCustomReprotRowData", reportData);
 		eventBus.post(event);
-		
+
 	}
+
 	public void showView(String viewName) {
 		Presenter presenter = null;
-		if("InsCustomerSearch".equals(viewName)) {
+		if ("InsCustomerSearch".equals(viewName)) {
 			presenter = new InsCustomerSearchPresenter(eventBus);
 		}
-		if("InsCustomerView".equals(viewName)) {
+		if ("InsCustomerView".equals(viewName)) {
 			presenter = new InsCustomerViewPresenter(eventBus);
 		}
-		if("ClaimSearch".equals(viewName)) {
+		if ("ClaimSearch".equals(viewName)) {
 			presenter = new ClaimSearchPresenter(eventBus);
 		}
-		if("ClaimView".equals(viewName)) {
+		if ("ClaimView".equals(viewName)) {
 			presenter = new ClaimViewPresenter(eventBus);
 		}
-		if("PolicySearch".equals(viewName)) {
+		if ("PolicySearch".equals(viewName)) {
 			presenter = new PolicySearchPresenter(eventBus);
 		}
-		if("PolicyView".equals(viewName)) {
+		if ("PolicyView".equals(viewName)) {
 			presenter = new PolicyViewPresenter(eventBus);
 		}
-		if("InsCustomerServeSearch".equals(viewName)) {
+		if ("InsCustomerServeSearch".equals(viewName)) {
 			presenter = new InsCustomerServeSearchPresenter(eventBus);
 		}
-		if("InsCustomerServeView".equals(viewName)) {
+		if ("InsCustomerServeView".equals(viewName)) {
 			presenter = new InsCustomerServeViewPresenter(eventBus);
 		}
-		if("InsuranceCompanySearch".equals(viewName)) {
+		if ("InsuranceCompanySearch".equals(viewName)) {
 			presenter = new InsuranceCompanySearchPresenter(eventBus);
 		}
-		if("InsuranceCompanyView".equals(viewName)) {
+		if ("InsuranceCompanyView".equals(viewName)) {
 			presenter = new InsuranceCompanyViewPresenter(eventBus);
 		}
-		if("InsuranceProductSearch".equals(viewName)) {
+		if ("InsuranceProductSearch".equals(viewName)) {
 			presenter = new InsuranceProductSearchPresenter(eventBus);
 		}
-		if("InsuranceProductView".equals(viewName)) {
+		if ("InsuranceProductView".equals(viewName)) {
 			presenter = new InsuranceProductViewPresenter(eventBus);
 		}
-		if(presenter == null) {
+		if ("ImportProfileView".equals(viewName)) {
+			presenter = new ImportProfileViewPresenter(eventBus);
+		}
+		if (presenter == null) {
 			throw new RuntimeException(this.getClass() + "show view : " + viewName + " doesn't exist.");
 		}
 		functionPanel.setContent(presenter.go());
 		presenter.bind();
 	}
-	
+
 	public void showPanel(Class customizedPresenter) {
 		try {
 			Presenter presenter = (Presenter) customizedPresenter.getConstructor(MochaEventBus.class).newInstance(eventBus);
-			if(presenter.isFullSize()) {
+			if (presenter.isFullSize()) {
 				functionPanel.setFullContent(presenter.go());
-			} else {
+			}
+			else {
 				functionPanel.setContent(presenter.go());
 			}
 			presenter.bind();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(this.getClass() + "Show Customized Class : " + customizedPresenter + " error.");
 		}
 	}
+
 	/**
 	 * @return the controllerMenu
 	 */
 	public InsuranceBrokerControllerMenuPanel getControllerMenu() {
 		return controllerMenu;
 	}
-	
+
 	/**
 	 * @return the functionPanel
 	 */
@@ -98,4 +108,3 @@ public class InsuranceBrokerMainPage extends AppMainPage implements ControllerMe
 		return functionPanel;
 	}
 }
-

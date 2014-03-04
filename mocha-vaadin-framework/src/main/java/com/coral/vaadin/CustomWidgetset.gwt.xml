@@ -4,43 +4,36 @@
     "http://google-web-toolkit.googlecode.com/svn/tags/1.7.0/distro-source/core/src/gwt-module.dtd">
 <module>
 
-    <inherits name="org.vaadin.jouni.animator.AnimatorWidgetset" />
+	<inherits name="org.vaadin.jouni.animator.AnimatorWidgetset" />
 
-    <inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" />
+	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" />
 
-    
+	<inherits name="com.invient.vaadin.charts.widgetset.InvientChartsWidgetset" />
 
-    
+	<inherits name="org.vaadin.peter.buttongroup.ButtongroupWidgetset" />
 
-    <inherits name="com.invient.vaadin.charts.widgetset.InvientChartsWidgetset" />
+	<inherits name="org.vaadin.easyuploads.EasyuploadsWidgetset" />
 
-    <inherits name="org.vaadin.peter.buttongroup.ButtongroupWidgetset" />
+	<inherits
+		name="org.vaadin.hene.expandingtextarea.widgetset.ExpandingtextareaWidgetset" />
 
-    <inherits name="org.vaadin.easyuploads.EasyuploadsWidgetset" />
+	<inherits name="org.vaadin.tokenfield.TokenfieldWidgetset" />
 
-    <inherits name="org.vaadin.hene.expandingtextarea.widgetset.ExpandingtextareaWidgetset" />
+	<inherits name="com.github.wolfie.sessionguard.SessionguardWidgetset" />
 
-    <inherits name="org.vaadin.tokenfield.TokenfieldWidgetset" />
+	<inherits name="org.vaadin.peter.contextmenu.ContextmenuWidgetset" />
 
-    <inherits name="com.github.wolfie.sessionguard.SessionguardWidgetset" />
+	<inherits name="org.vaadin.csstools.CssToolsWidgetset" />
 
-    <inherits name="org.vaadin.peter.contextmenu.ContextmenuWidgetset" />
+	<inherits name="org.vaadin.teemu.wizards.WizardsforvaadinWidgetset" />
 
-    
+	<inherits name="com.github.wolfie.refresher.RefresherApplicationWidgetset" />
 
-    
+	<inherits name="org.vaadin.johan.ToolboxWidgetset" />
 
-    <inherits name="org.vaadin.csstools.CssToolsWidgetset" />
+	<inherits
+		name="org.vaadin.openesignforms.ckeditor.widgetset.VaadinCKEditorWidgetset" />
+	
+	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet"/>
 
-    
-
-    <inherits name="org.vaadin.teemu.wizards.WizardsforvaadinWidgetset" />
-
-    <inherits name="com.github.wolfie.refresher.RefresherApplicationWidgetset" />
-
-    
-
-    <inherits name="org.vaadin.johan.ToolboxWidgetset" />
-
-    <inherits name="org.vaadin.openesignforms.ckeditor.widgetset.VaadinCKEditorWidgetset" />
 </module>

@@ -1,7 +1,12 @@
 package com.coral.foundation.security.basic.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
+
+import org.springframework.orm.jpa.aspectj.JpaExceptionTranslatorAspect;
 
 import com.coral.foundation.persistence.BaseDao;
 import com.coral.foundation.security.model.BasicUser;
@@ -18,10 +23,29 @@ public class SoicalAppDao extends BaseDao<SoicalApp> {
 	}
 
 	public SoicalApp findSoicaAppByRequestToken(String requestToken) {
-		Query query = getEntityManager().createQuery("from SoicalApp s where s.requesToken = :requestToken", SoicalApp.class);
-		query.setParameter("requestToken", requestToken);
-		SoicalApp sa = (SoicalApp) query.getSingleResult();
-		return sa;
+		try {
+			Query query = getEntityManager().createQuery("from SoicalApp s where s.requesToken = :requestToken", SoicalApp.class);
+			query.setParameter("requestToken", requestToken);
+			SoicalApp sa = (SoicalApp) query.getSingleResult();
+			return sa;
+		}
+		catch (NonUniqueResultException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public SoicalApp findSoicaAppByAuthToken(String authToken) {
+		try {
+			Query query = getEntityManager().createQuery("from SoicalApp s where s.authToken = :authToken", SoicalApp.class);
+			query.setParameter("authToken", authToken);
+			SoicalApp sa = (SoicalApp) query.getSingleResult();
+			return sa;
+		}
+		catch (NoResultException e) {
+			System.out.println("New Access Token generate");
+		}
+		return null;
 	}
 
 	public SoicalApp findSoicaAppByName(BasicUser user, String appName) {
@@ -38,4 +62,9 @@ public class SoicalAppDao extends BaseDao<SoicalApp> {
 		return null;
 	}
 
+	public List<SoicalApp> findSoicalAppByUser(BasicUser user) {
+		Query query = getEntityManager().createQuery("from SoicalApp s where s.user=:user", SoicalApp.class);
+		query.setParameter("user", user);
+		return query.getResultList();
+	}
 }

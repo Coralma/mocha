@@ -16,6 +16,8 @@
 		<property name="oauthVerifier" />
 		<property name="requesToken" />
 		<property name="requesTokenSecret" />
+		<property name="FacebookFriends" type="List" ref="FacebookFriend"
+			orm="one-to-many" />
 	</entity>
 
 	<entity entityName="LinkedinConnection">
@@ -37,7 +39,7 @@
 		<property name="industry" />
 		<property name="experience" />
 		<property name="eduction" />
-		<property name="publicProfileUrl"/>
+		<property name="publicProfileUrl" />
 		<property name="linkedinPersonProfile" type="LinkedinPersonProfile"
 			ref="LinkedinPersonProfile" orm="many-to-one" />
 		<property name="linkedinGroups" type="List" ref="LinkedinGroup"
@@ -262,5 +264,157 @@
 		<property name="address" />
 		<property name="Emails" type="List" ref="Email" orm="one-to-many" />
 		<property name="contacts" type="List" ref="Contact" orm="one-to-many" />
+	</entity>
+
+	<entity entityName="FacebookFriend">
+		<property name="uid"></property>
+		<property name="name"></property>
+		<property name="relationship_status"></property>
+		<property name="profile_url"></property>
+		<!-- education -->
+		<property name="educations" type="List" ref="FbFriendEduction"
+			orm="one-to-many" />
+		<property name="email"></property>
+		<property name="birthday"></property>
+		<property name="about_me"></property>
+		<property name="activities"></property>
+		<!-- affiliations Not Implenment -->
+		<property name="allowed_restrictions"></property>
+		<property name="books"></property>
+		<property name="contact_email"></property>
+		<property name="currency"></property>
+		<!-- current_address -->
+		<property name="currentAddress" type="FbFriendCurrentAddress"
+			ref="FbFriendCurrentAddress" orm="one-to-one" />
+		<!-- current_location -->
+		<property name="currentLocation" type="FbFriendCurrentLocation"
+			ref="FbFriendCurrentLocation" orm="one-to-one" />
+		<!-- devices Not Implenment -->
+		<property name="first_name"></property>
+		<property name="last_name"></property>
+		<property name="friend_count"></property>
+		<property name="has_timeline"></property>
+		<property name="hometown_location"></property>
+		<!-- inspirational_people Not Implenment -->
+		<property name="interests"></property>
+		<property name="likes_count"></property>
+		<!-- languages -->
+		<property name="languages" type="List" ref="FbFriendLanguage"
+			orm="one-to-many" />
+		<property name="locale"></property>
+		<property name="meeting_for"></property>
+		<property name="meeting_sex"></property>
+		<property name="middle_name"></property>
+		<property name="movies"></property>
+		<property name="music"></property>
+		<property name="mutual_friend_count"></property>
+		<property name="notes_count"></property>
+		<property name="online_presence"></property>
+		<property name="payment_pricepoints"></property>
+		<property name="pic"></property>
+		<property name="pic_small"></property>
+		<property name="political"></property>
+		<property name="profile_blurb"></property>
+		<property name="profile_update_time"></property>
+		<property name="quotes"></property>
+		<property name="religion"></property>
+		<!-- search_tokens Not Implenment -->
+		<property name="security_settings"></property>
+		<property name="sex"></property>
+		<!-- sports -->
+		<property name="sports" type="List" ref="FbFriendSport" orm="one-to-many" />
+		<property name="subscriber_count"></property>
+		<property name="third_party_id"></property>
+		<property name="timezone"></property>
+		<property name="tv"></property>
+		<property name="viewer_can_send_gift"></property>
+		<property name="website"></property>
+		<property name="games"></property>
+		<!-- work -->
+		<property name="works" type="List" ref="FbFriendWork" orm="one-to-many" />
+	</entity>
+
+	<entity entityName="FbFriendCurrentAddress">
+		<property name="street"></property>
+		<property name="city"></property>
+		<property name="state"></property>
+		<property name="country"></property>
+		<property name="zip"></property>
+		<property name="address"></property>
+		<property name="latitude"></property>
+		<property name="longitude"></property>
+		<property name="id"></property>
+		<property name="name"></property>
+		<property name="located_in"></property>
+		<property name="region"></property>
+	</entity>
+
+	<entity entityName="FbFriendCurrentLocation">
+		<property name="street"></property>
+		<property name="city"></property>
+		<property name="state"></property>
+		<property name="country"></property>
+		<property name="zip"></property>
+		<property name="address"></property>
+		<property name="latitude"></property>
+		<property name="longitude"></property>
+		<property name="id"></property>
+		<property name="name"></property>
+		<property name="located_in"></property>
+		<property name="region"></property>
+	</entity>
+
+	<entity entityName="FbFriendEduction">
+		<property name="shcool_id"></property>
+		<property name="shcool_name"></property>
+		<property name="degree_id"></property>
+		<property name="degree_name"></property>
+		<property name="year_id"></property>
+		<property name="year_name"></property>
+		<property name="concentration_id"></property>
+		<property name="concentration_name"></property>
+		<property name="type"></property>
+		<property name="with_id"></property>
+		<property name="with_name"></property>
+		<property name="classes_id"></property>
+		<property name="classes_name"></property>
+		<property name="classes_description"></property>
+		<property name="from_id"></property>
+		<property name="from_name"></property>
+	</entity>
+
+	<entity entityName="FbFriendLanguage">
+		<property name="languageId"></property>
+		<property name="name"></property>
+		<property name="description"></property>
+	</entity>
+
+	<entity entityName="FbFriendSport">
+		<property name="id"/>
+		<property name="name"/>
+		<property name="description"/>
+	</entity>
+
+	<entity entityName="FbFriendWork">
+		<property name="employer_id"/>
+		<property name="employer_name"/>
+		<property name="location_id"/>
+		<property name="location_name"/>
+		<property name="postion_id"/>
+		<property name="postion_name"/>
+		<property name="from_id"/>
+		<property name="from_name"/>
+		<property name="description"/>
+		<property name="start_date"/>
+		<property name="end_date"/>
+		<property name="fbFriendProjects" type="List" ref="FbFriendProject"
+			orm="one-to-many" />
+	</entity>
+
+	<entity entityName="FbFriendProject">
+		<property name="name"></property>
+		<property name="description"></property>
+		<property name="start_date"></property>
+		<property name="end_date"></property>
 	</entity>
 </mocha>

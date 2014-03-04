@@ -9,10 +9,12 @@ import java.util.List;
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.oauth.APIKeys;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
+import com.coral.foundation.security.basic.dao.SoicalAppDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
+import com.coral.foundation.socialAPI.AppAccessToken;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.github.wolfie.refresher.Refresher;
 import com.github.wolfie.refresher.Refresher.RefreshListener;
@@ -35,8 +37,15 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.themes.Reindeer;
 
-public class AppAuthenciateWindow extends Window implements ClickListener {
+import facebook4j.Account;
+import facebook4j.Facebook;
+import facebook4j.FacebookException;
+import facebook4j.FacebookFactory;
+import facebook4j.ResponseList;
+import facebook4j.auth.AccessToken;
+import facebook4j.auth.Authorization;
 
+public class AppAuthenciateWindow extends Window implements ClickListener {
 	/**
 	 * 
 	 */
@@ -46,13 +55,35 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 	String callBackUrl = APIKeys.LinkedinCallBackUrl;
 	String linkedInAPIId = APIKeys.linkedInAPIId;
 	String linkedInSecertKey = APIKeys.linkedInSecertKey;
-	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
+
+	SoicalAppDao saDao = SpringContextUtils.getBean(SoicalAppDao.class);
 	final VerticalLayout mainLayout = new VerticalLayout();
 	LinkedInAccessToken linkedinAccessToken;
+	AppAccessToken appAccessToken;
+	private final Refresher refresher = new Refresher();
 
-	public AppAuthenciateWindow(LinkedInAccessToken linkedinAccessToken, BasicUser user) {
+	private String socialAppName;
+
+	public AppAuthenciateWindow(AppAccessToken appAccessToken, BasicUser user) {
 		this.user = user;
-		this.linkedinAccessToken = linkedinAccessToken;
+		this.appAccessToken = appAccessToken;
+		this.setCaption("Application Authenciation");
+		this.center();
+		this.addStyleName("mocha-app");
+		this.setWidth("860px");
+		this.setClosable(true);
+		this.setResizeLazy(true);
+		this.setResizable(true);
+		this.setModal(true);
+		this.addStyleName(Reindeer.WINDOW_LIGHT);
+		this.setImmediate(true);
+		this.setHeight("400px");
+	}
+
+	// socialAppName: check APIKeys.facebookAPIName
+	public AppAuthenciateWindow(BasicUser user, String socialAppName) {
+		this.user = user;
+		this.socialAppName = socialAppName;
 		this.setCaption("Application Authenciation");
 		this.center();
 		this.addStyleName("mocha-app");
@@ -70,125 +101,160 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 	public void attach() {
 		addComponent(mainLayout);
 		mainLayout.setSizeFull();
-		// Label userHasTokenLabel = null;
-		final Refresher refresher = new Refresher();
-
-		if (linkedinAccessToken != null) {
-			buildPersonInfo();
-			// buildConnectsInfo();
-		}
-		else {
-			LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
-			LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
-			String token = linkedinRequestToken.getToken();
-			String tokenSecret = linkedinRequestToken.getTokenSecret();
-
-			SoicalApp soicalApp = new SoicalApp();
-			soicalApp.setName("linkedin");
-			soicalApp.setRequesToken(token);
-			soicalApp.setRequesTokenSecret(tokenSecret);
-
-			final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
-			if (linkedAuthUrl != null) {
-				user.getSoicalApp().add(soicalApp);
-				buDao.merge(user);
+		if (socialAppName == null) {
+			if (appAccessToken.getLinkedinAccessToken() != null) {
+				buildPersonInfo();
 			}
-			getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
-			buildWaitForAuthLayout();
-			setImmediate(true);
+			else {
+				buildLinkedInPanel();
+			}
+			if (appAccessToken.getFacebookToken() != null) {
+				buildFacebookConViewInfo();
+			}
+			else {
+				buildFacebookLoginInfo();
+			}
+		}
+		else if (socialAppName.equals(APIKeys.facebookAPIName)) {
+			buildFacebookLoginInfo();
+		}
+	}
 
-			final NativeButton linkedinBtn = new NativeButton("Authencation On LinkedIn");
-			linkedinBtn.addStyleName("mocha-button");
-			// mainLayout.addComponent(linkedinBtn);
-			linkedinBtn.addListener(new ClickListener() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+	private void buildFacebookLoginInfo() {
+		final NativeButton fbLogin = new NativeButton("Login With Facebook");
+		final NativeButton closeBtn = new NativeButton("Success Login From Facebook");
+		closeBtn.addListener(new ClickListener() {
 
-				@Override
-				public void buttonClick(ClickEvent event) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
-					refresher.addListener(new RefreshListener() {
-						private static final long serialVersionUID = 1L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				close();
+			}
+		});
+		closeBtn.addStyleName("mocha-button");
 
-						public void refresh(Refresher source) {
-							mainLayout.requestRepaintAll();
-						}
-					});
-					LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
-					LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
-					String token = linkedinRequestToken.getToken();
-					String tokenSecret = linkedinRequestToken.getTokenSecret();
-					SoicalApp soicalApp = new SoicalApp();
-					soicalApp.setName("linkedin");
-					soicalApp.setRequesToken(token);
-					soicalApp.setRequesTokenSecret(tokenSecret);
-					final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
-					if (linkedAuthUrl != null) {
-						user.getSoicalApp().add(soicalApp);
-						buDao.merge(user);
-					}
-					// mainLayout.addComponent(refresher);
-					getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
-					buildWaitForAuthLayout();
-					setImmediate(true);
+		fbLogin.addStyleName("mocha-button");
+		mainLayout.addComponent(fbLogin);
+		refresher.setRefreshInterval(5000);
+		refresher.addListener(new RefreshListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void refresh(Refresher source) {
+				SoicalApp sa = saDao.findSoicaAppByName(user, APIKeys.facebookAPIName);
+				if (sa != null && sa.getAuthToken() != null) {
+					mainLayout.replaceComponent(fbLogin, closeBtn);
+					// close();
 				}
+			}
+		});
+		fbLogin.addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
-				// wait for user authencation from linkedIn
-				private void buildWaitForAuthLayout() {
-					setImmediate(true);
-					final NativeButton doneAuthBtn = new NativeButton("Done with LinkedIn Authencation");
-					doneAuthBtn.addStyleName("mocha-button");
-					mainLayout.replaceComponent(linkedinBtn, doneAuthBtn);
-					doneAuthBtn.addListener(new ClickListener() {
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Facebook facebook = new FacebookFactory().getInstance();
+				facebook.setOAuthAppId(APIKeys.facebookAPIId, APIKeys.facebookSecertKey);
+				facebook.setOAuthCallbackURL(APIKeys.facebookCallBackUrl);
+				getApplication().getMainWindow().open(new ExternalResource(APIKeys.facebookOAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
+			}
+		});
+		addComponent(refresher);
+	}
 
-						@Override
-						public void buttonClick(ClickEvent event) {
-							getApplication().getMainWindow().requestRepaintAll();
-							mainLayout.requestRepaintAll();
-							mainLayout.removeComponent(refresher);
-							BasicUser bu = buDao.findUserByUserName(user.getUserName());
-							for (SoicalApp soicalApp : bu.getSoicalApp()) {
-								if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null) {
-									LinkedinImpl linkedinImpl = new LinkedinImpl();
-									LinkedInAccessToken linkedinAccessToken = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
-									Person person = linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
-									// buildPersonInfo();
-								}
+	private void buildFacebookConViewInfo() {
+
+	}
+
+	private void buildLinkedInPanel() {
+		LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
+		LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
+		String token = linkedinRequestToken.getToken();
+		String tokenSecret = linkedinRequestToken.getTokenSecret();
+		SoicalApp soicalApp = new SoicalApp();
+		soicalApp.setName("linkedin");
+		soicalApp.setRequesToken(token);
+		soicalApp.setRequesTokenSecret(tokenSecret);
+		soicalApp.setUser(user);
+		final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
+		if (linkedAuthUrl != null) {
+			// saDao.merge(soicalApp);
+			// buDao.merge(user);
+		}
+
+		final NativeButton linkedinBtn = new NativeButton("Authencation On LinkedIn");
+		linkedinBtn.addStyleName("mocha-button");
+		mainLayout.addComponent(linkedinBtn);
+		linkedinBtn.addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
+				buildWaitForAuthLayout();
+				setImmediate(true);
+
+				LinkedinImpl linkedinImpl = new LinkedinImpl(linkedInAPIId, linkedInSecertKey, callBackUrl);
+				LinkedInRequestToken linkedinRequestToken = linkedinImpl.getLinkedInRequestToken();
+				String token = linkedinRequestToken.getToken();
+				String tokenSecret = linkedinRequestToken.getTokenSecret();
+				SoicalApp soicalApp = new SoicalApp();
+				soicalApp.setName("linkedin");
+				soicalApp.setRequesToken(token);
+				soicalApp.setRequesTokenSecret(tokenSecret);
+				soicalApp.setUser(user);
+				final String linkedAuthUrl = linkedinRequestToken.getAuthorizationUrl();
+				if (linkedAuthUrl != null) {
+					user.getSoicalApp().add(soicalApp);
+					saDao.merge(soicalApp);
+				}
+				// mainLayout.addComponent(refresher);
+				getApplication().getMainWindow().open(new ExternalResource(linkedAuthUrl), "", -1, -1, Window.BORDER_DEFAULT);
+				buildWaitForAuthLayout();
+				setImmediate(true);
+			}
+
+			// wait for user authencation from linkedIn
+			private void buildWaitForAuthLayout() {
+				setImmediate(true);
+				final NativeButton doneAuthBtn = new NativeButton("Done with LinkedIn Authencation");
+				doneAuthBtn.addStyleName("mocha-button");
+				mainLayout.replaceComponent(linkedinBtn, doneAuthBtn);
+				doneAuthBtn.addListener(new ClickListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						getApplication().getMainWindow().requestRepaintAll();
+						mainLayout.requestRepaintAll();
+						for (SoicalApp soicalApp : saDao.findSoicalAppByUser(user)) {
+							if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null) {
+								LinkedinImpl linkedinImpl = new LinkedinImpl();
+								LinkedInAccessToken linkedinAccessToken = new LinkedInAccessToken(soicalApp.getAuthToken(), soicalApp.getAuthTokenSecret());
+								Person person = linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
+								// buildPersonInfo();
 							}
 						}
-					});
-				}
-			});
-		}
-
-		// Needed to hack around problem with panel scroll-to-bottom
-		// final Refresher refresher = new Refresher();
-		// refresher.addListener(new RefreshListener() {
-		// private static final long serialVersionUID = 1L;
-		//
-		// public void refresh(Refresher source) {
-		// // BasicUser bu=buDao.findUserByUserName(user.getUserName());
-		// // for(SoicalApp soicalApp:bu.getSoicalApp()){
-		// // if(soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken()!=null){
-		// // LinkedinImpl linkedinImpl=new LinkedinImpl();
-		// // LinkedInAccessToken linkedinAccessToken=new LinkedInAccessToken(soicalApp.getAuthToken(),soicalApp.getAuthTokenSecret());
-		// // person=linkedinImpl.getProfileForCurrentUser(linkedinAccessToken);
-		// // buildPersonInfo();
-		// // }
-		// // }
-		// mainLayout.requestRepaintAll();
-		// getApplication().getMainWindow().requestRepaintAll();
-		// }
-		//
-		// });
-		// refresher.setRefreshInterval(500);
-		// mainLayout.addComponent(refresher);
+					}
+				});
+			}
+		});
 	}
 
 	private void buildWaitForAuthLayout() {
@@ -214,28 +280,30 @@ public class AppAuthenciateWindow extends Window implements ClickListener {
 		Label userHasTokenLabel = new Label("Here are your personal LinkedIn profile:");
 		mainLayout.addComponent(userHasTokenLabel);
 		mainLayout.setComponentAlignment(userHasTokenLabel, Alignment.TOP_RIGHT);
-
 		GridLayout userInfoLayout = new GridLayout(2, 1);
 		userInfoLayout.setSpacing(true);
 		userInfoLayout.addStyleName("linkedinUserInfoLayout");
 		mainLayout.addComponent(userInfoLayout);
 		mainLayout.setComponentAlignment(userInfoLayout, Alignment.MIDDLE_CENTER);
-		BasicUser bu = buDao.findUserByUserName(user.getUserName());
-		if (bu != null) {
-			for (SoicalApp soicalApp : bu.getSoicalApp()) {
-				List<LinkedinPersonProfile> profiles = soicalApp.getLinkedinPersonProfiles();
-				for (LinkedinPersonProfile p : profiles) {
-					userInfoLayout.removeAllComponents();
-					Label userName = new Label(p.getFirstName() + "." + p.getLastName());
-					userInfoLayout.addComponent(userName);
-					Label userHead = new Label(p.getHeadline());
-					userInfoLayout.addComponent(userHead);
-				}
+
+		for (SoicalApp soicalApp : saDao.findSoicalAppByUser(user)) {
+			List<LinkedinPersonProfile> profiles = soicalApp.getLinkedinPersonProfiles();
+			for (LinkedinPersonProfile p : profiles) {
+				userInfoLayout.removeAllComponents();
+				Label userName = new Label(p.getFirstName() + "." + p.getLastName());
+				userInfoLayout.addComponent(userName);
+				Label userHead = new Label(p.getHeadline());
+				userInfoLayout.addComponent(userHead);
 			}
 		}
 
 		NativeButton doneAuthBtn = new NativeButton("View Connections");
 		doneAuthBtn.addListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				close();

@@ -7,6 +7,7 @@ import java.util.List;
 import com.coral.foundation.constant.RuntimeConstant;
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
+import com.coral.foundation.security.basic.dao.SoicalAppDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.LinkedinPersonProfile;
@@ -31,12 +32,13 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Link;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 
 public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewer {
-
+	
 	/**
 	 * 
 	 */
@@ -44,8 +46,10 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 	String width = "500px";
 	private BasicUser user;
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
+	SoicalAppDao saDao = SpringContextUtils.getBean(SoicalAppDao.class);
 	private Button allLink = WidgetFactory.createLink("All LinkedIn Connections");
 	private Button followedLink = WidgetFactory.createLink("Followed Connections");
+	private NativeButton syncLinkedinStatusBtn = new NativeButton("Sync Connections");
 	private List<LinkedinConnection> followedConnection = new ArrayList<LinkedinConnection>();
 	private LinkedinThumbnailListener tnListener;
 	private LinkedinPersonProfile personProfile;
@@ -80,6 +84,7 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		toolbar.setToolbarWidth(RuntimeConstant.APP_CONTENT_WIDTH);
 		toolbar.addLeftComponent(getAllLink());
 		toolbar.addLeftComponent(getFollowedLink());
+		toolbar.addRightComponent(getSyncLinkedinStatusBtn());
 		this.addComponent(toolbar);
 	}
 
@@ -95,13 +100,9 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 		VerticalLayout portalLayout = new VerticalLayout();
 		portalLayout.addStyleName("app-dashboard");
 		portalLayout.setSpacing(true);
-		// portalLayout.setWidth(width);
-
 		LinkedinImpl apiImpl = new LinkedinImpl();
-		// List<LinkedinConnection> connections = user.getSoicalApp().get(0).getLinkedinPersonProfiles().get(0).getLinkedinConnections();
-
 		List<LinkedinConnection> connections = new ArrayList<LinkedinConnection>();
-		for (SoicalApp soicalApp : user.getSoicalApp()) {
+		for (SoicalApp soicalApp : saDao.findSoicalAppByUser(user)) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null) {
 				if (soicalApp.getLinkedinPersonProfiles() != null) {
 					List<LinkedinPersonProfile> profiles = soicalApp.getLinkedinPersonProfiles();
@@ -223,4 +224,13 @@ public class IbLinkedInConnectionViewer extends EntityViewPanel implements Viewe
 	public void setFollowedConnection(List<LinkedinConnection> followedConnection) {
 		this.followedConnection = followedConnection;
 	}
+
+	public NativeButton getSyncLinkedinStatusBtn() {
+		return syncLinkedinStatusBtn;
+	}
+
+	public void setSyncLinkedinStatusBtn(NativeButton syncLinkedinStatusBtn) {
+		this.syncLinkedinStatusBtn = syncLinkedinStatusBtn;
+	}
+
 }

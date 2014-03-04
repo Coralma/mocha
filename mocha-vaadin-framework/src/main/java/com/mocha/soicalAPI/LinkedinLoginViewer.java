@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.coral.foundation.security.model.BasicUser;
+import com.coral.foundation.socialAPI.AppAccessToken;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.Result;
 import com.coral.vaadin.widget.Viewer;
@@ -27,20 +28,22 @@ import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
 public class LinkedinLoginViewer extends CommonViewer implements Viewer {
-	
+
 	LinkedInAccessToken linkedinAccessToken;
 	BasicUser user;
 	Person person;
 	private AppAuthWindowLister listener;
-	
-	public LinkedinLoginViewer(LinkedInAccessToken linkedinAccessToken, BasicUser user){
-		this.user=user;
-		this.linkedinAccessToken=linkedinAccessToken;
+	private AppAccessToken appAccessToken;
+
+	public LinkedinLoginViewer(AppAccessToken appAccessToken, BasicUser user) {
+		this.user = user;
+		// this.linkedinAccessToken=linkedinAccessToken;
+		this.setAppAccessToken(appAccessToken);
 	}
-	
+
 	@Override
-	public void attach(){
-		AppAuthenciateWindow appAuthWin=new AppAuthenciateWindow(linkedinAccessToken,user);
+	public void attach() {
+		AppAuthenciateWindow appAuthWin = new AppAuthenciateWindow(appAccessToken, user);
 		appAuthWin.addListener(new CloseListener() {
 			/**
 			 * 
@@ -52,16 +55,16 @@ public class LinkedinLoginViewer extends CommonViewer implements Viewer {
 				listener.closeWindow();
 			}
 		});
-		getWindow().addWindow(appAuthWin);		
+		getWindow().addWindow(appAuthWin);
 	}
 
 	private void buildPersonInfoLayout() {
-			HorizontalLayout mainLayout=new HorizontalLayout();
-			addComponent(mainLayout);
-			Label userFNameLabel=new Label(person.getFirstName());
-			mainLayout.addComponent(userFNameLabel);
-			Label userLNameLabel=new Label(person.getLastName());			
-			mainLayout.addComponent(userLNameLabel);
+		HorizontalLayout mainLayout = new HorizontalLayout();
+		addComponent(mainLayout);
+		Label userFNameLabel = new Label(person.getFirstName());
+		mainLayout.addComponent(userFNameLabel);
+		Label userLNameLabel = new Label(person.getLastName());
+		mainLayout.addComponent(userLNameLabel);
 	}
 
 	@Override
@@ -75,5 +78,13 @@ public class LinkedinLoginViewer extends CommonViewer implements Viewer {
 
 	public void setListener(AppAuthWindowLister listener) {
 		this.listener = listener;
+	}
+
+	public AppAccessToken getAppAccessToken() {
+		return appAccessToken;
+	}
+
+	public void setAppAccessToken(AppAccessToken appAccessToken) {
+		this.appAccessToken = appAccessToken;
 	}
 }

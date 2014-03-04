@@ -33,7 +33,7 @@ import com.google.code.linkedinapi.schema.PeopleSearch;
 import com.google.code.linkedinapi.schema.Person;
 
 /**
- * @author Nabeel Mukhtar
+ * 
  * 
  */
 public class SearchApiExample {

@@ -8,9 +8,13 @@ import com.coral.foundation.core.impl.MochaEventBus;
 import com.coral.foundation.linkedin.LinkedinImpl;
 import com.coral.foundation.oauth.APIKeys;
 import com.coral.foundation.security.basic.dao.BasicUserDao;
+import com.coral.foundation.security.basic.dao.SoicalAppDao;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.security.model.SoicalApp;
+import com.coral.foundation.socialAPI.AppAccessToken;
+import com.coral.foundation.socialAPI.CommonAppAccessToken;
+import com.coral.foundation.socialAPI.FacebookToken;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
@@ -21,15 +25,21 @@ import com.google.code.linkedinapi.schema.Person;
 public class LinkedinLoginPresnter extends CommonPresenter implements Presenter {
 	private BasicUser user;
 	BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
-	// String linkedinViewPage = "com.mocha.soicalAPI.IbLinkedinConnectsionViewPresenter";
+	SoicalAppDao saDo = SpringContextUtils.getBean(SoicalAppDao.class);
 	String linkedinViewPage = "com.mocha.soicalAPI.IbLinkedinConnectsionViewPresenter";
+	// String linkedinViewPage = "com.mocha.soicalAPI.IbLinkedinConnectsionViewPresenter";
 	LinkedInAccessToken linkedinAccessToken;
 
 	public LinkedinLoginPresnter(MochaEventBus eventBus) {
 		this.eventBus = eventBus;
 		this.user = buDao.findUserByUserName(eventBus.getUser().getUserName());
 		boolean needLinkedAuth = true;
-		for (SoicalApp soicalApp : user.getSoicalApp()) {
+		FacebookToken fbToken = null;
+		AppAccessToken appAccessToken = new CommonAppAccessToken() {
+			
+		};
+		List<SoicalApp> userSocialApps = saDo.findSoicalAppByUser(user);
+		for (SoicalApp soicalApp : userSocialApps) {
 			if (soicalApp.getName().equals("linkedin") && soicalApp.getAuthToken() != null && soicalApp.getAuthTokenSecret() != null) {
 				needLinkedAuth = false;
 				if (soicalApp.getLinkedinPersonProfiles().size() > 0) {
@@ -39,10 +49,13 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 				else {
 					saveCurrentUserProfile(soicalApp);
 				}
-				break;
+			}
+			if (soicalApp.getName().equals("facebook") && soicalApp.getAuthToken() != null) {
+				fbToken = new FacebookToken(soicalApp.getAuthToken());
 			}
 		}
-		this.viewer = new LinkedinLoginViewer(linkedinAccessToken, eventBus.getUser());
+		appAccessToken.setToken(linkedinAccessToken, fbToken);
+		this.viewer = new LinkedinLoginViewer(appAccessToken, eventBus.getUser());
 	}
 
 	private Person saveCurrentUserProfile(SoicalApp soicalApp) {
@@ -71,11 +84,19 @@ public class LinkedinLoginPresnter extends CommonPresenter implements Presenter 
 				AppContentEvent appContentEvent = new AppContentEvent();
 				appContentEvent.setCustomizeClass(linkedinViewPage);
 				eventBus.post(appContentEvent);
-
 				BasicUser user = buDao.findUserByUserName(eventBus.getUser().getUserName());
 				List<SoicalApp> sApps = user.getSoicalApp();
 				for (SoicalApp sApp : sApps) {
 					if (sApp.getName().equals("linkedin")) {
+						LinkedInAccessToken token = new LinkedInAccessToken(sApp.getAuthToken(), sApp.getAuthTokenSecret());
+						for (LinkedinPersonProfile profile : sApp.getLinkedinPersonProfiles()) {
+							final TimerTask timerTask = new LinkedinScheduleTimterTask(profile, token);
+							Timer timer = new Timer() {
+							};
+							timer.schedule(timerTask, 1000, APIKeys.linkedinSyncNetworkStatusInternval);
+						}
+					}
+					if (sApp.getName().equals("facebook")) {
 						LinkedInAccessToken token = new LinkedInAccessToken(sApp.getAuthToken(), sApp.getAuthTokenSecret());
 						for (LinkedinPersonProfile profile : sApp.getLinkedinPersonProfiles()) {
 							final TimerTask timerTask = new LinkedinScheduleTimterTask(profile, token);

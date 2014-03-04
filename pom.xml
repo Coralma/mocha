@@ -374,13 +374,8 @@
 				<artifactId>ebaysdkcore</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-
-			<dependency>
-				<groupId>com.googlecode.linkedin-j</groupId>
-				<artifactId>linkedin-j-core</artifactId>
-				<version>1.0.416</version>
-				<scope>compile</scope>
-			</dependency>
+			<!-- <dependency> <groupId>com.googlecode.linkedin-j</groupId> <artifactId>linkedin-j-core</artifactId> 
+				<version>1.0.416</version> <scope>compile</scope> </dependency> -->
 			<!-- Adding Jersey -->
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
@@ -454,6 +449,13 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			<!-- opencsv -->
+			<dependency>
+				<groupId>net.sf.opencsv</groupId>
+				<artifactId>opencsv</artifactId>
+				<version>2.3</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

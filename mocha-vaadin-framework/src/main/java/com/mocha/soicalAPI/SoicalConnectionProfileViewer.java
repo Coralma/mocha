@@ -42,7 +42,7 @@ import com.vaadin.ui.Window;
 public class SoicalConnectionProfileViewer extends EntityViewPanel implements Viewer {
 
 	private LinkedinConnection linkedConn;
-
+	
 	private VerticalLayout settingContentPanel = new VerticalLayout();
 	private Widget photoUploader;
 	private Button changeButton;

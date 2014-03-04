@@ -86,7 +86,7 @@ public class InsuranceCustomer extends JPABaseEntity {
 	@JoinColumn(name="INSURANCE_CUSTOMER_ID")
 	private List<InsuranceCustomerServe> serve = new ArrayList<InsuranceCustomerServe>();
 	
-	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class, cascade=CascadeType.ALL)
+	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
 	private com.coral.foundation.security.model.BasicUser referUser;
 	
 	@OneToOne(targetEntity = com.coral.foundation.security.model.BasicUser.class)
@@ -94,6 +94,18 @@ public class InsuranceCustomer extends JPABaseEntity {
 	
 	@Column(name = "MARK" )
 	private String mark;
+	
+	
+	@Column(name = "LINKEDIN_PROFILE_URL" )
+	private String linkedinProfileUrl;
+	
+	
+	@Column(name = "FB_PROFILE_URL" )
+	private String fbProfileUrl;
+	
+	
+	@Column(name = "OTHER_PROFILE_URL" )
+	private String otherProfileUrl;
 	
 	
 
@@ -222,6 +234,24 @@ public class InsuranceCustomer extends JPABaseEntity {
 	} 
 	public String getMark () {
 		return mark;
+	}
+	public void setLinkedinProfileUrl (String linkedinProfileUrl) {
+		this.linkedinProfileUrl = linkedinProfileUrl;
+	} 
+	public String getLinkedinProfileUrl () {
+		return linkedinProfileUrl;
+	}
+	public void setFbProfileUrl (String fbProfileUrl) {
+		this.fbProfileUrl = fbProfileUrl;
+	} 
+	public String getFbProfileUrl () {
+		return fbProfileUrl;
+	}
+	public void setOtherProfileUrl (String otherProfileUrl) {
+		this.otherProfileUrl = otherProfileUrl;
+	} 
+	public String getOtherProfileUrl () {
+		return otherProfileUrl;
 	}
 
 	public Long getID() {

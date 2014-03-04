@@ -12,7 +12,7 @@ public class UserFeedType {
 	private List<UserFeeds> userFeeds = new ArrayList<UserFeeds>();
 
 	public UserFeedType() {
-
+		
 	}
 
 	public List<UserFeeds> getUserFeeds() {

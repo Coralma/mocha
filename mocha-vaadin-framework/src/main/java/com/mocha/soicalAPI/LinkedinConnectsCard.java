@@ -121,7 +121,7 @@ public class LinkedinConnectsCard extends HorizontalLayout implements LayoutClic
 	@Override
 	public void layoutClick(LayoutClickEvent event) {
 		if (connectionDao.findEntireConnectionByConn(connUser).size() > 0) {
-			LinkedinConnection mergedUserConn = connectionDao.findEntireConnectionByConn(connUser).get(0);
+			LinkedinConnection mergedUserConn = connectionDao.findConnectionByCon(connUser);
 			mergedUserConn.setNeedFollow(true);
 			connectionDao.merge(mergedUserConn);
 			setConnUser(mergedUserConn);

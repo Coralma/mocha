@@ -58,13 +58,9 @@ public class IbFollowedMembersViewer extends EntityViewPanel implements Viewer {
 
 	public void buildFollowedConnectionsLayout() {
 		mainLayout.removeAllComponents();
-
-		final LinkedInConnectionGroup group = new LinkedInConnectionGroup("Followed From LinkedIn Connections", followedConnection);
+		final LinkedInConnectionGroup group = new LinkedInConnectionGroup("Subscribers", followedConnection);
+		group.setDescritption("Here are the subscribers that we followed from LinkedIn connections");
 		group.getViewDetailBtn().addListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override

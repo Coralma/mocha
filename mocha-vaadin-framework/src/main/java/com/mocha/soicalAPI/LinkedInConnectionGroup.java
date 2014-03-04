@@ -24,6 +24,7 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	public String category;
+	private String description;
 	public List<LinkedinConnection> linkedInConnections;
 	public LinkedinThumbnailListener tnListener;
 	private NativeButton viewDetailBtn = new NativeButton("View Details");
@@ -41,12 +42,14 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 
 		Label categoryLabel = new Label();
 		categoryLabel.setHeight("5px");
-		ThemeResource icon=new ThemeResource("icons/icon-linkedin.jpg");
+		ThemeResource icon = new ThemeResource("icons/icon-linkedin.jpg");
 		categoryLabel.setIcon(icon);
 		categoryLabel.setCaption(category);
 		categoryLabel.addStyleName("report-category");
 		this.addComponent(categoryLabel);
 
+		Label descriLabel = new Label(getDescription());
+		this.addComponent(descriLabel);
 		GridLayout groupLayout = new GridLayout(4, getConnNum());
 		groupLayout.setSpacing(true);
 		groupLayout.setSizeFull();
@@ -107,5 +110,13 @@ public class LinkedInConnectionGroup extends VerticalLayout {
 
 	public void setConnNum(int connNum) {
 		this.connNum = connNum;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescritption(String description) {
+		this.description = description;
 	}
 }

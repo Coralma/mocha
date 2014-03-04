@@ -34,6 +34,14 @@
 		<bean id="EmailDao" class="com.coral.foundation.security.basic.dao.EmailDao"></bean>
 		<bean id="ContactDao" class="com.coral.foundation.security.basic.dao.ContactDao"></bean>
 		<bean id="CampaingnsDao" class="com.coral.foundation.security.basic.dao.CampaingnsDao"></bean>
+		<bean id="FacebookFriendDao" class="com.coral.foundation.security.basic.dao.FacebookFriendDao"></bean>
+		<bean id="FbFriendCurrentAddressDao" class="com.coral.foundation.security.basic.dao.FbFriendCurrentAddressDao"></bean>
+		<bean id="FbFriendCurrentLocationDao" class="com.coral.foundation.security.basic.dao.FbFriendCurrentLocationDao"></bean>
+		<bean id="FbFriendEductionDao" class="com.coral.foundation.security.basic.dao.FbFriendEductionDao"></bean>
+		<bean id="FbFriendLanguageDao" class="com.coral.foundation.security.basic.dao.FbFriendLanguageDao"></bean>
+		<bean id="FbFriendSportDao" class="com.coral.foundation.security.basic.dao.FbFriendSportDao"></bean>
+		<bean id="FbFriendWorkDao" class="com.coral.foundation.security.basic.dao.FbFriendWorkDao"></bean>
+		<bean id="FbFriendProjectDao" class="com.coral.foundation.security.basic.dao.FbFriendProjectDao"></bean>
 </beans>
 
 

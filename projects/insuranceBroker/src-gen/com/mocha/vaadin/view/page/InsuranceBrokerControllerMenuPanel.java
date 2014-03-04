@@ -20,13 +20,6 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			action.setPanel(Class.forName("com.mocha.ib.presenter.IBDashboardPresenter"));
 			menuItem = createMenu("Home", action);
 			addComponent(menuItem);
-
-			// news feeds from soical network
-			action = new MenuAction();
-			action.setPanel(Class.forName("com.mocha.newsfeeds.NewsFeedsPresenter"));
-			menuItem = createMenu("NewsFeed", action);
-			addComponent(menuItem);
-
 			// create the menu group and sub menu item.
 			groupTitle = createMenuTitle("Customer Management");
 			addComponent(groupTitle);
@@ -50,9 +43,12 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			action.setPanel(Class.forName("com.mocha.report.CrmReportPresenter"));
 			menuItem = createMenu("Reports", action);
 			addComponent(menuItem);
+			// DashBaord menu
+			groupTitle = createMenuTitle("Dashboard");
+			addComponent(groupTitle);
 			action = new MenuAction();
 			action.setPanel(Class.forName("com.mocha.soicalAPI.LinkedinLoginPresnter"));
-			menuItem = createMenu("Login With LinkedIn", action);
+			menuItem = createMenu("Interactive with Social Network", action);
 			addComponent(menuItem);
 			action = new MenuAction();
 			action.setPanel(Class.forName("com.mocha.soicalAPI.IbFollowedMembersPresnter"));
@@ -68,6 +64,11 @@ public class InsuranceBrokerControllerMenuPanel extends ControllerMenuPanel {
 			menuItem = createMenu("Find Possible Customers", action);
 			addComponent(menuItem);
 			action = new MenuAction();
+			// news feeds from soical network
+			action = new MenuAction();
+			action.setPanel(Class.forName("com.mocha.newsfeeds.NewsFeedsPresenter"));
+			menuItem = createMenu("NewsFeed", action);
+			addComponent(menuItem);
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block

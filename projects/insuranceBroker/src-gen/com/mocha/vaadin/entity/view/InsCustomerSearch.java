@@ -62,6 +62,8 @@ public class InsCustomerSearch extends SearchPanel {
 		fieldStatus = FieldStatus.create().setLabel("Account Person").setPath("accountPerson").setType("String");
 		createFieldWidget(fieldStatus);
 		
+		fieldStatus = FieldStatus.create().setLabel("Linkedin Profile").setPath("linkedinProfileUrl").setType("String");
+        createFieldWidget(fieldStatus);
 	}
 	
 	public Class getEntityCardClass() {
@@ -91,7 +93,6 @@ public class InsCustomerSearch extends SearchPanel {
 	public void setUser(BasicUser user) {
 		this.user = user;
 	}
-
 
 }
 

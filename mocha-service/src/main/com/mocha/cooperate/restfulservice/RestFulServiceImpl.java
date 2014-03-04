@@ -22,14 +22,14 @@ import org.springframework.stereotype.Service;
 import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.common.collect.Lists;
+import com.mocha.cooperate.basic.dao.DiscussDao;
 import com.mocha.cooperate.basic.dao.SubToDoItemDao;
 import com.mocha.cooperate.basic.dao.ToDoDao;
+import com.mocha.cooperate.model.Discuss;
 import com.mocha.cooperate.model.SubToDoItem;
 import com.mocha.cooperate.model.ToDo;
 import com.mocha.service.model.MobileFeeds;
 import com.mocha.service.model.UserFeeds;
-
-//import com.sun.jersey.api.json.JSONWithPadding;
 
 /**
  * @author Coral
@@ -41,6 +41,7 @@ import com.mocha.service.model.UserFeeds;
 public class RestFulServiceImpl implements RestFulService {
 
 	private ToDoDao toDoDao = SpringContextUtils.getBean(ToDoDao.class);
+	private DiscussDao discussDao = SpringContextUtils.getBean(DiscussDao.class);
 	private SubToDoItemDao subItemDao = SpringContextUtils.getBean(SubToDoItemDao.class);
 
 	public RestFulServiceImpl() {
@@ -121,6 +122,14 @@ public class RestFulServiceImpl implements RestFulService {
 		for (ToDo todo : returnTodos) {
 			UserFeeds userFeed = new UserFeeds();
 			userFeed.setTodo(todo);
+			userFeeds.add(userFeed);
+		}
+		
+		List<Discuss> returnDiscusses =new ArrayList<Discuss>();
+		returnDiscusses.addAll(discussDao.loadAll());
+		for (Discuss discuss : returnDiscusses) {
+			UserFeeds userFeed = new UserFeeds();
+			userFeed.setDiscuss(discuss);
 			userFeeds.add(userFeed);
 		}
 		mobileFeeds.setUserFeeds(userFeeds);

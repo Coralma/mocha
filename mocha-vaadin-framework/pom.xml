@@ -65,16 +65,16 @@
 			<artifactId>sessionguard</artifactId>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>contextmenu</artifactId>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>contextmenu</artifactId>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>css-tools</artifactId>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>css-tools</artifactId>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>wizards-for-vaadin</artifactId>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>wizards-for-vaadin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
@@ -85,12 +85,12 @@
 			<artifactId>toolbox</artifactId>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>refresher</artifactId>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>refresher</artifactId>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>ckeditor-wrapper-for-vaadin</artifactId>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>ckeditor-wrapper-for-vaadin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -155,6 +155,10 @@
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>refresher</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -10,21 +10,7 @@ import org.codehaus.jackson.xc.XmlAdapterJsonDeserializer;
 import com.mocha.service.model.UserFeedType;
 import com.mocha.service.model.UserFeeds;
 
-public class ServiceDomainAdapter extends XmlAdapter<UserFeedType, ArrayList<UserFeeds>> {
-
-	@Override
-	public ArrayList<UserFeeds> unmarshal(UserFeedType userFeedType) throws WebApplicationException {
-		System.out.println("start to unmarshall the object");
-		return null;
-	}
-
-	@Override
-	public UserFeedType marshal(ArrayList<UserFeeds> userFeeds) throws WebApplicationException {
-		System.out.println("start to marshall the object");
-		UserFeedType userFeedType = new UserFeedType();
-		for (UserFeeds userFeed : userFeeds) {
-			userFeedType.getUserFeeds().add(userFeed);
-		}
-		return userFeedType;
-	}
+public abstract class ServiceDomainAdapter<T,B> extends XmlAdapter {
+	
+	
 }

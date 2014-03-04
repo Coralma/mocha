@@ -12,6 +12,7 @@ import com.coral.foundation.security.model.LinkedinPersonProfile;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.google.code.linkedinapi.client.oauth.LinkedInAccessToken;
 import com.ibm.icu.impl.CalendarCache;
+import com.mocha.cooperate.service.pollService.MochaTask;
 
 public class LinkedinScheduleTimerTask extends MochaTask {
 	private LinkedInAccessToken token;
@@ -23,12 +24,13 @@ public class LinkedinScheduleTimerTask extends MochaTask {
 	// LinkedinConnectionDao connDao = SpringContextUtils.getBean(LinkedinConnectionDao.class);
 
 	public LinkedinScheduleTimerTask(LinkedinPersonProfile profile, LinkedInAccessToken token) {
+		super(null);
 		this.profile = profile;
 		this.token = token;
 	}
 
-	LinkedinScheduleTimerTask() {
-
+	public LinkedinScheduleTimerTask() {
+		super(null);
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class LinkedinScheduleTimerTask extends MochaTask {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				UpdteNetworkStatus update=new UpdteNetworkStatus();
+				UpdteNetworkStatus update = new UpdteNetworkStatus();
 				update.run();
 			}
 		}, 1000, 1000 * 10);
@@ -62,7 +64,7 @@ public class LinkedinScheduleTimerTask extends MochaTask {
 	class UpdteNetworkStatus extends Thread {
 
 		public void run() {
-//			System.out.println("Start to udpate the linkedin network status");
+			// System.out.println("Start to udpate the linkedin network status");
 		}
 	}
 

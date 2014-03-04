@@ -34,11 +34,11 @@ public class ToDo extends JPABaseEntity {
 
 	@Column(name = "NAME")
 //	@XmlElement(name = "name")
-	public String name;
+	private String name;
 
 	@Column(name = "DESCIPTION")
 //	@XmlAttribute(name = "description")
-	public String desciption;
+	private String desciption;
 
 	@Column(name = "STATUS")
 	private Long status = new Long(0);

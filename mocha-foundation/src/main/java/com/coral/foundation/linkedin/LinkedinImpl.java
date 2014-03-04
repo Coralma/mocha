@@ -279,7 +279,6 @@ public class LinkedinImpl {
 					updateModel.setFirstName(person.getFirstName());
 					updateModel.setLastName(person.getLastName());
 					updateModel.setTimeStamp(update.getTimestamp().toString());
-
 					// CONN case
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_ADDED_CONNECTIONS)) {
 						updateMessage.append("has add a connection with ");
@@ -288,24 +287,20 @@ public class LinkedinImpl {
 						updateMessage.append(person.getConnections().getPersonList().get(0).getLastName());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					// STAT case
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.STATUS_UPDATED)) {
 						updateMessage.append(update.getUpdateContent().getPerson().getCurrentStatus());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					// PROF case update profiles
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_UPDATED_PROFILE)) {
 						updateMessage.append("has got profile updated");
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.SHARED_ITEM)) {
 						updateMessage.append(update.getUpdateContent().getPerson().getCurrentStatus());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.CONNECTION_JOINED_GROUP)) {
 						updateMessage.append("join a new group:  ");
 						if (update.getUpdateContent().getPerson().getMemberGroups() != null) {
@@ -313,7 +308,6 @@ public class LinkedinImpl {
 						}
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					if (update.getUpdateType().equals(NetworkUpdateReturnType.NEW_CONNECTIONS)) {
 						updateMessage.append(person.getConnections().getPersonList().get(0).getFirstName());
 						updateMessage.append(".");
@@ -321,7 +315,6 @@ public class LinkedinImpl {
 						updateMessage.append("has add a connection with " + person.getFirstName() + "." + person.getLastName());
 						updateModel.setUpdateMessage(updateMessage.toString());
 					}
-
 					if (!checkDuplidateUpdates(updateModels, updateModel)) {
 						updateModels.add(updateModel);
 					}
@@ -361,4 +354,6 @@ public class LinkedinImpl {
 		}
 		return false;
 	}
+	
+	
 }

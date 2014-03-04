@@ -93,7 +93,7 @@ delimiter;
 /*create trigger on t_account*/
 delimiter $$
 DROP TRIGGER IF EXISTS `after_taccount_insert`$$
- /* ??12:16:26 localhost */ CREATE TRIGGER `after_taccount_insert` after INSERT
+ CREATE TRIGGER `after_taccount_insert` after INSERT
 ON `t_account`
 FOR EACH row
 begin

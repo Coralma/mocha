@@ -1,83 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mocha name="insuranceBroker" entityPackage="com.mocha.ib.model"
-	daoImplPackage="com.mocha.ib.dao"
-	servicePackage="com.mocha.ib.service">
-	
+	daoImplPackage="com.mocha.ib.dao" servicePackage="com.mocha.ib.service">
+
 	<entity entityName="InsuranceCustomer">
-<!-- 	ct:individual customer or company customer -->
-		<property name="customerType"/>
-<!-- 	ct:Achieved, Potential, Failure -->		
-		<property name="status"/>
-		<property name="name"/>
-		<property name="district"/>
-		<property name="postcode"/>
-		<property name="address"/>
-<!-- 		only for company user -->
-		<property name="contectPerson"/>
-		<property name="mobile"/>
-		<property name="phone"/>
-		<property name="fax"/>
-		<property name="email"/>
-		<property name="accountBank"/>
-		<property name="accountNumber"/>
-		<property name="accountPerson"/>
-		<property name="accountMark"/>
-		<property name="policy" type="List" ref="Policy" orm="one-to-many"/>
-		<property name="serve" type="List" ref="InsuranceCustomerServe" orm="one-to-many"/>
-		<property name="referUser" type="com.coral.foundation.security.model.BasicUser" 
-				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
-	    <property name="agent" type="com.coral.foundation.security.model.BasicUser" 
-				  ref="com.coral.foundation.security.model.BasicUser" required="true" orm="one-to-one" refer="true"/>
-		<property name="mark"/>
+		<!-- ct:individual customer or company customer -->
+		<property name="customerType" />
+		<!-- ct:Achieved, Potential, Failure -->
+		<property name="status" />
+		<property name="name" />
+		<property name="district" />
+		<property name="postcode" />
+		<property name="address" />
+		<!-- only for company user -->
+		<property name="contectPerson" />
+		<property name="mobile" />
+		<property name="phone" />
+		<property name="fax" />
+		<property name="email" />
+		<property name="accountBank" />
+		<property name="accountNumber" />
+		<property name="accountPerson" />
+		<property name="accountMark" />
+		<property name="policy" type="List" ref="Policy" orm="one-to-many" />
+		<property name="serve" type="List" ref="InsuranceCustomerServe"
+			orm="one-to-many" />
+		<property name="referUser"
+			type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser"
+			required="true" orm="one-to-one" refer="true" />
+		<property name="agent"
+			type="com.coral.foundation.security.model.BasicUser" ref="com.coral.foundation.security.model.BasicUser"
+			required="true" orm="one-to-one" refer="true" />
+		<property name="mark" />
+		<property name="linkedinProfileUrl" />
+		<property name="fbProfileUrl" />
+		<property name="otherProfileUrl" />
 	</entity>
-	
-	<entity entityName="InsuranceCompany">	
-		<property name="companyName"/>
-		<property name="description"/>
-<!-- 		Using the start -->
-		<property name="level"/>
-		<property name="products" type="List" ref="InsuranceProduct" orm="one-to-many"/>
+
+	<entity entityName="InsuranceCompany">
+		<property name="companyName" />
+		<property name="description" />
+		<!-- Using the start -->
+		<property name="level" />
+		<property name="products" type="List" ref="InsuranceProduct"
+			orm="one-to-many" />
 	</entity>
 	<entity entityName="InsuranceProduct">
-		<property name="productName"/>
-		<property name="category"/>
-		<property name="commissionRate"/>
-		<property name="renewalRemind"/>
-		<property name="description"/>
-		<property name="insuranceCompany" type="InsuranceCompany" ref="InsuranceCompany" orm="many-to-one"/>
+		<property name="productName" />
+		<property name="category" />
+		<property name="commissionRate" />
+		<property name="renewalRemind" />
+		<property name="description" />
+		<property name="insuranceCompany" type="InsuranceCompany"
+			ref="InsuranceCompany" orm="many-to-one" />
 	</entity>
-	
+
 	<entity entityName="Policy">
-		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer" orm="many-to-one"/>
-		<property name="claim" type="List" ref="Claim" orm="one-to-many"/>
-		<property name="insuranceCompany"/>
-		<property name="category"/>
-		<property name="insuranceProduct"/>
-		<property name="policyNo"/>
-		<property name="effectiveDate" type="Date"/>
-		<property name="expiryDate" type="Date"/>
-		<property name="premium"/>
-		<property name="commission"/>
-		<property name="mark"/>
+		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer"
+			orm="many-to-one" />
+		<property name="claim" type="List" ref="Claim" orm="one-to-many" />
+		<property name="insuranceCompany" />
+		<property name="category" />
+		<property name="insuranceProduct" />
+		<property name="policyNo" />
+		<property name="effectiveDate" type="Date" />
+		<property name="expiryDate" type="Date" />
+		<property name="premium" />
+		<property name="commission" />
+		<property name="mark" />
 	</entity>
-	
+
 	<entity entityName="Claim">
-		<property name="policy" type="Policy" ref="Policy" orm="many-to-one"/>
-		<property name="status"/> 
-		<property name="claimReason"/>
-		<property name="claimAmount"/>
-		<property name="mark"/>
+		<property name="policy" type="Policy" ref="Policy" orm="many-to-one" />
+		<property name="status" />
+		<property name="claimReason" />
+		<property name="claimAmount" />
+		<property name="mark" />
 	</entity>
-	
+
 	<entity entityName="InsuranceCustomerServe">
-		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer" orm="many-to-one"/>
-		<property name="type"/> <!-- rt: call, visit,  -->
-		<property name="priority"/>
-		<property name="date" type="Date"/>
-		<property name="status"/>
-		<property name="mark"/>
-		<property name="result"/>
-		<property name="feedback"/>
+		<property name="customer" type="InsuranceCustomer" ref="InsuranceCustomer"
+			orm="many-to-one" />
+		<property name="type" /> <!-- rt: call, visit, -->
+		<property name="priority" />
+		<property name="date" type="Date" />
+		<property name="status" />
+		<property name="mark" />
+		<property name="result" />
+		<property name="feedback" />
 	</entity>
 	
 	

@@ -1,5 +1,8 @@
 package com.coral.foundation.facebook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FBUserModel {
 
 	private String uid;
@@ -7,6 +10,10 @@ public class FBUserModel {
 	private String username;
 	private String name;
 	private String pic_square;
+	private String id;
+	private String type;
+	private FbTimeline fbTimeline = new FbTimeline();
+	private String realName;
 
 	public FBUserModel() {
 
@@ -50,5 +57,62 @@ public class FBUserModel {
 
 	public void setPic_square(String pic_square) {
 		this.pic_square = pic_square;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public FbTimeline getFbTimeline() {
+		return fbTimeline;
+	}
+
+	public void setFbTimeline(FbTimeline fbTimeline) {
+		this.fbTimeline = fbTimeline;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public class FbTimeline {
+
+		private String header;
+		private List<String> content = new ArrayList<String>();
+
+		public FbTimeline() {
+		}
+
+		public String getHeader() {
+			return header;
+		}
+
+		public void setHeader(String header) {
+			this.header = header;
+		}
+
+		public List<String> getContent() {
+			return content;
+		}
+
+		public void setContent(List<String> content) {
+			this.content = content;
+		}
 	}
 }

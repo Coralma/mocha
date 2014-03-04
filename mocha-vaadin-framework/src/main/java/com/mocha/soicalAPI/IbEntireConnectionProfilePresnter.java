@@ -55,14 +55,13 @@ public class IbEntireConnectionProfilePresnter extends AppCommonPresenter implem
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				System.out.println("User select linkedin connection " + viewer.getSelectCon().getFirstName());
 
 				String linkedinProfileUrl = viewer.getSelectCon().getPublicProfileUrl();
 				String profileEductionCSSPath = "html.os-other body#pagekey-nprofile-public-success.en div#body div.wrapper div#main.profile div#content.resume div#profile-education.section";
 				String profileExperenceCSSPath = "html.os-other body#pagekey-nprofile-public-success.en div#body div.wrapper div#main.profile div#content.resume div#profile-experience.section div.content";
 				ProfileReport p = new ProfileReport(linkedinProfileUrl, profileExperenceCSSPath, profileEductionCSSPath);
 				LinkedinConnection conn = p.parseProfilePage();
-				
+
 				AppContentEvent appContextEvent = new AppContentEvent();
 				appContextEvent.setCustomizeClass(viewConProfilePage);
 				eventBus.put("linkedConn", conn);

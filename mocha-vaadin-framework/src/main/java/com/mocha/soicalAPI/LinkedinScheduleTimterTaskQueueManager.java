@@ -62,12 +62,10 @@ public class LinkedinScheduleTimterTaskQueueManager extends ThreadPoolExecutor {
 	}
 
 	public static void main(String args[]) {
-
 		Integer threadCounter = 0;
 		BlockingQueue<Runnable> blockingQueue = new LinkedBlockingDeque<Runnable>();
-
-		LinkedinScheduleTimterTaskQueueManager executor = new LinkedinScheduleTimterTaskQueueManager(10, 20, 5000, TimeUnit.MILLISECONDS, blockingQueue);
-
+		LinkedinScheduleTimterTaskQueueManager executor = new LinkedinScheduleTimterTaskQueueManager(10, 20, 5000, 
+		 TimeUnit.MILLISECONDS, blockingQueue);
 		executor.setRejectedExecutionHandler(new RejectedExecutionHandler() {
 			@Override
 			public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
@@ -95,7 +93,7 @@ public class LinkedinScheduleTimterTaskQueueManager extends ThreadPoolExecutor {
 		}
 
 		for (int i = 0; i < 10; i++) {
-			System.out.println("Total task number "+blockingQueue.size());
+			System.out.println("Total task number " + blockingQueue.size());
 			blockingQueue.add(new Runnable() {
 				@Override
 				public void run() {
@@ -103,7 +101,7 @@ public class LinkedinScheduleTimterTaskQueueManager extends ThreadPoolExecutor {
 					demoTask.setRunInternval(1000 * 20);
 					demoTask.setName("vanceTestName");
 					demoTask.run();
-//					System.out.println("Start run the backend job " + demoTask.getName() + " at : " + Calendar.getInstance().getTime());
+					// System.out.println("Start run the backend job " + demoTask.getName() + " at : " + Calendar.getInstance().getTime());
 				}
 			});
 		}

@@ -62,6 +62,10 @@ public class SoicalApp extends JPABaseEntity {
 	private String requesTokenSecret;
 	
 	
+	@OneToMany(targetEntity=FacebookFriend.class, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},fetch=FetchType.EAGER)
+	@JoinColumn(name="SOICAL_APP_ID")
+	private List<FacebookFriend> FacebookFriends = new ArrayList<FacebookFriend>();
+	
 
 	public void setSoicalAppId (Long soicalAppId) {
 		this.soicalAppId = soicalAppId;
@@ -134,6 +138,12 @@ public class SoicalApp extends JPABaseEntity {
 	} 
 	public String getRequesTokenSecret () {
 		return requesTokenSecret;
+	}
+	public void setFacebookFriends (List<FacebookFriend> FacebookFriends) {
+		this.FacebookFriends = FacebookFriends;
+	} 
+	public List<FacebookFriend> getFacebookFriends () {
+		return FacebookFriends;
 	}
 
 	public Long getID() {

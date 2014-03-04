@@ -8,7 +8,7 @@ public class APIKeys {
 
 	static {
 		if (FILE_PATH == null) {
-			// check if the OS is windows, if it is using the
+			// check if the OS is windows
 			if (System.getProperty("os.name").startsWith("Win")) {
 				FILE_PATH = "D:/cooperateCache/";
 			}
@@ -44,22 +44,28 @@ public class APIKeys {
 	// linkedIn
 	public static String linkedInAPIId = "pps9akw5t85u";
 	public static String linkedInSecertKey = "rz2R2HpXYQoQasr2";
-//	public static String LinkedinCallBackUrl = "http://vk2.pagekite.me/cooperate/oauth#linkedin";
-	public static String LinkedinCallBackUrl = "http://www.mocha-platform.com/cooperate/linkedin";
+	public static String LinkedinCallBackUrl = "http://vz2.pagekite.me/cooperate/linkedin";
+	// public static String LinkedinCallBackUrl = "http://www.mocha-platform.com/cooperate/linkedin";
 	public static long linkedinSyncNetworkStatusInternval = 1000 * 60 * 30;
 	public static String linkedinSystemAccessToken = "ff40e54b-76b3-4c4a-b884-5086c914056e";
 	public static String linkedinSystemAccessTokenSecert = "14f5262d-1bfc-49c7-be5f-49f57509b825";
 
-	// facebook
-	// for production
+	// FaceBook for production
 	public static String facebookAPIId = "207409882754187";
 	public static String facebookSecertKey = "d8a9c0f327aa1770e6fee1864658a037";
-	public static String facebookCallBackUrl = "https://www.mocha-platform.com/cooperate/facebook";
-	public static String facebookSystemToken = "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
+	public static String facebookCallBackUrl = "http://www.mocha-platform.com/cooperate/facebook";
+	// public static String facebookCallBackUrl = "http://vz2.pagekite.me/cooperate/facebook";
+	public static String facebookSystemToken = "CAAC8o2BibIsBADhhyLDThtonJXFEAAj3b0u9beDgzVDGLGZAbTrNgKIvcQTZBzVcFw5QKK4rpmW0gEPd3fcdnixxgngwCoa2MfiiTJ8IJaLRSOIIAnpviKq8ZCfbthZB6pzwlANmeum6ZBGH3PgKGZASQ2lfMXKvLJWKEKFpmRou80SxRVTfEtNgXKU9bmOB4ZD";
+	public static String facebookOAuthUrl = "https://www.facebook.com/dialog/oauth?client_id=" + facebookAPIId
+			+ "&display=popup&response_type=token&redirect_uri=" + facebookCallBackUrl;
+	public static String facebookAppName = "mocha-platform";
+	public static String facebookAPIName = "facebook";
+	public static String facebookAPIErrorCode = "190";
 
 	// for local
-//	public static String facebookAPIId = "1457936687764700";
-//	public static String facebookSecertKey = "00d1ee8bf2eaa563a8fb07513cfdb24d";
-//	public static String facebookCallBackUrl = "https://vk1.pagekite.me/cooperate/facebook";
-//	public static String facebookSystemToken = "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
+	// public static String facebookAPIId = "1457936687764700";
+	// public static String facebookSecertKey = "00d1ee8bf2eaa563a8fb07513cfdb24d";
+	// public static String facebookCallBackUrl = "https://vk1.pagekite.me/cooperate/facebook";
+	// public static String facebookSystemToken =
+	// "CAAC8o2BibIsBAPgj0BMaC1qWNQ3OKjLTSTMkmkOLDIZCRxAUBLPBQyrkevzbMVAOwUejSm9VUH9idZBLXmitsHdtMZAyn1oQ4oqZBXRjCOoIyVKSppJC59WbMx7Swe8FoeVFhDA1ZCIySq0XQHZBqMe1zMMbBO8iLYvbphEzZAqbfUQ8A31vP4mpaZALnIB4bxQZD";
 }
