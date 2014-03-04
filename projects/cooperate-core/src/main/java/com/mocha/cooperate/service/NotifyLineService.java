@@ -20,15 +20,16 @@ public class NotifyLineService {
 
 	public NotifyLineDao notifyLineDao = SpringContextUtils.getBean(NotifyLineDao.class);
 	
-	public List<NotifyLine> loadNotifyLine(BasicUser basicUser) {
-		List<NotifyLine> userNotifyLines = Lists.newArrayList();
-		List<NotifyLine> notifyLines = notifyLineDao.loadAll();
-		for(NotifyLine notifyLine : notifyLines) {
-			if(BasicHelper.isCurrentUser(basicUser,notifyLine.getNotifiedUser())) {
-				userNotifyLines.add(notifyLine);
-			}
-		}
-		return userNotifyLines;
+	public List<NotifyLine> loadNotifyLine(BasicUser basicUser, int page) {
+//		List<NotifyLine> userNotifyLines = Lists.newArrayList();
+//		List<NotifyLine> notifyLines = notifyLineDao.loadAll();
+//		for(NotifyLine notifyLine : notifyLines) {
+//			if(BasicHelper.isCurrentUser(basicUser,notifyLine.getNotifiedUser())) {
+//				userNotifyLines.add(notifyLine);
+//			}
+//		}
+		List<NotifyLine> notifyLines = notifyLineDao.loadNotifyLine(basicUser, page);
+		return notifyLines;
 	}
 	
 	public int loadNotifyNumber(BasicUser basicUser) {

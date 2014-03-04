@@ -52,19 +52,19 @@ public class TSearch {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildVeriable = this.GENBuildVeriable();
-    _builder.append(_GENBuildVeriable, "	");
+    _builder.append(_GENBuildVeriable, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENConstructor = this.GENConstructor();
-    _builder.append(_GENConstructor, "	");
+    _builder.append(_GENConstructor, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENWidgetImplMethod = this.GENWidgetImplMethod();
-    _builder.append(_GENWidgetImplMethod, "	");
+    _builder.append(_GENWidgetImplMethod, "\t");
     _builder.newLineIfNotEmpty();
     CharSequence _GENClassEnd = this.GENClassEnd();
     _builder.append(_GENClassEnd, "");
@@ -86,8 +86,7 @@ public class TSearch {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import ");
-    String _plus_1 = (SystemConstant.TTable_PKG + ".*");
-    _builder.append(_plus_1, "");
+    _builder.append((SystemConstant.TTable_PKG + ".*"), "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import com.coral.vaadin.widget.Viewer;");
@@ -134,7 +133,7 @@ public class TSearch {
     _builder.append("\t");
     _builder.append("private static final long serialVersionUID = ");
     String _genserialVersionUID = VGenHelper.genserialVersionUID();
-    _builder.append(_genserialVersionUID, "	");
+    _builder.append(_genserialVersionUID, "\t");
     _builder.append("L;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -203,17 +202,17 @@ public class TSearch {
       if (_equals) {
         _xifexpression = 3;
       } else {
-        _xifexpression = section.column;
+        _xifexpression = (section.column).intValue();
       }
       final int column = _xifexpression;
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("SectionLayout ");
-      _builder.append(sectionName, "	");
+      _builder.append(sectionName, "\t");
       _builder.append(" = createSection(\"");
-      _builder.append(section.label, "	");
+      _builder.append(section.label, "\t");
       _builder.append("\", ");
-      _builder.append(column, "	");
+      _builder.append(column, "\t");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
       {
@@ -226,13 +225,13 @@ public class TSearch {
             if (_equals_1) {
               _builder.append("\t");
               _builder.append("addWidget(");
-              _builder.append(sectionName, "	");
+              _builder.append(sectionName, "\t");
               _builder.append(", \"");
-              _builder.append(p.label, "	");
+              _builder.append(p.label, "\t");
               _builder.append("\", \"");
-              _builder.append(p.propertyName, "	");
+              _builder.append(p.propertyName, "\t");
               _builder.append("\", \"");
-              _builder.append(p.type, "	");
+              _builder.append(p.type, "\t");
               _builder.append("\",false);");
               _builder.newLineIfNotEmpty();
             }
@@ -241,29 +240,29 @@ public class TSearch {
       }
       _builder.append("\t");
       CharSequence _GENSearchAction = this.GENSearchAction(sectionName);
-      _builder.append(_GENSearchAction, "	");
+      _builder.append(_GENSearchAction, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       CharSequence _GENResultTable = this.GENResultTable();
-      _builder.append(_GENResultTable, "	");
+      _builder.append(_GENResultTable, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       CharSequence _GENViewAction = this.GENViewAction();
-      _builder.append(_GENViewAction, "	");
+      _builder.append(_GENViewAction, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
       return _builder;
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
   public CharSequence GENSearchAction(final String sectionName) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("ActionButton searchButton = addButton(\"\u67E5\u8BE2\",\"query\",listener,new ThemeResource(\"icons/search.png\"));");
+    _builder.append("ActionButton searchButton = addButton(\"查询\",\"query\",listener,new ThemeResource(\"icons/search.png\"));");
     _builder.newLine();
-    _builder.append("ActionButton clearButton = addButton(\"\u6E05\u7A7A\",\"clean\",listener,new ThemeResource(\"icons/refresh.png\"));");
+    _builder.append("ActionButton clearButton = addButton(\"清空\",\"clean\",listener,new ThemeResource(\"icons/refresh.png\"));");
     _builder.newLine();
     _builder.append(sectionName, "");
     _builder.append(".setButtons(searchButton, clearButton);");
@@ -281,7 +280,7 @@ public class TSearch {
     _builder.newLineIfNotEmpty();
     _builder.append("SectionLayout ");
     _builder.append(entityTableSection, "");
-    _builder.append(" = createSection(\"\u4F9B\u5E94\u5546\u67E5\u8BE2\u7ED3\u6784\", 1);");
+    _builder.append(" = createSection(\"供应商查询结构\", 1);");
     _builder.newLineIfNotEmpty();
     _builder.append("addTableWidget(");
     _builder.append(entityTableSection, "");
@@ -296,11 +295,11 @@ public class TSearch {
   
   public CharSequence GENViewAction() {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("ActionButton addButton = addButton(\"\u65B0\u589E\",\"add\",listener,new ThemeResource(\"icons/add.png\"));");
+    _builder.append("ActionButton addButton = addButton(\"新增\",\"add\",listener,new ThemeResource(\"icons/add.png\"));");
     _builder.newLine();
-    _builder.append("ActionButton editButton = addButton(\"\u4FEE\u6539\",\"edit\",listener,new ThemeResource(\"icons/edit.png\"));");
+    _builder.append("ActionButton editButton = addButton(\"修改\",\"edit\",listener,new ThemeResource(\"icons/edit.png\"));");
     _builder.newLine();
-    _builder.append("ActionButton deleteButton = addButton(\"\u5220\u9664\",\"delete\", listener, new ThemeResource(\"icons/del.png\"));");
+    _builder.append("ActionButton deleteButton = addButton(\"删除\",\"delete\", listener, new ThemeResource(\"icons/del.png\"));");
     _builder.newLine();
     _builder.append("setButtons(addButton,editButton,deleteButton);");
     _builder.newLine();
@@ -316,9 +315,9 @@ public class TSearch {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("return getEntityValue(");
-    _builder.append(this.entityVariable, "	");
+    _builder.append(this.entityVariable, "\t");
     _builder.append(",");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(".class);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -328,9 +327,9 @@ public class TSearch {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("this.");
-    _builder.append(this.entityVariable, "	");
+    _builder.append(this.entityVariable, "\t");
     _builder.append(" = (");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(")value;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");

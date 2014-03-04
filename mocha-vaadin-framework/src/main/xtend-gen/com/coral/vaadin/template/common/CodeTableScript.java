@@ -27,15 +27,15 @@ public class CodeTableScript {
             _builder.newLine();
             _builder.append("\t");
             _builder.append("(\'");
-            _builder.append(codeTable.name, "	");
+            _builder.append(codeTable.name, "\t");
             _builder.append("\',\'");
-            _builder.append(codeTable.ids, "	");
+            _builder.append(codeTable.ids, "\t");
             _builder.append("\', NULL, NULL,\'");
             String _currentDateSQLString = DateUtils.currentDateSQLString();
-            _builder.append(_currentDateSQLString, "	");
+            _builder.append(_currentDateSQLString, "\t");
             _builder.append("\',\'");
             String _currentDateSQLString_1 = DateUtils.currentDateSQLString();
-            _builder.append(_currentDateSQLString_1, "	");
+            _builder.append(_currentDateSQLString_1, "\t");
             _builder.append("\');");
             _builder.newLineIfNotEmpty();
             {
@@ -44,17 +44,17 @@ public class CodeTableScript {
                 _builder.newLine();
                 _builder.append("\t");
                 _builder.append("(\'");
-                _builder.append(value.datas, "	");
+                _builder.append(value.datas, "\t");
                 _builder.append("\',\'");
-                _builder.append(value.language, "	");
+                _builder.append(value.language, "\t");
                 _builder.append("\', \'");
-                _builder.append(codeTable.name, "	");
+                _builder.append(codeTable.name, "\t");
                 _builder.append("\', \'");
                 String _currentDateSQLString_2 = DateUtils.currentDateSQLString();
-                _builder.append(_currentDateSQLString_2, "	");
+                _builder.append(_currentDateSQLString_2, "\t");
                 _builder.append("\',\'");
                 String _currentDateSQLString_3 = DateUtils.currentDateSQLString();
-                _builder.append(_currentDateSQLString_3, "	");
+                _builder.append(_currentDateSQLString_3, "\t");
                 _builder.append("\');");
                 _builder.newLineIfNotEmpty();
               }

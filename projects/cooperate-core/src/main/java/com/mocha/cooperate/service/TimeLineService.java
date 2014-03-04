@@ -283,7 +283,23 @@ public class TimeLineService {
  		status.setNotifyLines(notifyLines);*/
  		
 // 		return statusDao.merge(status);
- 		statusDao.persist(status);
+// 		statusDao.persist(status);
+ 		
+ 		//TODO should be continue the new code. 
+// 		List<BasicUser> allNotifyUsers = Lists.newArrayList();
+// 		for(Comment comment : status.getComments()) {
+// 			allNotifyUsers.add(comment.getCreator());
+// 		}
+// 		for(BasicUser notifyUser : notifiedUsers) {
+// 			if(!isExistedUser(notifyUser, allNotifyUsers)) {
+// 				allNotifyUsers.add(notifyUser);
+// 			}
+// 		}
+// 		List<NotifyLine> notifyLines = status.getNotifyLines();
+// 		notifyLines = notifyReferUser(allNotifyUsers, notifyLines);
+// 		status.setNotifyLines(notifyLines);
+ 		
+ 		statusDao.merge(status);
  		return status;
  	}
 	
@@ -367,5 +383,25 @@ public class TimeLineService {
 	
 	public TimeLine queryTimelineByDiscuss(Discuss discuss) {
 		return timeLineDao.queryTimelineByDiscuss(discuss);
+	}
+	
+	@Deprecated
+	public List<NotifyLine> notifyReferUser(List<BasicUser> allNotifyUsers, List<NotifyLine> notifyLines) {
+		// notify all first notified user.
+ 		for(NotifyLine notifyLine : notifyLines) {
+ 			notifyLine.setType(new Long(1));
+ 			notifyLine.setUpdateTime(new Date());
+ 			BasicUser notifyUser = notifyLine.getNotifiedUser();
+ 			BasicUser removedNotifyUser = null;
+ 			for(BasicUser newNotifyUser : allNotifyUsers) {
+ 				if(notifyUser.getID().equals(newNotifyUser.getID())) {
+ 					removedNotifyUser = newNotifyUser; 
+ 				}
+ 			}
+ 			if(removedNotifyUser != null) {
+ 				allNotifyUsers.remove(removedNotifyUser);
+ 			}
+ 		}
+ 		return notifyLines;
 	}
 }

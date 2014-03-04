@@ -50,15 +50,15 @@ public class TTable {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildVeriable = this.GENBuildVeriable();
-    _builder.append(_GENBuildVeriable, "	");
+    _builder.append(_GENBuildVeriable, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENConstructor = this.GENConstructor();
-    _builder.append(_GENConstructor, "	");
+    _builder.append(_GENConstructor, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     CharSequence _GENBuildContainerClass = this.GENBuildContainerClass();
-    _builder.append(_GENBuildContainerClass, "	");
+    _builder.append(_GENBuildContainerClass, "\t");
     _builder.newLineIfNotEmpty();
     CharSequence _GENClassEnd = this.GENClassEnd();
     _builder.append(_GENClassEnd, "");
@@ -117,7 +117,7 @@ public class TTable {
     _builder.append("\t");
     _builder.append("private static final long serialVersionUID = ");
     String _genserialVersionUID = VGenHelper.genserialVersionUID();
-    _builder.append(_genserialVersionUID, "	");
+    _builder.append(_genserialVersionUID, "\t");
     _builder.append("L;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -146,7 +146,7 @@ public class TTable {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("table.setDataContainer(new ");
-    _builder.append(this.tableContainer, "	");
+    _builder.append(this.tableContainer, "\t");
     _builder.append("());");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -169,7 +169,7 @@ public class TTable {
             for(final ViewField field : section.viewFields) {
               _builder.append("\t");
               _builder.append("\"");
-              _builder.append(field.fieldName, "	");
+              _builder.append(field.fieldName, "\t");
               _builder.append("\",");
               _builder.newLineIfNotEmpty();
             }
@@ -191,7 +191,7 @@ public class TTable {
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\"");
-              _builder.append(p.label, "	");
+              _builder.append(p.label, "\t");
               _builder.append("\",");
               _builder.newLineIfNotEmpty();
             }
@@ -201,7 +201,7 @@ public class TTable {
       _builder.append("};");
       _builder.newLine();
       return _builder;
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
@@ -218,18 +218,18 @@ public class TTable {
     _builder.append("\t");
     _builder.append("private static final long serialVersionUID = ");
     String _genserialVersionUID = VGenHelper.genserialVersionUID();
-    _builder.append(_genserialVersionUID, "	");
+    _builder.append(_genserialVersionUID, "\t");
     _builder.append("L;");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
     _builder.append("public ");
-    _builder.append(this.tableContainer, "	");
+    _builder.append(this.tableContainer, "\t");
     _builder.append("() {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("super(");
-    _builder.append(this.entityName, "		");
+    _builder.append(this.entityName, "\t\t");
     _builder.append(".class);");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");

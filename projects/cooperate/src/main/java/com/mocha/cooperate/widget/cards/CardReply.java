@@ -141,7 +141,7 @@ public class CardReply extends VerticalLayout {
 			button.addListener(new ClickListener() {
 				@Override
 				public void buttonClick(ClickEvent event) {
-					reply("Reply " + comment.getCreator().getRealName() + ":");
+					reply("Reply @" + comment.getCreator().getRealName() + ": ");
 				}
 			});
 		}

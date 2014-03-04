@@ -64,7 +64,7 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     CharSequence _GENClassEnd = this.GENClassEnd();
@@ -81,8 +81,7 @@ public class EntityCardSearchPresenter {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("import ");
-    String _plus = (this.daoIntfPackage + ".*");
-    _builder.append(_plus, "");
+    _builder.append((this.daoIntfPackage + ".*"), "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("import java.util.List;");
@@ -140,16 +139,16 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("private ");
-    _builder.append(this.entityDaoIntf, "	");
+    _builder.append(this.entityDaoIntf, "\t");
     _builder.append(" dao = SpringContextUtils.getBean(");
-    _builder.append(this.entityDaoIntf, "	");
+    _builder.append(this.entityDaoIntf, "\t");
     _builder.append(".class);");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("public ");
-    _builder.append(this.viewPresenterName, "	");
+    _builder.append(this.viewPresenterName, "\t");
     _builder.append("(MochaEventBus eventBus) {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -157,7 +156,7 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("this.viewer = new ");
-    _builder.append(this.viewClassName, "		");
+    _builder.append(this.viewClassName, "\t\t");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -183,7 +182,7 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return \"");
-    _builder.append(this.viewClassName, "	");
+    _builder.append(this.viewClassName, "\t");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -198,11 +197,11 @@ public class EntityCardSearchPresenter {
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("final ");
-    _builder.append(this.viewClassName, "	");
+    _builder.append(this.viewClassName, "\t");
     _builder.append(" ");
-    _builder.append(viewVariable, "	");
+    _builder.append(viewVariable, "\t");
     _builder.append(" = (");
-    _builder.append(this.viewClassName, "	");
+    _builder.append(this.viewClassName, "\t");
     _builder.append(") viewer;");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -212,7 +211,7 @@ public class EntityCardSearchPresenter {
       boolean _notEquals = (!Objects.equal(editViewName, null));
       if (_notEquals) {
         _builder.append("\t");
-        _builder.append(viewVariable, "	");
+        _builder.append(viewVariable, "\t");
         _builder.append(".getConditionPanel().getCreateBtn().addListener(new ClickListener() {");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -226,7 +225,7 @@ public class EntityCardSearchPresenter {
         _builder.append("\t");
         _builder.append("\t\t");
         _builder.append("postViewer(\"");
-        _builder.append(editViewName, "			");
+        _builder.append(editViewName, "\t\t\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -237,7 +236,7 @@ public class EntityCardSearchPresenter {
         _builder.append("});");
         _builder.newLine();
         _builder.append("\t");
-        _builder.append(viewVariable, "	");
+        _builder.append(viewVariable, "\t");
         _builder.append(".getConditionPanel().getGlobleSearchWidget().setListener(new GlobleSearchListener() {");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -251,17 +250,17 @@ public class EntityCardSearchPresenter {
         _builder.append("\t");
         _builder.append("\t\t");
         _builder.append("List<");
-        _builder.append(this.entityName, "			");
+        _builder.append(this.entityName, "\t\t\t");
         _builder.append("> customers = dao.fuzzySearch(buildFuzzySearch(condition));");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("\t\t");
-        _builder.append(viewVariable, "			");
+        _builder.append(viewVariable, "\t\t\t");
         _builder.append(".setValue(customers);");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("\t\t");
-        _builder.append(viewVariable, "			");
+        _builder.append(viewVariable, "\t\t\t");
         _builder.append(".buildSearchCardPanel();");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -272,7 +271,7 @@ public class EntityCardSearchPresenter {
         _builder.append("});");
         _builder.newLine();
         _builder.append("\t");
-        _builder.append(viewVariable, "	");
+        _builder.append(viewVariable, "\t");
         _builder.append(".setListener(new SearchListener() {");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -290,7 +289,7 @@ public class EntityCardSearchPresenter {
         _builder.append("\t");
         _builder.append("\t\t\t");
         _builder.append("postViewer(\"");
-        _builder.append(editViewName, "				");
+        _builder.append(editViewName, "\t\t\t\t");
         _builder.append("\",entity);");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -304,7 +303,7 @@ public class EntityCardSearchPresenter {
         _builder.append("\t");
         _builder.append("\t\t\t");
         _builder.append("postViewer(\"");
-        _builder.append(this.viewClassName, "				");
+        _builder.append(this.viewClassName, "\t\t\t\t");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -369,7 +368,7 @@ public class EntityCardSearchPresenter {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("SearchFilterBuilder filterBuilder = SearchFilterFactory.buildFuzzySearchFilter(");
-    _builder.append(this.entityName, "	");
+    _builder.append(this.entityName, "\t");
     _builder.append(".class);");
     _builder.newLineIfNotEmpty();
     {
@@ -385,7 +384,7 @@ public class EntityCardSearchPresenter {
                 _builder.append("\t");
                 _builder.append("filterBuilder.getSearchFilters().add(SearchFilter.like(\"");
                 String _fieldName = field.getFieldName();
-                _builder.append(_fieldName, "	");
+                _builder.append(_fieldName, "\t");
                 _builder.append("\", condition));");
                 _builder.newLineIfNotEmpty();
               }

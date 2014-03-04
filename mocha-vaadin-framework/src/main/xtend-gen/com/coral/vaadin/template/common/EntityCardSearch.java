@@ -45,12 +45,12 @@ public class EntityCardSearch {
     _builder.newLine();
     _builder.append("\t");
     CharSequence _GENBuildMethod = this.GENBuildMethod();
-    _builder.append(_GENBuildMethod, "	");
+    _builder.append(_GENBuildMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("\t");
     CharSequence _GENGetMethod = this.GENGetMethod();
-    _builder.append(_GENGetMethod, "	");
+    _builder.append(_GENGetMethod, "\t");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     CharSequence _GENClassEnd = this.GENClassEnd();
@@ -117,7 +117,7 @@ public class EntityCardSearch {
                 _builder.append("\t");
                 _builder.append("fieldStatus = ");
                 String _generateFieldStatus = VAppGenHelper.generateFieldStatus(field, this.mochas);
-                _builder.append(_generateFieldStatus, "	");
+                _builder.append(_generateFieldStatus, "\t");
                 _builder.newLineIfNotEmpty();
                 _builder.append("\t");
                 _builder.append("createFieldWidget(fieldStatus);");
@@ -141,7 +141,7 @@ public class EntityCardSearch {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("return ");
-    _builder.append(this.cardClassName, "	");
+    _builder.append(this.cardClassName, "\t");
     _builder.append(".class;");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -152,7 +152,7 @@ public class EntityCardSearch {
     _builder.append("\t");
     _builder.append("return \"");
     String _generateSearchEntityViewTitle = VAppGenHelper.generateSearchEntityViewTitle(this.view);
-    _builder.append(_generateSearchEntityViewTitle, "	");
+    _builder.append(_generateSearchEntityViewTitle, "\t");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

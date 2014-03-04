@@ -80,6 +80,9 @@
 			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
 		<!-- Set for Production -->
 		 <!-- <property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperateBak"/> -->
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" />
+		<!-- Set for Production -->
+        <!--  <property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperate"/> -->
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
