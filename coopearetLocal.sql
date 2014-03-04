@@ -1,0 +1,2227 @@
+-- MySQL dump 10.13  Distrib 5.6.10, for osx10.7 (x86_64)
+--
+-- Host: localhost    Database: cooperate
+-- ------------------------------------------------------
+-- Server version	5.6.10
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `SEQUENCE`
+--
+
+DROP TABLE IF EXISTS `SEQUENCE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SEQUENCE` (
+  `SEQ_NAME` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `SEQ_COUNT` decimal(38,0) DEFAULT NULL,
+  PRIMARY KEY (`SEQ_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SEQUENCE`
+--
+
+LOCK TABLES `SEQUENCE` WRITE;
+/*!40000 ALTER TABLE `SEQUENCE` DISABLE KEYS */;
+INSERT INTO `SEQUENCE` VALUES ('ACCOUNTID_SEQ',0),('APPID_SEQ',0),('APPREPORTID_SEQ',0),('ATTACHMENTID_SEQ',0),('BASICROLEID_SEQ',0),('BASICUSERID_SEQ',0),('CAMPAINGNSID_SEQ',0),('CHATID_SEQ',0),('CHATMESSAGEID_SEQ',0),('CHATNOTIFYID_SEQ',0),('CHATPERSONID_SEQ',0),('CLAIMID_SEQ',0),('COMMENTID_SEQ',0),('COMMERCECUSTOMERID_SEQ',0),('COMMERCEPRODUCTID_SEQ',0),('CONTACTID_SEQ',0),('DISCUSSID_SEQ',0),('EMAILID_SEQ',0),('FACEBOOKFRIENDID_SEQ',141),('FBFRIENDCURRENTADDRESSID_SEQ',0),('FBFRIENDCURRENTLOCATIONID_SEQ',141),('FBFRIENDEDUCTIONID_SEQ',0),('FBFRIENDLANGUAGEID_SEQ',0),('FBFRIENDPROJECTID_SEQ',0),('FBFRIENDSPORTID_SEQ',0),('FBFRIENDWORKID_SEQ',609),('FILEID_SEQ',0),('INSURANCECOMPANYID_SEQ',0),('INSURANCECUSTOMERID_SEQ',42),('INSURANCECUSTOMERSERVEID_SEQ',0),('INSURANCEPRODUCTID_SEQ',0),('LINKEDINCONNECTIONID_SEQ',0),('LINKEDINCONNECTIONNETWORKUPDATEID_SEQ',0),('LINKEDINGROUPID_SEQ',0),('LINKEDINPERSONPROFILEID_SEQ',0),('MENUPERMISSIONID_SEQ',0),('MOCHAREPORTID_SEQ',0),('NOTIFYLINEID_SEQ',88),('ORDERID_SEQ',0),('ORDERPRODUCTID_SEQ',0),('POLICYID_SEQ',0),('PROMOTIONID_SEQ',0),('REPORTCOLUMNID_SEQ',0),('REPORTFILTERID_SEQ',0),('REPORTJOINTABLEID_SEQ',0),('REPORTTABLEID_SEQ',0),('SHOTCUTID_SEQ',0),('SHOTCUTITEMID_SEQ',0),('SOICALAPPID_SEQ',26),('SOURCEAPPLICATIONID_SEQ',0),('STATUSID_SEQ',89),('STOCKPRODUCTID_SEQ',0),('SUBTODOITEMID_SEQ',0),('SUPPLIERID_SEQ',0),('TIMELINEID_SEQ',1),('TODOID_SEQ',0);
+/*!40000 ALTER TABLE `SEQUENCE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ACCOUNT`
+--
+
+DROP TABLE IF EXISTS `T_ACCOUNT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ACCOUNT` (
+  `ACCOUNT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ACCOUNT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ACCOUNT`
+--
+
+LOCK TABLES `T_ACCOUNT` WRITE;
+/*!40000 ALTER TABLE `T_ACCOUNT` DISABLE KEYS */;
+INSERT INTO `T_ACCOUNT` VALUES (-1,NULL,'root@test.com',NULL,'root');
+/*!40000 ALTER TABLE `T_ACCOUNT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_APP`
+--
+
+DROP TABLE IF EXISTS `T_APP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_APP` (
+  `APP_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account` bigint(20) DEFAULT NULL,
+  `ACCOUNT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`APP_ID`),
+  KEY `FK_T_APP_ACCOUNT_ID` (`ACCOUNT_ID`),
+  KEY `FK_T_APP_account` (`account`),
+  CONSTRAINT `FK_T_APP_account` FOREIGN KEY (`account`) REFERENCES `T_ACCOUNT` (`ACCOUNT_ID`),
+  CONSTRAINT `FK_T_APP_ACCOUNT_ID` FOREIGN KEY (`ACCOUNT_ID`) REFERENCES `T_ACCOUNT` (`ACCOUNT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_APP`
+--
+
+LOCK TABLES `T_APP` WRITE;
+/*!40000 ALTER TABLE `T_APP` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_APP` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_APP_REPORT`
+--
+
+DROP TABLE IF EXISTS `T_APP_REPORT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_APP_REPORT` (
+  `APP_REPORT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REPORT_TABLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`APP_REPORT_ID`),
+  KEY `FK_T_APP_REPORT_REPORT_TABLE_ID` (`REPORT_TABLE_ID`),
+  CONSTRAINT `FK_T_APP_REPORT_REPORT_TABLE_ID` FOREIGN KEY (`REPORT_TABLE_ID`) REFERENCES `T_REPORT_TABLE` (`REPORT_TABLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_APP_REPORT`
+--
+
+LOCK TABLES `T_APP_REPORT` WRITE;
+/*!40000 ALTER TABLE `T_APP_REPORT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_APP_REPORT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ATTACHMENT`
+--
+
+DROP TABLE IF EXISTS `T_ATTACHMENT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ATTACHMENT` (
+  `ATTACHMENT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `FILE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FILE_PATH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FILE_SIZE` bigint(20) DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` bigint(20) DEFAULT NULL,
+  `discuss` bigint(20) DEFAULT NULL,
+  `status` bigint(20) DEFAULT NULL,
+  `todo` bigint(20) DEFAULT NULL,
+  `COMMENT_ID` bigint(20) DEFAULT NULL,
+  `DISCUSS_ID` bigint(20) DEFAULT NULL,
+  `STATUS_ID` bigint(20) DEFAULT NULL,
+  `TO_DO_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ATTACHMENT_ID`),
+  KEY `FK_T_ATTACHMENT_todo` (`todo`),
+  KEY `FK_T_ATTACHMENT_discuss` (`discuss`),
+  KEY `FK_T_ATTACHMENT_DISCUSS_ID` (`DISCUSS_ID`),
+  KEY `FK_T_ATTACHMENT_TO_DO_ID` (`TO_DO_ID`),
+  KEY `FK_T_ATTACHMENT_COMMENT_ID` (`COMMENT_ID`),
+  KEY `FK_T_ATTACHMENT_status` (`status`),
+  KEY `FK_T_ATTACHMENT_comment` (`comment`),
+  KEY `FK_T_ATTACHMENT_STATUS_ID` (`STATUS_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_STATUS_ID` FOREIGN KEY (`STATUS_ID`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_comment` FOREIGN KEY (`comment`) REFERENCES `T_COMMENT` (`COMMENT_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_COMMENT_ID` FOREIGN KEY (`COMMENT_ID`) REFERENCES `T_COMMENT` (`COMMENT_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_discuss` FOREIGN KEY (`discuss`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_DISCUSS_ID` FOREIGN KEY (`DISCUSS_ID`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_status` FOREIGN KEY (`status`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_todo` FOREIGN KEY (`todo`) REFERENCES `T_ToDO` (`TO_DO_ID`),
+  CONSTRAINT `FK_T_ATTACHMENT_TO_DO_ID` FOREIGN KEY (`TO_DO_ID`) REFERENCES `T_ToDO` (`TO_DO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ATTACHMENT`
+--
+
+LOCK TABLES `T_ATTACHMENT` WRITE;
+/*!40000 ALTER TABLE `T_ATTACHMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_ATTACHMENT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CAMPAINGNS`
+--
+
+DROP TABLE IF EXISTS `T_CAMPAINGNS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CAMPAINGNS` (
+  `CAMPAINGNS_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CATEGORY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COMMISSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_CONTEXT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PREMIUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`CAMPAINGNS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CAMPAINGNS`
+--
+
+LOCK TABLES `T_CAMPAINGNS` WRITE;
+/*!40000 ALTER TABLE `T_CAMPAINGNS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CAMPAINGNS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CHAT`
+--
+
+DROP TABLE IF EXISTS `T_CHAT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CHAT` (
+  `CHAT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `PERSON_NUMBER` bigint(20) DEFAULT NULL,
+  `TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`CHAT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CHAT`
+--
+
+LOCK TABLES `T_CHAT` WRITE;
+/*!40000 ALTER TABLE `T_CHAT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CHAT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CHAT_MESSAGE`
+--
+
+DROP TABLE IF EXISTS `T_CHAT_MESSAGE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CHAT_MESSAGE` (
+  `CHAT_MESSAGE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MESSAGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `chat` bigint(20) DEFAULT NULL,
+  `person` bigint(20) DEFAULT NULL,
+  `CHAT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CHAT_MESSAGE_ID`),
+  KEY `FK_T_CHAT_MESSAGE_person` (`person`),
+  KEY `FK_T_CHAT_MESSAGE_CHAT_ID` (`CHAT_ID`),
+  KEY `FK_T_CHAT_MESSAGE_chat` (`chat`),
+  CONSTRAINT `FK_T_CHAT_MESSAGE_chat` FOREIGN KEY (`chat`) REFERENCES `T_CHAT` (`CHAT_ID`),
+  CONSTRAINT `FK_T_CHAT_MESSAGE_CHAT_ID` FOREIGN KEY (`CHAT_ID`) REFERENCES `T_CHAT` (`CHAT_ID`),
+  CONSTRAINT `FK_T_CHAT_MESSAGE_person` FOREIGN KEY (`person`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CHAT_MESSAGE`
+--
+
+LOCK TABLES `T_CHAT_MESSAGE` WRITE;
+/*!40000 ALTER TABLE `T_CHAT_MESSAGE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CHAT_MESSAGE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CHAT_NOTIFY`
+--
+
+DROP TABLE IF EXISTS `T_CHAT_NOTIFY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CHAT_NOTIFY` (
+  `CHAT_NOTIFY_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MESSAGE_INDEX` bigint(20) DEFAULT NULL,
+  `NOTIFIEDUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CHAT_NOTIFY_ID`),
+  KEY `FK_T_CHAT_NOTIFY_NOTIFIEDUSER_BASIC_USER_ID` (`NOTIFIEDUSER_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_CHAT_NOTIFY_NOTIFIEDUSER_BASIC_USER_ID` FOREIGN KEY (`NOTIFIEDUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CHAT_NOTIFY`
+--
+
+LOCK TABLES `T_CHAT_NOTIFY` WRITE;
+/*!40000 ALTER TABLE `T_CHAT_NOTIFY` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CHAT_NOTIFY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CHAT_PERSON`
+--
+
+DROP TABLE IF EXISTS `T_CHAT_PERSON`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CHAT_PERSON` (
+  `CHAT_PERSON_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LEADER` bigint(20) DEFAULT NULL,
+  `PERSON_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `CHAT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CHAT_PERSON_ID`),
+  KEY `FK_T_CHAT_PERSON_CHAT_ID` (`CHAT_ID`),
+  KEY `FK_T_CHAT_PERSON_PERSON_BASIC_USER_ID` (`PERSON_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_CHAT_PERSON_PERSON_BASIC_USER_ID` FOREIGN KEY (`PERSON_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_CHAT_PERSON_CHAT_ID` FOREIGN KEY (`CHAT_ID`) REFERENCES `T_CHAT` (`CHAT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CHAT_PERSON`
+--
+
+LOCK TABLES `T_CHAT_PERSON` WRITE;
+/*!40000 ALTER TABLE `T_CHAT_PERSON` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CHAT_PERSON` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CLAIM`
+--
+
+DROP TABLE IF EXISTS `T_CLAIM`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CLAIM` (
+  `CLAIM_ID` bigint(20) NOT NULL,
+  `CLAIM_AMOUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CLAIM_REASON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `policy` bigint(20) DEFAULT NULL,
+  `POLICY_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CLAIM_ID`),
+  KEY `FK_T_CLAIM_POLICY_ID` (`POLICY_ID`),
+  KEY `FK_T_CLAIM_policy` (`policy`),
+  CONSTRAINT `FK_T_CLAIM_policy` FOREIGN KEY (`policy`) REFERENCES `T_POLICY` (`POLICY_ID`),
+  CONSTRAINT `FK_T_CLAIM_POLICY_ID` FOREIGN KEY (`POLICY_ID`) REFERENCES `T_POLICY` (`POLICY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CLAIM`
+--
+
+LOCK TABLES `T_CLAIM` WRITE;
+/*!40000 ALTER TABLE `T_CLAIM` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CLAIM` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CODE_TABLE`
+--
+
+DROP TABLE IF EXISTS `T_CODE_TABLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CODE_TABLE` (
+  `CODE_TABLE_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `IDS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PARENT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `app` bigint(20) DEFAULT NULL,
+  `APP_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CODE_TABLE_ID`),
+  KEY `FK_T_CODE_TABLE_app` (`app`),
+  KEY `FK_T_CODE_TABLE_APP_ID` (`APP_ID`),
+  CONSTRAINT `FK_T_CODE_TABLE_APP_ID` FOREIGN KEY (`APP_ID`) REFERENCES `T_APP` (`APP_ID`),
+  CONSTRAINT `FK_T_CODE_TABLE_app` FOREIGN KEY (`app`) REFERENCES `T_APP` (`APP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CODE_TABLE`
+--
+
+LOCK TABLES `T_CODE_TABLE` WRITE;
+/*!40000 ALTER TABLE `T_CODE_TABLE` DISABLE KEYS */;
+INSERT INTO `T_CODE_TABLE` VALUES (1,'2013-06-23 03:03:45','1;2','2013-06-23 03:03:45','ins-customer-type',NULL,NULL,NULL),(2,'2013-06-23 03:03:45','1;2;3','2013-06-23 03:03:45','ins-customer-status',NULL,NULL,NULL),(3,'2013-06-23 03:03:45','1;2','2013-06-23 03:03:45','serve-type',NULL,NULL,NULL),(4,'2013-06-23 03:03:45','1;2;3','2013-06-23 03:03:45','serve-priority',NULL,NULL,NULL),(5,'2013-06-23 03:03:45','1;2','2013-06-23 03:03:45','claim-status',NULL,NULL,NULL),(6,'2013-06-23 03:03:45','5;4;3;2;1','2013-06-23 03:03:45','company-level',NULL,NULL,NULL),(7,'2013-06-23 03:03:45','1;2','2013-06-23 03:03:45','yes-no',NULL,NULL,NULL),(8,'2013-06-23 03:03:45','1;2;3;4;5;6','2013-06-23 03:03:45','insurance-category',NULL,NULL,NULL),(9,'2013-06-23 03:03:35','1;2;3;4','2013-06-23 03:03:35','customer-type',NULL,NULL,NULL),(10,'2013-06-23 03:03:35','1;2;3;4','2013-06-23 03:03:35','customer-status',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `T_CODE_TABLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CODE_TABLE_VALUE`
+--
+
+DROP TABLE IF EXISTS `T_CODE_TABLE_VALUE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CODE_TABLE_VALUE` (
+  `CODE_TABLE_VALUE_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CODE_TABLE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DATAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LANGUAGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `codeTable` bigint(20) DEFAULT NULL,
+  `CODE_TABLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CODE_TABLE_VALUE_ID`),
+  KEY `FK_T_CODE_TABLE_VALUE_CODE_TABLE_ID` (`CODE_TABLE_ID`),
+  KEY `FK_T_CODE_TABLE_VALUE_codeTable` (`codeTable`),
+  CONSTRAINT `FK_T_CODE_TABLE_VALUE_codeTable` FOREIGN KEY (`codeTable`) REFERENCES `T_CODE_TABLE` (`CODE_TABLE_ID`),
+  CONSTRAINT `FK_T_CODE_TABLE_VALUE_CODE_TABLE_ID` FOREIGN KEY (`CODE_TABLE_ID`) REFERENCES `T_CODE_TABLE` (`CODE_TABLE_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CODE_TABLE_VALUE`
+--
+
+LOCK TABLES `T_CODE_TABLE_VALUE` WRITE;
+/*!40000 ALTER TABLE `T_CODE_TABLE_VALUE` DISABLE KEYS */;
+INSERT INTO `T_CODE_TABLE_VALUE` VALUES (1,'ins-customer-type','2013-06-23 03:03:45','企业客户;个人客户','zh','2013-06-23 03:03:45',NULL,NULL),(2,'ins-customer-type','2013-06-23 03:03:45','Company Customer;Individual Customer','en','2013-06-23 03:03:45',NULL,NULL),(3,'ins-customer-status','2013-06-23 03:03:45','已获得客户;潜在客户;失败客户','zh','2013-06-23 03:03:45',NULL,NULL),(4,'ins-customer-status','2013-06-23 03:03:45','Achieved;Potential;Failure','en','2013-06-23 03:03:45',NULL,NULL),(5,'serve-type','2013-06-23 03:03:45','电话访问;上门拜访','zh','2013-06-23 03:03:45',NULL,NULL),(6,'serve-type','2013-06-23 03:03:45','Call;Visit','en','2013-06-23 03:03:45',NULL,NULL),(7,'serve-priority','2013-06-23 03:03:45','高优先级;中优先级;低优先级','zh','2013-06-23 03:03:45',NULL,NULL),(8,'serve-priority','2013-06-23 03:03:45','High;Medium;Low','en','2013-06-23 03:03:45',NULL,NULL),(9,'claim-status','2013-06-23 03:03:45','理赔处理中;理赔完成','zh','2013-06-23 03:03:45',NULL,NULL),(10,'claim-status','2013-06-23 03:03:45','Claim in Process;Claim Achieved','en','2013-06-23 03:03:45',NULL,NULL),(11,'company-level','2013-06-23 03:03:45','5星级;4星级;3星级;2星级;1星级;','zh','2013-06-23 03:03:45',NULL,NULL),(12,'company-level','2013-06-23 03:03:45','5 Starts;4 Starts;3 Starts;2 Starts;1 Starts;','en','2013-06-23 03:03:45',NULL,NULL),(13,'yes-no','2013-06-23 03:03:45','需要;不需求','zh','2013-06-23 03:03:45',NULL,NULL),(14,'yes-no','2013-06-23 03:03:45','Yes;NO','en','2013-06-23 03:03:45',NULL,NULL),(15,'insurance-category','2013-06-23 03:03:45','车险;事故险;寿险;财产险;责任险;合同险','zh','2013-06-23 03:03:45',NULL,NULL),(16,'insurance-category','2013-06-23 03:03:45','Vehicle;Accident;Life;Property;Liability;Contract','en','2013-06-23 03:03:45',NULL,NULL),(17,'customer-type','2013-06-23 03:03:35','企业客户;个人客户','zh','2013-06-23 03:03:35',NULL,NULL),(18,'customer-type','2013-06-23 03:03:35','Company Customer;Individual Customer','en','2013-06-23 03:03:35',NULL,NULL),(19,'customer-status','2013-06-23 03:03:35','已获得客户;潜在客户;失败客户;关闭','zh','2013-06-23 03:03:35',NULL,NULL),(20,'customer-status','2013-06-23 03:03:35','Achieved;Potential;Failure;Close','en','2013-06-23 03:03:35',NULL,NULL);
+/*!40000 ALTER TABLE `T_CODE_TABLE_VALUE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_COMMENT`
+--
+
+DROP TABLE IF EXISTS `T_COMMENT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_COMMENT` (
+  `COMMENT_ID` bigint(20) NOT NULL,
+  `CONTENT` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `discuss` bigint(20) DEFAULT NULL,
+  `status` bigint(20) DEFAULT NULL,
+  `todo` bigint(20) DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `DISCUSS_ID` bigint(20) DEFAULT NULL,
+  `STATUS_ID` bigint(20) DEFAULT NULL,
+  `TO_DO_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`COMMENT_ID`),
+  KEY `FK_T_COMMENT_status` (`status`),
+  KEY `FK_T_COMMENT_DISCUSS_ID` (`DISCUSS_ID`),
+  KEY `FK_T_COMMENT_TO_DO_ID` (`TO_DO_ID`),
+  KEY `FK_T_COMMENT_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  KEY `FK_T_COMMENT_STATUS_ID` (`STATUS_ID`),
+  KEY `FK_T_COMMENT_todo` (`todo`),
+  KEY `FK_T_COMMENT_discuss` (`discuss`),
+  CONSTRAINT `FK_T_COMMENT_discuss` FOREIGN KEY (`discuss`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_COMMENT_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_COMMENT_DISCUSS_ID` FOREIGN KEY (`DISCUSS_ID`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_COMMENT_status` FOREIGN KEY (`status`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_COMMENT_STATUS_ID` FOREIGN KEY (`STATUS_ID`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_COMMENT_todo` FOREIGN KEY (`todo`) REFERENCES `T_ToDO` (`TO_DO_ID`),
+  CONSTRAINT `FK_T_COMMENT_TO_DO_ID` FOREIGN KEY (`TO_DO_ID`) REFERENCES `T_ToDO` (`TO_DO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_COMMENT`
+--
+
+LOCK TABLES `T_COMMENT` WRITE;
+/*!40000 ALTER TABLE `T_COMMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_COMMENT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_COMMERCE_CUSTOMER`
+--
+
+DROP TABLE IF EXISTS `T_COMMERCE_CUSTOMER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_COMMERCE_CUSTOMER` (
+  `COMMERCE_CUSTOMER_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONTECT_PERSON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CUSTOMER_TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FAX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOBILE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PHONE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REFERUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`COMMERCE_CUSTOMER_ID`),
+  KEY `FK_T_COMMERCE_CUSTOMER_REFERUSER_BASIC_USER_ID` (`REFERUSER_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_COMMERCE_CUSTOMER_REFERUSER_BASIC_USER_ID` FOREIGN KEY (`REFERUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_COMMERCE_CUSTOMER`
+--
+
+LOCK TABLES `T_COMMERCE_CUSTOMER` WRITE;
+/*!40000 ALTER TABLE `T_COMMERCE_CUSTOMER` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_COMMERCE_CUSTOMER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_COMMERCE_PRODUCT`
+--
+
+DROP TABLE IF EXISTS `T_COMMERCE_PRODUCT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_COMMERCE_PRODUCT` (
+  `COMMERCE_PRODUCT_ID` bigint(20) NOT NULL,
+  `BRAND` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COLOR` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRODUCT_CODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRODUCT_IMAGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRODUCT_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SALE_PRICE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SPEC` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UNIT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `supplier` bigint(20) DEFAULT NULL,
+  `STOCKPRODUCT_STOCK_PRODUCT_ID` bigint(20) DEFAULT NULL,
+  `SUPPLIER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`COMMERCE_PRODUCT_ID`),
+  KEY `T_COMMERCE_PRODUCT_STOCKPRODUCT_STOCK_PRODUCT_ID` (`STOCKPRODUCT_STOCK_PRODUCT_ID`),
+  KEY `FK_T_COMMERCE_PRODUCT_supplier` (`supplier`),
+  KEY `FK_T_COMMERCE_PRODUCT_SUPPLIER_ID` (`SUPPLIER_ID`),
+  CONSTRAINT `FK_T_COMMERCE_PRODUCT_SUPPLIER_ID` FOREIGN KEY (`SUPPLIER_ID`) REFERENCES `T_SUPPLIER` (`SUPPLIER_ID`),
+  CONSTRAINT `FK_T_COMMERCE_PRODUCT_supplier` FOREIGN KEY (`supplier`) REFERENCES `T_SUPPLIER` (`SUPPLIER_ID`),
+  CONSTRAINT `T_COMMERCE_PRODUCT_STOCKPRODUCT_STOCK_PRODUCT_ID` FOREIGN KEY (`STOCKPRODUCT_STOCK_PRODUCT_ID`) REFERENCES `T_STOCK_PRODUCT` (`STOCK_PRODUCT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_COMMERCE_PRODUCT`
+--
+
+LOCK TABLES `T_COMMERCE_PRODUCT` WRITE;
+/*!40000 ALTER TABLE `T_COMMERCE_PRODUCT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_COMMERCE_PRODUCT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_CONTACT`
+--
+
+DROP TABLE IF EXISTS `T_CONTACT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_CONTACT` (
+  `CONTACT_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CATEGORY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COMMISSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_CONTEXT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PREMIUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `USER_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CAMPAINGNS_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`CONTACT_ID`),
+  KEY `FK_T_CONTACT_CAMPAINGNS_ID` (`CAMPAINGNS_ID`),
+  CONSTRAINT `FK_T_CONTACT_CAMPAINGNS_ID` FOREIGN KEY (`CAMPAINGNS_ID`) REFERENCES `T_CAMPAINGNS` (`CAMPAINGNS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_CONTACT`
+--
+
+LOCK TABLES `T_CONTACT` WRITE;
+/*!40000 ALTER TABLE `T_CONTACT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_CONTACT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_DISCUSS`
+--
+
+DROP TABLE IF EXISTS `T_DISCUSS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_DISCUSS` (
+  `DISCUSS_ID` bigint(20) NOT NULL,
+  `CONTENT` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TITLE` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`DISCUSS_ID`),
+  KEY `FK_T_DISCUSS_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_DISCUSS_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_DISCUSS`
+--
+
+LOCK TABLES `T_DISCUSS` WRITE;
+/*!40000 ALTER TABLE `T_DISCUSS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_DISCUSS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_EMAIL`
+--
+
+DROP TABLE IF EXISTS `T_EMAIL`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_EMAIL` (
+  `EMAIL_ID` bigint(20) NOT NULL,
+  `CATEGORY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COMMISSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EFFECTIVE_DATE` date DEFAULT NULL,
+  `EMAIL_ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_CONTEXT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EXPIRY_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PREMIUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REFERUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `CAMPAINGNS_ID` bigint(20) DEFAULT NULL,
+  `CONTACT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`EMAIL_ID`),
+  KEY `FK_T_EMAIL_CONTACT_ID` (`CONTACT_ID`),
+  KEY `FK_T_EMAIL_REFERUSER_BASIC_USER_ID` (`REFERUSER_BASIC_USER_ID`),
+  KEY `FK_T_EMAIL_CAMPAINGNS_ID` (`CAMPAINGNS_ID`),
+  CONSTRAINT `FK_T_EMAIL_CAMPAINGNS_ID` FOREIGN KEY (`CAMPAINGNS_ID`) REFERENCES `T_CAMPAINGNS` (`CAMPAINGNS_ID`),
+  CONSTRAINT `FK_T_EMAIL_CONTACT_ID` FOREIGN KEY (`CONTACT_ID`) REFERENCES `T_CONTACT` (`CONTACT_ID`),
+  CONSTRAINT `FK_T_EMAIL_REFERUSER_BASIC_USER_ID` FOREIGN KEY (`REFERUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_EMAIL`
+--
+
+LOCK TABLES `T_EMAIL` WRITE;
+/*!40000 ALTER TABLE `T_EMAIL` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_EMAIL` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FACEBOOK_FRIEND`
+--
+
+DROP TABLE IF EXISTS `T_FACEBOOK_FRIEND`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FACEBOOK_FRIEND` (
+  `FACEBOOK_FRIEND_ID` bigint(20) NOT NULL,
+  `ABOUT_ME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ACTIVITIES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ALLOWED_RESTRICTIONS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BIRTHDAY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BOOKS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONTACT_EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CURRENCY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FIRST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FRIEND_COUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GAMES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HAS_TIMELINE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HOMETOWN_LOCATION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INTERESTS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LAST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LIKES_COUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LOCALE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MEETING_FOR` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MEETING_SEX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MIDDLE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOVIES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MUSIC` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MUTUAL_FRIEND_COUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NOTES_COUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ONLINE_PRESENCE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PAYMENT_PRICEPOINTS` text COLLATE utf8_unicode_ci,
+  `PIC` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PIC_SMALL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POLITICAL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROFILE_BLURB` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROFILE_UPDATE_TIME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROFILE_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `QUOTES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RELATIONSHIP_STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RELIGION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SECURITY_SETTINGS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SEX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SUBSCRIBER_COUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `THIRD_PARTY_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TIMEZONE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TV` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VIEWER_CAN_SEND_GIFT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `WEBSITE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CURRENTADDRESS_FB_FRIEND_CURRENT_ADDRESS_ID` bigint(20) DEFAULT NULL,
+  `CURRENTLOCATION_FB_FRIEND_CURRENT_LOCATION_ID` bigint(20) DEFAULT NULL,
+  `SOICAL_APP_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FACEBOOK_FRIEND_ID`),
+  KEY `TFCBOOKFRIENDCRRENTADDRESSFBFRIENDCURRENTADDRESSID` (`CURRENTADDRESS_FB_FRIEND_CURRENT_ADDRESS_ID`),
+  KEY `FK_T_FACEBOOK_FRIEND_SOICAL_APP_ID` (`SOICAL_APP_ID`),
+  KEY `TFCBOKFRIENDCRRNTLOCATIONFBFRIENDCURRENTLOCATIONID` (`CURRENTLOCATION_FB_FRIEND_CURRENT_LOCATION_ID`),
+  CONSTRAINT `FK_T_FACEBOOK_FRIEND_SOICAL_APP_ID` FOREIGN KEY (`SOICAL_APP_ID`) REFERENCES `T_SOICAL_APP` (`SOICAL_APP_ID`),
+  CONSTRAINT `TFCBOKFRIENDCRRNTLOCATIONFBFRIENDCURRENTLOCATIONID` FOREIGN KEY (`CURRENTLOCATION_FB_FRIEND_CURRENT_LOCATION_ID`) REFERENCES `T_FB_FRIEND_CURRENT_LOCATION` (`FB_FRIEND_CURRENT_LOCATION_ID`),
+  CONSTRAINT `TFCBOOKFRIENDCRRENTADDRESSFBFRIENDCURRENTADDRESSID` FOREIGN KEY (`CURRENTADDRESS_FB_FRIEND_CURRENT_ADDRESS_ID`) REFERENCES `T_FB_FRIEND_CURRENT_ADDRESS` (`FB_FRIEND_CURRENT_ADDRESS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FACEBOOK_FRIEND`
+--
+
+LOCK TABLES `T_FACEBOOK_FRIEND` WRITE;
+/*!40000 ALTER TABLE `T_FACEBOOK_FRIEND` DISABLE KEYS */;
+INSERT INTO `T_FACEBOOK_FRIEND` VALUES (141,'','','alcohol',NULL,'',NULL,'2014-03-02 18:54:29','{\"usd_exchange_inverse\":6.2178811463,\"currency_exchange\":1.6082649,\"user_currency\":\"CNY\",\"currency_offset\":100,\"currency_exchange_inverse\":0.6217881146,\"usd_exchange\":0.16082649}',NULL,'Zhaoone','1','','true','{\"id\":106324046073002,\"zip\":\"\",\"name\":\"Shanghai, China\",\"state\":\"Shanghai\",\"longitude\":121.5,\"latitude\":31.2,\"country\":\"China\",\"city\":\"Shanghai\"}','','2014-03-02 18:54:29','Vance',NULL,'zh_CN',NULL,NULL,'','','','0','Zhaoone  Vance',NULL,'offline',NULL,'https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v1/yh/r/C5yt7Cqf3zU.jpg','https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v1/yi/r/odA9sNLrE86.jpg',NULL,'','1393757636','https://www.facebook.com/zhaoone.vance','',NULL,NULL,NULL,'male','0','kYIBDbAViqqkcI3rmVKMSKcPEV4',NULL,'','100007920000798','false',NULL,NULL,141,26);
+/*!40000 ALTER TABLE `T_FACEBOOK_FRIEND` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_CURRENT_ADDRESS`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_CURRENT_ADDRESS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_CURRENT_ADDRESS` (
+  `FB_FRIEND_CURRENT_ADDRESS_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CITY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COUNTRY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LATITUDE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LOCATED_IN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LONGITUDE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REGION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STREET` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ZIP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_CURRENT_ADDRESS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_CURRENT_ADDRESS`
+--
+
+LOCK TABLES `T_FB_FRIEND_CURRENT_ADDRESS` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_CURRENT_ADDRESS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FB_FRIEND_CURRENT_ADDRESS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_CURRENT_LOCATION`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_CURRENT_LOCATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_CURRENT_LOCATION` (
+  `FB_FRIEND_CURRENT_LOCATION_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CITY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COUNTRY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LATITUDE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LOCATED_IN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LONGITUDE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REGION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STREET` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ZIP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_CURRENT_LOCATION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_CURRENT_LOCATION`
+--
+
+LOCK TABLES `T_FB_FRIEND_CURRENT_LOCATION` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_CURRENT_LOCATION` DISABLE KEYS */;
+INSERT INTO `T_FB_FRIEND_CURRENT_LOCATION` VALUES (1,NULL,NULL,NULL,'2014-03-01 02:06:51',NULL,'2014-03-01 02:06:51',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,NULL,NULL,NULL,'2014-03-01 02:51:53',NULL,'2014-03-01 02:51:53',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(3,NULL,NULL,NULL,'2014-03-01 10:26:15',NULL,'2014-03-01 10:26:15',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(4,NULL,NULL,NULL,'2014-03-01 11:14:56',NULL,'2014-03-01 11:14:56',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,NULL,NULL,NULL,'2014-03-01 11:54:31',NULL,'2014-03-01 11:54:31',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,NULL,NULL,NULL,'2014-03-01 11:54:44',NULL,'2014-03-01 11:54:44',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,NULL,NULL,NULL,'2014-03-01 11:57:11',NULL,'2014-03-01 11:57:11',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,NULL,NULL,NULL,'2014-03-02 00:52:43',NULL,'2014-03-02 00:52:43',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,NULL,NULL,NULL,'2014-03-02 00:52:45',NULL,'2014-03-02 00:52:45',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(10,NULL,NULL,NULL,'2014-03-02 00:52:45',NULL,'2014-03-02 00:52:45',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(11,NULL,NULL,NULL,'2014-03-02 00:54:32',NULL,'2014-03-02 00:54:32',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,NULL,NULL,NULL,'2014-03-02 00:54:33',NULL,'2014-03-02 00:54:33',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(13,NULL,NULL,NULL,'2014-03-02 00:54:33',NULL,'2014-03-02 00:54:33',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(14,NULL,NULL,NULL,'2014-03-02 01:53:46',NULL,'2014-03-02 01:53:46',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(15,NULL,NULL,NULL,'2014-03-02 02:07:58',NULL,'2014-03-02 02:07:58',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(16,NULL,NULL,NULL,'2014-03-02 02:15:03',NULL,'2014-03-02 02:15:03',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(17,NULL,NULL,NULL,'2014-03-02 02:15:05',NULL,'2014-03-02 02:15:05',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(18,NULL,NULL,NULL,'2014-03-02 02:15:05',NULL,'2014-03-02 02:15:05',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(19,NULL,NULL,NULL,'2014-03-02 02:16:02',NULL,'2014-03-02 02:16:02',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(20,NULL,NULL,NULL,'2014-03-02 02:16:03',NULL,'2014-03-02 02:16:03',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(21,NULL,NULL,NULL,'2014-03-02 02:16:03',NULL,'2014-03-02 02:16:03',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(22,NULL,NULL,NULL,'2014-03-02 02:51:21',NULL,'2014-03-02 02:51:21',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(23,NULL,NULL,NULL,'2014-03-02 03:20:21',NULL,'2014-03-02 03:20:21',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(24,NULL,NULL,NULL,'2014-03-02 03:20:23',NULL,'2014-03-02 03:20:23',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(25,NULL,NULL,NULL,'2014-03-02 03:20:23',NULL,'2014-03-02 03:20:23',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(26,NULL,NULL,NULL,'2014-03-02 03:20:26',NULL,'2014-03-02 03:20:26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(27,NULL,NULL,NULL,'2014-03-02 03:25:51',NULL,'2014-03-02 03:25:51',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(28,NULL,NULL,NULL,'2014-03-02 03:25:52',NULL,'2014-03-02 03:25:52',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(30,NULL,NULL,NULL,'2014-03-02 03:26:33',NULL,'2014-03-02 03:26:33',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(47,NULL,NULL,NULL,'2014-03-02 13:35:11',NULL,'2014-03-02 13:35:11',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(48,NULL,NULL,NULL,'2014-03-02 13:35:16',NULL,'2014-03-02 13:35:16',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(49,NULL,NULL,NULL,'2014-03-02 13:35:16',NULL,'2014-03-02 13:35:16',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(50,NULL,NULL,NULL,'2014-03-02 13:35:20',NULL,'2014-03-02 13:35:20',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(51,NULL,NULL,NULL,'2014-03-02 13:35:20',NULL,'2014-03-02 13:35:20',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(52,NULL,NULL,NULL,'2014-03-02 13:35:20',NULL,'2014-03-02 13:35:20',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(53,NULL,NULL,NULL,'2014-03-02 13:35:24',NULL,'2014-03-02 13:35:24',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(54,NULL,NULL,NULL,'2014-03-02 13:35:24',NULL,'2014-03-02 13:35:24',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(55,NULL,NULL,NULL,'2014-03-02 13:35:24',NULL,'2014-03-02 13:35:24',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(56,NULL,NULL,NULL,'2014-03-02 13:35:24',NULL,'2014-03-02 13:35:24',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(57,NULL,NULL,NULL,'2014-03-02 13:35:25',NULL,'2014-03-02 13:35:25',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(58,NULL,NULL,NULL,'2014-03-02 13:35:25',NULL,'2014-03-02 13:35:25',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(59,NULL,NULL,NULL,'2014-03-02 13:35:25',NULL,'2014-03-02 13:35:25',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(60,NULL,NULL,NULL,'2014-03-02 13:35:25',NULL,'2014-03-02 13:35:25',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(61,NULL,NULL,NULL,'2014-03-02 13:35:25',NULL,'2014-03-02 13:35:25',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(62,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(63,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(64,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(65,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(66,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(67,NULL,NULL,NULL,'2014-03-02 13:35:30',NULL,'2014-03-02 13:35:30',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(68,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(69,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(70,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(71,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(72,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(73,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(74,NULL,NULL,NULL,'2014-03-02 13:35:34',NULL,'2014-03-02 13:35:34',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(75,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(76,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(77,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(78,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(79,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(80,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(81,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(82,NULL,NULL,NULL,'2014-03-02 13:35:41',NULL,'2014-03-02 13:35:41',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(83,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(84,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(85,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(86,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(87,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(88,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(89,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(90,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(91,NULL,NULL,NULL,'2014-03-02 13:35:46',NULL,'2014-03-02 13:35:46',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(92,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(93,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(94,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(95,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(96,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(97,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(98,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(99,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(100,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(101,NULL,NULL,NULL,'2014-03-02 13:35:47',NULL,'2014-03-02 13:35:47',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(104,NULL,NULL,NULL,'2014-03-02 14:59:26',NULL,'2014-03-02 14:59:26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(105,NULL,NULL,NULL,'2014-03-02 15:01:52',NULL,'2014-03-02 15:01:52',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(106,NULL,NULL,NULL,'2014-03-02 15:01:55',NULL,'2014-03-02 15:01:55',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(107,NULL,NULL,NULL,'2014-03-02 15:15:53',NULL,'2014-03-02 15:15:53',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(108,NULL,NULL,NULL,'2014-03-02 15:16:26',NULL,'2014-03-02 15:16:26',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(109,NULL,NULL,NULL,'2014-03-02 15:24:39',NULL,'2014-03-02 15:24:39',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(110,NULL,NULL,NULL,'2014-03-02 15:26:38',NULL,'2014-03-02 15:26:38',NULL,NULL,NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,NULL,NULL),(111,NULL,NULL,NULL,'2014-03-02 15:36:23',NULL,'2014-03-02 15:36:23',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(112,NULL,NULL,NULL,'2014-03-02 15:43:32',NULL,'2014-03-02 15:43:32',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(113,NULL,NULL,NULL,'2014-03-02 15:48:16',NULL,'2014-03-02 15:48:16',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(114,NULL,NULL,NULL,'2014-03-02 15:49:07',NULL,'2014-03-02 15:49:07',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(115,NULL,NULL,NULL,'2014-03-02 15:49:34',NULL,'2014-03-02 15:49:34',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(120,NULL,NULL,NULL,'2014-03-02 16:39:04',NULL,'2014-03-02 16:39:04',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(122,NULL,NULL,NULL,'2014-03-02 16:41:56',NULL,'2014-03-02 16:41:56',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(123,NULL,NULL,NULL,'2014-03-02 16:50:32',NULL,'2014-03-02 16:50:32',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(124,NULL,NULL,NULL,'2014-03-02 16:58:10',NULL,'2014-03-02 16:58:10',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(125,NULL,NULL,NULL,'2014-03-02 16:59:51',NULL,'2014-03-02 16:59:51',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(126,NULL,NULL,NULL,'2014-03-02 17:04:19',NULL,'2014-03-02 17:04:19',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(127,NULL,NULL,NULL,'2014-03-02 17:08:57',NULL,'2014-03-02 17:08:57',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(128,NULL,NULL,NULL,'2014-03-02 17:09:45',NULL,'2014-03-02 17:09:45',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(130,NULL,NULL,NULL,'2014-03-02 17:19:13',NULL,'2014-03-02 17:19:13',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(131,NULL,NULL,NULL,'2014-03-02 17:19:48',NULL,'2014-03-02 17:19:48',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(135,NULL,NULL,NULL,'2014-03-02 17:42:24',NULL,'2014-03-02 17:42:24',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(139,NULL,NULL,NULL,'2014-03-02 18:41:49',NULL,'2014-03-02 18:41:49',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL),(141,NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,'Buenos Aires, Argentina',NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `T_FB_FRIEND_CURRENT_LOCATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_EDUCTION`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_EDUCTION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_EDUCTION` (
+  `FB_FRIEND_EDUCTION_ID` bigint(20) NOT NULL,
+  `CLASSES_DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CLASSES_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CLASSES_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONCENTRATION_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONCENTRATION_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DEGREE_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DEGREE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FROM_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FROM_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `SHCOOL_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SHCOOL_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `WITH_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `WITH_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `YEAR_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `YEAR_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FACEBOOK_FRIEND_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_EDUCTION_ID`),
+  KEY `FK_T_FB_FRIEND_EDUCTION_FACEBOOK_FRIEND_ID` (`FACEBOOK_FRIEND_ID`),
+  CONSTRAINT `FK_T_FB_FRIEND_EDUCTION_FACEBOOK_FRIEND_ID` FOREIGN KEY (`FACEBOOK_FRIEND_ID`) REFERENCES `T_FACEBOOK_FRIEND` (`FACEBOOK_FRIEND_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_EDUCTION`
+--
+
+LOCK TABLES `T_FB_FRIEND_EDUCTION` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_EDUCTION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FB_FRIEND_EDUCTION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_LANGUAGE`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_LANGUAGE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_LANGUAGE` (
+  `FB_FRIEND_LANGUAGE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LANGUAGE_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FACEBOOK_FRIEND_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_LANGUAGE_ID`),
+  KEY `FK_T_FB_FRIEND_LANGUAGE_FACEBOOK_FRIEND_ID` (`FACEBOOK_FRIEND_ID`),
+  CONSTRAINT `FK_T_FB_FRIEND_LANGUAGE_FACEBOOK_FRIEND_ID` FOREIGN KEY (`FACEBOOK_FRIEND_ID`) REFERENCES `T_FACEBOOK_FRIEND` (`FACEBOOK_FRIEND_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_LANGUAGE`
+--
+
+LOCK TABLES `T_FB_FRIEND_LANGUAGE` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_LANGUAGE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FB_FRIEND_LANGUAGE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_PROJECT`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_PROJECT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_PROJECT` (
+  `FB_FRIEND_PROJECT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `END_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `START_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FB_FRIEND_WORK_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_PROJECT_ID`),
+  KEY `FK_T_FB_FRIEND_PROJECT_FB_FRIEND_WORK_ID` (`FB_FRIEND_WORK_ID`),
+  CONSTRAINT `FK_T_FB_FRIEND_PROJECT_FB_FRIEND_WORK_ID` FOREIGN KEY (`FB_FRIEND_WORK_ID`) REFERENCES `T_FB_FRIEND_WORK` (`FB_FRIEND_WORK_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_PROJECT`
+--
+
+LOCK TABLES `T_FB_FRIEND_PROJECT` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_PROJECT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FB_FRIEND_PROJECT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_SPORT`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_SPORT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_SPORT` (
+  `FB_FRIEND_SPORT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FACEBOOK_FRIEND_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_SPORT_ID`),
+  KEY `FK_T_FB_FRIEND_SPORT_FACEBOOK_FRIEND_ID` (`FACEBOOK_FRIEND_ID`),
+  CONSTRAINT `FK_T_FB_FRIEND_SPORT_FACEBOOK_FRIEND_ID` FOREIGN KEY (`FACEBOOK_FRIEND_ID`) REFERENCES `T_FACEBOOK_FRIEND` (`FACEBOOK_FRIEND_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_SPORT`
+--
+
+LOCK TABLES `T_FB_FRIEND_SPORT` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_SPORT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FB_FRIEND_SPORT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FB_FRIEND_WORK`
+--
+
+DROP TABLE IF EXISTS `T_FB_FRIEND_WORK`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FB_FRIEND_WORK` (
+  `FB_FRIEND_WORK_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYER_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYER_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `END_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FROM_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FROM_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LOCATION_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LOCATION_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTION_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTION_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `START_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FACEBOOK_FRIEND_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FB_FRIEND_WORK_ID`),
+  KEY `FK_T_FB_FRIEND_WORK_FACEBOOK_FRIEND_ID` (`FACEBOOK_FRIEND_ID`),
+  CONSTRAINT `FK_T_FB_FRIEND_WORK_FACEBOOK_FRIEND_ID` FOREIGN KEY (`FACEBOOK_FRIEND_ID`) REFERENCES `T_FACEBOOK_FRIEND` (`FACEBOOK_FRIEND_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FB_FRIEND_WORK`
+--
+
+LOCK TABLES `T_FB_FRIEND_WORK` WRITE;
+/*!40000 ALTER TABLE `T_FB_FRIEND_WORK` DISABLE KEYS */;
+INSERT INTO `T_FB_FRIEND_WORK` VALUES (583,'2014-03-02 18:54:29',NULL,NULL,'Ops',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(584,'2014-03-02 18:54:29',NULL,NULL,'Sindh Agriculture University',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Tando Jam',NULL,NULL,'0000-00',141),(585,'2014-03-02 18:54:29',NULL,NULL,'StarCite, Inc',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(586,'2014-03-02 18:54:29',NULL,NULL,'SITA',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(587,'2014-03-02 18:54:29',NULL,NULL,'SINAR',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(588,'2014-03-02 18:54:29',NULL,NULL,'Douban',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(589,'2014-03-02 18:54:29',NULL,NULL,'New Brunswick',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(590,'2014-03-02 18:54:29',NULL,NULL,'Avaaz',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'New York, New York',NULL,NULL,'0000-00',141),(591,'2014-03-02 18:54:29',NULL,NULL,'ITK Albania',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Tirana, Albania',NULL,NULL,'0000-00',141),(592,'2014-03-02 18:54:29',NULL,NULL,'Claro Argentina',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Buenos Aires, Argentina',NULL,NULL,'0000-00',141),(593,'2014-03-02 18:54:29',NULL,NULL,'Bowness High School',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Calgary, Alberta',NULL,NULL,'0000-00',141),(594,'2014-03-02 18:54:29',NULL,NULL,'Gf',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(595,'2014-03-02 18:54:29',NULL,NULL,'YouKu',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(596,'2014-03-02 18:54:29',NULL,NULL,'Double Door',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Chicago, Illinois',NULL,NULL,'0000-00',141),(597,'2014-03-02 18:54:29',NULL,NULL,'Wake Forest University School of Medicine',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Winston-Salem, North Carolina',NULL,NULL,'0000-00',141),(598,'2014-03-02 18:54:29',NULL,NULL,'Java',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(599,'2014-03-02 18:54:29',NULL,NULL,'Kappa Delta',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(600,'2014-03-02 18:54:29',NULL,NULL,'Dafiti',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(601,'2014-03-02 18:54:29',NULL,NULL,'Louis',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(602,'2014-03-02 18:54:29',NULL,NULL,'С(А)ФУ',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Arkhangelsk, Russia',NULL,NULL,'0000-00',141),(603,'2014-03-02 18:54:29',NULL,NULL,'City College of San Francisco',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'San Francisco, California',NULL,NULL,'0000-00',141),(604,'2014-03-02 18:54:29',NULL,NULL,'Yahoo',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Sunnyvale, California',NULL,NULL,'0000-00',141),(605,'2014-03-02 18:54:29',NULL,NULL,'Soas',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'London, United Kingdom',NULL,NULL,'0000-00',141),(606,'2014-03-02 18:54:29',NULL,NULL,'Americas High School',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'San Antonio, Texas',NULL,NULL,'0000-00',141),(607,'2014-03-02 18:54:29',NULL,NULL,'University of Sfax',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(608,'2014-03-02 18:54:29',NULL,NULL,'Nina, Le Parfum',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,NULL,NULL,NULL,'0000-00',141),(609,'2014-03-02 18:54:29',NULL,NULL,'Webtretho',NULL,NULL,NULL,'2014-03-02 18:54:29',NULL,'Ho Chi Minh City, Vietnam',NULL,NULL,'0000-00',141);
+/*!40000 ALTER TABLE `T_FB_FRIEND_WORK` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_FILE`
+--
+
+DROP TABLE IF EXISTS `T_FILE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_FILE` (
+  `FILE_ID` bigint(20) NOT NULL,
+  `ACCOUNT_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `FILE_TYPE` bigint(20) DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PARENT_I_D` bigint(20) DEFAULT NULL,
+  `PATH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PHYSICAL_TYPE` bigint(20) DEFAULT NULL,
+  `SHARE_DATE` date DEFAULT NULL,
+  `SHARE_KEY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SIZE` bigint(20) DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`FILE_ID`),
+  KEY `FK_T_FILE_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_FILE_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_FILE`
+--
+
+LOCK TABLES `T_FILE` WRITE;
+/*!40000 ALTER TABLE `T_FILE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_FILE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_INSURANCE_COMPANY`
+--
+
+DROP TABLE IF EXISTS `T_INSURANCE_COMPANY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_INSURANCE_COMPANY` (
+  `INSURANCE_COMPANY_ID` bigint(20) NOT NULL,
+  `COMPANY_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LEVEL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`INSURANCE_COMPANY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_INSURANCE_COMPANY`
+--
+
+LOCK TABLES `T_INSURANCE_COMPANY` WRITE;
+/*!40000 ALTER TABLE `T_INSURANCE_COMPANY` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_INSURANCE_COMPANY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_INSURANCE_CUSTOMER`
+--
+
+DROP TABLE IF EXISTS `T_INSURANCE_CUSTOMER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_INSURANCE_CUSTOMER` (
+  `INSURANCE_CUSTOMER_ID` bigint(20) NOT NULL,
+  `ACCOUNT_BANK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ACCOUNT_MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ACCOUNT_NUMBER` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ACCOUNT_PERSON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONTECT_PERSON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CUSTOMER_TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FAX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FB_PROFILE_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LINKEDIN_PROFILE_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOBILE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `OTHER_PROFILE_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PHONE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AGENT_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `REFERUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`INSURANCE_CUSTOMER_ID`),
+  KEY `FK_T_INSURANCE_CUSTOMER_AGENT_BASIC_USER_ID` (`AGENT_BASIC_USER_ID`),
+  KEY `FK_T_INSURANCE_CUSTOMER_REFERUSER_BASIC_USER_ID` (`REFERUSER_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_INSURANCE_CUSTOMER_REFERUSER_BASIC_USER_ID` FOREIGN KEY (`REFERUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_INSURANCE_CUSTOMER_AGENT_BASIC_USER_ID` FOREIGN KEY (`AGENT_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_INSURANCE_CUSTOMER`
+--
+
+LOCK TABLES `T_INSURANCE_CUSTOMER` WRITE;
+/*!40000 ALTER TABLE `T_INSURANCE_CUSTOMER` DISABLE KEYS */;
+INSERT INTO `T_INSURANCE_CUSTOMER` VALUES (39,'Bank Of Shanghai','null',' 12345678','vancezhao@gmail.com','shanghai','vancezhao@gmail.com','2014-03-02 03:25:49','customer','shanghai','vancezhao@gmail.com','123456','https://www.facebook.com/vance.zhao','2014-03-02 03:25:49','http://cn.linkedin.com/pub/vance-zhao/14/393/909/','null','08613564444827','vance','null','08613564444827','200442','avaiable',-2,NULL),(40,'Bank Of Shanghai','null',' 12345678','rain@gmail.com','shanghai','rain@gmail.com','2014-03-02 03:25:51','customer','shanghai','rain@gmail.com','123456','http://www.facebook.com/mystoprain','2014-03-02 03:25:51','http://cn.linkedin.com/pub/vance-zhao/14/393/909/','null','08613564444827','Rain','null','08613564444827','200442','avaiable',-2,NULL),(41,'Bank Of Shanghai','null',' 12345678','rain@gmail.com','shanghai','vk@gmail.com','2014-03-02 03:25:51','customer','shanghai','vk@gmail.com','123456','https://www.facebook.com/zhaoone.vance','2014-03-02 03:25:51','http://cn.linkedin.com/pub/vance-zhao/14/393/909/','null','08613564444827','vk',NULL,'08613564444827','200442','avaiable',-2,NULL),(42,'Bank Of Shanghai','null',' 12345678','rain@gmail.com','shanghai','vk@gmail.com','2014-03-02 13:39:59','customer','shanghai','vk@gmail.com','123456','https://www.facebook.com/zhaoone.vance','2014-03-02 13:39:59','http://cn.linkedin.com/pub/vance-zhao/14/393/909/','null','08613564444827','vk',NULL,'08613564444827','200442','avaiable',-2,NULL);
+/*!40000 ALTER TABLE `T_INSURANCE_CUSTOMER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_INSURANCE_CUSTOMER_SERVE`
+--
+
+DROP TABLE IF EXISTS `T_INSURANCE_CUSTOMER_SERVE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_INSURANCE_CUSTOMER_SERVE` (
+  `INSURANCE_CUSTOMER_SERVE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DATE` date DEFAULT NULL,
+  `FEEDBACK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRIORITY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RESULT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer` bigint(20) DEFAULT NULL,
+  `INSURANCE_CUSTOMER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`INSURANCE_CUSTOMER_SERVE_ID`),
+  KEY `FK_T_INSURANCE_CUSTOMER_SERVE_customer` (`customer`),
+  KEY `T_INSURANCE_CUSTOMER_SERVE_INSURANCE_CUSTOMER_ID` (`INSURANCE_CUSTOMER_ID`),
+  CONSTRAINT `T_INSURANCE_CUSTOMER_SERVE_INSURANCE_CUSTOMER_ID` FOREIGN KEY (`INSURANCE_CUSTOMER_ID`) REFERENCES `T_INSURANCE_CUSTOMER` (`INSURANCE_CUSTOMER_ID`),
+  CONSTRAINT `FK_T_INSURANCE_CUSTOMER_SERVE_customer` FOREIGN KEY (`customer`) REFERENCES `T_INSURANCE_CUSTOMER` (`INSURANCE_CUSTOMER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_INSURANCE_CUSTOMER_SERVE`
+--
+
+LOCK TABLES `T_INSURANCE_CUSTOMER_SERVE` WRITE;
+/*!40000 ALTER TABLE `T_INSURANCE_CUSTOMER_SERVE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_INSURANCE_CUSTOMER_SERVE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_INSURANCE_PRODUCT`
+--
+
+DROP TABLE IF EXISTS `T_INSURANCE_PRODUCT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_INSURANCE_PRODUCT` (
+  `INSURANCE_PRODUCT_ID` bigint(20) NOT NULL,
+  `CATEGORY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COMMISSION_RATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `PRODUCT_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RENEWAL_REMIND` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `insuranceCompany` bigint(20) DEFAULT NULL,
+  `INSURANCE_COMPANY_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`INSURANCE_PRODUCT_ID`),
+  KEY `FK_T_INSURANCE_PRODUCT_insuranceCompany` (`insuranceCompany`),
+  KEY `FK_T_INSURANCE_PRODUCT_INSURANCE_COMPANY_ID` (`INSURANCE_COMPANY_ID`),
+  CONSTRAINT `FK_T_INSURANCE_PRODUCT_INSURANCE_COMPANY_ID` FOREIGN KEY (`INSURANCE_COMPANY_ID`) REFERENCES `T_INSURANCE_COMPANY` (`INSURANCE_COMPANY_ID`),
+  CONSTRAINT `FK_T_INSURANCE_PRODUCT_insuranceCompany` FOREIGN KEY (`insuranceCompany`) REFERENCES `T_INSURANCE_COMPANY` (`INSURANCE_COMPANY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_INSURANCE_PRODUCT`
+--
+
+LOCK TABLES `T_INSURANCE_PRODUCT` WRITE;
+/*!40000 ALTER TABLE `T_INSURANCE_PRODUCT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_INSURANCE_PRODUCT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_LINKEDIN_CONNECTION`
+--
+
+DROP TABLE IF EXISTS `T_LINKEDIN_CONNECTION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_LINKEDIN_CONNECTION` (
+  `LINKEDIN_CONNECTION_ID` bigint(20) NOT NULL,
+  `COMPANY_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CURRENT_COMPNAY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CURRENT_STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EDUCTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL_ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EXPERIENCE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FIRST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HEADLINE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IM_ACCOUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INDUSTRY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LAST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LAST_UPDATE_DATE` date DEFAULT NULL,
+  `LOCATION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LOCATION_COUNTRY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NEED_FOLLOW` tinyint(1) DEFAULT '0',
+  `PICT_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PUBLIC_PROFILE_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SUMMARY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TWITTER_ACCOUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `linkedinPersonProfile` bigint(20) DEFAULT NULL,
+  `LINKEDIN_PERSON_PROFILE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`LINKEDIN_CONNECTION_ID`),
+  KEY `T_LINKEDIN_CONNECTION_LINKEDIN_PERSON_PROFILE_ID` (`LINKEDIN_PERSON_PROFILE_ID`),
+  KEY `FK_T_LINKEDIN_CONNECTION_linkedinPersonProfile` (`linkedinPersonProfile`),
+  CONSTRAINT `FK_T_LINKEDIN_CONNECTION_linkedinPersonProfile` FOREIGN KEY (`linkedinPersonProfile`) REFERENCES `T_LINKEDIN_PERSON_PROFILE` (`LINKEDIN_PERSON_PROFILE_ID`),
+  CONSTRAINT `T_LINKEDIN_CONNECTION_LINKEDIN_PERSON_PROFILE_ID` FOREIGN KEY (`LINKEDIN_PERSON_PROFILE_ID`) REFERENCES `T_LINKEDIN_PERSON_PROFILE` (`LINKEDIN_PERSON_PROFILE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_LINKEDIN_CONNECTION`
+--
+
+LOCK TABLES `T_LINKEDIN_CONNECTION` WRITE;
+/*!40000 ALTER TABLE `T_LINKEDIN_CONNECTION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_LINKEDIN_CONNECTION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_LINKEDIN_CONNECTION_NETWORK_UPDATE`
+--
+
+DROP TABLE IF EXISTS `T_LINKEDIN_CONNECTION_NETWORK_UPDATE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_LINKEDIN_CONNECTION_NETWORK_UPDATE` (
+  `LINKEDIN_CONNECTION_NETWORK_UPDATE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `FIRST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LAST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LINKEDIN_UPDATE_KEY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TIME_STAMP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UPDATE_MESSAGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UPDATE_TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UPDATED_KEY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `linkedinConnection` bigint(20) DEFAULT NULL,
+  `LINKEDIN_CONNECTION_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`LINKEDIN_CONNECTION_NETWORK_UPDATE_ID`),
+  KEY `TLINKEDINCONNECTIONNETWORKUPDATElinkedinConnection` (`linkedinConnection`),
+  KEY `TLNKEDINCONNECTIONNETWORKUPDATELNKEDINCONNECTIONID` (`LINKEDIN_CONNECTION_ID`),
+  CONSTRAINT `TLNKEDINCONNECTIONNETWORKUPDATELNKEDINCONNECTIONID` FOREIGN KEY (`LINKEDIN_CONNECTION_ID`) REFERENCES `T_LINKEDIN_CONNECTION` (`LINKEDIN_CONNECTION_ID`),
+  CONSTRAINT `TLINKEDINCONNECTIONNETWORKUPDATElinkedinConnection` FOREIGN KEY (`linkedinConnection`) REFERENCES `T_LINKEDIN_CONNECTION` (`LINKEDIN_CONNECTION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_LINKEDIN_CONNECTION_NETWORK_UPDATE`
+--
+
+LOCK TABLES `T_LINKEDIN_CONNECTION_NETWORK_UPDATE` WRITE;
+/*!40000 ALTER TABLE `T_LINKEDIN_CONNECTION_NETWORK_UPDATE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_LINKEDIN_CONNECTION_NETWORK_UPDATE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_LINKEDIN_GROUP`
+--
+
+DROP TABLE IF EXISTS `T_LINKEDIN_GROUP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_LINKEDIN_GROUP` (
+  `LINKEDIN_GROUP_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LinkedinPersonProfile` bigint(20) DEFAULT NULL,
+  `linkedinConnection` bigint(20) DEFAULT NULL,
+  `LINKEDIN_CONNECTION_ID` bigint(20) DEFAULT NULL,
+  `LINKEDIN_PERSON_PROFILE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`LINKEDIN_GROUP_ID`),
+  KEY `FK_T_LINKEDIN_GROUP_LinkedinPersonProfile` (`LinkedinPersonProfile`),
+  KEY `FK_T_LINKEDIN_GROUP_linkedinConnection` (`linkedinConnection`),
+  KEY `FK_T_LINKEDIN_GROUP_LINKEDIN_PERSON_PROFILE_ID` (`LINKEDIN_PERSON_PROFILE_ID`),
+  KEY `FK_T_LINKEDIN_GROUP_LINKEDIN_CONNECTION_ID` (`LINKEDIN_CONNECTION_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_GROUP_LINKEDIN_CONNECTION_ID` FOREIGN KEY (`LINKEDIN_CONNECTION_ID`) REFERENCES `T_LINKEDIN_CONNECTION` (`LINKEDIN_CONNECTION_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_GROUP_linkedinConnection` FOREIGN KEY (`linkedinConnection`) REFERENCES `T_LINKEDIN_CONNECTION` (`LINKEDIN_CONNECTION_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_GROUP_LinkedinPersonProfile` FOREIGN KEY (`LinkedinPersonProfile`) REFERENCES `T_LINKEDIN_PERSON_PROFILE` (`LINKEDIN_PERSON_PROFILE_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_GROUP_LINKEDIN_PERSON_PROFILE_ID` FOREIGN KEY (`LINKEDIN_PERSON_PROFILE_ID`) REFERENCES `T_LINKEDIN_PERSON_PROFILE` (`LINKEDIN_PERSON_PROFILE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_LINKEDIN_GROUP`
+--
+
+LOCK TABLES `T_LINKEDIN_GROUP` WRITE;
+/*!40000 ALTER TABLE `T_LINKEDIN_GROUP` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_LINKEDIN_GROUP` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_LINKEDIN_PERSON_PROFILE`
+--
+
+DROP TABLE IF EXISTS `T_LINKEDIN_PERSON_PROFILE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_LINKEDIN_PERSON_PROFILE` (
+  `LINKEDIN_PERSON_PROFILE_ID` bigint(20) NOT NULL,
+  `COMPANY_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CURRENT_COMPNAY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FIRST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HEADLINE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `LAST_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PICT_URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `soicalApp` bigint(20) DEFAULT NULL,
+  `SOICAL_APP_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`LINKEDIN_PERSON_PROFILE_ID`),
+  KEY `FK_T_LINKEDIN_PERSON_PROFILE_soicalApp` (`soicalApp`),
+  KEY `FK_T_LINKEDIN_PERSON_PROFILE_SOICAL_APP_ID` (`SOICAL_APP_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_PERSON_PROFILE_SOICAL_APP_ID` FOREIGN KEY (`SOICAL_APP_ID`) REFERENCES `T_SOICAL_APP` (`SOICAL_APP_ID`),
+  CONSTRAINT `FK_T_LINKEDIN_PERSON_PROFILE_soicalApp` FOREIGN KEY (`soicalApp`) REFERENCES `T_SOICAL_APP` (`SOICAL_APP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_LINKEDIN_PERSON_PROFILE`
+--
+
+LOCK TABLES `T_LINKEDIN_PERSON_PROFILE` WRITE;
+/*!40000 ALTER TABLE `T_LINKEDIN_PERSON_PROFILE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_LINKEDIN_PERSON_PROFILE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_MENU_PERMISSION`
+--
+
+DROP TABLE IF EXISTS `T_MENU_PERMISSION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_MENU_PERMISSION` (
+  `MENU_PERMISSION_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MENU_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `role` bigint(20) DEFAULT NULL,
+  `BASIC_ROLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`MENU_PERMISSION_ID`),
+  KEY `FK_T_MENU_PERMISSION_role` (`role`),
+  KEY `FK_T_MENU_PERMISSION_BASIC_ROLE_ID` (`BASIC_ROLE_ID`),
+  CONSTRAINT `FK_T_MENU_PERMISSION_BASIC_ROLE_ID` FOREIGN KEY (`BASIC_ROLE_ID`) REFERENCES `T_ROLE` (`BASIC_ROLE_ID`),
+  CONSTRAINT `FK_T_MENU_PERMISSION_role` FOREIGN KEY (`role`) REFERENCES `T_ROLE` (`BASIC_ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_MENU_PERMISSION`
+--
+
+LOCK TABLES `T_MENU_PERMISSION` WRITE;
+/*!40000 ALTER TABLE `T_MENU_PERMISSION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_MENU_PERMISSION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_MochaReport`
+--
+
+DROP TABLE IF EXISTS `T_MochaReport`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_MochaReport` (
+  `MOCHA_REPORT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `CREATED_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `REPORT_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REPORT_PURE_QUERY` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `appReport` bigint(20) DEFAULT NULL,
+  `creator` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`MOCHA_REPORT_ID`),
+  KEY `FK_T_MochaReport_appReport` (`appReport`),
+  KEY `FK_T_MochaReport_creator` (`creator`),
+  CONSTRAINT `FK_T_MochaReport_creator` FOREIGN KEY (`creator`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_MochaReport_appReport` FOREIGN KEY (`appReport`) REFERENCES `T_APP_REPORT` (`APP_REPORT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_MochaReport`
+--
+
+LOCK TABLES `T_MochaReport` WRITE;
+/*!40000 ALTER TABLE `T_MochaReport` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_MochaReport` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_NOTIFY_LINE`
+--
+
+DROP TABLE IF EXISTS `T_NOTIFY_LINE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_NOTIFY_LINE` (
+  `NOTIFY_LINE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `TYPE` bigint(20) DEFAULT NULL,
+  `discuss` bigint(20) DEFAULT NULL,
+  `status` bigint(20) DEFAULT NULL,
+  `todo` bigint(20) DEFAULT NULL,
+  `NOTIFIEDUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `DISCUSS_ID` bigint(20) DEFAULT NULL,
+  `STATUS_ID` bigint(20) DEFAULT NULL,
+  `TO_DO_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`NOTIFY_LINE_ID`),
+  KEY `FK_T_NOTIFY_LINE_DISCUSS_ID` (`DISCUSS_ID`),
+  KEY `FK_T_NOTIFY_LINE_NOTIFIEDUSER_BASIC_USER_ID` (`NOTIFIEDUSER_BASIC_USER_ID`),
+  KEY `FK_T_NOTIFY_LINE_TO_DO_ID` (`TO_DO_ID`),
+  KEY `FK_T_NOTIFY_LINE_todo` (`todo`),
+  KEY `FK_T_NOTIFY_LINE_STATUS_ID` (`STATUS_ID`),
+  KEY `FK_T_NOTIFY_LINE_status` (`status`),
+  KEY `FK_T_NOTIFY_LINE_discuss` (`discuss`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_discuss` FOREIGN KEY (`discuss`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_DISCUSS_ID` FOREIGN KEY (`DISCUSS_ID`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_NOTIFIEDUSER_BASIC_USER_ID` FOREIGN KEY (`NOTIFIEDUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_status` FOREIGN KEY (`status`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_STATUS_ID` FOREIGN KEY (`STATUS_ID`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_todo` FOREIGN KEY (`todo`) REFERENCES `T_ToDO` (`TO_DO_ID`),
+  CONSTRAINT `FK_T_NOTIFY_LINE_TO_DO_ID` FOREIGN KEY (`TO_DO_ID`) REFERENCES `T_ToDO` (`TO_DO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_NOTIFY_LINE`
+--
+
+LOCK TABLES `T_NOTIFY_LINE` WRITE;
+/*!40000 ALTER TABLE `T_NOTIFY_LINE` DISABLE KEYS */;
+INSERT INTO `T_NOTIFY_LINE` VALUES (63,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,64,NULL,-2,NULL,64,NULL),(64,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,65,NULL,-2,NULL,65,NULL),(65,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,66,NULL,-2,NULL,66,NULL),(66,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,67,NULL,-2,NULL,67,NULL),(67,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,68,NULL,-2,NULL,68,NULL),(68,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,69,NULL,-2,NULL,69,NULL),(69,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,70,NULL,-2,NULL,70,NULL),(70,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,71,NULL,-2,NULL,71,NULL),(71,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,72,NULL,-2,NULL,72,NULL),(72,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,73,NULL,-2,NULL,73,NULL),(73,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,74,NULL,-2,NULL,74,NULL),(74,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,75,NULL,-2,NULL,75,NULL),(75,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,76,NULL,-2,NULL,76,NULL),(76,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,77,NULL,-2,NULL,77,NULL),(77,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,78,NULL,-2,NULL,78,NULL),(78,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,79,NULL,-2,NULL,79,NULL),(79,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,80,NULL,-2,NULL,80,NULL),(80,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,81,NULL,-2,NULL,81,NULL),(81,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,82,NULL,-2,NULL,82,NULL),(82,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,83,NULL,-2,NULL,83,NULL),(83,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,84,NULL,-2,NULL,84,NULL),(84,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,85,NULL,-2,NULL,85,NULL),(85,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,86,NULL,-2,NULL,86,NULL),(86,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,87,NULL,-2,NULL,87,NULL),(87,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,88,NULL,-2,NULL,88,NULL),(88,'2014-03-02 18:54:29','2014-03-02 18:54:29',0,NULL,89,NULL,-2,NULL,89,NULL);
+/*!40000 ALTER TABLE `T_NOTIFY_LINE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ORDER`
+--
+
+DROP TABLE IF EXISTS `T_ORDER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ORDER` (
+  `ORDER_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `ESTIMATED_DELIVERY` date DEFAULT NULL,
+  `EXCEPTED_SHIP_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `ORDER_PRODUCT_SUMMARY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ORDER_TOTALS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PURCHASE_DATE` date DEFAULT NULL,
+  `SALES_CHANNEL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SHIPPING_SERVICE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer` bigint(20) DEFAULT NULL,
+  `COMMERCE_CUSTOMER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ORDER_ID`),
+  KEY `FK_T_ORDER_customer` (`customer`),
+  KEY `FK_T_ORDER_COMMERCE_CUSTOMER_ID` (`COMMERCE_CUSTOMER_ID`),
+  CONSTRAINT `FK_T_ORDER_COMMERCE_CUSTOMER_ID` FOREIGN KEY (`COMMERCE_CUSTOMER_ID`) REFERENCES `T_COMMERCE_CUSTOMER` (`COMMERCE_CUSTOMER_ID`),
+  CONSTRAINT `FK_T_ORDER_customer` FOREIGN KEY (`customer`) REFERENCES `T_COMMERCE_CUSTOMER` (`COMMERCE_CUSTOMER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ORDER`
+--
+
+LOCK TABLES `T_ORDER` WRITE;
+/*!40000 ALTER TABLE `T_ORDER` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_ORDER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ORDER_PRODUCT`
+--
+
+DROP TABLE IF EXISTS `T_ORDER_PRODUCT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ORDER_PRODUCT` (
+  `ORDER_PRODUCT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `PRICE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRODUCT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `QUANTITY_ORDERED` bigint(20) DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SUB_TOTAL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ORDER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ORDER_PRODUCT_ID`),
+  KEY `FK_T_ORDER_PRODUCT_ORDER_ID` (`ORDER_ID`),
+  CONSTRAINT `FK_T_ORDER_PRODUCT_ORDER_ID` FOREIGN KEY (`ORDER_ID`) REFERENCES `T_ORDER` (`ORDER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ORDER_PRODUCT`
+--
+
+LOCK TABLES `T_ORDER_PRODUCT` WRITE;
+/*!40000 ALTER TABLE `T_ORDER_PRODUCT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_ORDER_PRODUCT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_POLICY`
+--
+
+DROP TABLE IF EXISTS `T_POLICY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_POLICY` (
+  `POLICY_ID` bigint(20) NOT NULL,
+  `CATEGORY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COMMISSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `EFFECTIVE_DATE` date DEFAULT NULL,
+  `EXPIRY_DATE` date DEFAULT NULL,
+  `INSURANCE_COMPANY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INSURANCE_PRODUCT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POLICY_NO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PREMIUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer` bigint(20) DEFAULT NULL,
+  `INSURANCE_CUSTOMER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`POLICY_ID`),
+  KEY `FK_T_POLICY_INSURANCE_CUSTOMER_ID` (`INSURANCE_CUSTOMER_ID`),
+  KEY `FK_T_POLICY_customer` (`customer`),
+  CONSTRAINT `FK_T_POLICY_customer` FOREIGN KEY (`customer`) REFERENCES `T_INSURANCE_CUSTOMER` (`INSURANCE_CUSTOMER_ID`),
+  CONSTRAINT `FK_T_POLICY_INSURANCE_CUSTOMER_ID` FOREIGN KEY (`INSURANCE_CUSTOMER_ID`) REFERENCES `T_INSURANCE_CUSTOMER` (`INSURANCE_CUSTOMER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_POLICY`
+--
+
+LOCK TABLES `T_POLICY` WRITE;
+/*!40000 ALTER TABLE `T_POLICY` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_POLICY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_PROMOTION`
+--
+
+DROP TABLE IF EXISTS `T_PROMOTION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_PROMOTION` (
+  `PROMOTION_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DISCOUNT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EXPIRY_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `PRICE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `START_DATE` date DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `product` bigint(20) DEFAULT NULL,
+  `COMMERCE_PRODUCT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`PROMOTION_ID`),
+  KEY `FK_T_PROMOTION_product` (`product`),
+  KEY `FK_T_PROMOTION_COMMERCE_PRODUCT_ID` (`COMMERCE_PRODUCT_ID`),
+  CONSTRAINT `FK_T_PROMOTION_COMMERCE_PRODUCT_ID` FOREIGN KEY (`COMMERCE_PRODUCT_ID`) REFERENCES `T_COMMERCE_PRODUCT` (`COMMERCE_PRODUCT_ID`),
+  CONSTRAINT `FK_T_PROMOTION_product` FOREIGN KEY (`product`) REFERENCES `T_COMMERCE_PRODUCT` (`COMMERCE_PRODUCT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_PROMOTION`
+--
+
+LOCK TABLES `T_PROMOTION` WRITE;
+/*!40000 ALTER TABLE `T_PROMOTION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_PROMOTION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_REPORT_COLUMN`
+--
+
+DROP TABLE IF EXISTS `T_REPORT_COLUMN`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_REPORT_COLUMN` (
+  `REPORT_COLUMN_ID` bigint(20) NOT NULL,
+  `COLUMN_INDEX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COLUMN_LABEL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COLUMN_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COLUMN_USE_MODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `REFERENCE_COLUMN_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REFERENCE_TABLE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REPORT_TABLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`REPORT_COLUMN_ID`),
+  KEY `FK_T_REPORT_COLUMN_REPORT_TABLE_ID` (`REPORT_TABLE_ID`),
+  CONSTRAINT `FK_T_REPORT_COLUMN_REPORT_TABLE_ID` FOREIGN KEY (`REPORT_TABLE_ID`) REFERENCES `T_REPORT_TABLE` (`REPORT_TABLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_REPORT_COLUMN`
+--
+
+LOCK TABLES `T_REPORT_COLUMN` WRITE;
+/*!40000 ALTER TABLE `T_REPORT_COLUMN` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_REPORT_COLUMN` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_REPORT_FILTER`
+--
+
+DROP TABLE IF EXISTS `T_REPORT_FILTER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_REPORT_FILTER` (
+  `REPORT_FILTER_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `FILTER_BUILD_STRING` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FILTER_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FILTER_TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `appReport` bigint(20) DEFAULT NULL,
+  `APP_REPORT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`REPORT_FILTER_ID`),
+  KEY `FK_T_REPORT_FILTER_APP_REPORT_ID` (`APP_REPORT_ID`),
+  KEY `FK_T_REPORT_FILTER_appReport` (`appReport`),
+  CONSTRAINT `FK_T_REPORT_FILTER_appReport` FOREIGN KEY (`appReport`) REFERENCES `T_APP_REPORT` (`APP_REPORT_ID`),
+  CONSTRAINT `FK_T_REPORT_FILTER_APP_REPORT_ID` FOREIGN KEY (`APP_REPORT_ID`) REFERENCES `T_APP_REPORT` (`APP_REPORT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_REPORT_FILTER`
+--
+
+LOCK TABLES `T_REPORT_FILTER` WRITE;
+/*!40000 ALTER TABLE `T_REPORT_FILTER` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_REPORT_FILTER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_REPORT_JOIN_TABLE`
+--
+
+DROP TABLE IF EXISTS `T_REPORT_JOIN_TABLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_REPORT_JOIN_TABLE` (
+  `REPORT_JOIN_TABLE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `reportTable` bigint(20) DEFAULT NULL,
+  `REPORT_TABLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`REPORT_JOIN_TABLE_ID`),
+  KEY `FK_T_REPORT_JOIN_TABLE_REPORT_TABLE_ID` (`REPORT_TABLE_ID`),
+  KEY `FK_T_REPORT_JOIN_TABLE_reportTable` (`reportTable`),
+  CONSTRAINT `FK_T_REPORT_JOIN_TABLE_reportTable` FOREIGN KEY (`reportTable`) REFERENCES `T_REPORT_TABLE` (`REPORT_TABLE_ID`),
+  CONSTRAINT `FK_T_REPORT_JOIN_TABLE_REPORT_TABLE_ID` FOREIGN KEY (`REPORT_TABLE_ID`) REFERENCES `T_REPORT_TABLE` (`REPORT_TABLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_REPORT_JOIN_TABLE`
+--
+
+LOCK TABLES `T_REPORT_JOIN_TABLE` WRITE;
+/*!40000 ALTER TABLE `T_REPORT_JOIN_TABLE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_REPORT_JOIN_TABLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_REPORT_TABLE`
+--
+
+DROP TABLE IF EXISTS `T_REPORT_TABLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_REPORT_TABLE` (
+  `REPORT_TABLE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `JOIN_TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `TABLE_LABEL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TABLE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `APP_REPORT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`REPORT_TABLE_ID`),
+  KEY `FK_T_REPORT_TABLE_APP_REPORT_ID` (`APP_REPORT_ID`),
+  CONSTRAINT `FK_T_REPORT_TABLE_APP_REPORT_ID` FOREIGN KEY (`APP_REPORT_ID`) REFERENCES `T_APP_REPORT` (`APP_REPORT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_REPORT_TABLE`
+--
+
+LOCK TABLES `T_REPORT_TABLE` WRITE;
+/*!40000 ALTER TABLE `T_REPORT_TABLE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_REPORT_TABLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ROLE`
+--
+
+DROP TABLE IF EXISTS `T_ROLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ROLE` (
+  `BASIC_ROLE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `ROLE_DESCRIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ROLE_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`BASIC_ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ROLE`
+--
+
+LOCK TABLES `T_ROLE` WRITE;
+/*!40000 ALTER TABLE `T_ROLE` DISABLE KEYS */;
+INSERT INTO `T_ROLE` VALUES (1,NULL,NULL,'Admin_Role','Admin_Role');
+/*!40000 ALTER TABLE `T_ROLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SHOTCUT`
+--
+
+DROP TABLE IF EXISTS `T_SHOTCUT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SHOTCUT` (
+  `SHOTCUT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`SHOTCUT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SHOTCUT`
+--
+
+LOCK TABLES `T_SHOTCUT` WRITE;
+/*!40000 ALTER TABLE `T_SHOTCUT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SHOTCUT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SHOTCUT_ITEM`
+--
+
+DROP TABLE IF EXISTS `T_SHOTCUT_ITEM`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SHOTCUT_ITEM` (
+  `SHOTCUT_ITEM_ID` bigint(20) NOT NULL,
+  `ACTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `ICON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LABEL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NUMBER` bigint(20) DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shotcut` bigint(20) DEFAULT NULL,
+  `SHOTCUT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`SHOTCUT_ITEM_ID`),
+  KEY `FK_T_SHOTCUT_ITEM_shotcut` (`shotcut`),
+  KEY `FK_T_SHOTCUT_ITEM_SHOTCUT_ID` (`SHOTCUT_ID`),
+  CONSTRAINT `FK_T_SHOTCUT_ITEM_SHOTCUT_ID` FOREIGN KEY (`SHOTCUT_ID`) REFERENCES `T_SHOTCUT` (`SHOTCUT_ID`),
+  CONSTRAINT `FK_T_SHOTCUT_ITEM_shotcut` FOREIGN KEY (`shotcut`) REFERENCES `T_SHOTCUT` (`SHOTCUT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SHOTCUT_ITEM`
+--
+
+LOCK TABLES `T_SHOTCUT_ITEM` WRITE;
+/*!40000 ALTER TABLE `T_SHOTCUT_ITEM` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SHOTCUT_ITEM` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SOICAL_APP`
+--
+
+DROP TABLE IF EXISTS `T_SOICAL_APP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SOICAL_APP` (
+  `SOICAL_APP_ID` bigint(20) NOT NULL,
+  `AUTH_TOKEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AUTH_TOKEN_EXPIRE_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AUTH_TOKEN_SECRET` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `OAUTH_VERIFIER` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REQUES_TOKEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REQUES_TOKEN_SECRET` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SECRET_I_D` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SESSION_I_D` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user` bigint(20) DEFAULT NULL,
+  `BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`SOICAL_APP_ID`),
+  KEY `FK_T_SOICAL_APP_user` (`user`),
+  KEY `FK_T_SOICAL_APP_BASIC_USER_ID` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_SOICAL_APP_BASIC_USER_ID` FOREIGN KEY (`BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_SOICAL_APP_user` FOREIGN KEY (`user`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SOICAL_APP`
+--
+
+LOCK TABLES `T_SOICAL_APP` WRITE;
+/*!40000 ALTER TABLE `T_SOICAL_APP` DISABLE KEYS */;
+INSERT INTO `T_SOICAL_APP` VALUES (26,'CAAC8o2BibIsBADnsG3kt0IJpZCA8oAzK3dNZCCU98NkOgU7ZCEqh8kuA9oq9cmrNlAUcLzOZChrgfT7ZChLwUW1dLb0Yj6eCoRmAZCxoVy4ZCG9EDdWZC87VxO5ddNUEzf41ABZCuSYkouaehOmD0GTfPXqKx7oo9wGGLw6vc0rZCHy3lc7D0EnZBM9HAe60cvs1RkZD',NULL,NULL,'2014-03-02 03:25:40','2014-03-02 18:54:29','facebook',NULL,NULL,NULL,NULL,NULL,-2,-2);
+/*!40000 ALTER TABLE `T_SOICAL_APP` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SOURCE_APPLICATION`
+--
+
+DROP TABLE IF EXISTS `T_SOURCE_APPLICATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SOURCE_APPLICATION` (
+  `SOURCE_APPLICATION_ID` bigint(20) NOT NULL,
+  `AUTH_TOKEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AUTH_TOKEN_EXPIRE_DATE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SECRET_I_D` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SESSION_I_D` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer` bigint(20) DEFAULT NULL,
+  `COMMERCE_CUSTOMER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`SOURCE_APPLICATION_ID`),
+  KEY `FK_T_SOURCE_APPLICATION_COMMERCE_CUSTOMER_ID` (`COMMERCE_CUSTOMER_ID`),
+  KEY `FK_T_SOURCE_APPLICATION_customer` (`customer`),
+  CONSTRAINT `FK_T_SOURCE_APPLICATION_customer` FOREIGN KEY (`customer`) REFERENCES `T_COMMERCE_CUSTOMER` (`COMMERCE_CUSTOMER_ID`),
+  CONSTRAINT `FK_T_SOURCE_APPLICATION_COMMERCE_CUSTOMER_ID` FOREIGN KEY (`COMMERCE_CUSTOMER_ID`) REFERENCES `T_COMMERCE_CUSTOMER` (`COMMERCE_CUSTOMER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SOURCE_APPLICATION`
+--
+
+LOCK TABLES `T_SOURCE_APPLICATION` WRITE;
+/*!40000 ALTER TABLE `T_SOURCE_APPLICATION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SOURCE_APPLICATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_STATUS`
+--
+
+DROP TABLE IF EXISTS `T_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_STATUS` (
+  `STATUS_ID` bigint(20) NOT NULL,
+  `CONTENT` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`STATUS_ID`),
+  KEY `FK_T_STATUS_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_STATUS_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_STATUS`
+--
+
+LOCK TABLES `T_STATUS` WRITE;
+/*!40000 ALTER TABLE `T_STATUS` DISABLE KEYS */;
+INSERT INTO `T_STATUS` VALUES (64,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Sindh Agriculture University<h3><h3>Location: Tando Jam</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(65,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: StarCite, Inc<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(66,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: SITA<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(67,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: SINAR<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(68,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Douban<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(69,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: New Brunswick<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(70,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Avaaz<h3><h3>Location: New York, New York</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(71,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: ITK Albania<h3><h3>Location: Tirana, Albania</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(72,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Claro Argentina<h3><h3>Location: Buenos Aires, Argentina</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(73,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Bowness High School<h3><h3>Location: Calgary, Alberta</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(74,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Gf<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(75,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: YouKu<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(76,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Double Door<h3><h3>Location: Chicago, Illinois</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(77,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Wake Forest University School of Medicine<h3><h3>Location: Winston-Salem, North Carolina</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(78,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Java<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(79,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Kappa Delta<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(80,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Dafiti<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(81,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Louis<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(82,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: С(А)ФУ<h3><h3>Location: Arkhangelsk, Russia</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(83,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: City College of San Francisco<h3><h3>Location: San Francisco, California</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(84,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Yahoo<h3><h3>Location: Sunnyvale, California</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(85,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Soas<h3><h3>Location: London, United Kingdom</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(86,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Americas High School<h3><h3>Location: San Antonio, Texas</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(87,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: University of Sfax<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(88,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Nina, Le Parfum<h3>','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2),(89,'<h2>Your Facebook Friend Zhaoone  Vance has updated his profile</h2>\n<h3>Employer Name: Webtretho<h3><h3>Location: Ho Chi Minh City, Vietnam</h3>\n','2014-03-02 18:54:29','2014-03-02 18:54:29',NULL,-2);
+/*!40000 ALTER TABLE `T_STATUS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_STOCK_PRODUCT`
+--
+
+DROP TABLE IF EXISTS `T_STOCK_PRODUCT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_STOCK_PRODUCT` (
+  `STOCK_PRODUCT_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `EXISTENCE_QUANTITY` bigint(20) DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MAXIMAL_QUANTITY` bigint(20) DEFAULT NULL,
+  `MINIMUM_QUANTITY` bigint(20) DEFAULT NULL,
+  `STOCK_PRICE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRODUCT_COMMERCE_PRODUCT_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`STOCK_PRODUCT_ID`),
+  KEY `FK_T_STOCK_PRODUCT_PRODUCT_COMMERCE_PRODUCT_ID` (`PRODUCT_COMMERCE_PRODUCT_ID`),
+  CONSTRAINT `FK_T_STOCK_PRODUCT_PRODUCT_COMMERCE_PRODUCT_ID` FOREIGN KEY (`PRODUCT_COMMERCE_PRODUCT_ID`) REFERENCES `T_COMMERCE_PRODUCT` (`COMMERCE_PRODUCT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_STOCK_PRODUCT`
+--
+
+LOCK TABLES `T_STOCK_PRODUCT` WRITE;
+/*!40000 ALTER TABLE `T_STOCK_PRODUCT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_STOCK_PRODUCT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SUPPLIER`
+--
+
+DROP TABLE IF EXISTS `T_SUPPLIER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SUPPLIER` (
+  `SUPPLIER_ID` bigint(20) NOT NULL,
+  `ADDRESS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONTECT_PERSON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DISTRICT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FAX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MARK` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOBILE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PHONE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSTCODE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SUPPLIER_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `URL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`SUPPLIER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SUPPLIER`
+--
+
+LOCK TABLES `T_SUPPLIER` WRITE;
+/*!40000 ALTER TABLE `T_SUPPLIER` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SUPPLIER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SubToDoItem`
+--
+
+DROP TABLE IF EXISTS `T_SubToDoItem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SubToDoItem` (
+  `SUB_TO_DO_ITEM_ID` bigint(20) NOT NULL,
+  `CONTENT` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `EXPIRED_DATE` date DEFAULT NULL,
+  `FINISH_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `STATUS` bigint(20) DEFAULT NULL,
+  `ToDo` bigint(20) DEFAULT NULL,
+  `ASSGINEDUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `TO_DO_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`SUB_TO_DO_ITEM_ID`),
+  KEY `FK_T_SubToDoItem_ToDo` (`ToDo`),
+  KEY `FK_T_SubToDoItem_TO_DO_ID` (`TO_DO_ID`),
+  KEY `FK_T_SubToDoItem_ASSGINEDUSER_BASIC_USER_ID` (`ASSGINEDUSER_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_SubToDoItem_ASSGINEDUSER_BASIC_USER_ID` FOREIGN KEY (`ASSGINEDUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_SubToDoItem_ToDo` FOREIGN KEY (`ToDo`) REFERENCES `T_ToDO` (`TO_DO_ID`),
+  CONSTRAINT `FK_T_SubToDoItem_TO_DO_ID` FOREIGN KEY (`TO_DO_ID`) REFERENCES `T_ToDO` (`TO_DO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SubToDoItem`
+--
+
+LOCK TABLES `T_SubToDoItem` WRITE;
+/*!40000 ALTER TABLE `T_SubToDoItem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SubToDoItem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_TIME_LINE`
+--
+
+DROP TABLE IF EXISTS `T_TIME_LINE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_TIME_LINE` (
+  `TIME_LINE_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `DISCUSS_DISCUSS_ID` bigint(20) DEFAULT NULL,
+  `STATUS_STATUS_ID` bigint(20) DEFAULT NULL,
+  `TODO_TO_DO_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`TIME_LINE_ID`),
+  KEY `FK_T_TIME_LINE_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  KEY `FK_T_TIME_LINE_STATUS_STATUS_ID` (`STATUS_STATUS_ID`),
+  KEY `FK_T_TIME_LINE_TODO_TO_DO_ID` (`TODO_TO_DO_ID`),
+  KEY `FK_T_TIME_LINE_DISCUSS_DISCUSS_ID` (`DISCUSS_DISCUSS_ID`),
+  CONSTRAINT `FK_T_TIME_LINE_DISCUSS_DISCUSS_ID` FOREIGN KEY (`DISCUSS_DISCUSS_ID`) REFERENCES `T_DISCUSS` (`DISCUSS_ID`),
+  CONSTRAINT `FK_T_TIME_LINE_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_TIME_LINE_STATUS_STATUS_ID` FOREIGN KEY (`STATUS_STATUS_ID`) REFERENCES `T_STATUS` (`STATUS_ID`),
+  CONSTRAINT `FK_T_TIME_LINE_TODO_TO_DO_ID` FOREIGN KEY (`TODO_TO_DO_ID`) REFERENCES `T_ToDO` (`TO_DO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_TIME_LINE`
+--
+
+LOCK TABLES `T_TIME_LINE` WRITE;
+/*!40000 ALTER TABLE `T_TIME_LINE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_TIME_LINE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_ToDO`
+--
+
+DROP TABLE IF EXISTS `T_ToDO`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ToDO` (
+  `TO_DO_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `DESCIPTION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EXPIRED_DATE` date DEFAULT NULL,
+  `FINISH_DATE` date DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` bigint(20) DEFAULT NULL,
+  `ASSGINEDUSER_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  `CREATOR_BASIC_USER_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`TO_DO_ID`),
+  KEY `FK_T_ToDO_CREATOR_BASIC_USER_ID` (`CREATOR_BASIC_USER_ID`),
+  KEY `FK_T_ToDO_ASSGINEDUSER_BASIC_USER_ID` (`ASSGINEDUSER_BASIC_USER_ID`),
+  CONSTRAINT `FK_T_ToDO_ASSGINEDUSER_BASIC_USER_ID` FOREIGN KEY (`ASSGINEDUSER_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`),
+  CONSTRAINT `FK_T_ToDO_CREATOR_BASIC_USER_ID` FOREIGN KEY (`CREATOR_BASIC_USER_ID`) REFERENCES `T_USER` (`BASIC_USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ToDO`
+--
+
+LOCK TABLES `T_ToDO` WRITE;
+/*!40000 ALTER TABLE `T_ToDO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_ToDO` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_USER`
+--
+
+DROP TABLE IF EXISTS `T_USER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_USER` (
+  `BASIC_USER_ID` bigint(20) NOT NULL,
+  `C_CREATTIME` datetime DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENGLISH_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EXTENSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INIT` bigint(20) DEFAULT NULL,
+  `JOB_TITLE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LANGUAGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `C_LASTMODIFIEDTIME` datetime DEFAULT NULL,
+  `MOBILE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PASSWORD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RE_PASSWORD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REAL_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `USER_ICON` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `USER_NAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `USER_PHOTO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account` bigint(20) DEFAULT NULL,
+  `basicRole` bigint(20) DEFAULT NULL,
+  `ACCOUNT_ID` bigint(20) DEFAULT NULL,
+  `BASIC_ROLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`BASIC_USER_ID`),
+  KEY `FK_T_USER_BASIC_ROLE_ID` (`BASIC_ROLE_ID`),
+  KEY `FK_T_USER_account` (`account`),
+  KEY `FK_T_USER_basicRole` (`basicRole`),
+  KEY `FK_T_USER_ACCOUNT_ID` (`ACCOUNT_ID`),
+  CONSTRAINT `FK_T_USER_ACCOUNT_ID` FOREIGN KEY (`ACCOUNT_ID`) REFERENCES `T_ACCOUNT` (`ACCOUNT_ID`),
+  CONSTRAINT `FK_T_USER_account` FOREIGN KEY (`account`) REFERENCES `T_ACCOUNT` (`ACCOUNT_ID`),
+  CONSTRAINT `FK_T_USER_basicRole` FOREIGN KEY (`basicRole`) REFERENCES `T_ROLE` (`BASIC_ROLE_ID`),
+  CONSTRAINT `FK_T_USER_BASIC_ROLE_ID` FOREIGN KEY (`BASIC_ROLE_ID`) REFERENCES `T_ROLE` (`BASIC_ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_USER`
+--
+
+LOCK TABLES `T_USER` WRITE;
+/*!40000 ALTER TABLE `T_USER` DISABLE KEYS */;
+INSERT INTO `T_USER` VALUES (-4,NULL,'mildredcrasto@hotmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'sam',NULL,'Sam',NULL,NULL,NULL,'sam',NULL,-1,NULL,NULL,NULL),(-3,NULL,'maqujun@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'coral',NULL,'Coral',NULL,NULL,NULL,'coral',NULL,-1,NULL,NULL,NULL),(-2,NULL,'vancezhao@gmail.com',NULL,NULL,1,NULL,NULL,'2014-03-02 03:25:40',NULL,'vance',NULL,'Vance',NULL,NULL,NULL,'vance',NULL,-1,NULL,NULL,NULL),(-1,NULL,'webmaster@mocha-platform.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'root',NULL,'Administrator',NULL,NULL,NULL,'root',NULL,-1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `T_USER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schema_version`
+--
+
+DROP TABLE IF EXISTS `schema_version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schema_version` (
+  `version_rank` int(11) NOT NULL,
+  `installed_rank` int(11) NOT NULL,
+  `version` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `script` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  `checksum` int(11) DEFAULT NULL,
+  `installed_by` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `execution_time` int(11) NOT NULL,
+  `success` tinyint(1) NOT NULL,
+  PRIMARY KEY (`version`),
+  KEY `schema_version_vr_idx` (`version_rank`),
+  KEY `schema_version_ir_idx` (`installed_rank`),
+  KEY `schema_version_s_idx` (`success`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schema_version`
+--
+
+LOCK TABLES `schema_version` WRITE;
+/*!40000 ALTER TABLE `schema_version` DISABLE KEYS */;
+INSERT INTO `schema_version` VALUES (1,1,'1.0.0.1','ddl cooperate','SQL','V1.0.0_initialize_db/V1.0.0_1__ddl_cooperate.sql',-141963087,'root','2013-11-03 14:36:41',3403,1),(2,2,'1.0.0.2','init user','SQL','V1.0.0_initialize_db/V1.0.0_2__init_user.sql',2035342801,'root','2013-11-03 14:36:41',28,1),(3,3,'1.0.0.3','dml codetable','SQL','V1.0.0_initialize_db/V1.0.0_3__dml_codetable.sql',-750454793,'root','2013-11-03 14:36:41',46,1),(4,4,'1.0.0.4','dml demoData','SQL','V1.0.0_initialize_db/V1.0.0_4__dml_demoData.sql',1131061546,'root','2013-11-03 14:36:41',65,1),(5,5,'1.0.0.5','dml demoData','SQL','V1.0.0_initialize_db/V1.0.0_5__dml_demoData.sql',834795086,'root','2013-11-03 14:36:41',13,1);
+/*!40000 ALTER TABLE `schema_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `vw_searchpassword`
+--
+
+DROP TABLE IF EXISTS `vw_searchpassword`;
+/*!50001 DROP VIEW IF EXISTS `vw_searchpassword`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_searchpassword` (
+  `password` tinyint NOT NULL,
+  `user_name` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `vw_searchpassword`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_searchpassword`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_searchpassword`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_searchpassword` AS select `t_user`.`PASSWORD` AS `password`,`t_user`.`USER_NAME` AS `user_name` from `t_user` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-03-02 22:07:39
