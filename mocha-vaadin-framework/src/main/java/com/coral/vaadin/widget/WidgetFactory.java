@@ -331,8 +331,8 @@ public class WidgetFactory {
 	}
 
 	public static Component createSocialAvatar(String url, Application application) {
-		String frame_size = "105px";
-		String photo_size = "100px";
+		String frame_size = "150px";
+		String photo_size = "150px";
 		VerticalLayout userArea = new VerticalLayout();
 		userArea.setWidth(frame_size);
 		userArea.setHeight(frame_size);

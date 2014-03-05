@@ -23,12 +23,10 @@ import com.coral.foundation.security.model.BasicUser;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 
+// Implement the working queue later 
 public class PollService {
 
 	private BasicUser basicUser;
-
-	private int num = 0;
-
 	private static ThreadPoolManager threadPoolManager = ThreadPoolManager.getInstance("threadPoolManager ");
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<Runnable>(10);
@@ -47,55 +45,43 @@ public class PollService {
 
 	}
 
-	public void startJob(MochaTask mochaTask) {
-		// scheduler.scheduleAtFixedRate(new Runnable() {
-		// public void run() {
-		// System.out.println("Start Job Now");
+	private synchronized void executeMochaTask(MochaTask mochaTask) {
+		PollService pollService = PollService.getPollServiceInstance();
+		// FBStatusUpdatechedulerTask mochaTask = new FBStatusUpdatechedulerTask(eventBus.getUser());
+		boolean needToStartTask = true;
+
+		for (BasicUser bu : userHistory) {
+			if (bu.getUserName().equals(mochaTask.getBu().getUserName())) {
+				needToStartTask = false;
+				break;
+			}
+		}
+		if (needToStartTask) {
+			SoicalApp soicalApp = saDao.findSoicaAppByName(mochaTask.getBu(), APIKeys.facebookAPIName);
+			if (soicalApp != null && soicalApp.getFacebookFriends().size() > 0) {
+				userHistory.add(mochaTask.getBu());
+				System.out.println("Start new thread for facebook polling service ");
+				threadPoolManager.getMsgQueue().add(mochaTask);
+			}
+		}
+	}
+
+	public void addTask(MochaTask mochaTask) {
+		executeMochaTask(mochaTask);
 		// boolean needToStartTask = false;
-		// if (hasIncoming()) {
-		// System.out.println("New Incoming");
-		// MochaTask mochaTask=null;
-		// try {
-		// mochaTask = (MochaTask) workQueue.take();
-		// }
-		// catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("User : " + mochaTask.getBu());
-		// System.out.println("Start to poll the services on Facebook");
-		// System.out.println("Poll Service Number: " + num++);
 		// if (!userHistory.contains(mochaTask.getBu()) || userHistory.size() == 0) {
 		// if (mochaTask != null && mochaTask.getBu() != null) {
 		// userHistory.add(mochaTask.getBu());
-		// SoicalApp soicalApp = saDao.findSoicaAppByName(basicUser, APIKeys.facebookAPIName);
+		// SoicalApp soicalApp = saDao.findSoicaAppByName(mochaTask.getBu(), APIKeys.facebookAPIName);
 		// if (soicalApp != null && soicalApp.getFacebookFriends().size() > 0) {
 		// needToStartTask = true;
 		// }
 		// }
 		// }
-		// needToStartTask = true;
 		// if (needToStartTask) {
+		// System.out.println("Start new thread for facebook polling service ");
 		// threadPoolManager.getMsgQueue().add(mochaTask);
 		// }
-		// }
-		// }
-		//
-		// }, 0, 1, TimeUnit.SECONDS);
-
-		boolean needToStartTask = false;
-		System.out.println("Start to poll the services on Facebook");
-		if (!userHistory.contains(mochaTask.getBu()) || userHistory.size() == 0) {
-			if (mochaTask != null && mochaTask.getBu() != null) {
-				userHistory.add(mochaTask.getBu());
-				SoicalApp soicalApp = saDao.findSoicaAppByName(mochaTask.getBu(), APIKeys.facebookAPIName);
-				if (soicalApp != null && soicalApp.getFacebookFriends().size() > 0) {
-					needToStartTask = true;
-				}
-			}
-		}
-		if (needToStartTask) {
-			threadPoolManager.getMsgQueue().add(mochaTask);
-		}
 	}
 
 	public static BlockingQueue<Runnable> getWorkQueue() {

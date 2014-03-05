@@ -127,33 +127,12 @@ public class FBImpl {
 		try {
 			OAuthSupport oAuthSupport = new OAuthAuthorization(configuration);
 			// accessToken = oAuthSupport.getOAuthAppAccessToken();
-			System.out.println("accessToken is: " + accessToken);
+			// System.out.println("accessToken is: " + accessToken);
 			facebookClient.setOAuthAccessToken(accessToken);
 			ResponseList<Checkin> checkins = facebookClient.searchCheckins();
-			System.out.println("Total checkins are : " + checkins.size());
+			// System.out.println("Total checkins are : " + checkins.size());
 			String id = facebookClient.getFriends().get(0).getId();
-			////System.out.println("user id : " + id);
-			// for (Post status : facebookClient.getStatuses(id)) {
-			////System.out.println(status.getMessage() + " " + status.getName() + "" + status.getStatusType() + " " + status.getId());
-			// }
-			////System.out.println(facebookClient.getSubscribedto().size());
-			////System.out.println(facebookClient.getSubscribers().size());
-			////System.out.println(facebookClient.getCheckins().size());
-			// for (Subscriber sub : facebookClient.getSubscribers()) {
-			////System.out.println(sub.getName());
-			// }
-			// for (Checkin checkin : facebookClient.getCheckins()) {
-			////System.out.println(checkin);
-			// }
-			// for (Friend firend : facebookClient.getFriends()) {
-			////System.out.println(firend.getName() + firend.getId());
-			// if (firend.getName().contains("Zhaoone  Vance")) {
-			////System.out.println("Find ");
-			// for (Post status : facebookClient.getStatuses(firend.getId())) {
-			////System.out.println(status.getMessage() + " " + status.getName() + "" + status.getStatusType() + " " + status.getId());
-			// }
-			// }
-			// }
+
 			FBImpl fbImpl = new FBImpl(facebookClient);
 			FacebookFriend fbFriend = fbImpl.getFacebookUserByProfile("https://www.facebook.com/zhaoone.vance");
 			System.out.println(fbFriend);
@@ -338,10 +317,10 @@ public class FBImpl {
 		ProfileReport p = new ProfileReport();
 		FbTimeline timeline = p.parseFacebookProfileTimeline(fbProfileUrl);
 		// timelines.add(p.getDefaultFBHeader());
-		////System.out.println(p.getDefaultFBHeader());
+		// //System.out.println(p.getDefaultFBHeader());
 		// for (String s : timelines) {
 		// ////System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		////System.out.println(s);
+		// //System.out.println(s);
 		// ////System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		// }
 		return timeline;
@@ -351,7 +330,7 @@ public class FBImpl {
 		String getUIdQuery = "SELECT uid,name " + "FROM user WHERE (uid = me() or uid IN (SELECT uid2 FROM friend WHERE uid1 = me())) "
 				+ "and strpos(lower(profile_url),'" + profileUrl + "')>=0";
 		try {
-			////System.out.println(getUIdQuery);
+			// //System.out.println(getUIdQuery);
 			JSONArray jsonArray = facebook.executeFQL(getUIdQuery);
 			if (jsonArray.length() <= 0) {
 				return null;
@@ -409,7 +388,7 @@ public class FBImpl {
 					}
 					facebookFriend.getWorks().add(fbWork);
 				}
-				////System.out.println(facebookFriend);
+				// //System.out.println(facebookFriend);
 				return facebookFriend;
 			}
 		}
@@ -437,7 +416,7 @@ public class FBImpl {
 				+ "FROM user WHERE (uid = me() or uid IN (SELECT uid2 FROM friend WHERE uid1 = me())) " + "and uid ='" + uid + "'";
 
 		try {
-			System.out.println(query);
+			// System.out.println(query);
 			JSONArray jsonArray = facebook.executeFQL(query);
 			if (jsonArray.length() > 1) {
 				System.out.println("More than one result return");
@@ -459,11 +438,11 @@ public class FBImpl {
 				facebookFriend.setContact_email(jsonObject.getString("contact_email"));
 				facebookFriend.setCurrency(jsonObject.getString("currency"));
 
-				////System.out.println("current_address " + jsonObject.getString("current_address"));
+				// //System.out.println("current_address " + jsonObject.getString("current_address"));
 				// if (jsonObject.has("current_address") && jsonObject.getString("current_address") != null) {
 				// FbFriendCurrentAddress currentAddress = new FbFriendCurrentAddress();
 				// JSONObject currentAddressObject = new JSONObject(jsonObject.get("current_address"));
-				////System.out.println("currentAddressObject " + currentAddressObject.names());
+				// //System.out.println("currentAddressObject " + currentAddressObject.names());
 				// if (currentAddressObject.has("name")) {
 				// currentAddress.setName(currentAddressObject.getString("name"));
 				// }
@@ -619,7 +598,7 @@ public class FBImpl {
 				/* Languages */
 				JSONArray languagArrays = jsonObject.getJSONArray("languages");
 				if (languagArrays != null) {
-					System.out.println("Total Language size: " + languagArrays.length());
+					// System.out.println("Total Language size: " + languagArrays.length());
 				}
 				return facebookFriend;
 			}

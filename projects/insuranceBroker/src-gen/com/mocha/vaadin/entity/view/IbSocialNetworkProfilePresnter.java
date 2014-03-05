@@ -19,8 +19,11 @@ import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
 import com.mocha.ib.model.InsuranceCustomer;
+import com.mocha.ib.pollService.FBStatusUpdatechedulerTask;
 import com.mocha.soicalAPI.AppAuthenciateWindow;
 import com.mocha.soicalAPI.AppAuthenciationPrsenter;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
@@ -88,8 +91,15 @@ public class IbSocialNetworkProfilePresnter extends AppCommonPresenter implement
 
   @Override
   public void bind() {
-    IbSocialNetworkProfileViewer ibViewer = (IbSocialNetworkProfileViewer) viewer;
+    final IbSocialNetworkProfileViewer ibViewer = (IbSocialNetworkProfileViewer) viewer;
+    ibViewer.getSyncStatusBtn().addListener(new ClickListener() {
 
+      @Override
+      public void buttonClick(ClickEvent event) {
+        ibViewer.buildSyncMessage();
+        new FBStatusUpdatechedulerTask(eventBus.getUser()).run();
+      }
+    });
   }
 
   @Override

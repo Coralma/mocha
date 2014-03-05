@@ -26,8 +26,9 @@ import com.mocha.cooperate.basic.dao.NotifyLineDao;
 import com.mocha.cooperate.basic.dao.StatusDao;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
+import com.mocha.cooperate.service.pollService.MochaTask;
 
-public class FBStatusUpdatechedulerTask extends TimerTask {
+public class FBStatusUpdatechedulerTask extends MochaTask {
 
   FacebookFriendDao fbDao = SpringContextUtils.getBean(FacebookFriendDao.class);
   BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
@@ -39,13 +40,13 @@ public class FBStatusUpdatechedulerTask extends TimerTask {
   List<FbFriendWork> newUpdateFbFriendList = new ArrayList<FbFriendWork>();
 
   public FBStatusUpdatechedulerTask(BasicUser user) {
+    super(user);
     this.setUser(user);
   }
 
-  @SuppressWarnings("unchecked")
-  @Override
+
   public void run() {
-    System.out.println("Start to get facebook friends update status now!");
+    System.out.println("Run the task now");
     if (getUser() != null) {
       SoicalApp soicalApp = saDao.findSoicaAppByName(getUser(), APIKeys.facebookAPIName);
       fbImpl = new FBImpl(soicalApp.getAuthToken());
@@ -57,7 +58,6 @@ public class FBStatusUpdatechedulerTask extends TimerTask {
         FacebookFriend fbFromDB = iter.next();
         FacebookFriend fbFromAPI = fbImpl.getFacebookUserByProfile(fbFromDB.getProfile_url());
         // need to update the status
-
         System.out.println("User " + fbFromAPI.getName() + "fbFromAPI time: " + fbFromAPI
             + " fbFromDB time: " + fbFromDB);
         if (!(fbFromAPI.getProfile_update_time().equals(fbFromDB.getProfile_update_time()))) {

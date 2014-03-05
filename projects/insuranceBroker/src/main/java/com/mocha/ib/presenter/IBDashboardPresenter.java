@@ -36,29 +36,34 @@ public class IBDashboardPresenter extends CommonPresenter implements Presenter {
   @Override
   public void bind() {
     // init poll sevice
-    initPollService();
+    PollService.getPollServiceInstance()
+        .addTask(new FBStatusUpdatechedulerTask(eventBus.getUser()));
   }
-
-  private void initPollService() {
-    PollService pollService = PollService.getPollServiceInstance();
-    FBStatusUpdatechedulerTask mochaTask = new FBStatusUpdatechedulerTask(eventBus.getUser());
-    boolean needToStartTask = false;
-    System.out.println("Start to poll the services on Facebook");
-    if (!userHistory.contains(mochaTask.getUser()) || userHistory.size() == 0) {
-      if (mochaTask != null && mochaTask.getUser() != null) {
-        userHistory.add(mochaTask.getUser());
-        SoicalApp soicalApp =
-            saDao.findSoicaAppByName(mochaTask.getUser(), APIKeys.facebookAPIName);
-        if (soicalApp != null && soicalApp.getFacebookFriends().size() > 0) {
-          needToStartTask = true;
-        }
-      }
-    }
-    if (needToStartTask) {
-      threadPoolManager.getMsgQueue().add(mochaTask);
-    }
-  }
-
+//  private synchronized void startServiceAndTask() {
+//
+//    PollService pollService = PollService.getPollServiceInstance();
+//    FBStatusUpdatechedulerTask mochaTask = new FBStatusUpdatechedulerTask(eventBus.getUser());
+//    boolean needToStartTask = true;
+//
+//    for (BasicUser bu : userHistory) {
+//
+//      if (bu.getUserName().equals(eventBus.getUser().getUserName())) {
+//        needToStartTask = false;
+//        break;
+//      }
+//    }
+//
+//    if (needToStartTask) {
+//      SoicalApp soicalApp = saDao.findSoicaAppByName(mochaTask.getUser(), APIKeys.facebookAPIName);
+//      if (soicalApp != null && soicalApp.getFacebookFriends().size() > 0) {
+//        userHistory.add(eventBus.getUser());
+//        System.out.println("Start new thread for facebook polling service ");
+//        threadPoolManager.getMsgQueue().add(mochaTask);
+//      }
+//
+//    }
+//
+//  }
   @Override
   public String getPresenterName() {
     // TODO Auto-generated method stub

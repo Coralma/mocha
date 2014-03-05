@@ -10,12 +10,17 @@ import com.coral.foundation.security.model.FacebookFriend;
 import com.coral.foundation.security.model.FbFriendEduction;
 import com.coral.foundation.security.model.FbFriendLanguage;
 import com.coral.foundation.security.model.FbFriendWork;
+import com.coral.vaadin.view.template.sat.panel.ISectionPanel;
+import com.coral.vaadin.view.template.sat.panel.IViewPanel;
 import com.coral.vaadin.view.template.sat.panel.impl.EntityViewPanel;
 import com.coral.vaadin.widget.Viewer;
 import com.coral.vaadin.widget.Widget;
 import com.coral.vaadin.widget.WidgetFactory;
 import com.coral.vaadin.widget.component.ToolbarAdvance;
+import com.coral.vaadin.widget.fields.FieldStatus;
 import com.mocha.soicalAPI.AppAuthenciateWindow;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -50,7 +55,7 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
   private String labelWidth = "120px";
   private String BASIC_INFO = "BasicInfo";
   private String CHANGE_PASSWORD = "ChangePassword";
-  // private NativeButton syncStatusBtn = new NativeButton("Sync Connection Status Now");
+  private NativeButton syncStatusBtn = new NativeButton("Syncing Facebook Profile Statups Now");
   private FacebookFriend fbFriend = new FacebookFriend();
   private BasicUser bu;
   private boolean needAuth;
@@ -74,7 +79,6 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
     } else if (getFbFriend() == null && needAuth == false) {
       // getWindow().showNotification("Could not create a new work entry due to an internal error.",
       // Notification.TYPE_ERROR_MESSAGE);
-
     } else {
       buildProfileLayout();
     }
@@ -84,8 +88,8 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
   public void build() {
     addComponent(mainLayout);
     viewALlBtn.addStyleName("mocha-button");
+    syncStatusBtn.addStyleName("mocha-button");
     mainLayout.addComponent(getViewALlBtn());
-
   }
 
   private void buildFacebookLoginWindow() {
@@ -114,6 +118,9 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
 
   private void buildProfileLayout() {
     mainLayout.removeAllComponents();
+
+    syncStatusBtn.addStyleName("mocha-button");
+
     ToolbarAdvance toolbar = new ToolbarAdvance();
 
     mainLayout.addComponent(toolbar);
@@ -131,12 +138,24 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
     settingSection.setWidth("500px");
 
     FormLayout userFormLayout = new FormLayout();
-    userFormLayout.setCaption("Basic Info");
+    // userFormLayout.setCaption("Basic Info");
     userFormLayout.setSpacing(true);
+
+    IViewPanel viewPanel = createViewPanel();
+    ISectionPanel sectionPanel;
+    sectionPanel = createSectionPanel("Basic User");
+    sectionPanel.setLabel("Basic Info");
+    viewPanel.addSection(sectionPanel);
+
+    HorizontalLayout hLyaout = new HorizontalLayout();
+    hLyaout.addComponent(getSyncStatusBtn());
+    hLyaout.setComponentAlignment(getSyncStatusBtn(), Alignment.MIDDLE_RIGHT);
+    userFormLayout.addComponent(hLyaout);
+
 
     Component pic =
         WidgetFactory.createSocialAvatar(getFbFriend().getPic().toString(), getApplication());
-    userFormLayout.addComponent(pic);
+    viewPanel.addComponent(pic);
 
     Label firstName = WidgetFactory.createSocialLabel("First Name", getFbFriend().getFirst_name());
     userFormLayout.addComponent(firstName);
@@ -146,7 +165,7 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
     Label bio =
         WidgetFactory.createSocialLabel("Bio", getFbFriend().getAbout_me() == null ? ""
             : getFbFriend().getAbout_me());
-    userFormLayout.addComponent(bio);
+    viewPanel.addComponent(bio);
 
     Label gender = WidgetFactory.createSocialLabel("Gender", getFbFriend().getSex());
     userFormLayout.addComponent(gender);
@@ -181,7 +200,6 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
             fbFriend.getWebsite() == null ? "" : fbFriend.getWebsite());
     userFormLayout.addComponent(webSite);
 
-
     Label friendCount =
         WidgetFactory.createSocialLabel("Friend Count", fbFriend.getFriend_count() == null ? ""
             : fbFriend.getFriend_count());
@@ -195,14 +213,13 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
 
 
     FormLayout companyInfoLayout = new FormLayout();
-    companyInfoLayout.setCaption("Work Info");
+
     companyInfoLayout.setSpacing(true);
 
     if (fbFriend.getWorks().size() > 0) {
       for (FbFriendWork work : fbFriend.getWorks()) {
         if (work.getEmployer_name() != null) {
-          Label employeeName =
-              WidgetFactory.createSocialLabel("Employee", work.getEmployer_name());
+          Label employeeName = WidgetFactory.createSocialLabel("Employee", work.getEmployer_name());
           companyInfoLayout.addComponent(employeeName);
         }
         //
@@ -243,8 +260,8 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
     if (fbFriend.getLanguages().size() > 0) {
       for (FbFriendLanguage fbLang : fbFriend.getLanguages()) {
         Label langName =
-            WidgetFactory.createCaptionLabel("Language", fbLang.getName() == null ? ""
-                : fbLang.getName());
+            WidgetFactory.createCaptionLabel("Language",
+                fbLang.getName() == null ? "" : fbLang.getName());
         languageLayout.addComponent(langName);
       }
     } else {
@@ -277,8 +294,10 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
       currentAddressLayout.addComponent(new Label());
     }
 
+    viewPanel.addComponent(userFormLayout);
+
+    mainLayout.addComponent(viewPanel);
     settingContentPanel.addComponent(settingSection);
-    mainLayout.addComponent(userFormLayout);
     mainLayout.addComponent(companyInfoLayout);
     mainLayout.addComponent(edcucationLayout);
     mainLayout.addComponent(languageLayout);
@@ -347,6 +366,31 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
 
   public void setFbFriend(FacebookFriend fbFriend) {
     this.fbFriend = fbFriend;
+  }
+
+  public NativeButton getSyncStatusBtn() {
+    return syncStatusBtn;
+  }
+
+  public void setSyncStatusBtn(NativeButton syncStatusBtn) {
+    this.syncStatusBtn = syncStatusBtn;
+  }
+
+  public void buildSyncMessage() {
+    // Create a notification with default settings for a warning.
+    Window.Notification notif =
+        new Window.Notification("Thanks for your request!",
+            "We have successfully loaded your friends' social profile from Facebook",
+            Window.Notification.TYPE_WARNING_MESSAGE);
+
+    // Set the position.
+    notif.setPosition(Window.Notification.POSITION_CENTERED);
+
+    // Let it stay there until the user clicks it
+    notif.setDelayMsec(-1);
+
+    // Show it in the main window.
+    getWindow().showNotification(notif);
   }
 
 }
