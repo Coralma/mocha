@@ -388,7 +388,7 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
     notif.setPosition(Window.Notification.POSITION_CENTERED);
 
     // Let it stay there until the user clicks it
-    notif.setDelayMsec(-1);
+    // notif.setDelayMsec(-1);
 
     // Show it in the main window.
     getWindow().showNotification(notif);

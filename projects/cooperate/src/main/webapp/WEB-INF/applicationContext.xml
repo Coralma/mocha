@@ -76,7 +76,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- Set for local dev env -->
-		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8"/> -->
+		<!-- <property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" /> -->
 		<!-- Set for Production -->
 		<property name="url" value="jdbc:mysql://106.186.123.7:3306/cooperateBak" />
 		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/cooperate?characterEncoding=utf8" 

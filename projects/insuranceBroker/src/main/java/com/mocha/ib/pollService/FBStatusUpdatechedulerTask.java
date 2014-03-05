@@ -24,8 +24,10 @@ import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
 import com.mocha.cooperate.basic.dao.NotifyLineDao;
 import com.mocha.cooperate.basic.dao.StatusDao;
+import com.mocha.cooperate.basic.dao.TimeLineDao;
 import com.mocha.cooperate.model.NotifyLine;
 import com.mocha.cooperate.model.Status;
+import com.mocha.cooperate.model.TimeLine;
 import com.mocha.cooperate.service.pollService.MochaTask;
 
 public class FBStatusUpdatechedulerTask extends MochaTask {
@@ -34,6 +36,7 @@ public class FBStatusUpdatechedulerTask extends MochaTask {
   BasicUserDao buDao = SpringContextUtils.getBean(BasicUserDao.class);
   SoicalAppDao saDao = SpringContextUtils.getBean(SoicalAppDao.class);
   NotifyLineDao notifyLineDao = SpringContextUtils.getBean(NotifyLineDao.class);
+  TimeLineDao timelineDao = SpringContextUtils.getBean(TimeLineDao.class);
   StatusDao statusDao = SpringContextUtils.getBean(StatusDao.class);
   FBImpl fbImpl;
   private BasicUser user;
@@ -100,15 +103,17 @@ public class FBStatusUpdatechedulerTask extends MochaTask {
   private void addNotification(List<FbFriendWork> mergeFbWorks, FacebookFriend fbFromDB) {
 
     StringBuilder statusMessage = new StringBuilder();
-    statusMessage.append("<h2>Your Facebook Friend " + fbFromDB.getName()
-        + " has updated his profile" + "</h2>" + "\n");
+    statusMessage.append("Your Facebook Friend " + fbFromDB.getName() + " has updated his profile"
+        + "" + "<br>");
+
     StringBuilder newRecordTemplate = new StringBuilder();
 
     for (FbFriendWork merFbFriendWork : mergeFbWorks) {
-      newRecordTemplate.append("Employer Name: " + merFbFriendWork.getEmployer_name() + " <br>");
+      newRecordTemplate.append("New Employer Name: " + merFbFriendWork.getEmployer_name() + " ");
       if (merFbFriendWork.getLocation_name() != null) {
         newRecordTemplate.append("Location: " + merFbFriendWork.getLocation_name() + " <br>");
       }
+
     }
     statusMessage.append(newRecordTemplate);
 
@@ -120,8 +125,12 @@ public class FBStatusUpdatechedulerTask extends MochaTask {
     notifyLine.setType(1l);
     notifyLine.setNotifiedUser(getUser());
     status.getNotifyLines().add(notifyLine);
-    statusDao.persist(status);
 
+    TimeLine timeline = new TimeLine();
+    timeline.setStatus(status);
+    timeline.setCreator(getUser());
+    statusDao.persist(status);
+    timelineDao.merge(timeline);
   }
 
   private List<FbFriendWork> newAddEmployers(List<FbFriendWork> fbFromAPI,
