@@ -89,7 +89,6 @@ public class InsCustomerSearchPresenter extends AppCommonPresenter implements Pr
         } else if ("Social".equals(action)) {
           eventBus.put("Entity", entity);
           postCustomizeClass(IbSocialNetworkProfilePresnter.class.getName());
-
         }
       }
 

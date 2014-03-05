@@ -15,6 +15,7 @@ import com.coral.foundation.security.model.FacebookFriend;
 import com.coral.foundation.security.model.LinkedinConnection;
 import com.coral.foundation.security.model.SoicalApp;
 import com.coral.foundation.spring.bean.SpringContextUtils;
+import com.coral.vaadin.controller.PageChangeEvent;
 import com.coral.vaadin.controller.Presenter;
 import com.coral.vaadin.view.template.sat.AppContentEvent;
 import com.coral.vaadin.widget.view.AppCommonPresenter;
@@ -94,10 +95,20 @@ public class IbSocialNetworkProfilePresnter extends AppCommonPresenter implement
     final IbSocialNetworkProfileViewer ibViewer = (IbSocialNetworkProfileViewer) viewer;
     ibViewer.getSyncStatusBtn().addListener(new ClickListener() {
 
+      /**
+       * 
+       */
+      private static final long serialVersionUID = 1L;
+
       @Override
       public void buttonClick(ClickEvent event) {
-        ibViewer.buildSyncMessage();
         new FBStatusUpdatechedulerTask(eventBus.getUser()).run();
+        ibViewer.buildSyncMessage();
+        PageChangeEvent pageChangeEvent = new PageChangeEvent();
+        AppContentEvent appContentEvent = new AppContentEvent();
+        appContentEvent.setCustomizeClass(IbSocialNetworkProfilePresnter.class.getName());
+        pageChangeEvent.setContentPresenterName(IbSocialNetworkProfilePresnter.class.getName());
+        eventBus.post(appContentEvent);
       }
     });
   }

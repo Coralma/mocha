@@ -377,11 +377,12 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
   }
 
   public void buildSyncMessage() {
+
     // Create a notification with default settings for a warning.
     Window.Notification notif =
         new Window.Notification("Thanks for your request!",
             "We have successfully loaded your friends' social profile from Facebook",
-            Window.Notification.TYPE_WARNING_MESSAGE);
+            Window.Notification.TYPE_HUMANIZED_MESSAGE);
 
     // Set the position.
     notif.setPosition(Window.Notification.POSITION_CENTERED);
@@ -391,6 +392,6 @@ public class IbSocialNetworkProfileViewer extends EntityViewPanel implements Vie
 
     // Show it in the main window.
     getWindow().showNotification(notif);
-  }
 
+  }
 }
